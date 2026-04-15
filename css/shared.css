@@ -1,0 +1,150 @@
+/* ========================================
+   BIG SPLASH - Custom Styles
+   ======================================== */
+
+/* --- Dot Grid Pattern --- */
+.dot-grid {
+  background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* --- Stroke Text (outline / ghost text for marquees) --- */
+.stroke-text {
+  -webkit-text-stroke: 1.5px rgba(239, 248, 139, 0.15);
+}
+.stroke-text-sm {
+  -webkit-text-stroke: 1px rgba(239, 248, 139, 0.1);
+}
+
+/* --- Marquee --- */
+.marquee-container {
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-shrink: 0;
+  min-width: 200%;
+}
+
+.marquee-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(239, 248, 139, 0.2);
+  flex-shrink: 0;
+}
+
+.marquee-star {
+  font-size: 1.2em;
+  color: rgba(239, 248, 139, 0.15);
+  flex-shrink: 0;
+}
+
+.marquee-text {
+  flex-shrink: 0;
+}
+
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee-left {
+  animation: marquee-left 25s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marquee-right 30s linear infinite;
+}
+
+/* --- Scroll Reveal --- */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Navbar states --- */
+#navbar.scrolled {
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* --- Mobile Menu Open State --- */
+#mobile-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Menu bar animation when open */
+body.menu-open #bar1 {
+  transform: rotate(45deg) translateY(5px) translateX(4px);
+}
+body.menu-open #bar2 {
+  opacity: 0;
+}
+body.menu-open #bar3 {
+  width: 24px;
+  transform: rotate(-45deg) translateY(-5px) translateX(4px);
+}
+
+/* --- Cursor Spotlight --- */
+#cursor-spotlight.active {
+  opacity: 1;
+}
+
+/* --- Selection Color --- */
+::selection {
+  background: rgba(239, 248, 139, 0.3);
+  color: #fff;
+}
+
+/* --- Smooth scroll for all anchor links --- */
+html {
+  scroll-behavior: smooth;
+}
+
+/* --- Video modal body lock --- */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* --- Intake Modal Open State --- */
+#intake-modal.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* --- Custom scrollbar --- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(239, 248, 139, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(239, 248, 139, 0.3);
+}
