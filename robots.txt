@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://christopherlist-lab.github.io/BigSplash_VideoOnly/sitemap.xml

@@ -3,13 +3,45 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Big Splash — Video Production for Service Businesses | Austin, TX</title>
-  <meta name="description" content="Video ads, brand stories, and content strategy for service businesses. 50+ projects delivered. Austin, TX.">
+  <title>Big Splash — Video Production for Service Businesses | Georgetown, TX</title>
+  <meta name="description" content="Video ads, brand stories, and content strategy for service businesses. 50+ projects delivered. Georgetown, TX.">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Big Splash — Video Production for Service Businesses">
-  <meta property="og:description" content="Video ads, brand stories, and content strategy for service businesses in Austin, TX.">
+  <meta property="og:description" content="Video ads, brand stories, and content strategy for service businesses in Georgetown, TX.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/images/hero-ocean.webp">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://christopherlist-lab.github.io/BigSplash_VideoOnly/">
+
+  <!-- Schema: LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Big Splash",
+    "description": "Video production for service businesses. Video ads, brand stories, and content strategy in Georgetown, TX.",
+    "url": "https://christopherlist-lab.github.io/BigSplash_VideoOnly/",
+    "email": "chris@bigsplash.agency",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Georgetown",
+      "addressRegion": "TX",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 30.6333,
+      "longitude": -97.6780
+    },
+    "serviceArea": {
+      "@type": "Place",
+      "name": "Georgetown, TX"
+    },
+    "knowsAbout": ["Video Production", "Video Ads", "Brand Story", "Content Strategy", "Short-Form Content"]
+  }
+  </script>
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/images/favicon.png">
@@ -272,7 +304,7 @@
     <!-- Video Background -->
     <div class="absolute inset-0 z-0">
       <div class="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background z-10"></div>
-      <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-ocean.webp" class="w-full h-full object-cover opacity-70">
+      <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-ocean.webp" class="w-full h-full object-cover opacity-90">
         <source src="assets/videos/hero-splash.mp4" type="video/mp4">
       </video>
     </div>
@@ -286,9 +318,9 @@
 
       <!-- Pill Tags -->
       <div class="flex flex-wrap justify-center gap-3 md:gap-4 mt-10 md:mt-12 mb-12 md:mb-16">
-        <a href="#services" class="px-5 py-2 border border-primary/20 bg-surface-container-low text-primary font-label text-[10px] md:text-xs tracking-widest uppercase rounded-full cursor-pointer transition-all duration-300 hover:bg-primary hover:text-on-primary hover:border-primary hover:scale-105">Video Ads</a>
-        <a href="#services" class="px-5 py-2 border border-primary/20 bg-surface-container-low text-primary font-label text-[10px] md:text-xs tracking-widest uppercase rounded-full cursor-pointer transition-all duration-300 hover:bg-primary hover:text-on-primary hover:border-primary hover:scale-105">Brand Story</a>
-        <a href="#services" class="px-5 py-2 border border-secondary/20 bg-surface-container-low text-secondary font-label text-[10px] md:text-xs tracking-widest uppercase rounded-full cursor-pointer transition-all duration-300 hover:bg-secondary hover:text-on-primary hover:border-secondary hover:scale-105">Content Strategy</a>
+        <a href="#services" data-expand-target="video-ads" class="px-5 py-2 border border-primary/20 bg-surface-container-low text-primary font-label text-[10px] md:text-xs tracking-widest uppercase rounded-full cursor-pointer transition-all duration-300 hover:bg-primary hover:text-on-primary hover:border-primary hover:scale-105">Video Ads</a>
+        <a href="#services" data-expand-target="brand-story" class="px-5 py-2 border border-primary/20 bg-surface-container-low text-primary font-label text-[10px] md:text-xs tracking-widest uppercase rounded-full cursor-pointer transition-all duration-300 hover:bg-primary hover:text-on-primary hover:border-primary hover:scale-105">Brand Story</a>
+        <a href="#services" data-expand-target="content-strategy" class="px-5 py-2 border border-secondary/20 bg-surface-container-low text-secondary font-label text-[10px] md:text-xs tracking-widest uppercase rounded-full cursor-pointer transition-all duration-300 hover:bg-secondary hover:text-on-primary hover:border-secondary hover:scale-105">Content Strategy</a>
       </div>
 
       <!-- CTA -->
@@ -341,7 +373,7 @@
             </div>
             <div class="border-l-2 border-secondary/30 pl-6">
               <span class="font-anton text-4xl text-secondary block mb-2">4 yrs</span>
-              <span class="font-label text-[10px] uppercase tracking-widest text-stone-500">Austin, TX</span>
+              <span class="font-label text-[10px] uppercase tracking-widest text-stone-500">Georgetown, TX</span>
             </div>
           </div>
         </div>
@@ -512,8 +544,8 @@
           </div>
         </div>
 
-        <!-- Band 4: Content Strategy -->
-        <div class="service-band group block bg-surface-container-low border-l-4 border-secondary/40 hover:border-secondary px-6 md:px-10 py-8 transition-all duration-500 hover:bg-surface-container reveal cursor-pointer" data-open-intake data-intake-service="Content Strategy">
+        <!-- Band 4: Content Strategy (expandable with free strategy form) -->
+        <div class="service-band group block bg-surface-container-low border-l-4 border-secondary/40 hover:border-secondary px-6 md:px-10 py-8 transition-all duration-500 hover:bg-surface-container reveal cursor-pointer" data-expand-band="content-strategy">
           <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-12">
             <h3 class="font-anton text-3xl md:text-5xl uppercase tracking-tighter text-on-surface group-hover:text-secondary transition-colors duration-500 flex-shrink-0">
               Content Strategy
@@ -527,8 +559,37 @@
                 <span class="px-3 py-1 border border-secondary/10 text-secondary/60 font-label text-[10px] tracking-widest uppercase">Planning</span>
                 <span class="px-3 py-1 border border-secondary/10 text-secondary/60 font-label text-[10px] tracking-widest uppercase">Analytics</span>
               </div>
+              <p class="mt-4 font-label text-[10px] tracking-widest uppercase text-secondary/50 flex items-center gap-2 group-hover:text-secondary/80 transition-colors">
+                <span class="material-symbols-outlined text-sm">touch_app</span>
+                Get a free strategy
+              </p>
             </div>
-            <span class="material-symbols-outlined text-stone-600 group-hover:text-secondary group-hover:translate-x-2 transition-all duration-300 hidden md:block mt-2">arrow_forward</span>
+            <span class="material-symbols-outlined text-stone-600 group-hover:text-secondary transition-all duration-500 hidden md:block mt-2 band-arrow">expand_more</span>
+          </div>
+          <!-- Expandable: Free Content Strategy form -->
+          <div data-band-panel="content-strategy" class="overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" style="max-height: 0; opacity: 0;">
+            <div class="bg-surface-container rounded p-6 md:p-10 mt-0 max-w-xl">
+              <p class="font-label text-secondary text-xs tracking-[0.3em] uppercase mb-3">Free Resource</p>
+              <h4 class="font-anton text-2xl md:text-3xl uppercase text-on-surface mb-2 leading-none">GET YOUR FREE<br/>CONTENT STRATEGY</h4>
+              <p class="text-stone-400 text-sm mb-6">Tell us about your business and we'll send you a custom content roadmap within 48 hours.</p>
+              <form id="strategy-form" class="flex flex-col gap-4" novalidate>
+                <input type="text" name="name" required placeholder="Your name" class="bg-transparent border-b border-white/15 text-on-surface py-3 text-sm focus:outline-none focus:border-secondary transition-colors placeholder:text-stone-600">
+                <input type="email" name="email" required placeholder="you@company.com" class="bg-transparent border-b border-white/15 text-on-surface py-3 text-sm focus:outline-none focus:border-secondary transition-colors placeholder:text-stone-600">
+                <input type="text" name="business" required placeholder="Your business type (e.g. chiropractor, roofer)" class="bg-transparent border-b border-white/15 text-on-surface py-3 text-sm focus:outline-none focus:border-secondary transition-colors placeholder:text-stone-600">
+                <select name="budget" required class="bg-transparent border-b border-white/15 text-on-surface py-3 text-sm focus:outline-none focus:border-secondary transition-colors appearance-none cursor-pointer">
+                  <option value="" disabled selected class="bg-surface-container text-stone-400">Current ad spend per month</option>
+                  <option value="none" class="bg-surface-container">Not running ads yet</option>
+                  <option value="under-1k" class="bg-surface-container">Under $1,000/mo</option>
+                  <option value="1k-5k" class="bg-surface-container">$1,000 - $5,000/mo</option>
+                  <option value="5k+" class="bg-surface-container">$5,000+/mo</option>
+                </select>
+                <div id="strategy-error" class="hidden text-sm text-red-400 font-label"></div>
+                <div id="strategy-success" class="hidden text-sm text-secondary font-label">Sent. Check your inbox within 48 hours.</div>
+                <button type="submit" class="bg-secondary text-on-primary font-label font-bold text-sm tracking-widest uppercase py-4 mt-2 transition-all duration-300 hover:scale-[0.98] hover:shadow-[0_0_40px_rgba(221,216,206,0.2)]">
+                  Send Me the Strategy
+                </button>
+              </form>
+            </div>
           </div>
         </div>
 
@@ -835,7 +896,7 @@
             CHRISTOPHER LIST
           </h2>
           <p class="text-stone-400 text-lg leading-relaxed mb-6">
-            Based in Austin, TX. Started Big Splash to give service businesses access to the same production quality that national brands take for granted. Every project starts with understanding the business, the customer, and the outcome that matters.
+            Based in Georgetown, TX. Started Big Splash to give service businesses access to the same production quality that national brands take for granted. Every project starts with understanding the business, the customer, and the outcome that matters.
           </p>
           <p class="text-stone-400 leading-relaxed mb-8">
             50+ projects delivered across industries. The through line is the same: content that drives revenue, built by a team that understands how service businesses grow.
@@ -867,7 +928,7 @@
           <span class="font-anton text-6xl md:text-7xl text-primary/20 leading-none flex-shrink-0">1</span>
           <div>
             <h3 class="font-anton text-xl uppercase tracking-tighter text-on-surface mb-3">Discovery</h3>
-            <p class="text-stone-400 leading-relaxed text-sm">We learn your business inside out. Your audience, your goals, your competitive landscape. Strategy starts here.</p>
+            <p class="text-stone-400 leading-relaxed text-sm">We learn your business inside out. Your audience, your goals, your competition. Strategy starts here.</p>
           </div>
         </div>
 
@@ -902,7 +963,7 @@
         LET'S MAKE A<br/><span class="text-primary text-glow-lime">SPLASH.</span>
       </h2>
       <p class="text-stone-400 text-lg md:text-xl mb-12 max-w-lg mx-auto">
-        Tell us about your business and we'll build a plan that moves the needle.
+        Tell us about your business and we'll build a plan that gets you customers.
       </p>
       <div class="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
         <button type="button" data-open-cal class="group inline-flex items-center gap-4 bg-primary text-on-primary px-12 py-6 font-anton text-2xl tracking-tight transition-all duration-500 bloom-hover">
@@ -978,7 +1039,7 @@
       <!-- Bottom Bar -->
       <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
         <p class="font-label text-[10px] tracking-widest uppercase text-stone-600">&copy; 2026 Big Splash. All rights reserved.</p>
-        <p class="font-label text-[10px] tracking-widest uppercase text-stone-600">Austin, TX &mdash; 30.6333&deg; N, 97.6780&deg; W</p>
+        <p class="font-label text-[10px] tracking-widest uppercase text-stone-600">Georgetown, TX | 30.6333&deg; N, 97.6780&deg; W</p>
       </div>
     </div>
   </footer>
@@ -1022,27 +1083,73 @@
   <script>
     // Expandable service bands
     document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('[data-expand-band]').forEach(band => {
-        const key = band.getAttribute('data-expand-band');
+      const bandStates = {};
+
+      function openBand(key) {
+        const band = document.querySelector('[data-expand-band="' + key + '"]');
+        if (!band) return;
         const panel = band.querySelector('[data-band-panel="' + key + '"]');
         const arrow = band.querySelector('.band-arrow');
-        if (!panel) return;
+        if (!panel || bandStates[key]) return;
+        bandStates[key] = true;
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        panel.style.opacity = '1';
+        panel.style.marginTop = '2rem';
+        if (arrow) arrow.style.transform = 'rotate(180deg)';
+      }
 
-        let open = false;
+      function closeBand(key) {
+        const band = document.querySelector('[data-expand-band="' + key + '"]');
+        if (!band) return;
+        const panel = band.querySelector('[data-band-panel="' + key + '"]');
+        const arrow = band.querySelector('.band-arrow');
+        if (!panel || !bandStates[key]) return;
+        bandStates[key] = false;
+        panel.style.maxHeight = '0';
+        panel.style.opacity = '0';
+        panel.style.marginTop = '0';
+        if (arrow) arrow.style.transform = 'rotate(0deg)';
+      }
+
+      document.querySelectorAll('[data-expand-band]').forEach(band => {
+        const key = band.getAttribute('data-expand-band');
+        bandStates[key] = false;
         band.addEventListener('click', (e) => {
-          // Don't toggle if clicking a link or button inside
           if (e.target.closest('a, button')) return;
-          open = !open;
-          if (open) {
-            panel.style.maxHeight = panel.scrollHeight + 'px';
-            panel.style.opacity = '1';
-            panel.style.marginTop = '2rem';
-            if (arrow) arrow.style.transform = 'rotate(180deg)';
-          } else {
-            panel.style.maxHeight = '0';
-            panel.style.opacity = '0';
-            panel.style.marginTop = '0';
-            if (arrow) arrow.style.transform = 'rotate(0deg)';
+          if (bandStates[key]) closeBand(key); else openBand(key);
+        });
+      });
+
+      // Strategy form handler
+      const stratForm = document.getElementById('strategy-form');
+      if (stratForm) {
+        stratForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const errEl = document.getElementById('strategy-error');
+          const sucEl = document.getElementById('strategy-success');
+          errEl.classList.add('hidden');
+          if (!stratForm.checkValidity()) { stratForm.reportValidity(); return; }
+          const payload = Object.fromEntries(new FormData(stratForm).entries());
+          payload.type = 'free_content_strategy';
+          payload.submitted_at = new Date().toISOString();
+          console.log('[strategy-form] Payload:', payload);
+          // TODO: POST to GHL webhook when ready
+          stratForm.reset();
+          sucEl.classList.remove('hidden');
+          setTimeout(() => sucEl.classList.add('hidden'), 5000);
+        });
+      }
+
+      // Hero pill links that target a band: scroll + auto-expand
+      document.querySelectorAll('[data-expand-target]').forEach(pill => {
+        pill.addEventListener('click', (e) => {
+          e.preventDefault();
+          const key = pill.getAttribute('data-expand-target');
+          const band = document.querySelector('[data-expand-band="' + key + '"]');
+          if (band) {
+            band.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(() => openBand(key), 600);
           }
         });
       });
