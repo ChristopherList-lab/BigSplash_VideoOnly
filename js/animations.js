@@ -140,14 +140,15 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => el.remove(), 1000);
   };
 
-  document.querySelectorAll('[data-video]').forEach(card => {
+  document.querySelectorAll('[data-video], [data-vimeo]').forEach(card => {
     card.addEventListener('click', () => {
       if (playerEl) closeVideo();
 
+      const vimeoId = card.getAttribute('data-vimeo');
+      const vimeoHash = card.getAttribute('data-vimeo-hash');
       const videoUrl = card.getAttribute('data-video');
       const rect = card.getBoundingClientRect();
 
-      // Create a floating video player as direct child of body (outside all stacking contexts)
       playerEl = document.createElement('div');
       playerEl.id = 'video-player';
       playerEl.style.top = rect.top + 'px';
@@ -155,19 +156,34 @@ document.addEventListener('DOMContentLoaded', () => {
       playerEl.style.width = rect.width + 'px';
       playerEl.style.height = rect.height + 'px';
 
-      const video = document.createElement('video');
-      video.src = videoUrl;
-      video.currentTime = 0;
-      video.controls = true;
-      video.playsInline = true;
-      video.autoplay = true;
+      if (vimeoId) {
+        // Vimeo embed
+        const hashParam = vimeoHash ? `h=${vimeoHash}&` : '';
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://player.vimeo.com/video/${vimeoId}?${hashParam}autoplay=1&title=0&byline=0&portrait=0&badge=0&autopause=0&dnt=1`;
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+        playerEl.appendChild(iframe);
+      } else {
+        // Local MP4
+        const video = document.createElement('video');
+        video.src = videoUrl;
+        video.currentTime = 0;
+        video.controls = true;
+        video.playsInline = true;
+        video.autoplay = true;
+        playerEl.appendChild(video);
+        video.play().catch(() => {});
+      }
 
       const closeBtn = document.createElement('button');
       closeBtn.className = 'vp-close';
       closeBtn.innerHTML = '&times;';
       closeBtn.addEventListener('click', (ev) => { ev.stopPropagation(); closeVideo(); });
-
-      playerEl.appendChild(video);
       playerEl.appendChild(closeBtn);
       document.body.appendChild(playerEl);
 
@@ -182,8 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
           playerEl.classList.add('vp-active');
         });
       });
-
-      video.play().catch(() => {});
     });
   });
 
