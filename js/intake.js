@@ -130,7 +130,24 @@ body.intake-locked { overflow: hidden; }
         ${fieldsHTML}
         <div data-intake-error class="hidden mb-4 text-sm text-red-400 font-label"></div>
         <button type="submit" data-intake-submit class="ia-submit w-full font-label text-sm tracking-widest uppercase font-bold py-4">${config.submitText}</button>
-      </form>`;
+      </form>
+
+      <div class="mt-6 pt-6 border-t border-white/10 text-center">
+        <button type="button" data-intake-toggle-cal class="font-label text-xs tracking-widest uppercase text-stone-500 hover:text-primary transition-colors cursor-pointer">
+          Or book a discovery call instead
+        </button>
+      </div>
+
+      <div data-intake-cal class="hidden mt-6">
+        <div class="bg-surface-dim rounded overflow-hidden" style="min-height: 550px;">
+          <iframe src="https://api.leadconnectorhq.com/widget/booking/YcBm4L2c5a0DNBZyessz" class="ghl-cal-dark" style="width: 100%; height: 650px; border: none; overflow: hidden;" scrolling="no"></iframe>
+        </div>
+        <div class="mt-4 text-center">
+          <button type="button" data-intake-toggle-form class="font-label text-xs tracking-widest uppercase text-stone-500 hover:text-primary transition-colors cursor-pointer">
+            Back to form
+          </button>
+        </div>
+      </div>`;
   }
 
   // ========================================
@@ -200,7 +217,7 @@ body.intake-locked { overflow: hidden; }
           successWrap.classList.remove('hidden');
         } catch (err) {
           console.error('[intake] submit failed:', err);
-          errorWrap.textContent = 'Something went sideways. Try again, or email hello@bigsplashvideo.com.';
+          errorWrap.textContent = 'Something went sideways. Try again, or email chris@bigsplash.agency.';
           errorWrap.classList.remove('hidden');
           submitBtn.disabled = false;
           submitBtn.textContent = originalBtnText;
@@ -215,6 +232,28 @@ body.intake-locked { overflow: hidden; }
       if (mobileMenu) {
         mobileMenu.classList.remove('open');
         document.body.classList.remove('menu-open');
+      }
+
+      // Wire up calendar toggle inside intake
+      const toggleCal = formWrap.querySelector('[data-intake-toggle-cal]');
+      const toggleForm = formWrap.querySelector('[data-intake-toggle-form]');
+      const calWrap = formWrap.querySelector('[data-intake-cal]');
+      const formEl = formWrap.querySelector('form');
+      const calToggleLink = formWrap.querySelector('.mt-6.pt-6');
+
+      if (toggleCal && calWrap && formEl) {
+        toggleCal.addEventListener('click', () => {
+          formEl.classList.add('hidden');
+          calToggleLink.classList.add('hidden');
+          calWrap.classList.remove('hidden');
+        });
+      }
+      if (toggleForm && calWrap && formEl) {
+        toggleForm.addEventListener('click', () => {
+          calWrap.classList.add('hidden');
+          formEl.classList.remove('hidden');
+          calToggleLink.classList.remove('hidden');
+        });
       }
 
       setTimeout(() => formWrap.querySelector('input, select, textarea')?.focus(), 200);
