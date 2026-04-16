@@ -1,1 +1,9 @@
 .DS_Store
+
+# Large raw source files not needed for deployment
+HERO_SPLASH.mp4
+OceanVideo.mp4
+EXAMPLES/
+bigsplash-site/
+Ronnieheadshot01.jpeg
+*.crdownload
