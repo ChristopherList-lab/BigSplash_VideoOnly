@@ -4,7 +4,7 @@
     {
       "name": "bigsplash",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "-l", "8080", "-s", "."],
+      "runtimeArgs": ["serve", "-l", "8080", "."],
       "port": 8080
     }
   ]
