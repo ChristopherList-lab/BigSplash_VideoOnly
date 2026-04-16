@@ -180,6 +180,15 @@
       color: #131318;
     }
 
+    /* Portfolio thumbnails: subtle pop */
+    section#work [data-video] img {
+      filter: contrast(1.08) saturate(1.12);
+      transition: filter 0.4s ease;
+    }
+    section#work [data-video]:hover img {
+      filter: contrast(1.12) saturate(1.2);
+    }
+
     /* Wave animation */
     @keyframes wave-drift {
       0%, 100% { transform: translateX(0); }
@@ -276,6 +285,7 @@
       <a class="font-label text-stone-400 hover:text-primary transition-colors duration-500 text-xs tracking-widest uppercase whitespace-nowrap" href="#services">Services</a>
       <a class="font-label text-stone-400 hover:text-primary transition-colors duration-500 text-xs tracking-widest uppercase whitespace-nowrap" href="#work">Work</a>
       <a class="font-label text-stone-400 hover:text-primary transition-colors duration-500 text-xs tracking-widest uppercase whitespace-nowrap" href="#about">About</a>
+      <a class="font-label text-stone-400 hover:text-primary transition-colors duration-500 text-xs tracking-widest uppercase whitespace-nowrap" href="faq.html">FAQ</a>
     </div>
 
     <!-- CTA Button -->
@@ -295,6 +305,7 @@
       <a href="#services" class="font-anton text-3xl uppercase tracking-tight text-on-surface hover:text-primary transition-colors">Services</a>
       <a href="#work" class="font-anton text-3xl uppercase tracking-tight text-on-surface hover:text-primary transition-colors">Work</a>
       <a href="#about" class="font-anton text-3xl uppercase tracking-tight text-on-surface hover:text-primary transition-colors">About</a>
+      <a href="faq.html" class="font-anton text-3xl uppercase tracking-tight text-on-surface hover:text-primary transition-colors">FAQ</a>
       <button type="button" data-open-intake data-intake-service="General" class="mt-6 px-10 py-4 bg-primary text-on-primary font-label font-bold text-sm tracking-widest uppercase">Start Project</button>
     </div>
   </nav>
@@ -376,11 +387,11 @@
           <div class="mt-8 md:mt-10 grid grid-cols-2 gap-8">
             <div class="border-l-2 border-primary/30 pl-6">
               <span class="font-anton text-4xl text-primary block mb-2" data-count-to="50">0+</span>
-              <span class="font-label text-[10px] uppercase tracking-widest text-stone-500">Projects Delivered</span>
+              <span class="font-label text-[10px] uppercase tracking-widest text-on-surface">Projects Delivered</span>
             </div>
             <div class="border-l-2 border-secondary/30 pl-6">
               <span class="font-anton text-4xl text-secondary block mb-2">4 yrs</span>
-              <span class="font-label text-[10px] uppercase tracking-widest text-stone-500">Georgetown, TX</span>
+              <span class="font-label text-[10px] uppercase tracking-widest text-on-surface">Georgetown, TX</span>
             </div>
           </div>
         </div>
@@ -388,23 +399,19 @@
     </div>
 
     <!-- Ocean Video -->
-    <div class="relative overflow-hidden w-full" style="height: 440px; margin-top: -80px; z-index: 1;">
-      <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-ocean.webp" class="w-full h-full object-cover" style="filter: contrast(1.3) saturate(1.25) brightness(0.88);">
-        <source src="assets/videos/ocean-aerial.mp4" type="video/mp4">
-      </video>
-      <!-- Dark overlay -->
-      <div class="absolute inset-0 pointer-events-none bg-black/20"></div>
+    <div class="relative overflow-hidden w-full" style="height: 450px; margin-top: -80px; z-index: 1;">
+      <video id="ocean-video" autoplay muted loop playsinline preload="none" poster="assets/images/hero-ocean.webp" class="w-full h-full object-cover" style="filter: contrast(1.08) saturate(1.1);" data-src="assets/videos/ocean-aerial.mp4"></video>
       <!-- Top fade -->
-      <div class="absolute inset-x-0 top-0 pointer-events-none" style="height: 32%; background: linear-gradient(to bottom, #000000, transparent);"></div>
-      <!-- Bottom fade -->
-      <div class="absolute inset-x-0 bottom-0 pointer-events-none" style="height: 22%; background: linear-gradient(to top, #131318, transparent);"></div>
+      <div class="absolute inset-x-0 top-0 pointer-events-none" style="height: 28%; background: linear-gradient(to bottom, #000000, transparent);"></div>
+      <!-- Bottom fade to site bg -->
+      <div class="absolute inset-x-0 bottom-0 pointer-events-none" style="height: 50%; background: linear-gradient(to top, #131318 0%, rgba(19,19,24,0.7) 30%, transparent 100%);"></div>
     </div>
   </section>
 
 
   <!-- ========== SERVICES ========== -->
-  <section id="services" class="bg-background px-6 md:px-12 pt-2 pb-24 md:pb-32 relative">
-    <div class="max-w-7xl mx-auto pt-10 md:pt-14">
+  <section id="services" class="px-6 md:px-12 pt-0 pb-10 md:pb-14 relative" style="margin-top: -200px; z-index: 2; background: linear-gradient(to bottom, transparent 0%, rgba(19,19,24,0.4) 100px, rgba(19,19,24,0.85) 220px, #131318 340px);">
+    <div class="max-w-7xl mx-auto relative" style="z-index: 3;">
 
       <div class="mb-16 reveal">
         <p class="font-label text-primary uppercase tracking-[0.3em] mb-6 text-sm">Services</p>
@@ -628,7 +635,7 @@
 
 
   <!-- ========== PORTFOLIO / WORK ========== -->
-  <section id="work" class="bg-surface-dim px-6 md:px-12 py-24 md:py-32 relative">
+  <section id="work" class="px-6 md:px-12 pt-12 md:pt-16 pb-24 md:pb-32 relative" style="background: linear-gradient(to bottom, #131318 0%, #0e0e13 180px);">
     <div class="max-w-7xl mx-auto relative z-20">
 
       <div class="flex items-end justify-between mb-16 reveal">
@@ -935,7 +942,7 @@
 
 
   <!-- ========== PROCESS ========== -->
-  <section class="bg-surface-dim px-6 md:px-12 py-24 md:py-32 relative">
+  <section class="px-6 md:px-12 py-24 md:py-32 relative" style="background: linear-gradient(to bottom, #0e0e13 0%, #0e0e13 60%, #000000 100%);">
     <div class="max-w-7xl mx-auto relative z-20">
 
       <div class="text-center mb-16 md:mb-20 reveal">
@@ -976,9 +983,11 @@
 
 
   <!-- ========== CTA ========== -->
-  <section id="contact" class="bg-background relative py-32 md:py-48 overflow-hidden">
+  <section id="contact" class="relative py-32 md:py-48 overflow-hidden" style="background: radial-gradient(ellipse at center, #0a0a0d 0%, #000000 100%);">
     <!-- Lime glow -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.04] rounded-full blur-[200px]"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/[0.08] rounded-full blur-[180px]"></div>
+    <!-- Secondary accent glow -->
+    <div class="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-primary/[0.05] rounded-full blur-[160px]"></div>
 
     <div class="relative z-10 max-w-4xl mx-auto px-6 md:px-12 text-center reveal">
       <h2 class="font-anton text-6xl md:text-8xl lg:text-9xl uppercase leading-[0.85] tracking-tighter text-on-surface mb-8">
@@ -1050,7 +1059,7 @@
         <div>
           <h4 class="font-label text-[10px] tracking-widest uppercase text-stone-500 mb-6">Connect</h4>
           <div class="flex flex-col gap-3">
-            <a class="font-label text-xs tracking-widest uppercase text-stone-500 hover:text-primary transition-all duration-300" href="#">Instagram</a>
+            <a id="ig-link" class="font-label text-xs tracking-widest uppercase text-stone-500 hover:text-primary transition-all duration-300" href="https://www.instagram.com/bigsplashvideo/" target="_blank" rel="noopener">Instagram</a>
             <a class="font-label text-xs tracking-widest uppercase text-stone-500 hover:text-primary transition-all duration-300" href="#">Facebook</a>
             <a class="font-label text-xs tracking-widest uppercase text-stone-500 hover:text-primary transition-all duration-300" href="#">LinkedIn</a>
             <a class="font-label text-xs tracking-widest uppercase text-stone-500 hover:text-primary transition-all duration-300" href="#">X</a>
@@ -1106,6 +1115,47 @@
     // Always start at top on load/reload
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     window.addEventListener('load', () => window.scrollTo(0, 0));
+
+    // Lazy-load ocean video when scrolled near
+    document.addEventListener('DOMContentLoaded', () => {
+      const oceanVideo = document.getElementById('ocean-video');
+      if (!oceanVideo || !oceanVideo.dataset.src) return;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (!oceanVideo.querySelector('source')) {
+              const source = document.createElement('source');
+              source.src = oceanVideo.dataset.src;
+              source.type = 'video/mp4';
+              oceanVideo.appendChild(source);
+              oceanVideo.load();
+              oceanVideo.play().catch(() => {});
+            }
+            io.disconnect();
+          }
+        });
+      }, { rootMargin: '400px 0px' });
+      io.observe(oceanVideo);
+    });
+
+    // Instagram: open native app on mobile, web on desktop
+    document.addEventListener('DOMContentLoaded', () => {
+      const ig = document.getElementById('ig-link');
+      if (!ig) return;
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      if (!isMobile) return;
+      ig.addEventListener('click', (e) => {
+        e.preventDefault();
+        const webUrl = 'https://www.instagram.com/bigsplashvideo/';
+        const appUrl = 'instagram://user?username=bigsplashvideo';
+        const start = Date.now();
+        const fallback = setTimeout(() => {
+          if (Date.now() - start < 2000) window.location.href = webUrl;
+        }, 800);
+        window.location.href = appUrl;
+        window.addEventListener('pagehide', () => clearTimeout(fallback), { once: true });
+      });
+    });
 
     // Expandable service bands
     document.addEventListener('DOMContentLoaded', () => {

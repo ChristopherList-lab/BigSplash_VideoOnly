@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ | Big Splash — Video Production for Service Businesses | Georgetown, TX</title>
+<meta name="description" content="Answers to common questions about Big Splash video production. Pricing, timelines, video ads, brand films, and what to expect when working with us.">
+<meta name="keywords" content="video production FAQ, video ads cost, brand film pricing, Georgetown TX video production, service business video">
+<link rel="canonical" href="https://bigsplash.agency/faq.html">
+<meta property="og:title" content="Big Splash FAQ — Video Production Questions Answered">
+<meta property="og:description" content="Pricing, timelines, process — common questions about working with Big Splash.">
+<meta property="og:image" content="assets/images/hero-ocean.webp">
+<meta property="og:type" content="website">
+
+<!-- FAQPage Schema for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does a video ad cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Video ads typically run $2,500 to $8,000 per ad depending on scope, talent, and locations. Multi-ad packages and retainers lower the per-ad cost. Most service businesses start with a 3-ad test package so we can compare what actually converts before scaling spend."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does a typical video project take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Short-form social ads take 2 to 3 weeks from kickoff to delivery. Brand films and commercials run 4 to 8 weeks depending on complexity. Discovery calls happen within 1 business day of your inquiry."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you work outside of Georgetown or Austin, TX?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We're based in Georgetown, TX and shoot throughout the Austin metro. We also travel nationwide for the right project. Remote strategy and content planning engagements happen on Zoom."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What industries do you specialize in?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Service businesses that rely on trust and local reputation: chiropractors, roofers, contractors, auto, real estate, medical practices, and consultants. Any business where the content has to pay for itself through leads and calls."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you handle paid media and ad management too?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Our Content Strategy service covers Meta and TikTok ad management, audience targeting, creative testing, and performance reporting. We can build the content and run the ads, or just build the creative for your existing team."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's included in a video ad package?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Full pipeline: strategy, scriptwriting, location scouting, shoot day with our crew, editing, color, sound design, motion graphics where needed, and multiple cutdowns per ad (9:16, 1:1, 16:9)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I buy a one-off video instead of an ad package?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Event recaps, testimonial videos, product walkthroughs, and stand-alone brand pieces are all available. Service businesses still get our full production team, just scoped to a single deliverable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do we get started?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Book a discovery call or send us a message through the site. We ask about your business, goals, and where your current content is missing. You'll hear back within one business day."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "background": "#131318",
+          "on-surface": "#e4e1e9",
+          "primary": "#eff88b",
+          "on-primary": "#131318",
+          "secondary": "#ddd8ce",
+          "surface-container-low": "#1c1c22",
+          "surface-container": "#1f1f26",
+          "surface-container-high": "#282830",
+          "surface-dim": "#0e0e13",
+        },
+        fontFamily: {
+          "anton": ["Anton", "sans-serif"],
+          "body": ["Inter", "sans-serif"],
+          "label": ["JetBrains Mono", "monospace"],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  html, body {
+    background: #131318;
+    color: #e4e1e9;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+  .text-glow-lime {
+    text-shadow: 0 0 40px rgba(239, 248, 139, 0.3);
+  }
+  .faq-item {
+    border-left: 2px solid rgba(239, 248, 139, 0.15);
+    transition: border-color 0.4s ease;
+  }
+  .faq-item.open {
+    border-left-color: #eff88b;
+  }
+  .faq-question {
+    cursor: pointer;
+    user-select: none;
+  }
+  .faq-question:hover .faq-icon {
+    color: #eff88b;
+  }
+  .faq-answer {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, margin-top 0.4s ease;
+    margin-top: 0;
+  }
+  .faq-item.open .faq-answer {
+    opacity: 1;
+  }
+  .faq-icon {
+    transition: transform 0.4s ease, color 0.3s ease;
+  }
+  .faq-item.open .faq-icon {
+    transform: rotate(45deg);
+    color: #eff88b;
+  }
+</style>
+</head>
+<body class="bg-background text-on-surface">
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-6 md:py-8 z-50 bg-transparent transition-all duration-500">
+    <a href="index.html" class="flex items-center gap-1" aria-label="Big Splash Home">
+      <span class="font-anton text-xl tracking-tight text-primary">BIG SPLASH</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <div class="hidden md:flex items-center gap-8">
+      <a class="font-label text-stone-400 hover:text-primary transition-colors duration-500 text-xs tracking-widest uppercase" href="index.html#services">Services</a>
+      <a class="font-label text-stone-400 hover:text-primary transition-colors duration-500 text-xs tracking-widest uppercase" href="index.html#work">Work</a>
+      <a class="font-label text-stone-400 hover:text-primary transition-colors duration-500 text-xs tracking-widest uppercase" href="index.html#about">About</a>
+      <a class="font-label text-primary transition-colors duration-500 text-xs tracking-widest uppercase" href="faq.html">FAQ</a>
+    </div>
+
+    <button type="button" data-open-intake data-intake-service="General" class="hidden md:block font-label bg-primary text-on-primary px-6 py-3 font-bold tracking-widest text-xs uppercase hover:scale-95 active:scale-90 transition-all duration-400">
+      START PROJECT
+    </button>
+
+    <!-- Mobile menu button -->
+    <a href="index.html" class="md:hidden font-label text-stone-400 text-xs tracking-widest uppercase">&larr; Back</a>
+  </nav>
+
+  <!-- ========== HEADER ========== -->
+  <header class="pt-36 md:pt-44 pb-12 md:pb-16 px-6 md:px-12 relative">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="font-label text-primary uppercase tracking-[0.3em] mb-6 text-sm">Questions, Answered</p>
+      <h1 class="font-anton text-6xl md:text-8xl uppercase leading-[0.85] tracking-tighter text-on-surface mb-6">
+        <span class="block">Frequently</span>
+        <span class="block text-primary text-glow-lime">Asked.</span>
+      </h1>
+      <p class="text-stone-400 text-lg md:text-xl max-w-2xl mx-auto">
+        Common questions about pricing, timelines, and how we work. Don't see yours? Reach out.
+      </p>
+    </div>
+  </header>
+
+  <!-- ========== FAQ LIST ========== -->
+  <section class="px-6 md:px-12 pb-24 md:pb-32">
+    <div class="max-w-3xl mx-auto flex flex-col gap-3">
+
+      <div class="faq-item bg-surface-container-low px-6 md:px-8 py-6 md:py-8">
+        <div class="faq-question flex justify-between items-center gap-6">
+          <h2 class="font-anton text-2xl md:text-3xl uppercase tracking-tighter text-on-surface">How much does a video ad cost?</h2>
+          <span class="material-symbols-outlined faq-icon text-stone-500 text-3xl flex-shrink-0">add</span>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-400 leading-relaxed pt-6 pr-10">
+            Video ads typically run $2,500 to $8,000 per ad depending on scope, talent, and locations. Multi-ad packages and retainers lower the per-ad cost. Most service businesses start with a 3-ad test package so we can compare what actually converts before scaling spend.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-surface-container-low px-6 md:px-8 py-6 md:py-8">
+        <div class="faq-question flex justify-between items-center gap-6">
+          <h2 class="font-anton text-2xl md:text-3xl uppercase tracking-tighter text-on-surface">How long does a typical project take?</h2>
+          <span class="material-symbols-outlined faq-icon text-stone-500 text-3xl flex-shrink-0">add</span>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-400 leading-relaxed pt-6 pr-10">
+            Short-form social ads take 2 to 3 weeks from kickoff to delivery. Brand films and commercials run 4 to 8 weeks depending on complexity. Discovery calls happen within 1 business day of your inquiry.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-surface-container-low px-6 md:px-8 py-6 md:py-8">
+        <div class="faq-question flex justify-between items-center gap-6">
+          <h2 class="font-anton text-2xl md:text-3xl uppercase tracking-tighter text-on-surface">Do you work outside Georgetown or Austin?</h2>
+          <span class="material-symbols-outlined faq-icon text-stone-500 text-3xl flex-shrink-0">add</span>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-400 leading-relaxed pt-6 pr-10">
+            Yes. We're based in Georgetown, TX and shoot throughout the Austin metro. We also travel nationwide for the right project. Remote strategy and content planning engagements happen on Zoom.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-surface-container-low px-6 md:px-8 py-6 md:py-8">
+        <div class="faq-question flex justify-between items-center gap-6">
+          <h2 class="font-anton text-2xl md:text-3xl uppercase tracking-tighter text-on-surface">What industries do you specialize in?</h2>
+          <span class="material-symbols-outlined faq-icon text-stone-500 text-3xl flex-shrink-0">add</span>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-400 leading-relaxed pt-6 pr-10">
+            Service businesses that rely on trust and local reputation: chiropractors, roofers, contractors, auto, real estate, medical practices, and consultants. Any business where the content has to pay for itself through leads and calls.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-surface-container-low px-6 md:px-8 py-6 md:py-8">
+        <div class="faq-question flex justify-between items-center gap-6">
+          <h2 class="font-anton text-2xl md:text-3xl uppercase tracking-tighter text-on-surface">Do you handle paid media and ad management?</h2>
+          <span class="material-symbols-outlined faq-icon text-stone-500 text-3xl flex-shrink-0">add</span>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-400 leading-relaxed pt-6 pr-10">
+            Yes. Our Content Strategy service covers Meta and TikTok ad management, audience targeting, creative testing, and performance reporting. We can build the content and run the ads, or just build the creative for your existing team.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-surface-container-low px-6 md:px-8 py-6 md:py-8">
+        <div class="faq-question flex justify-between items-center gap-6">
+          <h2 class="font-anton text-2xl md:text-3xl uppercase tracking-tighter text-on-surface">What's included in a video ad package?</h2>
+          <span class="material-symbols-outlined faq-icon text-stone-500 text-3xl flex-shrink-0">add</span>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-400 leading-relaxed pt-6 pr-10">
+            Full pipeline: strategy, scriptwriting, location scouting, shoot day with our crew, editing, color, sound design, motion graphics where needed, and multiple cutdowns per ad (9:16, 1:1, 16:9).
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-surface-container-low px-6 md:px-8 py-6 md:py-8">
+        <div class="faq-question flex justify-between items-center gap-6">
+          <h2 class="font-anton text-2xl md:text-3xl uppercase tracking-tighter text-on-surface">Can I buy a one-off video?</h2>
+          <span class="material-symbols-outlined faq-icon text-stone-500 text-3xl flex-shrink-0">add</span>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-400 leading-relaxed pt-6 pr-10">
+            Yes. Event recaps, testimonial videos, product walkthroughs, and stand-alone brand pieces are all available. Service businesses still get our full production team, just scoped to a single deliverable.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item bg-surface-container-low px-6 md:px-8 py-6 md:py-8">
+        <div class="faq-question flex justify-between items-center gap-6">
+          <h2 class="font-anton text-2xl md:text-3xl uppercase tracking-tighter text-on-surface">How do we get started?</h2>
+          <span class="material-symbols-outlined faq-icon text-stone-500 text-3xl flex-shrink-0">add</span>
+        </div>
+        <div class="faq-answer">
+          <p class="text-stone-400 leading-relaxed pt-6 pr-10">
+            Book a discovery call or send us a message through the site. We ask about your business, goals, and where your current content is missing. You'll hear back within one business day.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="px-6 md:px-12 py-20 md:py-32 relative overflow-hidden" style="background: radial-gradient(ellipse at center, #0a0a0d 0%, #000000 100%);">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.06] rounded-full blur-[180px]"></div>
+    <div class="max-w-3xl mx-auto text-center relative z-10">
+      <h2 class="font-anton text-5xl md:text-7xl uppercase leading-[0.9] tracking-tighter mb-6">
+        Still have a question?
+      </h2>
+      <p class="text-stone-400 text-lg mb-10">Book a 15-minute discovery call. No pitch, just a real conversation.</p>
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <button type="button" data-open-cal class="bg-primary text-on-primary px-10 py-5 font-anton text-xl tracking-tight transition-all duration-500 hover:scale-[0.98]">
+          Book a Call
+        </button>
+        <button type="button" data-open-intake data-intake-service="General" class="border-2 border-primary/30 text-primary px-10 py-5 font-label font-bold text-sm tracking-widest uppercase transition-all duration-500 hover:border-primary hover:bg-primary/5">
+          Send a Message
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-surface-dim border-t border-white/5 py-12 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <a href="index.html" class="font-anton text-lg tracking-tight text-primary">BIG SPLASH</a>
+      <p class="font-label text-[10px] tracking-widest uppercase text-stone-600">&copy; 2026 Big Splash. Georgetown, TX</p>
+    </div>
+  </footer>
+
+  <!-- Expand/collapse behavior -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.faq-item').forEach((item) => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        question.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+          if (isOpen) {
+            answer.style.maxHeight = '0';
+            answer.style.marginTop = '0';
+            item.classList.remove('open');
+          } else {
+            item.classList.add('open');
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+          }
+        });
+      });
+    });
+  </script>
+
+  <!-- Shared scripts -->
+  <script src="js/intake.js"></script>
+</body>
+</html>
