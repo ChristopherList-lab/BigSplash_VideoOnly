@@ -912,24 +912,26 @@
 
 
   <!-- ========== GHL CALENDAR MODAL ========== -->
-  <div id="cal-modal" class="fixed inset-0 z-[100] opacity-0 invisible pointer-events-none overflow-y-auto" role="dialog" aria-modal="true" aria-label="Book a Discovery Call">
+  <div id="cal-modal" class="fixed inset-0 z-[100] opacity-0 invisible pointer-events-none" role="dialog" aria-modal="true" aria-label="Book a Discovery Call">
     <div data-cal-backdrop class="fixed inset-0 bg-background/90 backdrop-blur-md"></div>
-    <div class="relative z-10 min-h-screen flex items-center justify-center p-4 md:p-8">
-      <div class="w-full max-w-2xl bg-surface-container-low border border-primary/10 shadow-2xl shadow-black/80 relative my-auto">
-        <!-- Header -->
-        <div class="flex items-center justify-between px-6 md:px-8 pt-6 md:pt-8 pb-4">
-          <div>
-            <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-2">Discovery Call</p>
-            <h2 class="font-anton text-3xl md:text-4xl uppercase text-on-surface leading-none">PICK A TIME</h2>
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+      <div class="min-h-full flex items-start justify-center p-4 md:p-8 pt-12 md:pt-16">
+        <div class="w-full max-w-2xl bg-surface-container-low border border-primary/10 shadow-2xl shadow-black/80 relative">
+          <!-- Header -->
+          <div class="sticky top-0 z-20 bg-surface-container-low flex items-center justify-between px-6 md:px-8 pt-6 md:pt-8 pb-4 border-b border-white/5">
+            <div>
+              <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-2">Discovery Call</p>
+              <h2 class="font-anton text-3xl md:text-4xl uppercase text-on-surface leading-none">PICK A TIME</h2>
+            </div>
+            <button type="button" data-cal-close aria-label="Close" class="text-stone-400 hover:text-primary transition-colors p-2">
+              <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
           </div>
-          <button type="button" data-cal-close aria-label="Close" class="text-stone-400 hover:text-primary transition-colors p-2">
-            <span class="material-symbols-outlined text-2xl">close</span>
-          </button>
-        </div>
-        <!-- Calendar Embed -->
-        <div class="px-2 md:px-4 pb-6 md:pb-8">
-          <div class="bg-surface-dim rounded overflow-hidden">
-            <iframe data-cal-src="https://api.leadconnectorhq.com/widget/booking/YcBm4L2c5a0DNBZyessz" class="ghl-cal-dark" style="width: 100%; height: 1000px; border: none;" scrolling="yes" id="ghl-cal-embed"></iframe>
+          <!-- Calendar Embed -->
+          <div class="px-2 md:px-4 pb-6 md:pb-8 pt-4">
+            <div class="bg-surface-dim rounded overflow-hidden">
+              <iframe data-cal-src="https://api.leadconnectorhq.com/widget/booking/YcBm4L2c5a0DNBZyessz" class="ghl-cal-dark" style="width: 100%; height: 1000px; border: none;" scrolling="yes" id="ghl-cal-embed"></iframe>
+            </div>
           </div>
         </div>
       </div>
@@ -953,6 +955,8 @@
         if (iframe && !iframe.src) iframe.src = iframe.getAttribute('data-cal-src');
         modal.classList.add('open');
         document.body.classList.add('cal-locked');
+        const scrollContainer = modal.querySelector('.overflow-y-auto');
+        if (scrollContainer) scrollContainer.scrollTop = 0;
       };
       const closeCal = () => {
         modal.classList.remove('open');
