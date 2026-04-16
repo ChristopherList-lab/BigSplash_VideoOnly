@@ -935,11 +935,15 @@
       </div>
     </div>
   </div>
-  <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+  <!-- ========== SCRIPTS ========== -->
+  <script src="js/animations.js"></script>
+  <script src="js/intake.js"></script>
+  <script src="js/easter-eggs.js"></script>
+  <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript" async></script>
 
   <script>
     // Calendar modal open/close
-    (() => {
+    document.addEventListener('DOMContentLoaded', () => {
       const modal = document.getElementById('cal-modal');
       if (!modal) return;
       const backdrop = modal.querySelector('[data-cal-backdrop]');
@@ -954,21 +958,21 @@
       };
 
       document.addEventListener('click', (e) => {
-        if (e.target.closest('[data-open-cal]')) { e.preventDefault(); openCal(); }
+        const calTrigger = e.target.closest('[data-open-cal]');
+        if (calTrigger) {
+          e.preventDefault();
+          e.stopPropagation();
+          openCal();
+          return;
+        }
         if (e.target.closest('[data-cal-close]')) closeCal();
-      });
+      }, true);
       backdrop.addEventListener('click', closeCal);
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('open')) closeCal();
       });
-    })();
+    });
   </script>
-
-
-  <!-- ========== SCRIPTS ========== -->
-  <script src="js/animations.js"></script>
-  <script src="js/intake.js"></script>
-  <script src="js/easter-eggs.js"></script>
 
 </body>
 </html>
