@@ -272,7 +272,7 @@
     <!-- Video Background -->
     <div class="absolute inset-0 z-0">
       <div class="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background z-10"></div>
-      <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-ocean.webp" class="w-full h-full object-cover opacity-25">
+      <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-ocean.webp" class="w-full h-full object-cover opacity-40">
         <source src="assets/videos/hero-splash.mp4" type="video/mp4">
       </video>
     </div>
@@ -928,8 +928,8 @@
         </div>
         <!-- Calendar Embed -->
         <div class="px-2 md:px-4 pb-6 md:pb-8">
-          <div class="bg-surface-dim rounded overflow-hidden" style="min-height: 600px;">
-            <iframe src="https://api.leadconnectorhq.com/widget/booking/YcBm4L2c5a0DNBZyessz" class="ghl-cal-dark" style="width: 100%; height: 700px; border: none; overflow: hidden;" scrolling="no" id="ghl-cal-embed"></iframe>
+          <div class="bg-surface-dim rounded overflow-hidden">
+            <iframe data-cal-src="https://api.leadconnectorhq.com/widget/booking/YcBm4L2c5a0DNBZyessz" class="ghl-cal-dark" style="width: 100%; height: 1000px; border: none;" scrolling="yes" id="ghl-cal-embed"></iframe>
           </div>
         </div>
       </div>
@@ -949,6 +949,8 @@
       const backdrop = modal.querySelector('[data-cal-backdrop]');
 
       const openCal = () => {
+        const iframe = modal.querySelector('iframe[data-cal-src]');
+        if (iframe && !iframe.src) iframe.src = iframe.getAttribute('data-cal-src');
         modal.classList.add('open');
         document.body.classList.add('cal-locked');
       };
@@ -957,16 +959,13 @@
         document.body.classList.remove('cal-locked');
       };
 
-      document.addEventListener('click', (e) => {
-        const calTrigger = e.target.closest('[data-open-cal]');
-        if (calTrigger) {
-          e.preventDefault();
-          e.stopPropagation();
-          openCal();
-          return;
-        }
-        if (e.target.closest('[data-cal-close]')) closeCal();
-      }, true);
+      // Bind directly to each trigger button
+      document.querySelectorAll('[data-open-cal]').forEach(btn => {
+        btn.addEventListener('click', (e) => { e.preventDefault(); openCal(); });
+      });
+      document.querySelectorAll('[data-cal-close]').forEach(btn => {
+        btn.addEventListener('click', closeCal);
+      });
       backdrop.addEventListener('click', closeCal);
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('open')) closeCal();
