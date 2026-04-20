@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Move to Mason, On Film — A Proposal from Big Splash</title>
+  <meta name="description" content="A video marketing proposal for the Mason County Chamber of Commerce. Six concept pieces, shot on the ground May through July 2026.">
+  <meta name="robots" content="noindex,nofollow">
+
+  <meta property="og:title" content="Move to Mason, On Film — A Proposal from Big Splash">
+  <meta property="og:description" content="Six concept pieces for the Mason County Chamber. Shot May–July 2026.">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" type="image/png" href="../../Bigsplash_FAVcon.png">
+  <link rel="apple-touch-icon" href="../../Bigsplash_FAVcon.png">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <style>
+    body {
+      background-color: #131318;
+      color: #ddd8ce;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+    }
+    .font-anton { font-family: 'Anton', sans-serif; }
+    .font-jetbrains { font-family: 'JetBrains Mono', monospace; }
+
+    .abyssal-grain { position: relative; }
+    .abyssal-grain::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .text-glow-lime {
+      text-shadow: 0 0 60px rgba(239, 248, 139, 0.5), 0 0 120px rgba(239, 248, 139, 0.25);
+    }
+
+    .bloom-hover:hover {
+      box-shadow: 0 0 50px rgba(239, 248, 139, 0.35);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #131318; }
+    ::-webkit-scrollbar-thumb { background: rgba(239, 248, 139, 0.18); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(239, 248, 139, 0.35); }
+    ::selection { background: rgba(239, 248, 139, 0.35); color: #131318; }
+
+    /* Seedance placeholder — visible when the mp4 isn't there yet */
+    .video-slot {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at top left, rgba(239, 248, 139, 0.12), transparent 60%),
+        radial-gradient(ellipse at bottom right, rgba(106, 150, 134, 0.1), transparent 60%),
+        linear-gradient(135deg, #1b1b20 0%, #131318 50%, #0e0e13 100%);
+      border: 1px solid rgba(239, 248, 139, 0.08);
+    }
+    .video-slot::after {
+      content: "SEEDANCE 2.0 CLIP";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: rgba(239, 248, 139, 0.35);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .video-slot video {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Chamber logo lockup */
+    .chamber-mark {
+      background: #ddd8ce;
+      padding: 8px 12px;
+      border-radius: 2px;
+    }
+
+    /* Stripe ticker */
+    @keyframes ticker-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-track {
+      display: flex;
+      gap: 3rem;
+      animation: ticker-left 40s linear infinite;
+      min-width: 200%;
+      white-space: nowrap;
+    }
+  </style>
+
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#eff88b",
+            "secondary": "#6a9686",
+            "tertiary": "#ddd8ce",
+            "on-primary": "#2f3300",
+            "on-surface": "#e4e1e9",
+            "background": "#131318",
+            "surface": "#131318",
+            "surface-dim": "#0e0e13",
+            "surface-container": "#1f1f25",
+            "surface-container-low": "#1b1b20",
+            "surface-container-high": "#2a292f",
+            "outline": "#92927f",
+            "outline-variant": "#474838"
+          },
+          fontFamily: {
+            "headline": ["Anton"],
+            "body": ["Inter"],
+            "label": ["JetBrains Mono"]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-background selection:bg-primary selection:text-on-primary">
+
+
+  <!-- ========== TOP BAR ========== -->
+  <nav class="fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-5 md:py-6 z-50 bg-background/75 backdrop-blur-md border-b border-white/5">
+    <a href="https://bigsplash.video" target="_blank" rel="noopener" class="flex items-center gap-3" aria-label="Big Splash Home">
+      <svg class="h-5 md:h-6 w-auto" viewBox="0 0 655 191" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M170.856 172.036C170.856 175.982 169.691 179.3 167.449 182.08C162.786 187.729 153.191 190.778 136.96 190.778H133.014C125.481 190.778 119.473 190.42 114.9 189.433C105.933 187.64 102.077 184.142 102.077 178.852C102.077 172.037 107.009 168.45 120.101 167.373C108.085 167.284 101.808 165.67 101.808 157.958C101.808 151.95 106.56 147.376 119.742 146.928C109.789 145.493 104.318 141.727 104.318 132.849C104.318 121.909 114.183 114.825 135.166 114.825H137.229C140.726 114.825 143.416 114.645 145.568 114.018C149.783 113.031 151.487 110.251 151.487 103.974V103.257H168.345V103.885C168.345 110.341 167.269 113.569 163.862 115.094C160.634 116.529 154.805 116.618 145.568 116.618C161.351 117.605 167.718 122.626 167.718 132.849C167.718 144.596 157.764 149.618 137.587 149.618H131.49C126.558 149.618 122.971 149.708 120.549 149.977C115.886 150.425 114.81 151.501 114.81 153.295C114.81 154.012 115.259 154.729 116.245 155.088C118.128 155.895 122.702 156.164 130.862 156.164H144.851C163.144 156.164 170.856 160.02 170.856 171.588V172.036Z" fill="#EFF88B"/>
+        <path d="M86.2491 108.009C79.2546 108.009 76.385 105.767 76.385 98.7729C76.385 92.0473 79.972 89.7158 86.2491 89.7158C92.6159 89.7158 96.1132 92.0473 96.1132 98.7729C96.1132 105.229 92.885 108.009 86.2491 108.009ZM78.0888 167.373V115.901H93.7817V167.373H78.0888Z" fill="#EFF88B"/>
+        <path d="M0 167.373V103.436H35.4211C56.6737 103.436 66.9862 107.382 66.9862 120.205V120.743C66.9862 128.993 62.9509 132.67 53.8042 134.373C64.1166 135.808 68.6003 139.395 68.6003 148.452V148.811C68.6003 153.474 67.3449 157.24 64.834 159.841C59.8123 165.221 50.2172 167.373 36.0488 167.373H0ZM14.6168 115.273V128.724H36.8559C39.9944 128.724 42.5053 128.634 44.9265 128.365C49.4998 127.738 52.19 126.123 52.19 122.267V121.909C52.19 119.846 51.652 118.412 50.5759 117.425C48.4237 115.632 44.0297 115.273 36.3178 115.273H14.6168ZM14.6168 140.382V154.819H34.1656C39.4564 154.819 43.3124 154.64 46.0922 154.191C51.652 153.474 53.2661 151.591 53.2661 147.824V147.466C53.2661 145.403 52.7281 143.879 51.652 142.892C49.5895 140.83 44.6575 140.382 35.2417 140.382H14.6168Z" fill="#EFF88B"/>
+      </svg>
+      <span class="hidden sm:block font-label text-[10px] tracking-[0.3em] uppercase text-stone-500">bigsplash.video</span>
+    </a>
+
+    <div class="flex items-center gap-2 md:gap-4">
+      <span class="hidden md:block font-label text-[10px] tracking-[0.3em] uppercase text-stone-500">Proposal</span>
+      <span class="text-stone-700">/</span>
+      <span class="font-label text-[10px] md:text-xs tracking-[0.3em] uppercase text-primary">Mason County</span>
+    </div>
+  </nav>
+
+
+  <!-- ========== HERO ========== -->
+  <main class="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-background pt-20">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-primary/[0.06] rounded-full blur-[200px] z-0"></div>
+    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-secondary/[0.04] rounded-full blur-[180px] z-0"></div>
+    <div class="absolute inset-0 z-0 abyssal-grain"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-background/0 via-background/40 to-background z-0"></div>
+
+    <div class="relative z-20 text-center px-4 max-w-7xl mx-auto py-20">
+      <p class="font-label text-primary text-[11px] md:text-xs tracking-[0.3em] uppercase mb-8">
+        A Proposal · Prepared for Taylor Krull, Mason County Chamber of Commerce
+      </p>
+
+      <h1 class="font-anton text-[14vw] md:text-[11vw] tracking-tighter uppercase select-none leading-[0.85]">
+        <span class="block text-on-surface">Move to Mason.</span>
+        <span class="block text-primary text-glow-lime">Told on Film.</span>
+      </h1>
+
+      <p class="text-stone-400 text-base md:text-lg max-w-2xl mx-auto mt-10 md:mt-12 leading-relaxed">
+        Six cinematic concept pieces. Shot on the ground in Mason County, May through July 2026. Built to fill the relocation page, the Instagram grid, the YouTube channel that doesn't exist yet, and the visitor surface in the three counties around you.
+      </p>
+
+      <div class="mt-14 flex flex-col items-center gap-4">
+        <a href="#concepts" class="group inline-flex items-center gap-4 bg-primary text-on-primary px-10 md:px-12 py-5 md:py-6 font-anton text-xl md:text-2xl tracking-tight transition-all duration-500 bloom-hover">
+          See the Six Concepts
+          <span class="material-symbols-outlined group-hover:translate-y-1 transition-transform duration-300">arrow_downward</span>
+        </a>
+        <p class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600">
+          A 4-minute read. Full Seedance 2.0 mockups embedded below.
+        </p>
+      </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 w-full leading-[0] z-30">
+      <svg class="relative block w-full h-[60px] md:h-[90px]" preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+        <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#1b1b20"></path>
+      </svg>
+    </div>
+  </main>
+
+
+  <!-- ========== TICKER ========== -->
+  <section class="bg-surface-container-low border-y border-primary/5 overflow-hidden py-5">
+    <div class="ticker-track font-anton uppercase text-stone-700 text-xl md:text-2xl tracking-wider">
+      <span>Wildflower Season</span><span class="text-primary">*</span>
+      <span>Bat Emergence</span><span class="text-primary">*</span>
+      <span>Topaz Hunts</span><span class="text-primary">*</span>
+      <span>Roundup Weekend</span><span class="text-primary">*</span>
+      <span>Old Yeller Premiere</span><span class="text-primary">*</span>
+      <span>Sandstone Square</span><span class="text-primary">*</span>
+      <span>Eight Wineries</span><span class="text-primary">*</span>
+      <span>Wildflower Season</span><span class="text-primary">*</span>
+      <span>Bat Emergence</span><span class="text-primary">*</span>
+      <span>Topaz Hunts</span><span class="text-primary">*</span>
+      <span>Roundup Weekend</span><span class="text-primary">*</span>
+      <span>Old Yeller Premiere</span><span class="text-primary">*</span>
+      <span>Sandstone Square</span><span class="text-primary">*</span>
+      <span>Eight Wineries</span><span class="text-primary">*</span>
+    </div>
+  </section>
+
+
+  <!-- ========== THE SITUATION ========== -->
+  <section class="bg-surface-container-low py-24 md:py-40 px-6 md:px-12 relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/[0.05] rounded-full blur-[180px]"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
+        <div class="md:col-span-5 reveal">
+          <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-6">The Situation</p>
+          <h2 class="font-anton text-5xl md:text-7xl uppercase leading-none tracking-tighter text-on-surface">
+            A great story, <span class="text-primary text-glow-lime">almost no video telling it.</span>
+          </h2>
+        </div>
+
+        <div class="md:col-span-7 reveal space-y-6 text-stone-300 text-base md:text-lg leading-relaxed">
+          <p>
+            Mason has earned its spot on the Texas Monthly five most beautiful squares list. Sandstone storefronts, the Odeon Theater, the Llano River, eight wineries, topaz access on two ranches, a bat colony at Eckert James that runs May through October. The assets are rare.
+          </p>
+          <p>
+            The problem is that none of them appear on film on any Chamber-owned channel. masontx.org and destinationmason.com run on static photography and text. The Chamber Instagram sits at 737 followers despite 1,743 posts. No YouTube channel exists. No resident testimonial has been recorded. Someone searching "moving to Mason TX" lands on exploretexas.com, a third-party SEO page that loads with zero motion content.
+          </p>
+          <p class="text-primary font-semibold">
+            Whoever shoots first owns the relocation surface for the next decade.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== THE LEVERAGE ========== -->
+  <section class="bg-background py-24 md:py-32 px-6 md:px-12 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16 md:mb-20 reveal">
+        <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-6">Why Now</p>
+        <h2 class="font-anton text-5xl md:text-7xl uppercase leading-none tracking-tighter text-on-surface max-w-4xl">
+          Two windows open at the same time.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+        <div class="reveal bg-surface-container-low border border-primary/10 p-8 md:p-12">
+          <p class="font-label text-primary text-[10px] tracking-[0.3em] uppercase mb-4">Window One</p>
+          <h3 class="font-anton text-3xl md:text-4xl uppercase tracking-tighter text-on-surface mb-6">
+            HB 3179 Just Unlocked County HOT Funds.
+          </h3>
+          <p class="text-stone-400 leading-relaxed mb-4">
+            The 89th Texas Legislature authorized Mason County Commissioners Court to impose a county hotel occupancy tax in unincorporated areas. Revenue is statutorily restricted to tourism promotion.
+          </p>
+          <p class="text-stone-300 leading-relaxed">
+            Per Texas Tax Code, video advertising and promotional campaigns are an explicit eligible use. The Chamber has a funding path outside dues for the first time.
+          </p>
+        </div>
+
+        <div class="reveal bg-surface-container-low border border-primary/10 p-8 md:p-12">
+          <p class="font-label text-primary text-[10px] tracking-[0.3em] uppercase mb-4">Window Two</p>
+          <h3 class="font-anton text-3xl md:text-4xl uppercase tracking-tighter text-on-surface mb-6">
+            The Founder of Big Splash Moves to Mason May 1.
+          </h3>
+          <p class="text-stone-400 leading-relaxed mb-4">
+            Christopher List is relocating to Mason for 60 days with a full production kit. Cinema camera, drone, audio, lighting, edit suite.
+          </p>
+          <p class="text-stone-300 leading-relaxed">
+            Closing wildflower season on the way in. Bat emergence opens May 10. Roundup weekend lands in late June. Every shot on this page is reachable from the square in under 20 minutes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== THE SIX CONCEPTS ========== -->
+  <section id="concepts" class="bg-surface-dim py-24 md:py-32 px-6 md:px-12 relative">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="mb-16 md:mb-20 reveal">
+        <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-6">The Deliverables</p>
+        <h2 class="font-anton text-5xl md:text-7xl uppercase leading-none tracking-tighter text-on-surface">
+          Six concepts. <span class="text-primary text-glow-lime">One season.</span>
+        </h2>
+        <p class="text-stone-500 text-sm md:text-base mt-6 max-w-2xl">
+          Each concept ships as a shoot-ready treatment now, and a finished deliverable by July 1. The videos below are Seedance 2.0 mockups to communicate tone and framing. The real pieces will be shot on location with cinema glass, drone, and resident interviews.
+        </p>
+      </div>
+
+      <!-- ========== 01 · MOVE TO MASON (Anthem) ========== -->
+      <div class="mb-24 md:mb-32 reveal">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+          <div class="md:col-span-5 md:sticky md:top-28">
+            <div class="flex items-baseline gap-4 mb-6">
+              <span class="font-label text-primary/50 text-xs tracking-[0.3em] uppercase">01</span>
+              <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Anthem</p>
+            </div>
+            <h3 class="font-anton text-5xl md:text-6xl uppercase tracking-tighter text-on-surface leading-none mb-6">
+              Move to <span class="text-primary text-glow-lime">Mason.</span>
+            </h3>
+            <p class="text-stone-400 leading-relaxed mb-6">
+              The flagship. A cinematic 15-second open on the courthouse at golden hour, a slow dolly past the sandstone storefronts, and a close on a resident turning to camera with the Llano River behind her. Built to anchor the relocation landing page and sit at the top of the new YouTube channel.
+            </p>
+            <div class="border-l-2 border-primary/30 pl-6 space-y-3">
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Length</span>
+                <span class="text-stone-400 text-sm">15 seconds</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Aspect</span>
+                <span class="text-stone-400 text-sm">16:9 cinematic · 9:16 cutdown</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Home</span>
+                <span class="text-stone-400 text-sm">Relocation page hero, YouTube, meta OG</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="md:col-span-7">
+            <div class="video-slot aspect-video">
+              <video autoplay loop muted playsinline preload="metadata" poster="">
+                <source src="videos/01-anthem.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600 mt-4">
+              Mockup generated with Seedance 2.0 · Real piece shot with FX6 + drone on location
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ========== 02 · YEAR TWO (Resident Testimonial) ========== -->
+      <div class="mb-24 md:mb-32 reveal">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+          <div class="md:col-span-7 md:order-1 order-2">
+            <div class="video-slot aspect-[9/16] max-w-sm mx-auto">
+              <video autoplay loop muted playsinline preload="metadata" poster="">
+                <source src="videos/02-testimonial.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600 mt-4 text-center">
+              Mockup generated with Seedance 2.0 · Real piece shot on location
+            </p>
+          </div>
+
+          <div class="md:col-span-5 md:order-2 order-1 md:sticky md:top-28">
+            <div class="flex items-baseline gap-4 mb-6">
+              <span class="font-label text-primary/50 text-xs tracking-[0.3em] uppercase">02</span>
+              <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Testimonial</p>
+            </div>
+            <h3 class="font-anton text-5xl md:text-6xl uppercase tracking-tighter text-on-surface leading-none mb-6">
+              Year two on <span class="text-primary text-glow-lime">the square.</span>
+            </h3>
+            <p class="text-stone-400 leading-relaxed mb-6">
+              A young family standing in front of their Victorian two blocks off the square. Handheld, natural light, no script. Three questions, one clean 10-second cut. Built vertical for Instagram Reels and the Chamber's relocation page sidebar. One of three in a planned testimonial series covering retirees, working professionals, and families.
+            </p>
+            <div class="border-l-2 border-primary/30 pl-6 space-y-3">
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Length</span>
+                <span class="text-stone-400 text-sm">10 seconds each</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Aspect</span>
+                <span class="text-stone-400 text-sm">9:16 vertical</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Home</span>
+                <span class="text-stone-400 text-sm">Instagram Reels, Facebook Stories, relocation sidebar</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ========== 03 · HIDDEN GEMS ========== -->
+      <div class="mb-24 md:mb-32 reveal">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+          <div class="md:col-span-5 md:sticky md:top-28">
+            <div class="flex items-baseline gap-4 mb-6">
+              <span class="font-label text-primary/50 text-xs tracking-[0.3em] uppercase">03</span>
+              <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Tourism · Cinematic</p>
+            </div>
+            <h3 class="font-anton text-5xl md:text-6xl uppercase tracking-tighter text-on-surface leading-none mb-6">
+              The <span class="text-primary text-glow-lime">hidden gems</span> of Mason.
+            </h3>
+            <p class="text-stone-400 leading-relaxed mb-6">
+              A macro close on a topaz crystal turning in a weathered hand. Cut to a swarm of bats lifting off the Eckert James River at dusk, orange sky behind them. Cut to the Llano River from 400 feet up. The piece that lands on the Visit Mason hero and gets shared out of county by every travel writer who sees it.
+            </p>
+            <div class="border-l-2 border-primary/30 pl-6 space-y-3">
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Length</span>
+                <span class="text-stone-400 text-sm">8 seconds</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Aspect</span>
+                <span class="text-stone-400 text-sm">16:9 cinematic</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Home</span>
+                <span class="text-stone-400 text-sm">destinationmason.com hero, YouTube, press kit</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="md:col-span-7">
+            <div class="video-slot aspect-video">
+              <video autoplay loop muted playsinline preload="metadata" poster="">
+                <source src="videos/03-hidden-gems.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600 mt-4">
+              Mockup generated with Seedance 2.0 · Bat emergence shot starts May 10
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ========== 04 · MASON MADE ========== -->
+      <div class="mb-24 md:mb-32 reveal">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+          <div class="md:col-span-7 md:order-1 order-2">
+            <div class="video-slot aspect-video">
+              <video autoplay loop muted playsinline preload="metadata" poster="">
+                <source src="videos/04-mason-made.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600 mt-4">
+              Mockup generated with Seedance 2.0 · Series bumper, one shoot covers eight members
+            </p>
+          </div>
+
+          <div class="md:col-span-5 md:order-2 order-1 md:sticky md:top-28">
+            <div class="flex items-baseline gap-4 mb-6">
+              <span class="font-label text-primary/50 text-xs tracking-[0.3em] uppercase">04</span>
+              <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Member Spotlight Series</p>
+            </div>
+            <h3 class="font-anton text-5xl md:text-6xl uppercase tracking-tighter text-on-surface leading-none mb-6">
+              Mason <span class="text-primary text-glow-lime">made.</span>
+            </h3>
+            <p class="text-stone-400 leading-relaxed mb-6">
+              A cohesive 10-second opener that plays before every member highlight the Chamber runs this year. Sandstone wordmark, hands at work, a cut to the member's own shop sign. Eight pilot members already fit the ICP, from Sandstone Cellars and Robert Clay Vineyards to Willow Creek Cafe and Seaquist Ranch. Members co-fund the spotlight. Chamber owns the frame.
+            </p>
+            <div class="border-l-2 border-primary/30 pl-6 space-y-3">
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Length</span>
+                <span class="text-stone-400 text-sm">10 seconds opener · 60 second member cut</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Aspect</span>
+                <span class="text-stone-400 text-sm">16:9 · 9:16 · 1:1 for grid</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Home</span>
+                <span class="text-stone-400 text-sm">@chambermtx, member pages, YouTube playlist</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ========== 05 · SEASONS OF MASON ========== -->
+      <div class="mb-24 md:mb-32 reveal">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+          <div class="md:col-span-5 md:sticky md:top-28">
+            <div class="flex items-baseline gap-4 mb-6">
+              <span class="font-label text-primary/50 text-xs tracking-[0.3em] uppercase">05</span>
+              <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Seasonal Calendar Reel</p>
+            </div>
+            <h3 class="font-anton text-5xl md:text-6xl uppercase tracking-tighter text-on-surface leading-none mb-6">
+              Seasons of <span class="text-primary text-glow-lime">Mason.</span>
+            </h3>
+            <p class="text-stone-400 leading-relaxed mb-6">
+              A year in 15 seconds. Wildflowers in April dissolve into bats at dusk in May. Roundup rodeo in July fades into Old Yeller on the Odeon marquee in September. Wild Game in November closes it out. Built to re-release quarterly with the leading season as the hero frame. One shoot, four evergreen cutdowns.
+            </p>
+            <div class="border-l-2 border-primary/30 pl-6 space-y-3">
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Length</span>
+                <span class="text-stone-400 text-sm">15 seconds master · four 8-second cutdowns</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Aspect</span>
+                <span class="text-stone-400 text-sm">9:16 vertical native</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Home</span>
+                <span class="text-stone-400 text-sm">Instagram Reels, Facebook video, tourism paid</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="md:col-span-7">
+            <div class="video-slot aspect-[9/16] max-w-sm mx-auto">
+              <video autoplay loop muted playsinline preload="metadata" poster="">
+                <source src="videos/05-seasons.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600 mt-4 text-center">
+              Mockup generated with Seedance 2.0 · Seasonal cutdowns released quarterly
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ========== 06 · ROOM ON THE SQUARE ========== -->
+      <div class="reveal">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+          <div class="md:col-span-7 md:order-1 order-2">
+            <div class="video-slot aspect-[9/16] max-w-sm mx-auto">
+              <video autoplay loop muted playsinline preload="metadata" poster="">
+                <source src="videos/06-square.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600 mt-4 text-center">
+              Mockup generated with Seedance 2.0 · Loop-friendly for Reels and stories
+            </p>
+          </div>
+
+          <div class="md:col-span-5 md:order-2 order-1 md:sticky md:top-28">
+            <div class="flex items-baseline gap-4 mb-6">
+              <span class="font-label text-primary/50 text-xs tracking-[0.3em] uppercase">06</span>
+              <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Lodging Loop</p>
+            </div>
+            <h3 class="font-anton text-5xl md:text-6xl uppercase tracking-tighter text-on-surface leading-none mb-6">
+              Room on <span class="text-primary text-glow-lime">the square.</span>
+            </h3>
+            <p class="text-stone-400 leading-relaxed mb-6">
+              An 8-second seamless loop. Pressed-tin ceiling, a Victorian window catching first light on the courthouse across the square, a coffee cup steaming on the sill. Start frame matches end frame so the loop runs silent on the lodging section of the Visit Mason page and on Mason Square Hotel and Red Door B&B's Reels. Works as a Chamber asset and a member asset in one shoot.
+            </p>
+            <div class="border-l-2 border-primary/30 pl-6 space-y-3">
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Length</span>
+                <span class="text-stone-400 text-sm">8 seconds seamless loop</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Aspect</span>
+                <span class="text-stone-400 text-sm">9:16 vertical</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Home</span>
+                <span class="text-stone-400 text-sm">Lodging page loop, member Reels, stay-page ads</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========== TIMELINE ========== -->
+  <section class="bg-background py-24 md:py-32 px-6 md:px-12 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16 md:mb-20 reveal">
+        <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-6">60-Day Plan</p>
+        <h2 class="font-anton text-5xl md:text-7xl uppercase leading-none tracking-tighter text-on-surface">
+          Boots on <span class="text-primary text-glow-lime">the square.</span>
+        </h2>
+      </div>
+
+      <div class="space-y-6">
+        <div class="reveal grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-6 border-t border-primary/10">
+          <div class="md:col-span-2">
+            <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">May 1 – 7</p>
+          </div>
+          <div class="md:col-span-4">
+            <h3 class="font-anton text-2xl md:text-3xl uppercase tracking-tighter text-on-surface">Arrival and Handshakes</h3>
+          </div>
+          <div class="md:col-span-6">
+            <p class="text-stone-400 leading-relaxed">First Chamber event, 20-minute coffee with Taylor, walking the square, meeting the eight pilot ICP members in person.</p>
+          </div>
+        </div>
+
+        <div class="reveal grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-6 border-t border-primary/10">
+          <div class="md:col-span-2">
+            <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">May 10 – 25</p>
+          </div>
+          <div class="md:col-span-4">
+            <h3 class="font-anton text-2xl md:text-3xl uppercase tracking-tighter text-on-surface">Principal Shoot Block</h3>
+          </div>
+          <div class="md:col-span-6">
+            <p class="text-stone-400 leading-relaxed">Anthem, Hidden Gems, Mason Made, and Room on the Square. Bat emergence opens May 10. Drone day early. Two testimonial interviews before Memorial Day.</p>
+          </div>
+        </div>
+
+        <div class="reveal grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-6 border-t border-primary/10">
+          <div class="md:col-span-2">
+            <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">May 26 – Jun 5</p>
+          </div>
+          <div class="md:col-span-4">
+            <h3 class="font-anton text-2xl md:text-3xl uppercase tracking-tighter text-on-surface">First Cuts to Chamber</h3>
+          </div>
+          <div class="md:col-span-6">
+            <p class="text-stone-400 leading-relaxed">60-second anthem, three testimonial cuts, Hidden Gems reel, and the Mason Made opener delivered for review and approval.</p>
+          </div>
+        </div>
+
+        <div class="reveal grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-6 border-t border-primary/10">
+          <div class="md:col-span-2">
+            <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Jun 6 – 20</p>
+          </div>
+          <div class="md:col-span-4">
+            <h3 class="font-anton text-2xl md:text-3xl uppercase tracking-tighter text-on-surface">Seasonal Shoot and Revisions</h3>
+          </div>
+          <div class="md:col-span-6">
+            <p class="text-stone-400 leading-relaxed">Roundup weekend coverage, Seasons of Mason cutdowns, member highlights picked up for the four signed pilot businesses. Retainer proposal presented to the Chamber board.</p>
+          </div>
+        </div>
+
+        <div class="reveal grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-6 border-t border-b border-primary/10">
+          <div class="md:col-span-2">
+            <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Jun 21 – Jul 1</p>
+          </div>
+          <div class="md:col-span-4">
+            <h3 class="font-anton text-2xl md:text-3xl uppercase tracking-tighter text-on-surface">Handoff and Launch</h3>
+          </div>
+          <div class="md:col-span-6">
+            <p class="text-stone-400 leading-relaxed">Final deliverables uploaded. YouTube channel launched. Relocation page hero swapped live. Quarterly-shoot retainer starts July 1 with the next visit on the calendar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== WHO'S MAKING THIS ========== -->
+  <section class="bg-surface-container-low py-24 md:py-32 px-6 md:px-12 relative">
+    <div class="absolute inset-0 abyssal-grain opacity-60"></div>
+    <div class="max-w-5xl mx-auto relative z-10">
+      <div class="reveal">
+        <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-6">The Maker</p>
+        <h2 class="font-anton text-5xl md:text-6xl uppercase leading-none tracking-tighter text-on-surface mb-10">
+          Founder-led. <br class="md:hidden"/><span class="text-primary text-glow-lime">On the ground.</span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-12 text-stone-300 text-base md:text-lg leading-relaxed">
+          <div class="md:col-span-3 space-y-5">
+            <p>
+              Christopher List is the founder of Big Splash Agency, a video-first marketing shop based in Austin. Big Splash writes the hook, shoots the footage, cuts to the metric, and ships creative built to convert.
+            </p>
+            <p>
+              The portfolio spans Torchy's Tacos, Covert Auto, Bell District Physical Medicine, Scottie Campbell, and fourteen other service businesses in Central Texas. Every client is a business where the spend has to pay back, which is exactly the bar a Chamber operates under.
+            </p>
+            <p>
+              Big Splash has never pitched a chamber before. Mason is the first. That means Mason gets founder attention, not account-manager attention, for the entire 60 days.
+            </p>
+          </div>
+          <div class="md:col-span-2">
+            <div class="bg-background border border-primary/10 p-6">
+              <p class="font-label text-[10px] tracking-[0.3em] uppercase text-primary mb-4">Reach Chris Directly</p>
+              <a href="mailto:chris@bigsplash.agency" class="block font-anton text-2xl md:text-3xl uppercase tracking-tight text-on-surface hover:text-primary transition-colors duration-300 mb-6 break-all">
+                chris@bigsplash.agency
+              </a>
+              <a href="https://bigsplash.video" target="_blank" rel="noopener" class="inline-flex items-center gap-2 font-label text-xs tracking-[0.25em] uppercase text-stone-400 hover:text-primary transition-colors duration-300">
+                bigsplash.video
+                <span class="material-symbols-outlined text-sm">arrow_outward</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== CTA ========== -->
+  <section class="bg-background relative py-32 md:py-48 overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-primary/[0.06] rounded-full blur-[200px]"></div>
+    <div class="absolute inset-0 abyssal-grain"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 md:px-12 text-center reveal">
+      <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-8">The Ask</p>
+      <h2 class="font-anton text-6xl md:text-8xl lg:text-9xl uppercase leading-[0.85] tracking-tighter text-on-surface mb-10">
+        Twenty minutes. <br/><span class="text-primary text-glow-lime">One coffee.</span>
+      </h2>
+      <p class="text-stone-400 text-lg md:text-xl mb-12 max-w-xl mx-auto leading-relaxed">
+        Pick a morning the first week of May. The spec reel gets made either way. The retainer conversation only happens after you have seen the first cut in your hands.
+      </p>
+      <a href="mailto:chris@bigsplash.agency?subject=Mason%20Chamber%20%C2%B7%20coffee%20the%20first%20week%20of%20May&body=Chris%20%E2%80%94%20let's%20grab%20that%20coffee.%20Here's%20a%20morning%20that%20works%3A%20%0A%0A" class="group inline-flex items-center gap-4 bg-primary text-on-primary px-10 md:px-14 py-6 md:py-7 font-anton text-2xl md:text-3xl tracking-tight transition-all duration-500 bloom-hover">
+        Book the Coffee
+        <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform duration-300 text-3xl">arrow_forward</span>
+      </a>
+      <p class="mt-10 font-label text-[10px] md:text-xs tracking-[0.25em] uppercase text-stone-500">
+        chris@bigsplash.agency · bigsplash.video
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-surface-dim border-t border-white/5 py-14 md:py-16 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 mb-12">
+        <div>
+          <a href="https://bigsplash.video" target="_blank" rel="noopener" aria-label="Big Splash Home">
+            <svg class="h-5 w-auto mb-4" viewBox="0 0 655 191" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M170.856 172.036C170.856 175.982 169.691 179.3 167.449 182.08C162.786 187.729 153.191 190.778 136.96 190.778H133.014C125.481 190.778 119.473 190.42 114.9 189.433C105.933 187.64 102.077 184.142 102.077 178.852C102.077 172.037 107.009 168.45 120.101 167.373C108.085 167.284 101.808 165.67 101.808 157.958C101.808 151.95 106.56 147.376 119.742 146.928C109.789 145.493 104.318 141.727 104.318 132.849C104.318 121.909 114.183 114.825 135.166 114.825H137.229C140.726 114.825 143.416 114.645 145.568 114.018C149.783 113.031 151.487 110.251 151.487 103.974V103.257H168.345V103.885C168.345 110.341 167.269 113.569 163.862 115.094C160.634 116.529 154.805 116.618 145.568 116.618C161.351 117.605 167.718 122.626 167.718 132.849C167.718 144.596 157.764 149.618 137.587 149.618H131.49C126.558 149.618 122.971 149.708 120.549 149.977C115.886 150.425 114.81 151.501 114.81 153.295C114.81 154.012 115.259 154.729 116.245 155.088C118.128 155.895 122.702 156.164 130.862 156.164H144.851C163.144 156.164 170.856 160.02 170.856 171.588V172.036Z" fill="#EFF88B"/>
+            </svg>
+          </a>
+          <p class="text-stone-600 text-xs leading-relaxed">Video-first marketing for service businesses.</p>
+          <a href="https://bigsplash.video" target="_blank" rel="noopener" class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-500 hover:text-primary transition-colors duration-300 mt-3 inline-block">
+            bigsplash.video
+          </a>
+        </div>
+
+        <div>
+          <h4 class="font-label text-[10px] tracking-widest uppercase text-stone-500 mb-5">This Proposal</h4>
+          <ul class="space-y-3">
+            <li><a href="#concepts" class="text-sm text-stone-500 hover:text-primary transition-colors duration-300">Six concepts</a></li>
+            <li><a href="mailto:chris@bigsplash.agency" class="text-sm text-stone-500 hover:text-primary transition-colors duration-300">Reach Chris</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-label text-[10px] tracking-widest uppercase text-stone-500 mb-5">Prepared For</h4>
+          <p class="text-sm text-stone-400 leading-relaxed">Mason County Chamber of Commerce<br/>Taylor Krull, Executive Director<br/>108 Fort McKavitt · Mason, TX 76856</p>
+        </div>
+      </div>
+
+      <div class="border-t border-white/5 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="font-label text-[10px] tracking-widest uppercase text-stone-600">&copy; 2026 Big Splash Agency</p>
+        <p class="font-label text-[10px] tracking-widest uppercase text-stone-600">Prepared April 2026 · Delivery window May 1 – July 1</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    // Reveal animations on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+    revealEls.forEach(el => io.observe(el));
+
+    // Graceful video fallback — hide video element entirely if the source 404s,
+    // so the ::after "SEEDANCE 2.0 CLIP" placeholder shows through cleanly.
+    document.querySelectorAll('.video-slot video').forEach(video => {
+      video.addEventListener('error', () => { video.style.display = 'none'; }, true);
+      const src = video.querySelector('source');
+      if (src) {
+        src.addEventListener('error', () => { video.style.display = 'none'; }, true);
+      }
+    });
+  </script>
+</body>
+</html>
