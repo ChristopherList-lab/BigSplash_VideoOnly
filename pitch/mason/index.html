@@ -178,12 +178,12 @@
   <!-- ========== HERO ========== -->
   <main class="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-background pt-20">
     <!-- Background video -->
-    <video id="hero-video" autoplay loop muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0" style="filter: brightness(0.6) contrast(1.05) saturate(0.9);">
+    <video id="hero-video" autoplay loop muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0" style="filter: brightness(0.85) contrast(1.05) saturate(0.95);">
       <source src="videos/hero.mp4" type="video/mp4">
     </video>
-    <!-- Moody darken overlay (kept light enough that motion reads) -->
-    <div class="absolute inset-0 bg-black/35 z-[1]"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background z-[1]"></div>
+    <!-- Light darken overlay -->
+    <div class="absolute inset-0 bg-black/25 z-[1]"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-[1]"></div>
 
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-primary/[0.06] rounded-full blur-[200px] z-[2]"></div>
     <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-secondary/[0.04] rounded-full blur-[180px] z-[2]"></div>
