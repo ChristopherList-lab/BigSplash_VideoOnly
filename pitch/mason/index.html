@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Move to Mason, On Film — A Proposal from Big Splash</title>
-  <meta name="description" content="A video marketing proposal for the Mason County Chamber of Commerce. Six concept pieces, shot on the ground May through July 2026.">
+  <title>Quieter Than Fredericksburg — A Proposal for Mason County Chamber</title>
+  <meta name="description" content="A video marketing proposal for the Mason County Chamber of Commerce. Positioning Mason as the quiet Hill Country alternative. Six cinematic pieces shot on the ground May through July 2026.">
   <meta name="robots" content="noindex,nofollow">
 
-  <meta property="og:title" content="Move to Mason, On Film — A Proposal from Big Splash">
-  <meta property="og:description" content="Six concept pieces for the Mason County Chamber. Shot May–July 2026.">
+  <meta property="og:title" content="Quieter Than Fredericksburg — A Proposal from Big Splash">
+  <meta property="og:description" content="Six cinematic pieces for the Mason County Chamber. Shot May–July 2026.">
   <meta property="og:type" content="website">
 
   <link rel="icon" type="image/png" href="../../Bigsplash_FAVcon.png">
@@ -69,7 +69,6 @@
     ::-webkit-scrollbar-thumb:hover { background: rgba(239, 248, 139, 0.35); }
     ::selection { background: rgba(239, 248, 139, 0.35); color: #131318; }
 
-    /* Seedance placeholder — visible when the mp4 isn't there yet */
     .video-slot {
       position: relative;
       overflow: hidden;
@@ -102,14 +101,6 @@
       display: block;
     }
 
-    /* Chamber logo lockup */
-    .chamber-mark {
-      background: #ddd8ce;
-      padding: 8px 12px;
-      border-radius: 2px;
-    }
-
-    /* Stripe ticker */
     @keyframes ticker-left {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
@@ -121,6 +112,13 @@
       min-width: 200%;
       white-space: nowrap;
     }
+
+    /* GHL calendar modal */
+    #cal-modal { transition: opacity 0.3s, visibility 0.3s; }
+    #cal-modal.open { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+    body.cal-locked { overflow: hidden; }
+    .ghl-cal-dark { filter: invert(0.88) hue-rotate(180deg); border-radius: 4px; }
+    .ghl-cal-dark img { filter: invert(1) hue-rotate(180deg); }
   </style>
 
   <script>
@@ -140,6 +138,7 @@
             "surface-container": "#1f1f25",
             "surface-container-low": "#1b1b20",
             "surface-container-high": "#2a292f",
+            "surface-container-highest": "#35343a",
             "outline": "#92927f",
             "outline-variant": "#474838"
           },
@@ -189,12 +188,12 @@
       </p>
 
       <h1 class="font-anton text-[14vw] md:text-[11vw] tracking-tighter uppercase select-none leading-[0.85]">
-        <span class="block text-on-surface">Move to Mason.</span>
-        <span class="block text-primary text-glow-lime">Told on Film.</span>
+        <span class="block text-on-surface">Quieter than</span>
+        <span class="block text-primary text-glow-lime">Fredericksburg.</span>
       </h1>
 
       <p class="text-stone-400 text-base md:text-lg max-w-2xl mx-auto mt-10 md:mt-12 leading-relaxed">
-        Six cinematic concept pieces. Shot on the ground in Mason County, May through July 2026. Built to fill the relocation page, the Instagram grid, the YouTube channel that doesn't exist yet, and the visitor surface in the three counties around you.
+        Sixty miles west of the wine-tour buses. One stoplight. Nine wineries most people have never heard of. The Hill Country people came here for in the first place. Six cinematic pieces. Shot on the ground, May through July 2026.
       </p>
 
       <div class="mt-14 flex flex-col items-center gap-4">
@@ -219,20 +218,20 @@
   <!-- ========== TICKER ========== -->
   <section class="bg-surface-container-low border-y border-primary/5 overflow-hidden py-5">
     <div class="ticker-track font-anton uppercase text-stone-700 text-xl md:text-2xl tracking-wider">
-      <span>Wildflower Season</span><span class="text-primary">*</span>
-      <span>Bat Emergence</span><span class="text-primary">*</span>
-      <span>Topaz Hunts</span><span class="text-primary">*</span>
-      <span>Roundup Weekend</span><span class="text-primary">*</span>
-      <span>Old Yeller Premiere</span><span class="text-primary">*</span>
+      <span>One Stoplight</span><span class="text-primary">*</span>
+      <span>Nine Wineries</span><span class="text-primary">*</span>
+      <span>Two Topaz Ranches</span><span class="text-primary">*</span>
+      <span>One Bat Cave</span><span class="text-primary">*</span>
       <span>Sandstone Square</span><span class="text-primary">*</span>
-      <span>Eight Wineries</span><span class="text-primary">*</span>
-      <span>Wildflower Season</span><span class="text-primary">*</span>
-      <span>Bat Emergence</span><span class="text-primary">*</span>
-      <span>Topaz Hunts</span><span class="text-primary">*</span>
-      <span>Roundup Weekend</span><span class="text-primary">*</span>
-      <span>Old Yeller Premiere</span><span class="text-primary">*</span>
+      <span>No Tour Buses</span><span class="text-primary">*</span>
+      <span>Population 2,100</span><span class="text-primary">*</span>
+      <span>One Stoplight</span><span class="text-primary">*</span>
+      <span>Nine Wineries</span><span class="text-primary">*</span>
+      <span>Two Topaz Ranches</span><span class="text-primary">*</span>
+      <span>One Bat Cave</span><span class="text-primary">*</span>
       <span>Sandstone Square</span><span class="text-primary">*</span>
-      <span>Eight Wineries</span><span class="text-primary">*</span>
+      <span>No Tour Buses</span><span class="text-primary">*</span>
+      <span>Population 2,100</span><span class="text-primary">*</span>
     </div>
   </section>
 
@@ -246,19 +245,22 @@
         <div class="md:col-span-5 reveal">
           <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-6">The Situation</p>
           <h2 class="font-anton text-5xl md:text-7xl uppercase leading-none tracking-tighter text-on-surface">
-            A great story, <span class="text-primary text-glow-lime">almost no video telling it.</span>
+            Fredericksburg got the crowds. <span class="text-primary text-glow-lime">Mason kept the quiet.</span>
           </h2>
         </div>
 
         <div class="md:col-span-7 reveal space-y-6 text-stone-300 text-base md:text-lg leading-relaxed">
           <p>
-            Mason has earned its spot on the Texas Monthly five most beautiful squares list. Sandstone storefronts, the Odeon Theater, the Llano River, eight wineries, topaz access on two ranches, a bat colony at Eckert James that runs May through October. The assets are rare.
+            Fredericksburg is full. Main Street runs on tour buses. Wine tours run shuttles. Tasting rooms take reservations. The Hill Country experience people actually drove out for is still somewhere. It just kept driving west.
           </p>
           <p>
-            The problem is that none of them appear on film on any Chamber-owned channel. masontx.org and destinationmason.com run on static photography and text. The Chamber Instagram sits at 737 followers despite 1,743 posts. No YouTube channel exists. No resident testimonial has been recorded. Someone searching "moving to Mason TX" lands on exploretexas.com, a third-party SEO page that loads with zero motion content.
+            Sixty miles past the last Fredericksburg traffic light, Mason has one of its own. Population 2,100. A courthouse square on the Texas Monthly list of the five most beautiful in Texas. Nine wineries and two topaz ranches a lot of Hill Country regulars have never heard of. A bat colony at Eckert James that opens May 10.
+          </p>
+          <p>
+            None of it lives on film on any Chamber-owned channel. masontx.org runs on text. destinationmason.com runs on still photography. The Instagram sits at 737 followers despite 1,743 posts. No YouTube channel. Someone typing "moving to Mason TX" lands on a third-party SEO page that loads with zero motion content.
           </p>
           <p class="text-primary font-semibold">
-            Whoever shoots first owns the relocation surface for the next decade.
+            Whoever puts Mason's quiet on film first owns the Fredericksburg overflow for the next decade.
           </p>
         </div>
       </div>
@@ -286,7 +288,7 @@
             The 89th Texas Legislature authorized Mason County Commissioners Court to impose a county hotel occupancy tax in unincorporated areas. Revenue is statutorily restricted to tourism promotion.
           </p>
           <p class="text-stone-300 leading-relaxed">
-            Per Texas Tax Code, video advertising and promotional campaigns are an explicit eligible use. The Chamber has a funding path outside dues for the first time.
+            Per Texas Tax Code, video advertising and promotional campaigns are an explicit eligible use. As Fredericksburg's overflow pushes west, the funding to receive it is now in place. The Chamber has a path outside dues for the first time.
           </p>
         </div>
 
@@ -296,7 +298,7 @@
             The Founder of Big Splash Moves to Mason May 1.
           </h3>
           <p class="text-stone-400 leading-relaxed mb-4">
-            Christopher List is relocating to Mason for 60 days with a full production kit. Cinema camera, drone, audio, lighting, edit suite.
+            Christopher List is relocating to Mason for 60 days with a full production kit. FX30 cinema camera, drone, audio, lighting, edit suite.
           </p>
           <p class="text-stone-300 leading-relaxed">
             Closing wildflower season on the way in. Bat emergence opens May 10. Roundup weekend lands in late June. Every shot on this page is reachable from the square in under 20 minutes.
@@ -317,11 +319,11 @@
           Six concepts. <span class="text-primary text-glow-lime">One season.</span>
         </h2>
         <p class="text-stone-500 text-sm md:text-base mt-6 max-w-2xl">
-          Each concept ships as a shoot-ready treatment now, and a finished deliverable by July 1. The videos below are Seedance 2.0 mockups to communicate tone and framing. The real pieces will be shot on location with cinema glass, drone, and resident interviews.
+          Each concept ships as a shoot-ready treatment now and a finished deliverable by July 1. The videos below are Seedance 2.0 mockups to communicate tone and framing. The real pieces will be shot on location with cinema glass, drone, and resident interviews.
         </p>
       </div>
 
-      <!-- ========== 01 · MOVE TO MASON (Anthem) ========== -->
+      <!-- ========== 01 · STILL (Anthem) ========== -->
       <div class="mb-24 md:mb-32 reveal">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
           <div class="md:col-span-5 md:sticky md:top-28">
@@ -330,10 +332,10 @@
               <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Anthem</p>
             </div>
             <h3 class="font-anton text-5xl md:text-6xl uppercase tracking-tighter text-on-surface leading-none mb-6">
-              Move to <span class="text-primary text-glow-lime">Mason.</span>
+              <span class="text-primary text-glow-lime">Still.</span>
             </h3>
             <p class="text-stone-400 leading-relaxed mb-6">
-              The flagship. A cinematic 15-second open on the courthouse at golden hour, a slow dolly past the sandstone storefronts, and a close on a resident turning to camera with the Llano River behind her. Built to anchor the relocation landing page and sit at the top of the new YouTube channel.
+              The flagship. A cinematic 15-second open on the Mason County courthouse at golden hour. Red brick Greek Revival, white columns, the white clock cupola catching the last of the sun. A slow drone reveal over the Llano River valley. One resident on a front porch, no crowd behind her. What Fredericksburg used to feel like at six in the evening.
             </p>
             <div class="border-l-2 border-primary/30 pl-6 space-y-3">
               <div class="flex items-baseline gap-4">
@@ -365,7 +367,7 @@
       </div>
 
 
-      <!-- ========== 02 · YEAR TWO (Resident Testimonial) ========== -->
+      <!-- ========== 02 · WHY WE LEFT FREDERICKSBURG (Testimonial) ========== -->
       <div class="mb-24 md:mb-32 reveal">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
           <div class="md:col-span-7 md:order-1 order-2">
@@ -385,10 +387,10 @@
               <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Testimonial</p>
             </div>
             <h3 class="font-anton text-5xl md:text-6xl uppercase tracking-tighter text-on-surface leading-none mb-6">
-              Year two on <span class="text-primary text-glow-lime">the square.</span>
+              Why we <span class="text-primary text-glow-lime">left Fredericksburg.</span>
             </h3>
             <p class="text-stone-400 leading-relaxed mb-6">
-              A young family standing in front of their Victorian two blocks off the square. Handheld, natural light, no script. Three questions, one clean 10-second cut. Built vertical for Instagram Reels and the Chamber's relocation page sidebar. One of three in a planned testimonial series covering retirees, working professionals, and families.
+              A family that relocated from Fredericksburg to Mason last year, standing on the sidewalk in front of their Victorian two blocks off the square. Handheld, natural light, no script. Three questions, one clean 10-second cut. The first in a planned series covering retirees, working professionals, and families who drove thirty more miles and never looked back.
             </p>
             <div class="border-l-2 border-primary/30 pl-6 space-y-3">
               <div class="flex items-baseline gap-4">
@@ -409,7 +411,7 @@
       </div>
 
 
-      <!-- ========== 03 · HIDDEN GEMS ========== -->
+      <!-- ========== 03 · WHAT FREDERICKSBURG DOESN'T HAVE ========== -->
       <div class="mb-24 md:mb-32 reveal">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
           <div class="md:col-span-5 md:sticky md:top-28">
@@ -418,10 +420,10 @@
               <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Tourism · Cinematic</p>
             </div>
             <h3 class="font-anton text-5xl md:text-6xl uppercase tracking-tighter text-on-surface leading-none mb-6">
-              The <span class="text-primary text-glow-lime">hidden gems</span> of Mason.
+              What Fredericksburg <span class="text-primary text-glow-lime">doesn't have.</span>
             </h3>
             <p class="text-stone-400 leading-relaxed mb-6">
-              A macro close on a topaz crystal turning in a weathered hand. Cut to a swarm of bats lifting off the Eckert James River at dusk, orange sky behind them. Cut to the Llano River from 400 feet up. The piece that lands on the Visit Mason hero and gets shared out of county by every travel writer who sees it.
+              A macro close on a rough topaz turning in a weathered hand. Cut to thousands of Mexican free-tailed bats lifting off the Eckert James River at dusk, orange sky behind them. Cut to the Llano River from 400 feet up at first light. Three Mason-only experiences the tour buses sixty miles east can't get to. The piece that travel writers share.
             </p>
             <div class="border-l-2 border-primary/30 pl-6 space-y-3">
               <div class="flex items-baseline gap-4">
@@ -446,7 +448,7 @@
               </video>
             </div>
             <p class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600 mt-4">
-              Mockup generated with Seedance 2.0 · Bat emergence shot starts May 10
+              Mockup generated with Seedance 2.0 · Bat emergence shoot opens May 10
             </p>
           </div>
         </div>
@@ -476,7 +478,7 @@
               Mason <span class="text-primary text-glow-lime">made.</span>
             </h3>
             <p class="text-stone-400 leading-relaxed mb-6">
-              A cohesive 10-second opener that plays before every member highlight the Chamber runs this year. Sandstone wordmark, hands at work, a cut to the member's own shop sign. Eight pilot members already fit the ICP, from Sandstone Cellars and Robert Clay Vineyards to Willow Creek Cafe and Seaquist Ranch. Members co-fund the spotlight. Chamber owns the frame.
+              A cohesive 10-second opener that plays before every member highlight this year. Hands at work, small-batch, family-owned. The kind of places that answer the phone and remember your name. Eight pilot members fit the ICP: Sandstone Cellars, Robert Clay Vineyards, Willow Creek Cafe, Seaquist Ranch, and more. Members co-fund the spotlight. The Chamber owns the frame.
             </p>
             <div class="border-l-2 border-primary/30 pl-6 space-y-3">
               <div class="flex items-baseline gap-4">
@@ -509,7 +511,7 @@
               Seasons of <span class="text-primary text-glow-lime">Mason.</span>
             </h3>
             <p class="text-stone-400 leading-relaxed mb-6">
-              A year in 15 seconds. Wildflowers in April dissolve into bats at dusk in May. Roundup rodeo in July fades into Old Yeller on the Odeon marquee in September. Wild Game in November closes it out. Built to re-release quarterly with the leading season as the hero frame. One shoot, four evergreen cutdowns.
+              A year in 15 seconds. Wildflowers in April dissolve into bats at dusk in May. Roundup rodeo in July fades into Old Yeller on the Odeon marquee in September. Wild Game weekend in November closes it out. Five seasonal moments Fredericksburg doesn't own. One shoot, four evergreen cutdowns, re-released quarterly with the leading season as the hero frame.
             </p>
             <div class="border-l-2 border-primary/30 pl-6 space-y-3">
               <div class="flex items-baseline gap-4">
@@ -564,7 +566,7 @@
               Room on <span class="text-primary text-glow-lime">the square.</span>
             </h3>
             <p class="text-stone-400 leading-relaxed mb-6">
-              An 8-second seamless loop. Pressed-tin ceiling, a Victorian window catching first light on the courthouse across the square, a coffee cup steaming on the sill. Start frame matches end frame so the loop runs silent on the lodging section of the Visit Mason page and on Mason Square Hotel and Red Door B&B's Reels. Works as a Chamber asset and a member asset in one shoot.
+              An 8-second seamless loop. Pressed-tin ceiling, a Victorian window catching first light, the Mason County courthouse's red brick and white cupola visible across the lawn. A coffee cup steaming on the sill. No street noise. No shuttles pulling up. The Reel that runs silent on the lodging page and in every member Reel for Mason Square Hotel, Red Door B&B, and Lea Lou Lodge.
             </p>
             <div class="border-l-2 border-primary/30 pl-6 space-y-3">
               <div class="flex items-baseline gap-4">
@@ -619,7 +621,7 @@
             <h3 class="font-anton text-2xl md:text-3xl uppercase tracking-tighter text-on-surface">Principal Shoot Block</h3>
           </div>
           <div class="md:col-span-6">
-            <p class="text-stone-400 leading-relaxed">Anthem, Hidden Gems, Mason Made, and Room on the Square. Bat emergence opens May 10. Drone day early. Two testimonial interviews before Memorial Day.</p>
+            <p class="text-stone-400 leading-relaxed">Anthem, What Fredericksburg Doesn't Have, Mason Made, and Room on the Square. Bat emergence opens May 10. Drone day early. Two testimonial interviews before Memorial Day.</p>
           </div>
         </div>
 
@@ -631,7 +633,7 @@
             <h3 class="font-anton text-2xl md:text-3xl uppercase tracking-tighter text-on-surface">First Cuts to Chamber</h3>
           </div>
           <div class="md:col-span-6">
-            <p class="text-stone-400 leading-relaxed">60-second anthem, three testimonial cuts, Hidden Gems reel, and the Mason Made opener delivered for review and approval.</p>
+            <p class="text-stone-400 leading-relaxed">60-second anthem, three testimonial cuts, the tourism reel, and the Mason Made opener delivered for review and approval.</p>
           </div>
         </div>
 
@@ -715,10 +717,10 @@
       <p class="text-stone-400 text-lg md:text-xl mb-12 max-w-xl mx-auto leading-relaxed">
         Pick a morning the first week of May. The spec reel gets made either way. The retainer conversation only happens after you have seen the first cut in your hands.
       </p>
-      <a href="mailto:chris@bigsplash.agency?subject=Mason%20Chamber%20%C2%B7%20coffee%20the%20first%20week%20of%20May&body=Chris%20%E2%80%94%20let's%20grab%20that%20coffee.%20Here's%20a%20morning%20that%20works%3A%20%0A%0A" class="group inline-flex items-center gap-4 bg-primary text-on-primary px-10 md:px-14 py-6 md:py-7 font-anton text-2xl md:text-3xl tracking-tight transition-all duration-500 bloom-hover">
+      <button type="button" data-cal-open class="group inline-flex items-center gap-4 bg-primary text-on-primary px-10 md:px-14 py-6 md:py-7 font-anton text-2xl md:text-3xl tracking-tight transition-all duration-500 bloom-hover cursor-pointer">
         Book the Coffee
         <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform duration-300 text-3xl">arrow_forward</span>
-      </a>
+      </button>
       <p class="mt-10 font-label text-[10px] md:text-xs tracking-[0.25em] uppercase text-stone-500">
         chris@bigsplash.agency · bigsplash.video
       </p>
@@ -746,6 +748,7 @@
           <h4 class="font-label text-[10px] tracking-widest uppercase text-stone-500 mb-5">This Proposal</h4>
           <ul class="space-y-3">
             <li><a href="#concepts" class="text-sm text-stone-500 hover:text-primary transition-colors duration-300">Six concepts</a></li>
+            <li><button type="button" data-cal-open class="text-sm text-stone-500 hover:text-primary transition-colors duration-300 cursor-pointer text-left">Book a coffee</button></li>
             <li><a href="mailto:chris@bigsplash.agency" class="text-sm text-stone-500 hover:text-primary transition-colors duration-300">Reach Chris</a></li>
           </ul>
         </div>
@@ -764,6 +767,32 @@
   </footer>
 
 
+  <!-- ========== GHL CALENDAR MODAL ========== -->
+  <div id="cal-modal" class="fixed inset-0 z-[100] opacity-0 invisible pointer-events-none" role="dialog" aria-modal="true" aria-label="Book a discovery call with Chris">
+    <div data-cal-close class="fixed inset-0 bg-background/90 backdrop-blur-md cursor-pointer"></div>
+    <div class="fixed inset-0 z-10 overflow-y-auto pointer-events-none">
+      <div class="min-h-full flex items-start justify-center p-4 md:p-8 pt-12 md:pt-16 pointer-events-none">
+        <div class="pointer-events-auto w-full max-w-2xl bg-surface-container-low border border-primary/10 shadow-2xl shadow-black/80 relative">
+          <div class="sticky top-0 z-20 bg-surface-container-low flex items-center justify-between px-6 md:px-8 pt-6 md:pt-8 pb-4 border-b border-white/5">
+            <div>
+              <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-2">Discovery Call</p>
+              <h2 class="font-anton text-3xl md:text-4xl uppercase text-on-surface leading-none">Pick a time</h2>
+            </div>
+            <button type="button" data-cal-close aria-label="Close" class="text-stone-400 hover:text-primary transition-colors p-2 cursor-pointer">
+              <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+          </div>
+          <div class="px-2 md:px-4 pb-6 md:pb-8 pt-4">
+            <div class="bg-surface-dim rounded overflow-hidden">
+              <iframe id="ghl-cal-embed" data-cal-src="https://api.leadconnectorhq.com/widget/booking/YcBm4L2c5a0DNBZyessz" class="ghl-cal-dark" style="width: 100%; height: 1000px; border: none;" scrolling="yes" title="Book a call with Chris"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <script>
     // Reveal animations on scroll
     const revealEls = document.querySelectorAll('.reveal');
@@ -777,8 +806,7 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
     revealEls.forEach(el => io.observe(el));
 
-    // Graceful video fallback — hide video element entirely if the source 404s,
-    // so the ::after "SEEDANCE 2.0 CLIP" placeholder shows through cleanly.
+    // Graceful video fallback — hide video if source 404s
     document.querySelectorAll('.video-slot video').forEach(video => {
       video.addEventListener('error', () => { video.style.display = 'none'; }, true);
       const src = video.querySelector('source');
@@ -786,6 +814,26 @@
         src.addEventListener('error', () => { video.style.display = 'none'; }, true);
       }
     });
+
+    // GHL calendar modal
+    (function () {
+      const modal = document.getElementById('cal-modal');
+      const iframe = document.getElementById('ghl-cal-embed');
+      const open = () => {
+        if (iframe.dataset.calSrc && !iframe.src) iframe.src = iframe.dataset.calSrc;
+        modal.classList.add('open');
+        document.body.classList.add('cal-locked');
+      };
+      const close = () => {
+        modal.classList.remove('open');
+        document.body.classList.remove('cal-locked');
+      };
+      document.querySelectorAll('[data-cal-open]').forEach(b => b.addEventListener('click', open));
+      modal.querySelectorAll('[data-cal-close]').forEach(b => b.addEventListener('click', close));
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) close();
+      });
+    })();
   </script>
 </body>
 </html>
