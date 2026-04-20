@@ -177,10 +177,17 @@
 
   <!-- ========== HERO ========== -->
   <main class="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-background pt-20">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-primary/[0.06] rounded-full blur-[200px] z-0"></div>
-    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-secondary/[0.04] rounded-full blur-[180px] z-0"></div>
-    <div class="absolute inset-0 z-0 abyssal-grain"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-background/0 via-background/40 to-background z-0"></div>
+    <!-- Background video -->
+    <video id="hero-video" autoplay loop muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0" style="filter: brightness(0.35) contrast(1.05) saturate(0.85);">
+      <source src="videos/hero.mp4" type="video/mp4">
+    </video>
+    <!-- Heavy darken overlay -->
+    <div class="absolute inset-0 bg-black/60 z-[1]"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-background/30 via-background/10 to-background z-[1]"></div>
+
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-primary/[0.06] rounded-full blur-[200px] z-[2]"></div>
+    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-secondary/[0.04] rounded-full blur-[180px] z-[2]"></div>
+    <div class="absolute inset-0 z-[2] abyssal-grain"></div>
 
     <div class="relative z-20 text-center px-4 max-w-7xl mx-auto py-20">
       <p class="font-label text-primary text-[11px] md:text-xs tracking-[0.3em] uppercase mb-8">
