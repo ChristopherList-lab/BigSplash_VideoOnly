@@ -1,0 +1,16 @@
+# Big Splash Audit Worker config
+#
+# Deploy steps (run from this worker/ directory):
+#   npx wrangler login
+#   npx wrangler secret put ANTHROPIC_API_KEY
+#   npx wrangler secret put GHL_WEBHOOK_URL     # optional
+#   npx wrangler secret put ALLOWED_ORIGIN      # optional, e.g. https://bigsplash.video
+#   npx wrangler deploy
+#
+# After deploy, copy the https://<name>.<account>.workers.dev URL Wrangler prints
+# and paste it into AUDIT_API_URL in ../js/intake.js.
+
+name = "bigsplash-audit"
+main = "audit-content.js"
+compatibility_date = "2026-04-01"
+workers_dev = true

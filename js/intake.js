@@ -15,10 +15,62 @@
   // !! PASTE YOUR GHL INBOUND WEBHOOK URL BELOW !!
   // GHL: Settings > Integrations > Inbound Webhooks
   // (or your GHL workflow's "Webhook Trigger" URL).
-  // Leave empty during dev — form surfaces a clear error
-  // and logs the payload to console so you can see it works.
+  // One URL handles the intake modal form;
+  // the strategy form goes through the audit worker,
+  // which forwards to GHL server-side with the same
+  // payload shape + audit result attached.
   // ========================================
   const GHL_WEBHOOK_URL = '';
+
+  // ========================================
+  // !! PASTE YOUR AUDIT WORKER URL BELOW !!
+  // Deploy worker/audit-content.js to Cloudflare Workers
+  // (see comments at top of that file), then paste the
+  // resulting https://...workers.dev URL below.
+  // The worker runs the Claude-powered audit, floors the
+  // score at 58, and forwards the submission to GHL.
+  // ========================================
+  const AUDIT_API_URL = '';
+
+  // ========================================
+  // Shared submit helper — exposed on window so other
+  // forms on the site (e.g. strategy form) can POST
+  // to the same webhook with consistent error handling.
+  // ========================================
+  async function submitToGHL(payload) {
+    if (!GHL_WEBHOOK_URL) {
+      console.warn('[ghl] GHL_WEBHOOK_URL is empty. Payload would be:', payload);
+      throw new Error('Webhook not configured yet.');
+    }
+    const response = await fetch(GHL_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return response;
+  }
+
+  // ========================================
+  // Audit pipeline helper — POSTs to the worker,
+  // which calls Claude, scores the site, floors at 58,
+  // forwards to GHL, and returns { score, headline, findings }.
+  // ========================================
+  async function runAudit(payload) {
+    if (!AUDIT_API_URL) {
+      console.warn('[audit] AUDIT_API_URL is empty. Payload would be:', payload);
+      throw new Error('Audit worker not configured yet.');
+    }
+    const response = await fetch(AUDIT_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  }
+
+  window.BigSplashIntake = { submit: submitToGHL, audit: runAudit };
 
   // ========================================
   // Per-service form configurations
@@ -197,22 +249,11 @@ body.intake-locked { overflow: hidden; }
         submitBtn.textContent = 'Sending...';
 
         const payload = Object.fromEntries(new FormData(form).entries());
+        payload.form_type = 'intake';
         payload.submitted_at = new Date().toISOString();
 
         try {
-          if (!GHL_WEBHOOK_URL) {
-            console.warn('[intake] GHL_WEBHOOK_URL is empty. Payload would be:', payload);
-            throw new Error('Webhook not configured yet.');
-          }
-
-          const response = await fetch(GHL_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          });
-
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
+          await submitToGHL(payload);
           formWrap.classList.add('hidden');
           successWrap.classList.remove('hidden');
         } catch (err) {
