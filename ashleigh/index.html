@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Big Girl Thoughts · Brand Package · BigSplash</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="The complete brand package for Ashleigh Leege — Big Girl Thoughts. Brand board, 10-post content plan, AI image library, and prompt system.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/favicon-180x180-apple.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<meta name="theme-color" content="#1A1A1A">
+<meta property="og:title" content="Big Girl Thoughts — Brand Package">
+<meta property="og:description" content="Brand board, content plan, and AI image library for Ashleigh Leege.">
+<meta property="og:image" content="assets/hero-portrait.jpg">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sage:#6D7B6D; --sage-deep:#55624D; --rose:#B5929F;
+    --taupe:#9B8F89; --tan:#B8A69F; --cream:#F5F3F0;
+    --ink:#1A1A1A; --gold:#D4AF37; --lime:#D6FF3A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--ink);color:var(--cream);font-family:'Inter',-apple-system,sans-serif;line-height:1.55}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+
+  /* top bar */
+  .bar{position:fixed;top:0;left:0;right:0;z-index:20;padding:18px 0;background:rgba(26,26,26,.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+  .bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px}
+  .brand{display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--lime);font-weight:600}
+  .brand svg{width:24px;height:24px}
+  .bar a.back{color:rgba(255,255,255,.5);font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
+  .bar a.back:hover{color:var(--lime)}
+
+  /* hero */
+  .hero{padding:160px 0 80px;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 40%,rgba(214,255,58,.08),transparent 55%);z-index:0}
+  .hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}
+  .hero-copy .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--lime);font-weight:600;margin-bottom:18px}
+  .hero-copy h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(48px,6vw,86px);line-height:.98;letter-spacing:-.02em;color:#fff}
+  .hero-copy .sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:clamp(36px,4vw,54px);color:var(--lime);margin-top:4px}
+  .hero-copy .lede{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:rgba(255,255,255,.75);margin-top:28px;max-width:520px}
+  .hero-img{width:100%;aspect-ratio:4/5;background-size:cover;background-position:center;border-radius:12px;box-shadow:0 40px 80px -30px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04);background-image:url('assets/hero-portrait.jpg')}
+
+  /* cards grid */
+  .sections{padding:40px 0 120px}
+  .sections h2{font-family:'Playfair Display',serif;font-weight:700;font-size:32px;letter-spacing:-.01em;color:#fff;margin-bottom:10px}
+  .sections .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:rgba(255,255,255,.55);margin-bottom:42px;max-width:640px}
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+  @media(max-width:860px){.hero .wrap{grid-template-columns:1fr}.cards{grid-template-columns:1fr}}
+  a.card{
+    position:relative;display:block;padding:44px 36px;border-radius:14px;text-decoration:none;color:var(--cream);
+    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+    border:1px solid rgba(255,255,255,.08);transition:all .3s ease;overflow:hidden;min-height:260px;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  a.card:hover{border-color:var(--lime);transform:translateY(-2px);box-shadow:0 30px 60px -20px rgba(214,255,58,.15)}
+  a.card .num{font-family:'Playfair Display',serif;font-weight:900;font-size:64px;line-height:1;color:rgba(214,255,58,.15);position:absolute;top:24px;right:32px;transition:color .3s ease}
+  a.card:hover .num{color:rgba(214,255,58,.55)}
+  a.card h3{font-family:'Playfair Display',serif;font-weight:700;font-size:30px;letter-spacing:-.01em;color:#fff;margin-bottom:8px;z-index:1;position:relative}
+  a.card p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:rgba(255,255,255,.65);max-width:440px;margin-bottom:24px}
+  a.card .arrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--lime);font-weight:600;display:flex;align-items:center;gap:10px}
+  a.card .arrow::after{content:"→";transition:transform .2s ease}
+  a.card:hover .arrow::after{transform:translateX(4px)}
+
+  /* stats strip */
+  .stats{padding:60px 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.015)}
+  .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+  @media(max-width:700px){.stats .wrap{grid-template-columns:repeat(2,1fr)}}
+  .stat{text-align:center}
+  .stat .n{font-family:'Playfair Display',serif;font-weight:900;font-size:48px;color:var(--lime);line-height:1}
+  .stat .l{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:8px}
+
+  footer{padding:50px 0;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+  footer .sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:28px;color:var(--lime)}
+  footer .m{color:rgba(255,255,255,.3);font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-top:12px}
+</style>
+</head>
+<body>
+
+<nav class="bar">
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="6" x2="8" y2="14"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="16" y1="10" x2="16" y2="18"/><circle cx="8" cy="14" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="16" cy="10" r="1.5" fill="currentColor"/></svg>
+      BigSplash · Client Workspace
+    </div>
+    <a class="back" href="/">← bigsplash.video</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="eyebrow">Client Workspace · Big Girl Thoughts</div>
+      <h1>Ashleigh Leege.</h1>
+      <div class="sig">xo, Ash</div>
+      <p class="lede">The complete brand package — brand board, 2-week content plan, 10 ready-to-ship posts, 21 AI-generated images, and a reusable Nano Banana 2 prompt library. Everything in one place, engineered for growth.</p>
+    </div>
+    <div class="hero-img" aria-label="Ashleigh Leege"></div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="stat"><div class="n">10</div><div class="l">Posts Ready</div></div>
+    <div class="stat"><div class="n">26</div><div class="l">Designed Slides</div></div>
+    <div class="stat"><div class="n">21</div><div class="l">AI Images</div></div>
+    <div class="stat"><div class="n">2wk</div><div class="l">Launch Cadence</div></div>
+  </div>
+</section>
+
+<section class="sections">
+  <div class="wrap">
+    <h2>The workspace</h2>
+    <p class="sub">Four living documents. Open any section in a new tab — scroll, copy captions, download assets, ship.</p>
+
+    <div class="cards">
+      <a class="card" href="brand-board.html">
+        <span class="num">01</span>
+        <div>
+          <h3>Brand Board</h3>
+          <p>The voice trinity, color palette, typography, template system, content pillars, hashtag strategy. Everything that keeps future content on-brand.</p>
+        </div>
+        <div class="arrow">Open Brand Board</div>
+      </a>
+
+      <a class="card" href="posts.html">
+        <span class="num">02</span>
+        <div>
+          <h3>10-Post Content Plan</h3>
+          <p>Every post, every caption, every hashtag. Reels, carousels, and a grid anchor — mapped to a 2-week cadence with the growth mechanic behind each one.</p>
+        </div>
+        <div class="arrow">Open Content Plan</div>
+      </a>
+
+      <a class="card" href="images.html">
+        <span class="num">03</span>
+        <div>
+          <h3>AI Image Gallery</h3>
+          <p>21 Nano Banana 2 images — portraits, B-roll, reel cinematics, and textures. Every one film-grain, face-less, on-brand. Ready to pair with captions.</p>
+        </div>
+        <div class="arrow">Open Gallery</div>
+      </a>
+
+      <a class="card" href="prompts.html">
+        <span class="num">04</span>
+        <div>
+          <h3>Nano Banana 2 Prompt Library</h3>
+          <p>Every prompt that generated the gallery, with one-click copy. Plus a character-consistency seed and a phone-to-editorial transform prompt for future use.</p>
+        </div>
+        <div class="arrow">Open Prompt Library</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="sig">xo, Ash</div>
+    <div class="m">Big Girl Thoughts · @ashleighleege · biggirlthoughts.com</div>
+  </div>
+</footer>
+
+</body>
+</html>

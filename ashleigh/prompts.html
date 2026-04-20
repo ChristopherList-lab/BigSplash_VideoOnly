@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Big Girl Thoughts — Nano Banana 2 Image Prompts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/favicon-180x180-apple.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<meta name="theme-color" content="#1A1A1A">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:ital@0;1&family=Dancing+Script:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sage:#6D7B6D; --sage-deep:#55624D; --rose:#B5929F;
+    --taupe:#9B8F89; --tan:#B8A69F; --cream:#F5F3F0;
+    --ink:#1A1A1A; --gold:#D4AF37;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--cream);color:var(--ink);font-family:'Inter',-apple-system,sans-serif;line-height:1.55}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+  header{padding:64px 0 24px;text-align:center;background:var(--ink);color:var(--cream)}
+  header h1{font-family:'Playfair Display',serif;font-weight:900;font-size:48px;letter-spacing:-.02em}
+  header .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;margin-top:8px;opacity:.8}
+  header .tag{font-family:'Dancing Script',cursive;font-size:24px;color:var(--gold);margin-top:6px}
+  nav{background:var(--ink);color:var(--cream);padding:0 0 36px}
+  nav .wrap{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  nav a{color:var(--cream);text-decoration:none;font-size:12px;padding:8px 14px;border:1px solid rgba(255,255,255,.25);border-radius:999px;letter-spacing:.06em}
+  nav a:hover{background:var(--gold);color:var(--ink);border-color:transparent}
+
+  .section{padding:72px 0 40px;border-bottom:1px solid rgba(26,26,26,.08)}
+  .section:nth-child(even){background:#fff}
+  .section h2{font-family:'Playfair Display',serif;font-weight:700;font-size:36px;letter-spacing:-.01em;margin-bottom:8px}
+  .section .lead{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:#666;margin-bottom:32px}
+
+  .card{background:#fff;border:1px solid rgba(26,26,26,.08);border-radius:10px;margin-bottom:24px;overflow:hidden}
+  .section:nth-child(even) .card{background:var(--cream)}
+  .card-head{padding:22px 28px;border-bottom:1px solid rgba(26,26,26,.06);display:flex;justify-content:space-between;align-items:baseline;gap:20px}
+  .card-head h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:700}
+  .card-head .use{font-size:12px;color:#888;letter-spacing:.08em;text-transform:uppercase;text-align:right}
+  .prompt{padding:26px 28px;font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;line-height:1.65;white-space:pre-wrap;position:relative}
+  .prompt::before{content:"";position:absolute;left:0;top:22px;bottom:22px;width:3px;background:var(--sage);border-radius:2px}
+  .prompt{padding-left:40px}
+  .actions{padding:14px 28px 22px;display:flex;gap:10px;align-items:center;font-size:12px;color:#666}
+  .copy-btn{background:var(--ink);color:#fff;border:none;padding:8px 16px;border-radius:4px;font-size:12px;letter-spacing:.06em;cursor:pointer;font-weight:600}
+  .copy-btn:hover{background:var(--gold);color:var(--ink)}
+  .copy-btn.copied{background:#4a7a4a}
+
+  .chip{display:inline-block;padding:3px 10px;border-radius:3px;background:var(--sage);color:#fff;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;margin-right:6px}
+  .chip.rose{background:var(--rose)}
+  .chip.taupe{background:var(--taupe)}
+  .chip.gold{background:var(--gold);color:var(--ink)}
+
+  .house-rules{background:var(--ink);color:var(--cream);padding:40px;border-radius:10px;margin-bottom:32px}
+  .house-rules h3{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:14px}
+  .house-rules ul{list-style:none;margin-top:10px}
+  .house-rules li{padding:6px 0 6px 22px;position:relative;font-size:14px;line-height:1.6;opacity:.9}
+  .house-rules li::before{content:"·";position:absolute;left:6px;color:var(--gold);font-size:20px;line-height:1}
+
+  footer{padding:64px 0;text-align:center;background:var(--ink);color:#fff}
+  footer .sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:32px;color:var(--gold)}
+  footer .m{opacity:.5;font-size:12px;letter-spacing:.14em;margin-top:14px}
+
+  .intro{padding:60px 0 30px}
+  .intro .lead{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;line-height:1.6;max-width:780px}
+  .intro .lead strong{font-style:normal;font-weight:700}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>Nano Banana 2 · Image Prompt Library</h1>
+    <div class="sub">Ready-to-paste prompts engineered for Big Girl Thoughts' IG grid.</div>
+    <div class="tag">xo, Ash</div>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#rules">House rules</a>
+    <a href="#s1">Anchor portraits</a>
+    <a href="#s2">Lifestyle B-roll</a>
+    <a href="#s3">Reel thumbnails</a>
+    <a href="#s4">Backgrounds & textures</a>
+    <a href="#s5">Character consistency</a>
+    <a href="#s6">Phone-to-editorial</a>
+  </div>
+</nav>
+
+<section class="intro">
+  <div class="wrap">
+    <p class="lead">
+      <strong>What this is:</strong> a menu of image prompts written for Gemini 3 Pro Image ("Nano Banana 2"). Every prompt preserves the brand: muted warm palette, film-grain 35mm, candid not glam, mid-life real-woman energy. Paste them verbatim — the order of words matters.
+    </p>
+  </div>
+</section>
+
+<div id="rules" class="section" style="background:var(--cream);padding-top:40px">
+  <div class="wrap">
+    <div class="house-rules">
+      <h3>House rules · every prompt follows these</h3>
+      <ul>
+        <li>Palette: sage, dusty rose, warm taupe, soft tan, cream. Never primary colors. Never saturated.</li>
+        <li>Light: natural window light or golden hour. No studio flash. No ring-light beauty look.</li>
+        <li>Texture: film grain, Kodak Portra 400 / Cinestill 800T references. No plastic AI skin.</li>
+        <li>Subject: mid-life woman 40s, brown hair, natural beauty — never over-glammed.</li>
+        <li>Lens: 50mm f/1.8 default — soft background, crisp subject.</li>
+        <li>Always append: <em>no text, no watermark, no logos, clean background.</em></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1 · Anchor portraits -->
+<section class="section" id="s1">
+  <div class="wrap">
+    <h2>01 · Anchor portraits</h2>
+    <p class="lead">Grid pillars — generate 4-6 variations of each and keep as recurring content anchors.</p>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip">Editorial</span> P1 · The laugh (grid hero)</h3>
+        <div class="use">Brand board · carousel cover<br>about page</div>
+      </div>
+      <div class="prompt">A candid editorial portrait of a woman in her 40s with shoulder-length brown hair, mid-laugh with head tilted back, seated on a sage-green velvet armchair. Wearing a fitted black blazer over a white cotton tee, delicate gold chain. Softly lit by a large north-facing window on the left, warm cream wall behind, subtle film grain, Kodak Portra 400 color. Loose natural curl in her hair, no heavy makeup, real skin texture. Shot on 50mm f/1.8, shallow depth of field. 4:5 portrait aspect ratio. No text, no watermark, clean frame.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button> <span>then paste into Nano Banana 2</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip rose">Lifestyle</span> P2 · Quiet morning coffee</h3>
+        <div class="use">Post 7 still · morning reels</div>
+      </div>
+      <div class="prompt">A woman in her 40s seated cross-legged in a neutral linen armchair holding a matte cream ceramic mug in both hands, looking down, peaceful. Oversized sage-green cable-knit sweater, hair loose and undone. Soft morning window light from the left, sheer linen curtains behind her diffusing the light warm gold. Small wooden side table with a worn leather Bible and a lit candle out of focus. Film-grain 35mm, Cinestill 400D palette, desaturated and warm. Lived-in bedroom feel. Shot on 50mm f/1.4. 4:5 aspect ratio. No text.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip taupe">Real-life</span> P3 · Kitchen island chaos</h3>
+        <div class="use">Post 6 · Post 8 · "my life" reels</div>
+      </div>
+      <div class="prompt">Overhead three-quarter angle of a 40-something woman leaning on a white marble kitchen island, laughing with her hand on her forehead. Behind her: a coffee maker mid-drip, an open Bible, two mugs, a banana, an AirPods case, keys in a small brass dish. Warm overhead pendant lighting plus side window. Cream walls, sage cabinets in the back, soft shadows. 35mm film aesthetic, warm tones, slight grain. Candid and real — no styling. Shot on 35mm f/2. 4:5. No text.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 · B-roll -->
+<section class="section" id="s2">
+  <div class="wrap">
+    <h2>02 · Lifestyle B-roll</h2>
+    <p class="lead">Still posts, reel cutaways, and overlay backdrops. These are the workhorses.</p>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip">Faith</span> B1 · Coffee + open Bible</h3>
+        <div class="use">Faith content · "Prayer is my plan" stories</div>
+      </div>
+      <div class="prompt">Overhead flat-lay close-up of a worn leather-bound Bible open to the book of Psalms, a matte cream ceramic mug of black coffee beside it, one dried eucalyptus sprig, a small brass ring dish. All on a rumpled natural-linen tablecloth, warm morning window light from the upper-left casting soft shadows. Muted warm palette of sage, cream, and soft gold. Film grain, Kodak Portra 400, shot on 50mm f/2.8. 1:1 square. No text, no logos.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip gold">Still-life</span> B2 · Keys + cross necklace</h3>
+        <div class="use">Entryway B-roll · quiet story posts</div>
+      </div>
+      <div class="prompt">Still-life close-up of a small walnut console table by an entryway. A delicate gold cross necklace laid loosely, a brass key ring, one folded $20 bill, a lip balm, a worn leather journal. Warm afternoon window light from the right. Shot from 45-degree angle. Sage wall behind, slight out-of-focus. Muted earthy palette, natural film grain, 35mm Kodak Portra. 4:5. No text.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip taupe">Mood</span> B3 · Car POV cry</h3>
+        <div class="use">Messy middle carousel · reflective reels</div>
+      </div>
+      <div class="prompt">POV from inside a parked car — bare feet in white cotton socks crossed up on the passenger dashboard. Through the windshield, a cloudy muted afternoon sky over a suburban parking lot. Half-empty iced coffee in the cup holder. Natural daylight, desaturated, quiet and reflective mood. 35mm film look, soft grain. The feeling of crying in the car. 9:16 vertical. No text.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip rose">Editorial</span> B4 · Wine + fig + bread</h3>
+        <div class="use">Post 4 reel overlay · faith-humor</div>
+      </div>
+      <div class="prompt">Moody editorial still-life — one stemless wine glass half-filled with deep burgundy red wine, two fresh figs, a torn baguette, on a small wooden cutting board. Warm candlelight from the right casting soft shadows. Deep taupe-grey fabric draped behind. Painterly, Dutch Master-influenced lighting. 35mm film grain, warm earthy tones. Shot on 85mm f/2. 4:5 portrait. No text, no watermark.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip">Wellness</span> B5 · Sneakers by the door</h3>
+        <div class="use">Protein reels · gym B-roll</div>
+      </div>
+      <div class="prompt">Still-life of a pair of well-worn white-and-grey athletic sneakers placed just inside an entryway on warm oak floorboards. A black Lululemon hoodie crumpled beside them, a small smart-water bottle. Warm late-afternoon sun striping across the floor from a window off-frame right. Cream wall, simple composition. Film grain, 35mm Kodak. Slight dust particles in the light. 4:5. No text.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip gold">Lifestyle</span> B6 · Golden-hour window seat</h3>
+        <div class="use">Prayers out loud · journaling reels</div>
+      </div>
+      <div class="prompt">A 40-something woman in side-profile sitting on a bed by a large window, knees up, journal in her lap, one hand holding a pen. Golden-hour warm sun flooding sideways across her face and the cream bedding. Oversized white cotton tee, loose joggers, hair in a messy low bun. Peaceful, almost meditative mood. Cream walls, linen curtains diffusing the light. Kodak Portra 400 film grain. Shot on 50mm f/2. 9:16 vertical. No text.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip taupe">Workspace</span> B7 · Messy desk</h3>
+        <div class="use">Podcast content · BTS reels</div>
+      </div>
+      <div class="prompt">Overhead shot of a warm workspace — open MacBook Pro with the screen dim, a leather journal with a pen laid across it, an iPhone face-down, reading glasses, a nearly empty ceramic mug with coffee rings. Sage-green blotter underneath, worn walnut desk. Warm window light from the left. Imperfect — crumbs, a sticky note with handwriting blurred out. Film grain, muted warm palette. 1:1 square. No text.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip">Faith</span> B8 · Hands praying over a Bible</h3>
+        <div class="use">Prayers carousel opener · faith reels</div>
+      </div>
+      <div class="prompt">Extreme close-up of a woman's hands clasped in prayer resting on top of an open Bible. Simple delicate gold ring on the right hand, short natural nails. Soft window light falling diagonally. Cream-colored sleeve of a chunky knit sweater visible. Film grain, 35mm Kodak Portra. Warm skin tones, muted background, shallow depth of field on 85mm f/1.8. 4:5 portrait. No text, no watermark.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3 · Reel thumbnails -->
+<section class="section" id="s3">
+  <div class="wrap">
+    <h2>03 · Reel thumbnail cinematics</h2>
+    <p class="lead">One cinematic thumbnail per reel — overlay your slide text from the blob template on top.</p>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip">Post 01</span> R1 · Things I almost said at church</h3>
+        <div class="use">9:16 reel cover</div>
+      </div>
+      <div class="prompt">Vertical 9:16. A 40-something brown-haired woman's face in three-quarter profile in a car driver's seat, looking sideways with a knowing half-smile, eyes slightly rolled — the facial expression of someone holding back what she almost said. Warm afternoon sun through the passenger window side-lighting her. Blurred suburban parking lot in the background. Thin gold cross necklace visible. Muted warm palette, film grain, 35mm Kodak. Candid, no posed feel. Shot on 50mm f/1.8. No text.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip taupe">Post 02</span> R2 · Shawn bit</h3>
+        <div class="use">9:16 reel cover</div>
+      </div>
+      <div class="prompt">Vertical 9:16. Wide candid shot of a 40-something man in a backyard — backwards baseball cap, faded t-shirt, grilling barefoot on a deck. Warm golden-hour sun behind him, rim-lit. Smoke rising from the grill. The scene reads chaotic-dad-energy. Mid-century suburban backyard background. Film grain, muted warm palette, shot on 35mm f/2. Candid documentary feel. No text, no brand.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip rose">Post 04</span> R3 · Jesus winemaker influencer</h3>
+        <div class="use">9:16 reel cover</div>
+      </div>
+      <div class="prompt">Vertical 9:16. A woman in a soft cream blouse holding a stemless glass of deep red wine, looking directly into camera with one eyebrow slightly raised — playful skeptical expression. Warm kitchen window light, cream walls with a framed piece of art softly out of focus behind. Small sprig of fresh grapes on a wooden board on the counter. Muted warm palette, film grain, shot on 50mm f/1.8. 9:16. No text.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip">Post 06</span> R4 · 20g protein, zero aesthetic</h3>
+        <div class="use">9:16 reel cover</div>
+      </div>
+      <div class="prompt">Vertical 9:16. Overhead POV of a ceramic bowl on a marble counter — cottage cheese, a boiled egg split in half, a drizzle of hot sauce, a small sprinkle of everything-bagel seasoning, a spoon. Warm kitchen light, muted palette. Intentionally un-styled, real-life look — a dish towel half in the frame, a coffee ring on the marble, a crumb. Film grain, 35mm. Authentic, not aestheticized. No text.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip taupe">Post 08</span> R5 · Mom of almost-grown humans</h3>
+        <div class="use">9:16 reel cover</div>
+      </div>
+      <div class="prompt">Vertical 9:16. Medium shot of a 40-something woman in an oversized cream cardigan and joggers, sitting on the stairs in a dim hallway at night, one hand holding a phone, looking tired and amused. Low warm hallway light spilling from a bedroom door. Muted palette, slightly moody — the scene reads "midnight conversation with a teenager." Film grain, shot on 50mm f/1.8, deep shadows. No text.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3><span class="chip gold">Post 10</span> R6 · Dance when no one's watching</h3>
+        <div class="use">9:16 reel cover</div>
+      </div>
+      <div class="prompt">Vertical 9:16. Motion-blurred candid shot of a 40-something woman dancing in a sunlit kitchen, arms up, head tipped back laughing — intentional motion blur so the gesture is readable but not the face. Warm afternoon sun streaming through a window behind her, flaring slightly. Cream walls, sage cabinets. Film grain, 35mm Kodak Portra, 1/30s shutter look. Pure joy, candid, imperfect. No text.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 · Textures -->
+<section class="section" id="s4">
+  <div class="wrap">
+    <h2>04 · Backgrounds & textures</h2>
+    <p class="lead">Generate once, use forever. Drop these behind overlay quotes for posts that break from the blob template.</p>
+
+    <div class="card">
+      <div class="card-head"><h3>T1 · Sage textured wall</h3><div class="use">Overlay-quote backgrounds</div></div>
+      <div class="prompt">Flat photographic close-up of a hand-plastered sage green wall, subtle texture variations, soft window light coming in from the upper-left casting gentle shadow gradient. No objects. Just the wall. Muted, earthy, calm. 35mm film grain. Square 1:1. No text, no objects.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>T2 · Rumpled linen tablecloth</h3><div class="use">Flat-lay base for product / recipe posts</div></div>
+      <div class="prompt">Overhead flat photograph of a natural-oatmeal linen tablecloth, gently rumpled with soft folds, warm afternoon side-light casting gentle shadows in the folds. No objects. Warm neutral palette. Kodak Portra film grain. 1:1 square. No text.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>T3 · Golden light through curtain</h3><div class="use">Story backdrops · soft reels intros</div></div>
+      <div class="prompt">Close-up photograph of a cream sheer linen curtain backlit by golden-hour sun, soft focus, gentle light blooms. No objects. Peaceful, meditative mood. Film grain, warm palette. 9:16 vertical. No text.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>T4 · Brass + gold macro</h3><div class="use">Detail accents · carousel interstitials</div></div>
+      <div class="prompt">Macro photograph of aged brass jewelry pieces — a small cross pendant, a thin ring, laid on a stone surface. Warm directional light, soft shadows, shallow depth of field. Muted warm palette. Film grain, 100mm macro f/2.8. 1:1 square. No text, no watermark.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5 · Character consistency -->
+<section class="section" id="s5">
+  <div class="wrap">
+    <h2>05 · Character consistency seed</h2>
+    <p class="lead">Paste this at the top of any prompt to keep an AI "Ashleigh-adjacent" protagonist consistent across images.</p>
+
+    <div class="card">
+      <div class="card-head"><h3><span class="chip gold">Locked seed</span> Brand protagonist</h3><div class="use">Use before every character prompt</div></div>
+      <div class="prompt">A 40-something woman with shoulder-length natural brown hair with a slight wave, warm hazel eyes, soft natural skin with freckles across the nose, full lips with subtle natural pink color, a delicate gold cross necklace, minimal jewelry. Warm genuine smile that reaches the eyes. Average build, 5'6". Mid-life but radiant. Mid-west American vibe — grounded, warm, approachable. Wears mostly neutrals — cream, sage, taupe, black — never flashy. Style is casual-elegant: fitted tees, cardigans, denim, simple slip dresses.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6 · Phone to editorial -->
+<section class="section" id="s6">
+  <div class="wrap">
+    <h2>06 · Phone-to-editorial transform</h2>
+    <p class="lead">The most powerful use. She snaps a phone photo → upload + paste this prompt → gets a grid-ready editorial version back.</p>
+
+    <div class="card">
+      <div class="card-head"><h3><span class="chip rose">Workflow</span> Transform a phone photo</h3><div class="use">Upload photo + paste prompt</div></div>
+      <div class="prompt">Transform the attached phone photo of the subject into a film-grain 35mm editorial photograph. Keep the subject's face, body, and clothing exactly as they are. Re-light with soft warm window light from the left, add subtle Kodak Portra 400 color grading, add gentle film grain, desaturate slightly, warm up the whites, deepen the shadows. Clean up any digital artifacts. Muted warm palette — sage, cream, taupe, soft gold. No added text, no watermark. Preserve the authentic expression and candid feel.</div>
+      <div class="actions"><button class="copy-btn" data-copy>Copy prompt</button></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="sig">xo, Ash</div>
+    <div class="m">biggirlthoughts.com · @ashleighleege · Nano Banana 2 prompt library</div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const promptEl = btn.closest('.card').querySelector('.prompt');
+      navigator.clipboard.writeText(promptEl.innerText.trim()).then(() => {
+        const old = btn.textContent;
+        btn.textContent = '✓ Copied';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = old; btn.classList.remove('copied'); }, 1600);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

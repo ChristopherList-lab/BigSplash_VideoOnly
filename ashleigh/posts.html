@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Big Girl Thoughts — 10-Post Preview</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/favicon-180x180-apple.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<meta name="theme-color" content="#1A1A1A">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:ital@0;1&family=Dancing+Script:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sage:#7D8B7F; --sage-deep:#6B7D73; --rose:#B5929F;
+    --taupe:#9B8F89; --tan:#B8A69F; --cream:#F5F3F0;
+    --ink:#1A1A1A; --gold:#D4AF37;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--cream);color:var(--ink);font-family:'Inter',-apple-system,sans-serif;line-height:1.55}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+  header{padding:64px 0 24px;text-align:center;background:var(--ink);color:var(--cream)}
+  header h1{font-family:'Playfair Display',serif;font-weight:900;font-size:48px;letter-spacing:-.02em}
+  header .sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:28px;color:var(--gold);margin-top:4px}
+  header .meta{opacity:.6;font-size:12px;letter-spacing:.18em;text-transform:uppercase;margin-top:14px}
+  nav{background:var(--ink);color:var(--cream);padding:20px 0 40px;border-bottom:1px solid rgba(255,255,255,.08)}
+  nav .wrap{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  nav a{color:var(--cream);text-decoration:none;font-size:12px;padding:8px 14px;border:1px solid rgba(255,255,255,.25);border-radius:999px;letter-spacing:.08em}
+  nav a:hover{background:var(--gold);color:var(--ink);border-color:transparent}
+
+  .post{padding:80px 0;border-bottom:1px solid rgba(26,26,26,.08)}
+  .post:nth-child(odd){background:var(--cream)}
+  .post:nth-child(even){background:#fff}
+  .post header.ph{background:none;color:var(--ink);padding:0;text-align:left;margin-bottom:40px}
+  .tag{display:inline-block;padding:4px 12px;border-radius:3px;background:var(--sage);color:#fff;font-size:11px;text-transform:uppercase;letter-spacing:.16em;font-weight:600}
+  .tag.reel{background:var(--rose)}
+  .tag.carousel{background:var(--sage)}
+  .tag.still{background:var(--gold);color:var(--ink)}
+  .post h2{font-family:'Playfair Display',serif;font-weight:700;font-size:40px;letter-spacing:-.01em;margin-top:10px;line-height:1.1}
+  .post .hook{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:22px;color:var(--sage-deep);margin-top:8px}
+
+  .content{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  @media (max-width:900px){.content{grid-template-columns:1fr}}
+
+  .visual{background:var(--ink);padding:24px;border-radius:10px}
+  .visual .frame{background:#000;border-radius:6px;overflow:hidden}
+  .slides{display:flex;gap:12px;overflow-x:auto;padding:4px;scroll-snap-type:x mandatory}
+  .slides::-webkit-scrollbar{height:8px}
+  .slides::-webkit-scrollbar-thumb{background:var(--sage);border-radius:4px}
+  .slides img{scroll-snap-align:start;border-radius:6px;flex-shrink:0;box-shadow:0 10px 30px -10px rgba(0,0,0,.4)}
+  .slides.carousel img{width:260px;height:325px;object-fit:cover}
+  .slides.still img{width:320px;height:400px;object-fit:cover}
+  .slides.reel img{width:200px;height:356px;object-fit:cover}
+  .visual .caption{color:#888;font-size:11px;text-align:center;margin-top:10px;letter-spacing:.12em;text-transform:uppercase}
+
+  .details{background:#fff;padding:32px;border-radius:10px;border:1px solid rgba(26,26,26,.08)}
+  .details h3{font-family:'Playfair Display',serif;font-size:18px;margin-bottom:6px;color:var(--sage-deep)}
+  .details h3:not(:first-child){margin-top:22px}
+  .details p,.details li{font-size:15px;line-height:1.6}
+  .details .caption-box{background:var(--cream);padding:18px;border-radius:6px;border-left:3px solid var(--sage);font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;white-space:pre-wrap}
+  .details ul{margin-left:18px;margin-top:6px}
+  .details .hashes{margin-top:6px;font-size:13px;color:var(--sage-deep)}
+  .details .script-line{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:#555;white-space:pre-wrap;padding:10px 0}
+  .lever{display:inline-block;margin-top:8px;padding:6px 12px;border-radius:4px;background:rgba(212,175,55,.15);color:#8b7a2e;font-size:12px;font-weight:600;letter-spacing:.06em}
+
+  footer{padding:64px 0;text-align:center;background:var(--ink);color:#fff}
+  footer .sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:32px;color:var(--gold)}
+  footer .m{opacity:.5;font-size:12px;letter-spacing:.14em;margin-top:14px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>Big Girl Thoughts</h1>
+    <div class="sig">10-post preview</div>
+    <div class="meta">@ashleighleege · 2-week growth cycle</div>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#p1">01 · Awkward honesty</a>
+    <a href="#p2">02 · Shawn bit</a>
+    <a href="#p3">03 · Messy middle</a>
+    <a href="#p4">04 · Jesus + wine</a>
+    <a href="#p5">05 · Prayers out loud</a>
+    <a href="#p6">06 · Protein, zero aesthetic</a>
+    <a href="#p7">07 · Filled cups</a>
+    <a href="#p8">08 · Almost-grown humans</a>
+    <a href="#p9">09 · Permission slip</a>
+    <a href="#p10">10 · Dance</a>
+  </div>
+</nav>
+
+<!-- POST 1 -->
+<section class="post" id="p1">
+  <div class="wrap">
+    <header class="ph">
+      <span class="tag reel">Reel · Post 01 · Mon 7:15 am</span>
+      <h2>"Things I almost said at church today"</h2>
+      <div class="hook">→ Hook: <em>Things I almost said out loud at church today</em></div>
+    </header>
+    <div class="content">
+      <div class="visual">
+        <div class="slides reel">
+          <img src="slides/01_reel_awkward_honesty/thumbnail.png" alt="Reel cover">
+        </div>
+        <div class="caption">Reel cover · 1080 × 1920</div>
+      </div>
+      <div class="details">
+        <h3>On-camera script</h3>
+        <div class="script-line">Hey babe. I kept it in. Barely.
+Number one — "your sermon ran five minutes over and I had a roast in the oven."
+Number two — "is it weird that I'm praying for a parking spot right now."
+Number three — nope, can't even say that one on here.
+[whispered] if you know, you know.</div>
+
+        <h3>Caption</h3>
+        <div class="caption-box">Jesus in the mess means sometimes the mess is me, in a pew, having a whole second sermon in my head 🫣
+
+Tell me yours in the comments. I'll go first in the replies.
+
+xo, Ash</div>
+
+        <h3>Hashtags</h3>
+        <div class="hashes">#myrebel  #RelatableReels  #ChristianWomen  #FaithAndHumor  #JesusInTheMess  #AwkwardHonesty  #BigGirlThoughts</div>
+
+        <span class="lever">Growth lever · Comment-bait confessional</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POST 2 -->
+<section class="post" id="p2">
+  <div class="wrap">
+    <header class="ph">
+      <span class="tag reel">Reel · Post 02 · Tue 12:40 pm</span>
+      <h2>"If you know Shawn, you know Shawn"</h2>
+      <div class="hook">→ Hook: <em>Marrying a rule-breaker is its own personality type</em></div>
+    </header>
+    <div class="content">
+      <div class="visual">
+        <div class="slides reel"><img src="slides/02_reel_shawn_bit/thumbnail.png" alt="Reel cover"></div>
+        <div class="caption">Reel cover · 1080 × 1920</div>
+      </div>
+      <div class="details">
+        <h3>On-camera script</h3>
+        <div class="script-line">Babe. My husband just—
+[cut to B-roll of Shawn doing the thing]
+That's it. That's the reel.
+If you know him, you know him. If you don't, you'd love him.</div>
+
+        <h3>Caption</h3>
+        <div class="caption-box">22 years in and I still don't know which rule he's about to break. Pray for me. Pray for him. Pray for the Home Depot associate who asked him a question.
+
+#myrebel #rulebreaker
+
+xo, Ash</div>
+
+        <h3>Hashtags</h3>
+        <div class="hashes">#myrebel  #rulebreaker  #MarriageHumor  #WifeLife  #RelatableReels  #MidlifeWomen  #BigGirlThoughts</div>
+
+        <span class="lever">Growth lever · Recurring character (verified-friend engagement)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POST 3 -->
+<section class="post" id="p3">
+  <div class="wrap">
+    <header class="ph">
+      <span class="tag carousel">Carousel · Post 03 · Thu 8:00 am · 5 slides</span>
+      <h2>"Nobody tells you about the messy middle"</h2>
+      <div class="hook">→ Save it for the Tuesday you forgot why you started.</div>
+    </header>
+    <div class="content">
+      <div class="visual">
+        <div class="slides carousel">
+          <img src="slides/03_carousel_messy_middle/slide_01.png">
+          <img src="slides/03_carousel_messy_middle/slide_02.png">
+          <img src="slides/03_carousel_messy_middle/slide_03.png">
+          <img src="slides/03_carousel_messy_middle/slide_04.png">
+          <img src="slides/03_carousel_messy_middle/slide_05.png">
+        </div>
+        <div class="caption">5 slides · 1080 × 1350 · swipe →</div>
+      </div>
+      <div class="details">
+        <h3>Caption</h3>
+        <div class="caption-box">If you're somewhere in the middle of a season that doesn't look like progress, babe — this one's for you. Save it for the Tuesday you forgot why you started.
+
+Messy middle is still middle. Which means you're moving.
+
+xo, Ash</div>
+
+        <h3>Hashtags</h3>
+        <div class="hashes">#MessyMiddle  #ChristianWomen  #JesusInTheMess  #MidlifeWomen  #RealTalkFaith  #FaithAndHumor  #BigGirlThoughts</div>
+
+        <span class="lever">Growth lever · Save + DM-share</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POST 4 -->
+<section class="post" id="p4">
+  <div class="wrap">
+    <header class="ph">
+      <span class="tag reel">Reel · Post 04 · Fri 6:30 pm</span>
+      <h2>"Jesus was the first winemaker influencer"</h2>
+      <div class="hook">→ Hook: <em>Serious question…</em></div>
+    </header>
+    <div class="content">
+      <div class="visual">
+        <div class="slides reel"><img src="slides/04_reel_jesus_wine/thumbnail.png"></div>
+        <div class="caption">Reel cover · 1080 × 1920</div>
+      </div>
+      <div class="details">
+        <h3>On-camera script</h3>
+        <div class="script-line">Okay serious question. If Jesus could turn water into wine…
+does that technically make him the first winemaker influencer?
+Because there was a wedding. The hosts ran out. He pulled up — zero ad budget.
+Six stone jars. Immediate five-star reviews.
+Babe, the man understood the brief.
+[beat] I'll see myself out.</div>
+
+        <h3>Caption</h3>
+        <div class="caption-box">Does anyone know which page of the Bible explains this? Asking for a friend. 🍷
+
+(The friend is me. The friend is always me.)
+
+xo, Ash</div>
+
+        <h3>Hashtags</h3>
+        <div class="hashes">#FaithAndHumor  #ChristianWomen  #JesusInTheMess  #WineMom  #RelatableReels  #BigGirlThoughts  #RealTalkFaith</div>
+
+        <span class="lever">Growth lever · Crossover audience (faith + wine-mom)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POST 5 -->
+<section class="post" id="p5">
+  <div class="wrap">
+    <header class="ph">
+      <span class="tag carousel">Carousel · Post 05 · Sun 9:00 am · 6 slides</span>
+      <h2>"Prayers I don't say out loud"</h2>
+      <div class="hook">→ Which one is you? Slide to see.</div>
+    </header>
+    <div class="content">
+      <div class="visual">
+        <div class="slides carousel">
+          <img src="slides/05_carousel_prayers_out_loud/slide_01.png">
+          <img src="slides/05_carousel_prayers_out_loud/slide_02.png">
+          <img src="slides/05_carousel_prayers_out_loud/slide_03.png">
+          <img src="slides/05_carousel_prayers_out_loud/slide_04.png">
+          <img src="slides/05_carousel_prayers_out_loud/slide_05.png">
+          <img src="slides/05_carousel_prayers_out_loud/slide_06.png">
+        </div>
+        <div class="caption">6 slides · swipe →</div>
+      </div>
+      <div class="details">
+        <h3>Caption</h3>
+        <div class="caption-box">Babe. Which one are you sending me in the DMs? Be honest.
+
+(Mine is slide 4. Always slide 4.)
+
+xo, Ash</div>
+
+        <h3>Hashtags</h3>
+        <div class="hashes">#JesusInTheMess  #ChristianWomen  #FaithAndHumor  #PrayerLife  #MessyMiddle  #BigGirlThoughts</div>
+
+        <span class="lever">Growth lever · Slide-number comment bait + DM send</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POST 6 -->
+<section class="post" id="p6">
+  <div class="wrap">
+    <header class="ph">
+      <span class="tag reel">Reel · Post 06 · Mon 7:15 am (week 2)</span>
+      <h2>"20g of protein, zero aesthetic"</h2>
+      <div class="hook">→ Hook: <em>Not a recipe reel. A confession.</em></div>
+    </header>
+    <div class="content">
+      <div class="visual">
+        <div class="slides reel"><img src="slides/06_reel_protein_real/thumbnail.png"></div>
+        <div class="caption">Reel cover · 1080 × 1920</div>
+      </div>
+      <div class="details">
+        <h3>Voiceover script</h3>
+        <div class="script-line">Babe. This is not a recipe reel. This is a confession.
+I have been told I need more protein. I believe them. I don't love them for it.
+Today's offering: cottage cheese. Hot sauce. A boiled egg I forgot I boiled.
+It's giving dorm room. It's giving *it's 2:14 pm and I skipped lunch.*
+It's also giving 28 grams. So.
+
+Simple. Filling. Done.</div>
+
+        <h3>Caption</h3>
+        <div class="caption-box">Your girl's not gonna pretend the bowl is cute. It's fuel. It's a love language. It's a Tuesday.
+
+Drop your laziest 20g combo in the comments and I'll try it this week 🫡
+
+xo, Ash</div>
+
+        <h3>Hashtags</h3>
+        <div class="hashes">#ProteinLife  #RealFood  #WellnessNotPreachy  #MidlifeWomen  #RelatableReels  #BigGirlThoughts  #MomLife</div>
+
+        <span class="lever">Growth lever · Ugly-food-that-works genre</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POST 7 -->
+<section class="post" id="p7">
+  <div class="wrap">
+    <header class="ph">
+      <span class="tag still">Still · Post 07 · Wed 12:40 pm · Grid anchor</span>
+      <h2>"Filled cups fill cups"</h2>
+      <div class="hook">→ Grid anchor. The post that makes the next scroller stop and check her profile.</div>
+    </header>
+    <div class="content">
+      <div class="visual">
+        <div class="slides still"><img src="slides/07_still_quote_anchor/slide_01.png"></div>
+        <div class="caption">Single still · 1080 × 1350</div>
+      </div>
+      <div class="details">
+        <h3>Caption</h3>
+        <div class="caption-box">You can't pour out of an empty pitcher, babe. It just makes a sad little sound and embarrasses everyone.
+
+Fill up this week. The people around you are counting on a full cup, not a brave one.
+
+xo, Ash</div>
+
+        <h3>Hashtags</h3>
+        <div class="hashes">#FilledCupsFillCups  #SelfCareForChristianWomen  #JesusInTheMess  #MessyMiddle  #BigGirlThoughts</div>
+
+        <span class="lever">Growth lever · Grid cohesion → profile click-throughs</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POST 8 -->
+<section class="post" id="p8">
+  <div class="wrap">
+    <header class="ph">
+      <span class="tag reel">Reel · Post 08 · Thu 7:15 pm</span>
+      <h2>"Mom of almost-grown humans — the thing no one warned me"</h2>
+      <div class="hook">→ Hook: <em>Mom-of-teens energy nobody warned me about</em></div>
+    </header>
+    <div class="content">
+      <div class="visual">
+        <div class="slides reel"><img src="slides/08_reel_empty_nest/thumbnail.png"></div>
+        <div class="caption">Reel cover · 1080 × 1920</div>
+      </div>
+      <div class="details">
+        <h3>On-camera script</h3>
+        <div class="script-line">Babe. Listen.
+When they were little, I prayed for more sleep.
+Now they're almost grown and they stay up later than I do.
+They come home at 10:30 and want to talk about *life.*
+And I'm supposed to be profound. In my robe.
+
+Whoever told me the hard part was toddlers — lied.
+This part? This is the thesis.</div>
+
+        <h3>Caption</h3>
+        <div class="caption-box">Mothers of almost-grown humans 🙋🏻‍♀️ — who else is Googling things at midnight you should've known by now? Just me? Cool cool cool.
+
+xo, Ash</div>
+
+        <h3>Hashtags</h3>
+        <div class="hashes">#MomOfTeens  #EmptyNestEra  #MidlifeMom  #MomHumor  #MomLife  #ChristianMom  #BigGirlThoughts</div>
+
+        <span class="lever">Growth lever · Underserved niche (tween-to-almost-adult mom)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POST 9 -->
+<section class="post" id="p9">
+  <div class="wrap">
+    <header class="ph">
+      <span class="tag carousel">Carousel · Post 09 · Sat 10:00 am · 7 slides</span>
+      <h2>"Permission slip · 2026 edition"</h2>
+      <div class="hook">→ Sequel to her 2026 Energy deck — her best-performing format.</div>
+    </header>
+    <div class="content">
+      <div class="visual">
+        <div class="slides carousel">
+          <img src="slides/09_carousel_permission_list/slide_01.png">
+          <img src="slides/09_carousel_permission_list/slide_02.png">
+          <img src="slides/09_carousel_permission_list/slide_03.png">
+          <img src="slides/09_carousel_permission_list/slide_04.png">
+          <img src="slides/09_carousel_permission_list/slide_05.png">
+          <img src="slides/09_carousel_permission_list/slide_06.png">
+          <img src="slides/09_carousel_permission_list/slide_07.png">
+        </div>
+        <div class="caption">7 slides · swipe →</div>
+      </div>
+      <div class="details">
+        <h3>Caption</h3>
+        <div class="caption-box">Babe — screenshot whichever one you're giving yourself permission for this week. Send it to the friend who needs it too.
+
+Permission is free. We're handing it out.
+
+xo, Ash</div>
+
+        <h3>Hashtags</h3>
+        <div class="hashes">#PermissionSlip  #MessyMiddle  #ChristianWomen  #MidlifeWomen  #FaithAndHumor  #BigGirlThoughts  #RealTalkFaith</div>
+
+        <span class="lever">Growth lever · Sequel compounding + "send to a friend"</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POST 10 -->
+<section class="post" id="p10">
+  <div class="wrap">
+    <header class="ph">
+      <span class="tag reel">Reel · Post 10 · Sun 7:00 pm</span>
+      <h2>"Dance even when no one's watching"</h2>
+      <div class="hook">→ Hook: <em>On the list for 2026: dance when no one's watching</em></div>
+    </header>
+    <div class="content">
+      <div class="visual">
+        <div class="slides reel"><img src="slides/10_reel_dance_watching/thumbnail.png"></div>
+        <div class="caption">Reel cover · 1080 × 1920</div>
+      </div>
+      <div class="details">
+        <h3>Shot direction</h3>
+        <div class="script-line">Raw iPhone on the counter. Dancing badly. One take. Caught off guard.
+End text overlay: *Who's watching: God. And the dog. Good company.*
+Pair with a trending audio on post day.</div>
+
+        <h3>Caption</h3>
+        <div class="caption-box">Babe. Put on the song. Move the hips. The dishes will wait. The email will wait. God already saw. He thinks you're great.
+
+What's the song? Drop it below — I need the playlist.
+
+xo, Ash</div>
+
+        <h3>Hashtags</h3>
+        <div class="hashes">#DanceItOut  #JoyIsAChoice  #JesusInTheMess  #FaithAndHumor  #MidlifeWomen  #RelatableReels  #BigGirlThoughts</div>
+
+        <span class="lever">Growth lever · Trending audio discoverability</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="sig">xo, Ash</div>
+    <div class="m">biggirlthoughts.com · @ashleighleege · brand package 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>

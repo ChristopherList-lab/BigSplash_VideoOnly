@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Big Girl Thoughts — Brand Board</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/favicon-180x180-apple.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<meta name="theme-color" content="#1A1A1A">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage:        #7D8B7F;
+    --sage-deep:   #6B7D73;
+    --rose:        #B5929F;
+    --taupe:       #9B8F89;
+    --tan:         #B8A69F;
+    --cream:       #F5F3F0;
+    --off-white:   #FEFDFB;
+    --ink:         #1A1A1A;
+    --gold:        #D4AF37;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--off-white); color: var(--ink); font-family: 'Inter', -apple-system, sans-serif; line-height: 1.55; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+  section { padding: 96px 0; border-bottom: 1px solid rgba(26,26,26,.06); }
+  section.dark { background: var(--sage); color: var(--off-white); }
+  section.rose { background: var(--rose); color: var(--off-white); }
+  section.cream { background: var(--cream); }
+
+  /* ---------- typography ---------- */
+  .serif { font-family: 'Playfair Display', 'Didot', Georgia, serif; }
+  .serif-light { font-family: 'Cormorant Garamond', Georgia, serif; }
+  .script { font-family: 'Dancing Script', 'Snell Roundhand', cursive; }
+  h1.display { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(48px, 7vw, 96px); line-height: 1.02; letter-spacing: -0.02em; }
+  h2.section-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.01em; margin-bottom: 8px; }
+  .eyebrow { text-transform: uppercase; letter-spacing: 0.22em; font-size: 12px; font-weight: 600; opacity: .65; margin-bottom: 24px; }
+  .lede { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(20px, 2.2vw, 28px); font-style: italic; opacity: .85; max-width: 740px; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 64px;
+    align-items: center; min-height: 92vh; padding: 80px 0;
+  }
+  .hero-img {
+    width: 100%; aspect-ratio: 1/1; background-size: cover; background-position: center;
+    border-radius: 8px; box-shadow: 0 32px 64px -24px rgba(0,0,0,.18);
+    background-image: url("assets/hero-portrait.jpg");
+  }
+  .hero-copy .wordmark { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(56px, 8vw, 116px); line-height: 0.95; letter-spacing: -0.03em; }
+  .hero-copy .script-tag { font-family: 'Dancing Script', cursive; font-weight: 700; font-size: clamp(40px, 5vw, 68px); color: var(--sage); display: block; margin-top: -8px; }
+  .tagline { margin-top: 32px; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 26px; }
+  .tagline em { font-style: normal; font-weight: 600; color: var(--sage-deep); }
+
+  /* ---------- positioning ---------- */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 48px; }
+  .card {
+    background: var(--off-white); padding: 36px; border-radius: 10px;
+    border: 1px solid rgba(26,26,26,.08);
+  }
+  .card h3 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 12px; }
+  .card ul { list-style: none; }
+  .card li { padding: 8px 0 8px 20px; position: relative; border-bottom: 1px dotted rgba(26,26,26,.12); }
+  .card li:last-child { border: none; }
+  .card li::before { content: "•"; position: absolute; left: 0; color: var(--sage); font-weight: 700; }
+
+  /* ---------- voice trinity ---------- */
+  .trinity { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .trinity-card { padding: 48px 32px; border-radius: 10px; color: var(--off-white); min-height: 320px; display: flex; flex-direction: column; justify-content: space-between; }
+  .trinity-card.grace { background: var(--sage); }
+  .trinity-card.grit { background: var(--taupe); }
+  .trinity-card.sarcasm { background: var(--rose); }
+  .trinity-card h3 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 44px; letter-spacing: -0.01em; }
+  .trinity-card p { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; opacity: .92; }
+
+  .quotes { margin-top: 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px 48px; }
+  .quote {
+    font-family: 'Playfair Display', serif; font-style: italic; font-size: 22px;
+    padding: 20px 0 20px 24px; border-left: 3px solid var(--sage);
+  }
+  .quote .by { display: block; font-family: 'Inter', sans-serif; font-style: normal; font-size: 12px; text-transform: uppercase; letter-spacing: 0.18em; opacity: .55; margin-top: 10px; }
+
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+  .do-dont > div { padding: 28px; border-radius: 8px; }
+  .do-dont .do { background: rgba(125,139,127,.1); border: 1px solid rgba(125,139,127,.4); }
+  .do-dont .dont { background: rgba(181,146,159,.1); border: 1px solid rgba(181,146,159,.4); }
+  .do-dont h4 { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 14px; }
+  .do-dont ul { list-style: none; }
+  .do-dont li { padding: 6px 0 6px 24px; position: relative; font-size: 15px; }
+  .do-dont .do li::before { content: "✓"; color: var(--sage-deep); position: absolute; left: 0; font-weight: 700; }
+  .do-dont .dont li::before { content: "✕"; color: var(--rose); position: absolute; left: 0; font-weight: 700; }
+
+  /* ---------- palette ---------- */
+  .palette { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top: 48px; }
+  .swatch { aspect-ratio: 3/4; border-radius: 8px; padding: 16px; color: var(--off-white); display: flex; flex-direction: column; justify-content: flex-end; font-size: 12px; }
+  .swatch .name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+  .swatch .hex { font-family: 'Inter', sans-serif; letter-spacing: 0.08em; opacity: .85; }
+  .swatch.cream-s, .swatch.offwhite-s { color: var(--ink); }
+
+  /* ---------- typography section ---------- */
+  .type-demo { margin-top: 48px; display: grid; gap: 40px; }
+  .type-row { padding: 40px; background: var(--cream); border-radius: 10px; }
+  .type-row .meta { font-size: 12px; text-transform: uppercase; letter-spacing: 0.2em; opacity: .55; margin-bottom: 12px; }
+  .type-row .big-serif { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 72px; line-height: 1; letter-spacing: -0.02em; }
+  .type-row .body-serif { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; line-height: 1.5; max-width: 680px; }
+  .type-row .script-sig { font-family: 'Dancing Script', cursive; font-weight: 700; font-size: 54px; color: var(--sage-deep); }
+
+  /* ---------- photography ---------- */
+  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .photo-grid .shot { aspect-ratio: 4/5; background-size: cover; background-position: center; border-radius: 8px; position: relative; overflow: hidden; box-shadow: 0 20px 40px -20px rgba(0,0,0,.2); }
+  .photo-grid .shot .label { position: absolute; left: 16px; bottom: 14px; background: var(--off-white); padding: 6px 12px; border-radius: 4px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600; }
+
+  /* ---------- template system ---------- */
+  .templates { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .tpl { aspect-ratio: 4/5; border-radius: 10px; padding: 48px 40px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--off-white); position: relative; }
+  .tpl.sage { background: var(--sage); }
+  .tpl.rose { background: var(--rose); }
+  .tpl.taupe { background: var(--taupe); }
+  .tpl .inner-card {
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18);
+    border-radius: 14px; padding: 40px 28px; width: 100%;
+    font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 500; line-height: 1.3; font-style: italic;
+  }
+  .tpl .sig { font-family: 'Dancing Script', cursive; font-weight: 700; font-size: 28px; margin-top: 24px; }
+
+  /* ---------- pillars ---------- */
+  .pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+  .pillar { background: var(--cream); padding: 32px; border-radius: 10px; border-left: 5px solid var(--sage); }
+  .pillar h4 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 8px; }
+  .pillar .tag { display: inline-block; padding: 3px 10px; border-radius: 3px; background: var(--sage); color: var(--off-white); font-size: 11px; text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 14px; }
+  .pillar.rose-p { border-left-color: var(--rose); } .pillar.rose-p .tag { background: var(--rose); }
+  .pillar.taupe-p { border-left-color: var(--taupe); } .pillar.taupe-p .tag { background: var(--taupe); }
+  .pillar.gold-p { border-left-color: var(--gold); } .pillar.gold-p .tag { background: var(--gold); color: var(--ink); }
+  .pillar p { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; font-style: italic; opacity: .8; margin-top: 8px; }
+
+  /* ---------- hashtags ---------- */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  .tag-chip { background: var(--off-white); padding: 8px 16px; border-radius: 999px; font-size: 14px; border: 1px solid rgba(26,26,26,.12); }
+  .tag-chip.growth { background: var(--sage); color: var(--off-white); border-color: transparent; }
+
+  /* ---------- footer ---------- */
+  footer { padding: 64px 0; text-align: center; background: var(--ink); color: var(--off-white); }
+  footer .wordmark { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 36px; letter-spacing: -0.02em; }
+  footer .script-tag { font-family: 'Dancing Script', cursive; font-weight: 700; font-size: 24px; color: var(--gold); margin-top: 4px; }
+  footer .meta { opacity: .55; font-size: 12px; margin-top: 20px; letter-spacing: 0.1em; }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .two-col, .quotes, .do-dont, .trinity, .templates, .photo-grid, .pillars { grid-template-columns: 1fr !important; }
+    .palette { grid-template-columns: repeat(4, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section>
+  <div class="wrap hero">
+    <div class="hero-img" aria-label="Ashleigh Leege portrait"></div>
+    <div class="hero-copy">
+      <div class="eyebrow">Brand Board · 2026</div>
+      <h1 class="display">Big Girl<br/>Thoughts</h1>
+      <span class="script-tag">xo, Ash</span>
+      <p class="tagline"><em>Grace. Grit. Sarcasm.</em> &nbsp;A space for women who are done performing and ready to be real.</p>
+    </div>
+  </div>
+</section>
+
+<!-- POSITIONING -->
+<section class="cream">
+  <div class="wrap">
+    <div class="eyebrow">01 · Positioning</div>
+    <h2 class="section-title">The woman this is for.</h2>
+    <p class="lede">She's doing her best. She loves Jesus and says "babe" a lot. She's somewhere in the messy middle and she's wondering if she's the only one.</p>
+    <div class="two-col">
+      <div class="card">
+        <h3>The promise</h3>
+        <ul>
+          <li>Awkward honesty — no performing, no polish</li>
+          <li>Jesus in the mess, not Jesus on a pedestal</li>
+          <li>Marriage, motherhood, mid-life — with the jokes left in</li>
+          <li>Permission to be real instead of perfect</li>
+          <li>Real talk, real laughs, real faith</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>What it's not</h3>
+        <ul>
+          <li>Not inspirational-quote wallpaper</li>
+          <li>Not a highlight reel or a "glow-up" brand</li>
+          <li>Not sermon-length, not theology-heavy</li>
+          <li>Not anti-wine, anti-humor, or anti-joy</li>
+          <li>Not a pick-me, fix-me, or fix-yourself brand</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">02 · Voice</div>
+    <h2 class="section-title">The trinity.</h2>
+    <p class="lede">Every caption, every carousel, every reel should land somewhere inside this triangle. If it reads like only one — push it toward the other two.</p>
+
+    <div class="trinity">
+      <div class="trinity-card grace">
+        <h3>Grace</h3>
+        <p>"I've also seen how He shows up in the mess — every single time."</p>
+      </div>
+      <div class="trinity-card grit">
+        <h3>Grit</h3>
+        <p>"The kind of stuff that makes you question things, cry in the car, and wonder if God forgot your address."</p>
+      </div>
+      <div class="trinity-card sarcasm">
+        <h3>Sarcasm</h3>
+        <p>"Does anyone know which page of the Bible explains how to turn water into wine? Asking for a friend."</p>
+      </div>
+    </div>
+
+    <div class="eyebrow" style="margin-top:72px">Signature lines · use verbatim</div>
+    <div class="quotes">
+      <div class="quote">"Hey babe."<span class="by">Opener</span></div>
+      <div class="quote">"Jesus in the mess."<span class="by">Bio anchor</span></div>
+      <div class="quote">"Prayer is included in my business plan."<span class="by">Template quote</span></div>
+      <div class="quote">"Filled cups fill cups."<span class="by">Template quote</span></div>
+      <div class="quote">"If you know him, you know him. If you don't, you'd love him."<span class="by">The Shawn bit</span></div>
+      <div class="quote">"Women don't need more perfection — they need more permission."<span class="by">Positioning</span></div>
+    </div>
+
+    <div class="do-dont">
+      <div class="do">
+        <h4>Do</h4>
+        <ul>
+          <li>Open with "babe" or a direct question</li>
+          <li>Use sarcasm to disarm a heavy thought</li>
+          <li>Name the mess before you name the lesson</li>
+          <li>Drop the parenthetical aside ("which I should have done in 2024")</li>
+          <li>Write like you're texting one friend, not addressing a room</li>
+        </ul>
+      </div>
+      <div class="dont">
+        <h4>Don't</h4>
+        <ul>
+          <li>No "Here's the thing" or "Let that sink in"</li>
+          <li>No coach-speak: "lean into," "navigate," "level up"</li>
+          <li>No em dashes — use a period or parens</li>
+          <li>No three-part lists — two is sharper</li>
+          <li>No "the truth is" — just say the truth</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLOR -->
+<section class="cream">
+  <div class="wrap">
+    <div class="eyebrow">03 · Color</div>
+    <h2 class="section-title">Muted, warm, earthy.</h2>
+    <p class="lede">Sage is the hero. Rose and taupe carry the emotion. Gold and cream keep it from feeling heavy. Never pure primary colors. Never high-saturation.</p>
+    <div class="palette">
+      <div class="swatch" style="background:#7D8B7F"><div class="name">Sage</div><div class="hex">#7D8B7F</div></div>
+      <div class="swatch" style="background:#6B7D73"><div class="name">Sage Deep</div><div class="hex">#6B7D73</div></div>
+      <div class="swatch" style="background:#B5929F"><div class="name">Dusty Rose</div><div class="hex">#B5929F</div></div>
+      <div class="swatch" style="background:#9B8F89"><div class="name">Warm Taupe</div><div class="hex">#9B8F89</div></div>
+      <div class="swatch" style="background:#B8A69F"><div class="name">Soft Tan</div><div class="hex">#B8A69F</div></div>
+      <div class="swatch cream-s" style="background:#F5F3F0"><div class="name">Cream</div><div class="hex">#F5F3F0</div></div>
+      <div class="swatch" style="background:#D4AF37"><div class="name">Gold</div><div class="hex">#D4AF37</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">04 · Typography</div>
+    <h2 class="section-title">Serif for heart. Script for signature.</h2>
+    <p class="lede">Bold serif headlines carry the weight. Italic serif carries the feeling. The script closes every post like a handwritten note.</p>
+    <div class="type-demo">
+      <div class="type-row">
+        <div class="meta">Headline · Playfair Display Black</div>
+        <div class="big-serif">But God.</div>
+      </div>
+      <div class="type-row">
+        <div class="meta">Body · Cormorant Garamond Italic</div>
+        <div class="body-serif">"Welcome to Big Girl Thoughts — where we're empowering women to find purpose, passion, and peace, with some real talk and laughter."</div>
+      </div>
+      <div class="type-row">
+        <div class="meta">Signature · Dancing Script (web) / Snell Roundhand (print)</div>
+        <div class="script-sig">Big Girl Thoughts…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTOGRAPHY -->
+<section class="cream">
+  <div class="wrap">
+    <div class="eyebrow">05 · Photography</div>
+    <h2 class="section-title">Warm light. Real faces. No retouch.</h2>
+    <p class="lede">Three modes: editorial (studio, intentional), lifestyle (natural window light, candid), and flat-lay (food, journal, mug, messy desk). Never stock-feeling.</p>
+    <div class="photo-grid">
+      <div class="shot" style="background-image:url('assets/hero-portrait.jpg')">
+        <span class="label">Editorial</span>
+      </div>
+      <div class="shot" style="background-image:url('assets/lifestyle-coffee.png')">
+        <span class="label">Lifestyle</span>
+      </div>
+      <div class="shot" style="background-image:url('assets/recipe-flatlay.jpeg')">
+        <span class="label">Flat-lay</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEMPLATES -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">06 · Template system</div>
+    <h2 class="section-title">One card. One quote. One signature.</h2>
+    <p class="lede">The whole grid runs on this: a muted background, a soft-corner card, a centered italic serif line, a script signature at the bottom. Keep it repeatable.</p>
+    <div class="templates">
+      <div class="tpl sage">
+        <div class="inner-card">Prayer is included in my business plan.</div>
+        <div class="sig">Big Girl Thoughts…</div>
+      </div>
+      <div class="tpl rose">
+        <div class="inner-card">;&nbsp;but God.</div>
+        <div class="sig">Big Girl Thoughts…</div>
+      </div>
+      <div class="tpl taupe">
+        <div class="inner-card">Filled cups fill cups.</div>
+        <div class="sig">Big Girl Thoughts…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="cream">
+  <div class="wrap">
+    <div class="eyebrow">07 · Content pillars</div>
+    <h2 class="section-title">Five things she's always allowed to post.</h2>
+    <div class="pillars">
+      <div class="pillar">
+        <span class="tag">Faith · Humor</span>
+        <h4>Jesus in the mess</h4>
+        <p>"If Jesus could turn water into wine, does that technically make Him the first winemaker influencer?"</p>
+      </div>
+      <div class="pillar rose-p">
+        <span class="tag">Marriage · Shawn</span>
+        <h4>The husband bit</h4>
+        <p>"If you know him, you know him. If you don't, you'd love him. #myrebel #rulebreaker"</p>
+      </div>
+      <div class="pillar taupe-p">
+        <span class="tag">Messy middle</span>
+        <h4>Awkward honesty</h4>
+        <p>Cry-in-the-car moments. Things I almost said at church. What I'm not doing this year.</p>
+      </div>
+      <div class="pillar">
+        <span class="tag">Wellness</span>
+        <h4>Protein, not preachy</h4>
+        <p>"Simple. Filling. Done." Gym check-ins, 20g-of-protein snacks, cold plunges without the lecture.</p>
+      </div>
+      <div class="pillar gold-p">
+        <span class="tag">Mid-life</span>
+        <h4>Mom of almost-grown humans</h4>
+        <p>Empty-nest-adjacent humor. The parts no one warned her about. Permission to keep growing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HASHTAGS -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">08 · Hashtags</div>
+    <h2 class="section-title">Keep the signatures. Add reach.</h2>
+
+    <p class="lede">Her existing tags are where her people already are.</p>
+    <div class="tag-row">
+      <span class="tag-chip">#myrebel</span>
+      <span class="tag-chip">#rulebreaker</span>
+      <span class="tag-chip">#RelatableReels</span>
+      <span class="tag-chip">#MomHumor</span>
+      <span class="tag-chip">#MomLife</span>
+      <span class="tag-chip">#ilovedpeopleyesterday</span>
+    </div>
+
+    <p class="lede" style="margin-top:40px">Growth set — mid-size niche tags to layer in for reach.</p>
+    <div class="tag-row">
+      <span class="tag-chip growth">#FaithAndHumor</span>
+      <span class="tag-chip growth">#JesusInTheMess</span>
+      <span class="tag-chip growth">#MessyMiddle</span>
+      <span class="tag-chip growth">#ChristianWomen</span>
+      <span class="tag-chip growth">#MidlifeWomen</span>
+      <span class="tag-chip growth">#EmptyNestEra</span>
+      <span class="tag-chip growth">#WifeMomFaith</span>
+      <span class="tag-chip growth">#BigGirlThoughts</span>
+      <span class="tag-chip growth">#RealTalkFaith</span>
+      <span class="tag-chip growth">#AwkwardHonesty</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="wordmark">Big Girl Thoughts</div>
+    <div class="script-tag">xo, Ash</div>
+    <div class="meta">biggirlthoughts.com &nbsp;·&nbsp; @ashleighleege &nbsp;·&nbsp; brand board 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
