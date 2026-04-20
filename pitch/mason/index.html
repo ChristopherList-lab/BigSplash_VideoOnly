@@ -113,10 +113,16 @@
       white-space: nowrap;
     }
 
-    /* BigSplash-branded sections (Maker + CTA) — flipped back to dark theme */
+    /* BigSplash-branded surfaces (Maker, CTA, Nav) — flipped back to dark theme */
     .bigsplash-section {
-      background-color: #131318 !important;
       color: #ddd8ce;
+    }
+    section.bigsplash-section {
+      background-color: #131318 !important;
+    }
+    nav.bigsplash-section {
+      background-color: rgba(19, 19, 24, 0.82) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
     .bigsplash-section .font-anton {
       font-family: 'Anton', sans-serif;
@@ -183,8 +189,8 @@
 <body class="bg-background selection:bg-primary selection:text-on-primary">
 
 
-  <!-- ========== TOP BAR ========== -->
-  <nav class="fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-5 md:py-6 z-50 bg-background/75 backdrop-blur-md border-b border-white/5">
+  <!-- ========== TOP BAR (BigSplash-branded) ========== -->
+  <nav class="bigsplash-section fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-5 md:py-6 z-50 backdrop-blur-md">
     <a href="https://bigsplash.video" target="_blank" rel="noopener" class="flex items-center gap-3" aria-label="Big Splash Home">
       <svg class="h-5 md:h-6 w-auto" viewBox="0 0 655 191" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M170.856 172.036C170.856 175.982 169.691 179.3 167.449 182.08C162.786 187.729 153.191 190.778 136.96 190.778H133.014C125.481 190.778 119.473 190.42 114.9 189.433C105.933 187.64 102.077 184.142 102.077 178.852C102.077 172.037 107.009 168.45 120.101 167.373C108.085 167.284 101.808 165.67 101.808 157.958C101.808 151.95 106.56 147.376 119.742 146.928C109.789 145.493 104.318 141.727 104.318 132.849C104.318 121.909 114.183 114.825 135.166 114.825H137.229C140.726 114.825 143.416 114.645 145.568 114.018C149.783 113.031 151.487 110.251 151.487 103.974V103.257H168.345V103.885C168.345 110.341 167.269 113.569 163.862 115.094C160.634 116.529 154.805 116.618 145.568 116.618C161.351 117.605 167.718 122.626 167.718 132.849C167.718 144.596 157.764 149.618 137.587 149.618H131.49C126.558 149.618 122.971 149.708 120.549 149.977C115.886 150.425 114.81 151.501 114.81 153.295C114.81 154.012 115.259 154.729 116.245 155.088C118.128 155.895 122.702 156.164 130.862 156.164H144.851C163.144 156.164 170.856 160.02 170.856 171.588V172.036Z" fill="#EFF88B"/>
@@ -205,11 +211,11 @@
   <!-- ========== HERO ========== -->
   <main class="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-background pt-20">
     <!-- Background video -->
-    <video id="hero-video" autoplay loop muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0" style="filter: brightness(0.7) contrast(1.1) saturate(0.95);">
+    <video id="hero-video" autoplay loop muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0" style="filter: brightness(0.45) contrast(1.15) saturate(0.9);">
       <source src="videos/hero.mp4" type="video/mp4">
     </video>
     <!-- Darken overlay for hero type legibility -->
-    <div class="absolute inset-0 bg-black/40 z-[1]"></div>
+    <div class="absolute inset-0 bg-black/55 z-[1]"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-[1]"></div>
 
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-primary/[0.06] rounded-full blur-[200px] z-[2]"></div>
