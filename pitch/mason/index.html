@@ -23,13 +23,13 @@
 
   <style>
     body {
-      background-color: #131318;
-      color: #ddd8ce;
+      background-color: #EDE1C6;
+      color: #231F1B;
       font-family: 'Inter', sans-serif;
       margin: 0;
       overflow-x: hidden;
     }
-    .font-anton { font-family: 'Anton', sans-serif; }
+    .font-anton { font-family: 'Playfair Display', serif; font-weight: 900; letter-spacing: -0.01em; }
     .font-jetbrains { font-family: 'JetBrains Mono', monospace; }
 
     .abyssal-grain { position: relative; }
@@ -46,11 +46,11 @@
     }
 
     .text-glow-lime {
-      text-shadow: 0 0 60px rgba(239, 248, 139, 0.5), 0 0 120px rgba(239, 248, 139, 0.25);
+      text-shadow: 0 1px 0 rgba(35, 31, 27, 0.08), 0 0 40px rgba(142, 58, 46, 0.15);
     }
 
     .bloom-hover:hover {
-      box-shadow: 0 0 50px rgba(239, 248, 139, 0.35);
+      box-shadow: 0 8px 40px rgba(142, 58, 46, 0.22), 0 2px 8px rgba(35, 31, 27, 0.08);
     }
 
     .reveal {
@@ -64,19 +64,19 @@
     }
 
     ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: #131318; }
-    ::-webkit-scrollbar-thumb { background: rgba(239, 248, 139, 0.18); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(239, 248, 139, 0.35); }
-    ::selection { background: rgba(239, 248, 139, 0.35); color: #131318; }
+    ::-webkit-scrollbar-track { background: #EDE1C6; }
+    ::-webkit-scrollbar-thumb { background: rgba(142, 58, 46, 0.25); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(142, 58, 46, 0.45); }
+    ::selection { background: rgba(142, 58, 46, 0.3); color: #F6F2E8; }
 
     .video-slot {
       position: relative;
       overflow: hidden;
       background:
-        radial-gradient(ellipse at top left, rgba(239, 248, 139, 0.12), transparent 60%),
-        radial-gradient(ellipse at bottom right, rgba(106, 150, 134, 0.1), transparent 60%),
-        linear-gradient(135deg, #1b1b20 0%, #131318 50%, #0e0e13 100%);
-      border: 1px solid rgba(239, 248, 139, 0.08);
+        radial-gradient(ellipse at top left, rgba(142, 58, 46, 0.12), transparent 60%),
+        radial-gradient(ellipse at bottom right, rgba(61, 78, 116, 0.10), transparent 60%),
+        linear-gradient(135deg, #E2D4B5 0%, #EDE1C6 50%, #F0E5CA 100%);
+      border: 1px solid rgba(142, 58, 46, 0.15);
     }
     .video-slot::after {
       content: "SEEDANCE 2.0 CLIP";
@@ -88,7 +88,7 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
       letter-spacing: 0.3em;
-      color: rgba(239, 248, 139, 0.35);
+      color: rgba(142, 58, 46, 0.45);
       z-index: 1;
       pointer-events: none;
     }
@@ -117,8 +117,7 @@
     #cal-modal { transition: opacity 0.3s, visibility 0.3s; }
     #cal-modal.open { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
     body.cal-locked { overflow: hidden; }
-    .ghl-cal-dark { filter: invert(0.88) hue-rotate(180deg); border-radius: 4px; }
-    .ghl-cal-dark img { filter: invert(1) hue-rotate(180deg); }
+    .ghl-cal-dark { border-radius: 4px; }
   </style>
 
   <script>
@@ -127,23 +126,23 @@
       theme: {
         extend: {
           colors: {
-            "primary": "#eff88b",
-            "secondary": "#6a9686",
-            "tertiary": "#ddd8ce",
-            "on-primary": "#2f3300",
-            "on-surface": "#e4e1e9",
-            "background": "#131318",
-            "surface": "#131318",
-            "surface-dim": "#0e0e13",
-            "surface-container": "#1f1f25",
-            "surface-container-low": "#1b1b20",
-            "surface-container-high": "#2a292f",
-            "surface-container-highest": "#35343a",
-            "outline": "#92927f",
-            "outline-variant": "#474838"
+            "primary": "#8E3A2E",
+            "secondary": "#3D4E74",
+            "tertiary": "#475A42",
+            "on-primary": "#F6F2E8",
+            "on-surface": "#231F1B",
+            "background": "#EDE1C6",
+            "surface": "#EDE1C6",
+            "surface-dim": "#E2D4B5",
+            "surface-container": "#E8DCC0",
+            "surface-container-low": "#F0E5CA",
+            "surface-container-high": "#D9C9A5",
+            "surface-container-highest": "#CBB98F",
+            "outline": "#8A7F65",
+            "outline-variant": "#C8BA98"
           },
           fontFamily: {
-            "headline": ["Anton"],
+            "headline": ["Playfair Display"],
             "body": ["Inter"],
             "label": ["JetBrains Mono"]
           }
@@ -216,7 +215,7 @@
 
     <div class="absolute bottom-0 left-0 w-full leading-[0] z-30">
       <svg class="relative block w-full h-[60px] md:h-[90px]" preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
-        <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#1b1b20"></path>
+        <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#F0E5CA"></path>
       </svg>
     </div>
   </main>
