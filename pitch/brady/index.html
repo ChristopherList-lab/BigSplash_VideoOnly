@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Heart of Texas, Literally — A Proposal for Brady Chamber</title>
+  <meta name="description" content="A video marketing proposal for the Brady-McCulloch County Chamber of Commerce. Anthem reel, Goat Cook-Off recap, Country Music Museum spotlight, member series, and vertical-first cuts. Six cinematic pieces.">
+  <meta name="robots" content="noindex,nofollow">
+
+  <meta property="og:title" content="Heart of Texas, Literally — A Proposal from Big Splash">
+  <meta property="og:description" content="Six cinematic pieces for the Brady Chamber. Anthem, Goat Cook-Off recap, Country Music Museum spotlight, member series.">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" type="image/png" href="../../Bigsplash_FAVcon.png">
+  <link rel="apple-touch-icon" href="../../Bigsplash_FAVcon.png">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Roboto+Slab:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <style>
+    body {
+      background-color: #F7F4EE;
+      color: #14110E;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+    }
+    .font-anton { font-family: 'Roboto Slab', serif; font-weight: 900; letter-spacing: 0; }
+    .font-jetbrains { font-family: 'JetBrains Mono', monospace; }
+
+    .abyssal-grain { position: relative; }
+    .abyssal-grain::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .text-glow-lime {
+      text-shadow: 0 1px 0 rgba(35, 31, 27, 0.08), 0 0 40px rgba(30, 58, 111, 0.15);
+    }
+
+    .bloom-hover:hover {
+      box-shadow: 0 8px 40px rgba(30, 58, 111, 0.22), 0 2px 8px rgba(35, 31, 27, 0.08);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #F7F4EE; }
+    ::-webkit-scrollbar-thumb { background: rgba(30, 58, 111, 0.25); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(30, 58, 111, 0.45); }
+    ::selection { background: rgba(30, 58, 111, 0.3); color: #F4ECD8; }
+
+    .video-slot {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at top left, rgba(30, 58, 111, 0.12), transparent 60%),
+        radial-gradient(ellipse at bottom right, rgba(61, 78, 116, 0.10), transparent 60%),
+        linear-gradient(135deg, #ECE7DD 0%, #F7F4EE 50%, #F2EDE3 100%);
+      border: 1px solid rgba(30, 58, 111, 0.15);
+    }
+    .video-slot::after {
+      content: "SEEDANCE 2.0 CLIP";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: rgba(30, 58, 111, 0.45);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .video-slot video {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @keyframes ticker-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-track {
+      display: flex;
+      gap: 3rem;
+      animation: ticker-left 40s linear infinite;
+      min-width: 200%;
+      white-space: nowrap;
+    }
+
+    /* BigSplash-branded surfaces (Maker, CTA, Nav) — flipped back to dark theme */
+    .bigsplash-section {
+      color: #ddd8ce;
+    }
+    section.bigsplash-section,
+    div.bigsplash-section {
+      background-color: #131318 !important;
+    }
+    nav.bigsplash-section {
+      background-color: rgba(19, 19, 24, 0.82) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .bigsplash-section .font-anton {
+      font-family: 'Anton', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+    .bigsplash-section .font-serif,
+    .bigsplash-section em,
+    .bigsplash-section i {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+    }
+    .font-serif {
+      font-family: 'Playfair Display', serif;
+    }
+    .bigsplash-section .text-on-surface { color: #e4e1e9; }
+    .bigsplash-section .text-primary { color: #eff88b; }
+    .bigsplash-section .text-stone-700 { color: #d4cfc5; }
+    .bigsplash-section .text-stone-600 { color: #a8a39a; }
+    .bigsplash-section .text-glow-lime {
+      text-shadow: 0 0 60px rgba(239, 248, 139, 0.5), 0 0 120px rgba(239, 248, 139, 0.25);
+    }
+    .bigsplash-section .bloom-hover:hover {
+      box-shadow: 0 0 50px rgba(239, 248, 139, 0.35);
+    }
+    .bigsplash-section .bg-primary { background-color: #eff88b; }
+    .bigsplash-section .text-on-primary { color: #2f3300; }
+    .bigsplash-section .bg-background { background-color: #131318; }
+    .bigsplash-section .border-primary\/10 { border-color: rgba(239, 248, 139, 0.1); }
+    .bigsplash-section a:hover { color: #eff88b; }
+
+    /* GHL calendar modal */
+    #cal-modal { transition: opacity 0.3s, visibility 0.3s; }
+    #cal-modal.open { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+    body.cal-locked { overflow: hidden; }
+    /* GHL iframe gets the dark filter again only inside BigSplash sections */
+    .bigsplash-section .ghl-cal-dark { filter: invert(0.88) hue-rotate(180deg); border-radius: 4px; }
+    .ghl-cal-dark { border-radius: 4px; }
+  </style>
+
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#1E3A6F",
+            "secondary": "#B5292B",
+            "tertiary": "#8B6E3F",
+            "on-primary": "#F4ECD8",
+            "on-surface": "#14110E",
+            "background": "#F7F4EE",
+            "surface": "#F7F4EE",
+            "surface-dim": "#ECE7DD",
+            "surface-container": "#E8DCC0",
+            "surface-container-low": "#F2EDE3",
+            "surface-container-high": "#D9C9A5",
+            "surface-container-highest": "#CBB98F",
+            "outline": "#8A7F65",
+            "outline-variant": "#C8BA98"
+          },
+          fontFamily: {
+            "headline": ["Roboto Slab"],
+            "body": ["Inter"],
+            "label": ["JetBrains Mono"]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-background selection:bg-primary selection:text-on-primary">
+
+
+  <!-- ========== TOP BAR (BigSplash-branded) ========== -->
+  <nav class="bigsplash-section fixed top-0 w-full z-50 backdrop-blur-md" style="background: linear-gradient(to bottom, rgba(19,19,24,0.92), rgba(19,19,24,0.75));">
+    <div class="max-w-[1600px] mx-auto flex justify-between items-center px-6 md:px-10 py-4 md:py-5 gap-4">
+
+      <!-- Logo + breadcrumb -->
+      <div class="flex items-center gap-5 md:gap-7 min-w-0">
+        <a href="https://bigsplash.video" target="_blank" rel="noopener" class="flex items-center gap-3 shrink-0" aria-label="Big Splash Home">
+          <svg class="h-6 md:h-7 w-auto" viewBox="0 0 655 191" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M170.856 172.036C170.856 175.982 169.691 179.3 167.449 182.08C162.786 187.729 153.191 190.778 136.96 190.778H133.014C125.481 190.778 119.473 190.42 114.9 189.433C105.933 187.64 102.077 184.142 102.077 178.852C102.077 172.037 107.009 168.45 120.101 167.373C108.085 167.284 101.808 165.67 101.808 157.958C101.808 151.95 106.56 147.376 119.742 146.928C109.789 145.493 104.318 141.727 104.318 132.849C104.318 121.909 114.183 114.825 135.166 114.825H137.229C140.726 114.825 143.416 114.645 145.568 114.018C149.783 113.031 151.487 110.251 151.487 103.974V103.257H168.345V103.885C168.345 110.341 167.269 113.569 163.862 115.094C160.634 116.529 154.805 116.618 145.568 116.618C161.351 117.605 167.718 122.626 167.718 132.849C167.718 144.596 157.764 149.618 137.587 149.618H131.49C126.558 149.618 122.971 149.708 120.549 149.977C115.886 150.425 114.81 151.501 114.81 153.295C114.81 154.012 115.259 154.729 116.245 155.088C118.128 155.895 122.702 156.164 130.862 156.164H144.851C163.144 156.164 170.856 160.02 170.856 171.588V172.036ZM135.973 139.754C147.9 139.754 153.101 137.602 153.101 132.67C153.101 127.289 148.617 125.227 136.87 125.227H135.077C123.509 125.227 119.473 127.469 119.473 133.028C119.473 138.409 124.316 139.754 135.973 139.754ZM138.753 178.941C143.596 178.941 147.182 178.762 149.693 178.134C154.984 177.058 156.688 175.175 156.688 172.754V172.306C156.688 171.229 156.419 170.333 155.791 169.615C154.625 168.181 151.218 167.373 143.057 167.373H130.952C122.164 167.373 117.68 168.808 117.68 173.292V173.382C117.68 177.865 123.24 178.941 135.525 178.941H138.753Z" fill="#EFF88B"/>
+            <path d="M86.2491 108.009C79.2546 108.009 76.385 105.767 76.385 98.7729C76.385 92.0473 79.972 89.7158 86.2491 89.7158C92.6159 89.7158 96.1132 92.0473 96.1132 98.7729C96.1132 105.229 92.885 108.009 86.2491 108.009ZM78.0888 167.373V115.901H93.7817V167.373H78.0888Z" fill="#EFF88B"/>
+            <path d="M0 167.373V103.436H35.4211C56.6737 103.436 66.9862 107.382 66.9862 120.205V120.743C66.9862 128.993 62.9509 132.67 53.8042 134.373C64.1166 135.808 68.6003 139.395 68.6003 148.452V148.811C68.6003 153.474 67.3449 157.24 64.834 159.841C59.8123 165.221 50.2172 167.373 36.0488 167.373H0ZM14.6168 115.273V128.724H36.8559C39.9944 128.724 42.5053 128.634 44.9265 128.365C49.4998 127.738 52.19 126.123 52.19 122.267V121.909C52.19 119.846 51.652 118.412 50.5759 117.425C48.4237 115.632 44.0297 115.273 36.3178 115.273H14.6168ZM14.6168 140.382V154.819H34.1656C39.4564 154.819 43.3124 154.64 46.0922 154.191C51.652 153.474 53.2661 151.591 53.2661 147.824V147.466C53.2661 145.403 52.7281 143.879 51.652 142.892C49.5895 140.83 44.6575 140.382 35.2417 140.382H14.6168Z" fill="#EFF88B"/>
+            <path d="M513.666 167.373H498.959V99.2212H513.666V126.392C517.522 118.86 524.965 114.017 535.994 114.017C541.375 114.017 545.948 115.004 549.715 117.156C557.247 121.281 561.282 128.903 561.282 139.216V167.373H545.948V143.699C545.948 140.202 545.41 137.153 544.603 134.553C542.72 129.262 538.505 126.213 530.973 126.213C519.046 126.213 513.666 132.311 513.666 144.417V167.373Z" fill="#EFF88B"/>
+            <path d="M460.42 169.077C439.258 169.077 428.317 163.069 425.717 150.335H443.203C444.907 155.357 449.301 157.419 461.228 157.419C472.437 157.419 475.665 155.177 475.665 151.59C475.665 149.887 474.948 148.9 472.347 148.272C469.747 147.555 464.635 147.196 456.026 146.927C435.581 146.3 427.6 142.085 427.6 131.862C427.6 128.365 428.586 125.316 430.739 122.715C434.953 117.335 443.293 114.017 456.385 114.017C475.755 114.017 486.246 119.487 490.013 131.952H473.513C472.078 126.661 465.801 125.047 456.206 125.047C452.44 125.047 449.66 125.226 447.597 125.854C443.652 126.93 442.306 128.724 442.306 130.607C442.306 132.131 442.755 133.207 445.266 134.014C447.777 134.732 452.619 135.18 461.228 135.539C472.975 135.987 480.418 137.243 484.722 139.753C489.206 142.175 490.73 145.851 490.73 151.232C490.73 161.544 480.507 169.077 460.42 169.077Z" fill="#EFF88B"/>
+            <path d="M405.147 155.177C400.933 163.338 391.427 169.077 376.542 169.077C362.373 169.077 354.572 164.324 354.572 154.46V154.37C354.572 148.362 357.082 143.879 362.732 141.278C364.436 140.471 366.319 139.843 368.381 139.216C372.596 138.139 378.694 137.422 389.724 136.794C393.58 136.525 396.539 136.346 398.601 135.987C402.816 135.36 404.251 134.194 404.251 131.952V131.862C404.251 130.697 403.892 129.62 402.906 128.544C401.202 126.482 397.166 125.047 389.724 125.047C385.24 125.047 381.832 125.316 379.321 126.034C374.12 127.199 371.968 129.71 371.52 133.835H355.827C357.531 120.115 368.561 114.107 388.378 114.107C395.104 114.107 400.574 114.735 405.147 115.9C414.204 118.411 418.868 124.15 418.868 135.36V167.373H406.493L405.147 155.177ZM381.115 158.316C385.688 158.316 389.634 157.509 393.131 155.985C400.215 152.936 404.43 147.914 404.43 142.713V142.354C403.085 144.148 399.498 145.403 391.069 145.851C381.205 146.3 376.721 147.017 373.941 148.362C371.789 149.438 370.713 150.963 370.713 153.025V153.115C370.713 156.523 373.582 158.316 381.115 158.316Z" fill="#EFF88B"/>
+            <path d="M330.821 167.373V99.2212H346.155V167.373H330.821Z" fill="#EFF88B"/>
+            <path d="M291.427 168.898C279.859 168.898 272.506 165.759 268.291 159.661V185.846H253.406V115.901H266.498L267.574 125.316C272.416 117.873 281.025 114.197 291.875 114.197C309.9 114.197 320.93 123.702 320.93 141.996C320.93 151.142 317.612 157.688 311.962 162.262C306.403 166.746 299.229 168.898 291.427 168.898ZM286.674 156.612C300.394 156.612 305.416 151.501 305.416 141.996C305.416 131.683 299.946 126.303 286.854 126.303C274.838 126.303 268.022 131.862 268.022 141.996C268.022 151.77 273.941 156.612 286.674 156.612Z" fill="#EFF88B"/>
+            <path d="M211.899 169.256C203.469 169.256 196.654 168.449 191.274 166.656C180.602 163.159 175.222 156.074 172.98 144.686H189.301C191.453 153.563 199.434 156.164 212.257 156.164C224.005 156.164 229.295 153.922 229.295 148.631C229.295 146.569 228.578 145.044 227.233 144.237C224.363 142.354 217.817 141.906 204.725 141.188C198.268 140.83 192.888 140.023 188.583 138.678C180.064 136.167 176.029 131.055 176.029 122.088C176.029 109.713 186.521 101.822 207.415 101.822C229.654 101.822 241.491 108.009 244.45 124.151H228.399C226.605 115.99 219.252 114.376 207.146 114.376C195.13 114.376 191.274 117.066 191.274 121.64C191.274 123.881 191.901 125.406 194.771 126.482C197.551 127.558 202.752 128.275 211.719 128.634C219.431 128.993 225.619 129.8 230.461 131.145C240.235 133.746 244.45 138.767 244.45 147.555C244.45 161.275 234.407 169.256 211.899 169.256Z" fill="#EFF88B"/>
+            <path d="M596.507 128.281C596.495 125.291 596.482 122.339 596.47 119.387C596.46 116.918 596.44 114.449 596.443 111.981C596.447 109.234 596.609 106.497 597.005 103.781C597.313 101.668 597.766 99.5853 598.416 97.5527C598.936 95.9237 599.611 94.3528 600.615 92.9626C601.99 91.0565 603.818 89.9149 606.269 89.9651C607.561 89.9916 608.821 90.2187 610.036 90.6629C611.094 91.05 612.171 91.4099 613.18 91.9054C614.568 92.5879 615.916 93.3592 617.252 94.1421C619.356 95.3747 621.438 96.6453 623.525 97.9066C624.456 98.4687 625.455 98.6651 626.52 98.525C627.307 98.4214 627.953 98.0119 628.521 97.503C629.298 96.8074 629.684 95.8976 629.79 94.8669C629.941 93.4032 629.381 92.2238 628.24 91.3238C627.655 90.8622 627.016 90.4635 626.377 90.0757C622.73 87.8608 619.066 85.6724 615.428 83.4407C614.467 82.851 613.57 82.1539 612.662 81.4807C611.937 80.943 611.24 80.3681 610.533 79.8068C610.403 79.7041 610.285 79.5879 610.074 79.4007C610.546 79.3272 610.895 79.2654 611.246 79.2196C612.397 79.0694 613.548 78.9055 614.703 78.7832C616.323 78.6117 617.945 78.4467 619.57 78.3252C623.634 78.0211 627.707 77.977 631.785 78.0701C633.761 78.1153 635.738 78.136 637.714 78.1675C638.852 78.1856 639.859 77.8573 640.723 77.108C642.24 75.792 642.792 73.4727 641.58 71.6861C640.905 70.6914 639.964 70.0573 638.737 69.9839C637.7 69.9218 636.659 69.9209 635.619 69.9113C633.035 69.8872 630.451 69.8988 627.867 69.8483C625.563 69.8033 623.257 69.7334 620.956 69.6026C618.722 69.4757 616.52 69.0828 614.36 68.4803C613.007 68.1028 611.671 67.6656 610.416 67.0188C609.721 66.661 609.002 66.3375 608.348 65.916C606.677 64.8402 605.5 63.3907 605.086 61.4068C604.855 60.3009 604.904 59.1918 605.205 58.1289C605.509 57.059 605.89 55.9985 606.366 54.9952C606.963 53.7363 607.653 52.5174 608.368 51.3202C611.34 46.3447 614.333 41.3815 617.327 36.4195C617.943 35.399 618.192 34.3315 617.872 33.1574C617.499 31.7886 616.573 30.9024 615.335 30.2896C613.768 29.5146 611.64 29.7517 610.211 31.3108C610.05 31.4868 609.93 31.7032 609.805 31.9095C607.913 35.0384 606.018 38.1659 604.133 41.2992C602.026 44.8021 599.928 48.3106 597.824 51.8155C597.766 51.9124 597.685 51.9959 597.545 52.1745C597.485 51.9453 597.437 51.8103 597.416 51.6714C597.077 49.4118 596.847 47.1446 596.763 44.8608C596.609 40.6479 596.636 36.4359 596.638 32.2234C596.639 30.6697 596.619 29.1158 596.608 27.562C596.598 26.0122 595.625 24.402 594.014 23.75C592.244 23.0335 590.674 23.3256 589.29 24.5494C588.433 25.3076 587.957 26.3043 587.935 27.466C587.912 28.6566 587.942 29.8487 587.949 31.0402C587.975 34.9945 588.054 38.95 588.008 42.9029C587.974 45.8372 587.596 48.7437 586.846 51.5848C586.512 52.8482 586.098 54.0933 585.519 55.2631C585.077 56.1568 584.589 57.0512 583.976 57.8314C582.889 59.2143 581.508 60.2198 579.705 60.535C578.505 60.7449 577.312 60.6576 576.159 60.2998C575.068 59.9615 573.985 59.5723 572.947 59.0997C571.888 58.6182 570.867 58.0439 569.867 57.4475C565.094 54.6014 560.336 51.7314 555.569 48.8765C554.842 48.4415 554.055 48.1721 553.198 48.1773C552.257 48.1829 551.436 48.5182 550.733 49.1231C549.684 50.0258 549.023 51.1405 548.978 52.5557C548.927 54.1467 549.621 55.382 550.971 56.1984C556.949 59.812 562.943 63.3993 568.93 66.9961C569.163 67.1361 569.396 67.2763 569.607 67.5165C569.28 67.5794 568.956 67.6564 568.626 67.7028C566.636 67.9833 564.644 68.2671 562.631 68.3388C560.309 68.4214 557.987 68.4781 555.664 68.5085C553.687 68.5344 551.71 68.5133 549.733 68.5019C547.167 68.4871 544.6 68.4742 542.034 68.4368C539.087 68.3937 536.141 68.3161 533.194 68.2696C530.87 68.233 528.547 68.2145 526.223 68.2004C525.159 68.1939 524.281 68.663 523.524 69.3526C522.444 70.3372 522.028 71.5888 522.165 73.0358C522.284 74.2866 522.876 75.2382 523.945 75.9335C524.667 76.4037 525.449 76.5361 526.274 76.552C529.03 76.605 531.785 76.6644 534.541 76.708C539.273 76.7828 544.006 76.8454 548.739 76.9172C551.132 76.9535 553.527 76.9471 555.918 77.0538C558.462 77.1675 560.988 77.4856 563.481 78.0555C565.037 78.4112 566.559 78.8809 568.056 79.4259C569.297 79.8775 570.509 80.4099 571.647 81.084C573.282 82.0521 574.493 83.367 574.855 85.2896C575.035 86.2472 574.986 87.212 574.812 88.1718C574.633 89.1579 574.338 90.1011 573.945 91.0214C573.08 93.0427 571.9 94.8875 570.782 96.7673C569.451 99.0056 568.09 101.227 566.789 103.483C565.891 105.041 566.059 106.611 567.092 108.061C568.216 109.636 570.268 110.304 572.029 109.784C572.962 109.508 573.7 108.962 574.2 108.136C576.263 104.727 578.297 101.3 580.38 97.9038C581.045 96.8197 581.817 95.7994 582.569 94.7706C583.074 94.0781 583.618 93.4114 584.169 92.7536C584.463 92.4026 584.809 92.095 585.187 91.7118C585.371 92.3482 585.549 92.917 585.7 93.4924C586.368 96.0261 586.823 98.5976 587.163 101.191C587.53 103.989 587.753 106.798 587.851 109.612C587.962 112.806 588.023 116.002 588.08 119.197C588.155 123.358 588.2 127.52 588.266 131.682C588.301 133.857 588.358 136.033 588.394 138.208C588.412 139.336 588.717 140.362 589.483 141.216C590.811 142.695 592.975 143.188 594.787 142.13C596 141.421 596.562 140.238 596.585 138.833C596.605 137.677 596.582 136.52 596.573 135.363C596.553 133.015 596.529 130.667 596.507 128.281Z" fill="#EFF88B"/>
+          </svg>
+        </a>
+
+        <div class="hidden md:flex items-center gap-2 border-l border-primary/20 pl-5">
+          <span class="font-label text-[10px] tracking-[0.3em] uppercase text-stone-600">Proposal</span>
+          <span class="text-primary/40">/</span>
+          <span class="font-label text-[10px] tracking-[0.3em] uppercase text-primary">McCulloch County</span>
+        </div>
+      </div>
+
+      <!-- Center links -->
+      <div class="hidden lg:flex items-center gap-8 font-label text-[11px] tracking-[0.28em] uppercase">
+        <a href="#concepts" class="text-stone-600 hover:text-primary transition-colors duration-200">Concepts</a>
+        <a href="#timeline" class="text-stone-600 hover:text-primary transition-colors duration-200">Timeline</a>
+        <a href="#maker" class="text-stone-600 hover:text-primary transition-colors duration-200">Maker</a>
+        <a href="https://bigsplash.video" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-stone-600 hover:text-primary transition-colors duration-200">
+          bigsplash.video
+          <span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+        </a>
+      </div>
+
+      <!-- CTA -->
+      <button type="button" data-cal-open class="group inline-flex items-center gap-2 bg-primary text-on-primary px-4 md:px-5 py-2.5 md:py-3 rounded-full font-label text-[10px] md:text-[11px] tracking-[0.26em] uppercase font-bold transition-all duration-300 bloom-hover cursor-pointer whitespace-nowrap">
+        Book a Call
+        <span class="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform duration-200">arrow_forward</span>
+      </button>
+
+    </div>
+  </nav>
+
+
+  <!-- ========== HERO ========== -->
+  <main class="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-background pt-20">
+    <!-- Background video -->
+    <video id="hero-video" autoplay loop muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover z-0" style="filter: brightness(0.95) contrast(1.05) saturate(1.0) blur(3px); transform: scale(1.04);">
+      <source src="videos/hero.mp4" type="video/mp4">
+    </video>
+    <!-- Very light scrim — keeps bright look but holds limestone type legible -->
+    <div class="absolute inset-0 z-[1]" style="background: radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.35) 100%);"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-[1]"></div>
+
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-primary/[0.06] rounded-full blur-[200px] z-[2]"></div>
+    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-secondary/[0.04] rounded-full blur-[180px] z-[2]"></div>
+    <div class="absolute inset-0 z-[2] abyssal-grain"></div>
+
+    <div class="relative z-20 text-center px-4 max-w-7xl mx-auto py-20">
+      <p class="font-label text-primary text-[11px] md:text-xs tracking-[0.3em] uppercase mb-8">
+        A Proposal · Prepared for Daniel Mendoza, Brady-McCulloch County Chamber of Commerce
+      </p>
+
+      <h1 class="font-anton text-[11vw] md:text-[7.5vw] tracking-tight leading-[0.95] select-none" style="color:#F4ECD8; text-shadow: 0 2px 20px rgba(0,0,0,0.55), 0 0 60px rgba(0,0,0,0.35);">
+        <span class="block">Heart of Texas,</span>
+        <span class="block italic" style="color:#F4ECD8;">literally.</span>
+      </h1>
+
+      <p class="text-base md:text-lg max-w-2xl mx-auto mt-10 md:mt-12 leading-relaxed" style="color:#DDD8CE; text-shadow: 0 1px 8px rgba(0,0,0,0.4);">
+        Goat Capital of the World. The only Texas museum dedicated to traditional country. A 1899 sandstone courthouse on a square most drivers blow past at 65. The chamber doesn't own a single film about any of it. Six cinematic pieces. Built around the two assets no peer town can copy.
+      </p>
+
+      <div class="mt-14 flex flex-col items-center gap-4">
+        <a href="#concepts" class="group inline-flex items-center gap-4 bg-primary text-on-primary px-10 md:px-12 py-5 md:py-6 font-anton text-xl md:text-2xl tracking-tight transition-all duration-500 bloom-hover">
+          See the Six Concepts
+          <span class="material-symbols-outlined group-hover:translate-y-1 transition-transform duration-300">arrow_downward</span>
+        </a>
+        <p class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600">
+          A 4-minute read. Full Seedance 2.0 mockups embedded below.
+        </p>
+      </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 w-full leading-[0] z-30">
+      <svg class="relative block w-full h-[60px] md:h-[90px]" preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+        <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#F2EDE3"></path>
+      </svg>
+    </div>
+  </main>
+
+
+  <!-- ========== TICKER ========== -->
+  <section class="bg-surface-container-low border-y border-primary/5 overflow-hidden py-5">
+    <div class="ticker-track font-anton uppercase text-stone-700 text-xl md:text-2xl tracking-wider">
+      <span>Heart of Texas</span><span class="text-primary">*</span>
+      <span>Geographic Center</span><span class="text-primary">*</span>
+      <span>Goat Capital of the World</span><span class="text-primary">*</span>
+      <span>51 Years of the Goat Cook-Off</span><span class="text-primary">*</span>
+      <span>Only Country Music Museum in Texas</span><span class="text-primary">*</span>
+      <span>1899 Sandstone Courthouse</span><span class="text-primary">*</span>
+      <span>Population 4,965</span><span class="text-primary">*</span>
+      <span>One Lake, 25 Miles of Shoreline</span><span class="text-primary">*</span>
+      <span>Heart of Texas</span><span class="text-primary">*</span>
+      <span>Geographic Center</span><span class="text-primary">*</span>
+      <span>Goat Capital of the World</span><span class="text-primary">*</span>
+      <span>51 Years of the Goat Cook-Off</span><span class="text-primary">*</span>
+      <span>Only Country Music Museum in Texas</span><span class="text-primary">*</span>
+      <span>1899 Sandstone Courthouse</span><span class="text-primary">*</span>
+      <span>Population 4,965</span><span class="text-primary">*</span>
+      <span>One Lake, 25 Miles of Shoreline</span><span class="text-primary">*</span>
+    </div>
+  </section>
+
+
+  <!-- ========== THE SITUATION ========== -->
+  <section class="bg-surface-container-low py-24 md:py-40 px-6 md:px-12 relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/[0.05] rounded-full blur-[180px]"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="max-w-5xl mx-auto mb-12 md:mb-16 reveal text-center">
+        <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-6">The Situation</p>
+        <h2 class="font-anton text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase leading-[1.1] tracking-normal text-on-surface">
+          The cars don't stop.
+          <span class="block text-primary text-glow-lime mt-2">Yet.</span>
+        </h2>
+      </div>
+
+      <!-- Stat contrast bar — Drive-through (light) vs Brady-as-destination (BigSplash dark) -->
+      <div class="reveal mb-14 md:mb-20 grid grid-cols-1 md:grid-cols-2 gap-0 max-w-6xl mx-auto shadow-[0_30px_80px_-30px_rgba(19,19,24,0.45)] overflow-hidden">
+
+        <!-- Left: The drive-through reality (muted sandstone) -->
+        <div class="bg-surface-container-low border border-outline/30 p-8 md:p-12 relative">
+          <div class="flex items-baseline gap-3 mb-8 md:mb-10">
+            <span class="w-2 h-2 rounded-full bg-outline/60"></span>
+            <p class="font-label text-[10px] tracking-[0.3em] uppercase text-stone-600">US-87 Today</p>
+          </div>
+
+          <div class="space-y-6 md:space-y-8">
+            <div class="border-b border-outline/25 pb-5 md:pb-6">
+              <div class="font-anton uppercase text-on-surface/65 text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none">6,000+</div>
+              <p class="font-label text-[10px] md:text-[11px] tracking-[0.28em] uppercase text-stone-600 mt-3">Cars a day through downtown</p>
+            </div>
+            <div class="border-b border-outline/25 pb-5 md:pb-6">
+              <div class="font-anton uppercase text-on-surface/65 text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none">5</div>
+              <p class="font-label text-[10px] md:text-[11px] tracking-[0.28em] uppercase text-stone-600 mt-3">Mines down to 2 since 2018</p>
+            </div>
+            <div>
+              <div class="font-anton uppercase text-on-surface/65 text-4xl md:text-5xl tracking-tight leading-none">-12%</div>
+              <p class="font-label text-[10px] md:text-[11px] tracking-[0.28em] uppercase text-stone-600 mt-3">Median income, '22 to '23</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Brady's actual draw (BigSplash dark, flipped brand) -->
+        <div class="bigsplash-section p-8 md:p-12 relative overflow-hidden">
+          <div class="absolute inset-0 abyssal-grain opacity-60"></div>
+          <div class="absolute -top-20 -right-20 w-72 h-72 bg-primary/[0.08] rounded-full blur-[100px]"></div>
+
+          <div class="relative z-10">
+            <div class="flex items-baseline gap-3 mb-8 md:mb-10">
+              <span class="w-2 h-2 rounded-full bg-primary"></span>
+              <p class="font-label text-[10px] tracking-[0.3em] uppercase text-primary">Brady's Two Anchors</p>
+            </div>
+
+            <div class="space-y-6 md:space-y-8">
+              <div class="border-b border-primary/20 pb-5 md:pb-6">
+                <div class="font-anton uppercase text-primary text-glow-lime text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none">51</div>
+                <p class="font-label text-[10px] md:text-[11px] tracking-[0.28em] uppercase text-stone-600 mt-3">Years of the Goat Cook-Off</p>
+              </div>
+              <div class="border-b border-primary/20 pb-5 md:pb-6">
+                <div class="font-anton uppercase text-primary text-glow-lime text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none">200+</div>
+                <p class="font-label text-[10px] md:text-[11px] tracking-[0.28em] uppercase text-stone-600 mt-3">Cook teams every Labor Day</p>
+              </div>
+              <div>
+                <div class="font-anton uppercase text-primary text-glow-lime text-4xl md:text-5xl tracking-tight leading-none">Only One</div>
+                <p class="font-label text-[10px] md:text-[11px] tracking-[0.28em] uppercase text-stone-600 mt-3">Country music museum in Texas</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="max-w-3xl mx-auto reveal space-y-6 text-stone-700 text-base md:text-lg leading-relaxed text-center">
+        <p>
+          US-87, US-377, and US-190 all converge in Brady. Six thousand cars a day move through downtown between San Angelo, Fredericksburg, and the Hill Country. Most don't stop. They tank up and keep moving.
+        </p>
+        <p>
+          The frac-sand jobs left between 2018 and 2019. Pioneer Sands shut at the end of 2019. Median household income dropped 12% the next year. The mayor at the time named tourism as the rebrand strategy out loud. The chamber is acting on that call.
+        </p>
+        <p>
+          Brady owns two things no peer town can copy. The World Championship BBQ Goat Cook-Off, 51 years running, 200+ teams, 5,000 pounds of goat smoked every Labor Day. The Heart of Texas Country Music Museum, the only Texas museum dedicated to traditional country, run by Tracy Pitcox who also runs the festival every March. Fredericksburg has wine. Llano has Cooper's. Brady has goats and country music.
+        </p>
+        <p>
+          The chamber doesn't own a film about either one. visitbrady.com runs three short clips and a templated tour. There is no native YouTube channel. There is no Goat Cook-Off recap reel. Daniel Mendoza directs both the chamber and the EDC, so a single conversation reaches both budgets.
+        </p>
+        <p class="text-primary font-semibold">
+          Whoever puts Brady's two anchors on film first becomes the chamber's main reel for the next decade.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== THE LEVERAGE ========== -->
+  <section class="bg-background py-24 md:py-32 px-6 md:px-12 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16 md:mb-20 reveal">
+        <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-6">Why Now</p>
+        <h2 class="font-anton text-5xl md:text-7xl uppercase leading-[1.05] tracking-tight text-on-surface max-w-4xl">
+          Two windows open at the same time.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+        <div class="reveal bg-surface-container-low border border-primary/10 p-8 md:p-12">
+          <p class="font-label text-primary text-[10px] tracking-[0.3em] uppercase mb-4">Window One</p>
+          <h3 class="font-anton text-3xl md:text-4xl uppercase tracking-tight text-on-surface mb-6">
+            One Desk. Two Budgets.
+          </h3>
+          <p class="text-stone-700 leading-relaxed mb-4">
+            Daniel Mendoza is both Chamber Executive Director and Brady EDC Director. The chamber retainer track and the EDC tourism track route through the same staff lead. One conversation, two funding paths.
+          </p>
+          <p class="text-stone-700 leading-relaxed">
+            The City of Brady levies a Hotel Occupancy Tax with no published competitive grant portal. HOT awards route through City Council and staff request. Per Texas Tax Code, tourism video is an explicit eligible use. EDC Type A and Type B funds cover business attraction and infrastructure. Three funding lanes, all reachable from one inbox.
+          </p>
+        </div>
+
+        <div class="reveal bigsplash-section border border-primary/10 p-8 md:p-12">
+          <p class="font-label text-primary text-[10px] tracking-[0.3em] uppercase mb-4">Window Two</p>
+          <h3 class="font-anton text-3xl md:text-4xl uppercase tracking-tight text-on-surface mb-6">
+            Two Anchors No Peer Town Can Copy.
+          </h3>
+          <p class="text-stone-700 leading-relaxed mb-4">
+            The Goat Cook-Off turns 52 next Labor Day. 200+ teams, 5,000 pounds of goat, Texas Legislature recognition, statewide press. The Heart of Texas Country Music Museum is the only one in Texas. Tracy Pitcox runs both the museum and the festival every March.
+          </p>
+          <p class="text-stone-700 leading-relaxed">
+            The chamber currently owns zero film about either anchor. visitbrady.com runs a templated elocallink.tv tour. No YouTube channel. The category is wide open and the assets are uncontested.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== THE SIX CONCEPTS ========== -->
+  <section id="concepts" class="bg-surface-dim py-24 md:py-32 px-6 md:px-12 relative">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="mb-16 md:mb-20 reveal">
+        <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-6">The Deliverables</p>
+        <h2 class="font-anton text-5xl md:text-7xl uppercase leading-[1.05] tracking-tight text-on-surface">
+          Six concepts. <span class="text-primary text-glow-lime">One season.</span>
+        </h2>
+        <p class="text-stone-600 text-sm md:text-base mt-6 max-w-2xl">
+          Each concept ships as a shoot-ready treatment now and a finished deliverable by July 1. The videos below are Seedance 2.0 mockups to communicate tone and framing. The real pieces will be shot on location with cinema glass, drone, and resident interviews.
+        </p>
+      </div>
+
+      <!-- ========== 01 · HEART OF TEXAS (Anthem) ========== -->
+      <div class="mb-24 md:mb-32 reveal">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+          <div class="md:col-span-5 md:sticky md:top-28">
+            <div class="flex items-baseline gap-4 mb-6">
+              <span class="font-label text-primary/50 text-xs tracking-[0.3em] uppercase">01</span>
+              <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Anthem</p>
+            </div>
+            <h3 class="font-anton text-5xl md:text-6xl uppercase tracking-tight text-on-surface leading-[1.05] mb-6">
+              Heart of Texas, <span class="text-primary text-glow-lime">literally.</span>
+            </h3>
+            <p class="text-stone-700 leading-relaxed mb-6">
+              The flagship. A 60-second open on US-87 at sunrise pulling into Brady. Cuts to the 1899 sandstone courthouse turrets in golden hour, the geographic-center marker on US-377, the Country Music Museum hall, smoke rolling off the cook-off pits, Brady Lake at dusk. Voiceover delivers the tagline once, at the end. Scored to traditional country instrumental.
+            </p>
+            <div class="border-l-2 border-primary/30 pl-6 space-y-3">
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Length</span>
+                <span class="text-stone-700 text-sm">60 seconds</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Aspect</span>
+                <span class="text-stone-700 text-sm">16:9 cinematic · 9:16 cutdown</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Home</span>
+                <span class="text-stone-700 text-sm">visitbrady.com hero, YouTube, meta OG</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="md:col-span-7">
+            <div class="video-slot aspect-video">
+              <video autoplay loop muted playsinline preload="metadata" poster="">
+                <source src="videos/01-anthem.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600 mt-4">
+              Mockup generated with Seedance 2.0 · Real piece shot with FX30 + drone on location
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ========== 02 · GOAT COOK-OFF RECAP ========== -->
+      <div class="mb-24 md:mb-32 reveal">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+          <div class="md:col-span-7 md:order-1 order-2">
+            <div class="video-slot aspect-video">
+              <video autoplay loop muted playsinline preload="metadata" poster="">
+                <source src="videos/02-cookoff.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600 mt-4 text-center">
+              Mockup generated with Seedance 2.0 · Real recap shot on Labor Day weekend
+            </p>
+          </div>
+
+          <div class="md:col-span-5 md:order-2 order-1 md:sticky md:top-28">
+            <div class="flex items-baseline gap-4 mb-6">
+              <span class="font-label text-primary/50 text-xs tracking-[0.3em] uppercase">02</span>
+              <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Event Recap · The Anchor</p>
+            </div>
+            <h3 class="font-anton text-5xl md:text-6xl uppercase tracking-tight text-on-surface leading-[1.05] mb-6">
+              World Championship <span class="text-primary text-glow-lime">Goat Cook-Off.</span>
+            </h3>
+            <p class="text-stone-700 leading-relaxed mb-6">
+              Labor Day weekend at Richards Park. 200+ rigs, judges in hats, smoke meeting pecan canopy, kids on the cornhole boards. Cabrito close-ups, the trophy ceremony, the Texas Legislature plaque. A 75-second recap that banks 12 months of social cuts and finally gives the chamber's biggest tourism asset the film it should already have.
+            </p>
+            <div class="border-l-2 border-primary/30 pl-6 space-y-3">
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Length</span>
+                <span class="text-stone-700 text-sm">75 seconds master · six 10-second cutdowns</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Aspect</span>
+                <span class="text-stone-700 text-sm">16:9 cinematic · 9:16 native cutdowns</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Home</span>
+                <span class="text-stone-700 text-sm">Cook-off page, YouTube, press kit, year-round social</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ========== 03 · TRACY PITCOX & THE COUNTRY MUSIC MUSEUM ========== -->
+      <div class="mb-24 md:mb-32 reveal">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+          <div class="md:col-span-5 md:sticky md:top-28">
+            <div class="flex items-baseline gap-4 mb-6">
+              <span class="font-label text-primary/50 text-xs tracking-[0.3em] uppercase">03</span>
+              <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Founder Spotlight · Cinematic</p>
+            </div>
+            <h3 class="font-anton text-5xl md:text-6xl uppercase tracking-tight text-on-surface leading-[1.05] mb-6">
+              The only one <span class="text-primary text-glow-lime">in Texas.</span>
+            </h3>
+            <p class="text-stone-700 leading-relaxed mb-6">
+              A 90-second sit-down with Tracy Pitcox in the hall of the Heart of Texas Country Music Museum, stage costumes behind him. Cuts to the Heart of Texas Country Music Festival every March at the Ed Davenport Civic Center. Vinyl spinning at the Heart of Texas Records label. The film answers "why Brady" the way only Pitcox can.
+            </p>
+            <div class="border-l-2 border-primary/30 pl-6 space-y-3">
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Length</span>
+                <span class="text-stone-700 text-sm">90 seconds</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Aspect</span>
+                <span class="text-stone-700 text-sm">16:9 cinematic · 9:16 cutdowns</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Home</span>
+                <span class="text-stone-700 text-sm">visitbrady.com, museum site, YouTube, press kit</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="md:col-span-7">
+            <div class="video-slot aspect-video">
+              <video autoplay loop muted playsinline preload="metadata" poster="">
+                <source src="videos/03-pitcox.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600 mt-4">
+              Mockup generated with Seedance 2.0 · Sit-down + festival cutaways
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ========== 04 · BRADY MADE ========== -->
+      <div class="mb-24 md:mb-32 reveal">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+          <div class="md:col-span-7 md:order-1 order-2">
+            <div class="video-slot aspect-video">
+              <video autoplay loop muted playsinline preload="metadata" poster="">
+                <source src="videos/04-brady-made.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600 mt-4">
+              Mockup generated with Seedance 2.0 · Series bumper, one shoot covers eight members
+            </p>
+          </div>
+
+          <div class="md:col-span-5 md:order-2 order-1 md:sticky md:top-28">
+            <div class="flex items-baseline gap-4 mb-6">
+              <span class="font-label text-primary/50 text-xs tracking-[0.3em] uppercase">04</span>
+              <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Member Spotlight Series</p>
+            </div>
+            <h3 class="font-anton text-5xl md:text-6xl uppercase tracking-tight text-on-surface leading-[1.05] mb-6">
+              Brady <span class="text-primary text-glow-lime">made.</span>
+            </h3>
+            <p class="text-stone-700 leading-relaxed mb-6">
+              A 60-second anchor reel and a 10-second opener that plays before every member highlight this year. Courthouse square at sunrise, D&J's Good Ole Days antique chaos, Mac's BBQ pulling brisket, Rockin' J pitmaster work, Giddy-Up Grind coffee, Down Home Gifts retail. Tightly cut, member-by-member, no voiceover, music carries. Members co-fund the spotlight. The Chamber owns the frame.
+            </p>
+            <div class="border-l-2 border-primary/30 pl-6 space-y-3">
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Length</span>
+                <span class="text-stone-700 text-sm">10 seconds opener · 60 second member cut</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Aspect</span>
+                <span class="text-stone-700 text-sm">16:9 · 9:16 · 1:1 for grid</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Home</span>
+                <span class="text-stone-700 text-sm">@bradychamber, member pages, YouTube playlist</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ========== 05 · LAKE & LAND ========== -->
+      <div class="mb-24 md:mb-32 reveal">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+          <div class="md:col-span-5 md:sticky md:top-28">
+            <div class="flex items-baseline gap-4 mb-6">
+              <span class="font-label text-primary/50 text-xs tracking-[0.3em] uppercase">05</span>
+              <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Outfitter · Lodging Reel</p>
+            </div>
+            <h3 class="font-anton text-5xl md:text-6xl uppercase tracking-tight text-on-surface leading-[1.05] mb-6">
+              Lake <span class="text-primary text-glow-lime">and land.</span>
+            </h3>
+            <p class="text-stone-700 leading-relaxed mb-6">
+              A 60-second piece on Brady Lake at first light, fishermen casting for crappie, Champion Ranch's main lodge, hunters on a sendero, sheep and goats on a hill, the Hickory aquifer story written into the landscape. Closing card: "Brady, McCulloch County. Heart of Texas Hunting and Fishing." Built so Champion Ranch, the 507 Ranch, and chamber lodging members all rebroadcast it.
+            </p>
+            <div class="border-l-2 border-primary/30 pl-6 space-y-3">
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Length</span>
+                <span class="text-stone-700 text-sm">60 seconds master · three 15-second cutdowns</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Aspect</span>
+                <span class="text-stone-700 text-sm">16:9 cinematic · 9:16 vertical</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Home</span>
+                <span class="text-stone-700 text-sm">Stay page, hunting season paid, ranch member co-broadcast</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="md:col-span-7">
+            <div class="video-slot aspect-video">
+              <video autoplay loop muted playsinline preload="metadata" poster="">
+                <source src="videos/05-lake-land.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600 mt-4">
+              Mockup generated with Seedance 2.0 · Lake at first light + ranch sequences
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ========== 06 · THE SQUARE AT NIGHT (Vertical) ========== -->
+      <div class="reveal">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+          <div class="md:col-span-7 md:order-1 order-2">
+            <div class="video-slot aspect-[9/16] max-w-sm mx-auto">
+              <video autoplay loop muted playsinline preload="metadata" poster="">
+                <source src="videos/06-square.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600 mt-4 text-center">
+              Mockup generated with Seedance 2.0 · Vertical-first for Reels and Shorts
+            </p>
+          </div>
+
+          <div class="md:col-span-5 md:order-2 order-1 md:sticky md:top-28">
+            <div class="flex items-baseline gap-4 mb-6">
+              <span class="font-label text-primary/50 text-xs tracking-[0.3em] uppercase">06</span>
+              <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Vertical · Honky Tonk Cut</p>
+            </div>
+            <h3 class="font-anton text-5xl md:text-6xl uppercase tracking-tight text-on-surface leading-[1.05] mb-6">
+              The square <span class="text-primary text-glow-lime">at night.</span>
+            </h3>
+            <p class="text-stone-700 leading-relaxed mb-6">
+              A 45-second vertical-first cut. The 1899 sandstone courthouse turrets lit, neon storefront windows, the Heart of Texas Honky Tonk crowd spilling onto the sidewalk in late August, country music drifting, the Heart-of-Texas-literally tagline card lands. Designed for Reels and Shorts distribution. Goes live the week of Honky Tonk weekend.
+            </p>
+            <div class="border-l-2 border-primary/30 pl-6 space-y-3">
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Length</span>
+                <span class="text-stone-700 text-sm">45 seconds · two 15-second cutdowns</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Aspect</span>
+                <span class="text-stone-700 text-sm">9:16 vertical native</span>
+              </div>
+              <div class="flex items-baseline gap-4">
+                <span class="font-label text-primary text-[10px] tracking-widest uppercase flex-shrink-0 w-24">Home</span>
+                <span class="text-stone-700 text-sm">Reels, Shorts, TikTok, member co-broadcast</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========== OR GO BIGGER (REBUILD THE MARKETING ENGINE) ========== -->
+  <section class="bg-background py-24 md:py-32 px-6 md:px-12 relative overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-secondary/[0.05] rounded-full blur-[200px] z-0"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+
+      <!-- Intro -->
+      <div class="max-w-4xl mx-auto text-center mb-16 md:mb-24 reveal">
+        <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-6">Or Go Bigger</p>
+        <h2 class="font-anton text-5xl md:text-7xl uppercase leading-[1.05] tracking-tight text-on-surface mb-8">
+          Rebuild the <span class="text-primary text-glow-lime">marketing engine.</span>
+        </h2>
+        <p class="text-stone-700 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+          The videos are the minimum. The website, the social, and the brand together are the maximum. Three scopes, one 60-day window, one founder on the ground.
+        </p>
+      </div>
+
+      <!-- Website group -->
+      <div class="mb-20 md:mb-28">
+        <div class="flex items-baseline justify-between flex-wrap gap-4 mb-8 md:mb-10 reveal">
+          <div>
+            <p class="font-label text-primary text-[10px] md:text-xs tracking-[0.3em] uppercase mb-2">Pillar One</p>
+            <h3 class="font-anton text-3xl md:text-4xl uppercase tracking-tight text-on-surface">The website.</h3>
+          </div>
+          <p class="font-label text-stone-600 text-[10px] tracking-[0.3em] uppercase">Six deliverables</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+
+          <div class="reveal bg-surface-container-low border border-primary/15 p-7 hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
+            <p class="font-label text-primary/60 text-[11px] tracking-[0.3em] mb-4">01</p>
+            <h4 class="font-anton text-2xl uppercase tracking-tight text-on-surface mb-3">Unified Brady site</h4>
+            <p class="text-stone-700 text-sm leading-relaxed">One front door. Replaces bradytx.com and visitbrady.com with a single site where the videos live in the hero, not buried six clicks deep.</p>
+          </div>
+
+          <div class="reveal bg-surface-container-low border border-primary/15 p-7 hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
+            <p class="font-label text-primary/60 text-[11px] tracking-[0.3em] mb-4">02</p>
+            <h4 class="font-anton text-2xl uppercase tracking-tight text-on-surface mb-3">Visitor flow</h4>
+            <p class="text-stone-700 text-sm leading-relaxed">A real "plan a visit" path. Anthem on the hero, resident testimonials, trip-planner download, a form that goes to Daniel's inbox.</p>
+          </div>
+
+          <div class="reveal bg-surface-container-low border border-primary/15 p-7 hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
+            <p class="font-label text-primary/60 text-[11px] tracking-[0.3em] mb-4">03</p>
+            <h4 class="font-anton text-2xl uppercase tracking-tight text-on-surface mb-3">Member directory</h4>
+            <p class="text-stone-700 text-sm leading-relaxed">Replaces the stock GrowthZone skin with a Brady-first design that makes every member look like the small-batch, family-owned brand they are.</p>
+          </div>
+
+          <div class="reveal bg-surface-container-low border border-primary/15 p-7 hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
+            <p class="font-label text-primary/60 text-[11px] tracking-[0.3em] mb-4">04</p>
+            <h4 class="font-anton text-2xl uppercase tracking-tight text-on-surface mb-3">HOT-fund landing pages</h4>
+            <p class="text-stone-700 text-sm leading-relaxed">Purpose-built landing pages for HOT-eligible tourism campaigns. Fast to spin up each quarter, easy to hand to City Council and the EDC for approval.</p>
+          </div>
+
+          <div class="reveal bg-surface-container-low border border-primary/15 p-7 hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
+            <p class="font-label text-primary/60 text-[11px] tracking-[0.3em] mb-4">05</p>
+            <h4 class="font-anton text-2xl uppercase tracking-tight text-on-surface mb-3">Chamber CMS</h4>
+            <p class="text-stone-700 text-sm leading-relaxed">A clean editor so Daniel or any Chamber staffer can swap a video, post an event, or update a member page without calling a developer.</p>
+          </div>
+
+          <div class="reveal bg-surface-container-low border border-primary/15 p-7 hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
+            <p class="font-label text-primary/60 text-[11px] tracking-[0.3em] mb-4">06</p>
+            <h4 class="font-anton text-2xl uppercase tracking-tight text-on-surface mb-3">YouTube hub launch</h4>
+            <p class="text-stone-700 text-sm leading-relaxed">First Chamber YouTube channel in the county. Every anthem, testimonial, and member spotlight indexed. Twelve-month SEO win for "moving to Brady TX."</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Marketing + Social group -->
+      <div class="mb-20 md:mb-28">
+        <div class="flex items-baseline justify-between flex-wrap gap-4 mb-8 md:mb-10 reveal">
+          <div>
+            <p class="font-label text-secondary text-[10px] md:text-xs tracking-[0.3em] uppercase mb-2">Pillar Two</p>
+            <h3 class="font-anton text-3xl md:text-4xl uppercase tracking-tight text-on-surface">Marketing + social.</h3>
+          </div>
+          <p class="font-label text-stone-600 text-[10px] tracking-[0.3em] uppercase">Four deliverables</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+
+          <div class="reveal bg-surface-container-low border border-secondary/25 p-7 hover:border-secondary/50 hover:-translate-y-1 transition-all duration-300">
+            <p class="font-label text-secondary/80 text-[11px] tracking-[0.3em] mb-4">01</p>
+            <h4 class="font-anton text-2xl uppercase tracking-tight text-on-surface mb-3">Social strategy</h4>
+            <p class="text-stone-700 text-sm leading-relaxed">Wake @bradychamber up. Reels-first posting calendar tied to Brady's seasonal calendar and anchored by the videos this proposal ships.</p>
+          </div>
+
+          <div class="reveal bg-surface-container-low border border-secondary/25 p-7 hover:border-secondary/50 hover:-translate-y-1 transition-all duration-300">
+            <p class="font-label text-secondary/80 text-[11px] tracking-[0.3em] mb-4">02</p>
+            <h4 class="font-anton text-2xl uppercase tracking-tight text-on-surface mb-3">Content calendar</h4>
+            <p class="text-stone-700 text-sm leading-relaxed">A 90-day rolling editorial calendar tied to the cook-off, music festival, July 4, Honky Tonk weekend, and hunting season. Every post is a cut from a shoot you already own.</p>
+          </div>
+
+          <div class="reveal bg-surface-container-low border border-secondary/25 p-7 hover:border-secondary/50 hover:-translate-y-1 transition-all duration-300">
+            <p class="font-label text-secondary/80 text-[11px] tracking-[0.3em] mb-4">03</p>
+            <h4 class="font-anton text-2xl uppercase tracking-tight text-on-surface mb-3">Brand refresh</h4>
+            <p class="text-stone-700 text-sm leading-relaxed">A tightened visual system that carries across the website, the social feeds, and the printed pieces. Replaces the stock look with a Brady-first identity.</p>
+          </div>
+
+          <div class="reveal bg-surface-container-low border border-secondary/25 p-7 hover:border-secondary/50 hover:-translate-y-1 transition-all duration-300">
+            <p class="font-label text-secondary/80 text-[11px] tracking-[0.3em] mb-4">04</p>
+            <h4 class="font-anton text-2xl uppercase tracking-tight text-on-surface mb-3">Paid strategy</h4>
+            <p class="text-stone-700 text-sm leading-relaxed">Meta and YouTube campaigns against US-87 travelers, hunters, and Hill Country weekenders. Funded through City of Brady HOT dollars, measured against tourism inquiries and follower growth.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Tier comparison -->
+      <div class="reveal">
+        <div class="text-center mb-10 md:mb-12">
+          <p class="font-label text-primary text-[10px] md:text-xs tracking-[0.3em] uppercase mb-2">Pick a scope</p>
+          <h3 class="font-anton text-3xl md:text-5xl uppercase tracking-tight text-on-surface">Three ways to hire us.</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 max-w-6xl mx-auto">
+          <div class="bg-surface-container-low border border-primary/20 p-6 md:p-8">
+            <p class="font-label text-primary text-[10px] tracking-[0.3em] uppercase mb-3">Scope A · Minimum</p>
+            <h4 class="font-anton text-2xl md:text-3xl uppercase tracking-tight text-on-surface mb-4">Video retainer.</h4>
+            <p class="text-stone-700 text-sm leading-relaxed mb-6">Six cinematic pieces by July 1, then quarterly-shoot retainer with continuing content drops.</p>
+            <p class="font-label text-stone-600 text-[10px] tracking-widest uppercase">Pricing in the meeting</p>
+          </div>
+
+          <div class="bg-surface-container-low border border-primary/30 p-6 md:p-8">
+            <p class="font-label text-primary text-[10px] tracking-[0.3em] uppercase mb-3">Scope B · Bigger</p>
+            <h4 class="font-anton text-2xl md:text-3xl uppercase tracking-tight text-on-surface mb-4">Videos + website.</h4>
+            <p class="text-stone-700 text-sm leading-relaxed mb-6">Everything in Scope A plus a full site rebuild replacing bradytx.com and visitbrady.com, built around the videos and the visitor flow.</p>
+            <p class="font-label text-stone-600 text-[10px] tracking-widest uppercase">Pricing in the meeting</p>
+          </div>
+
+          <div class="bg-surface-container-low border-2 border-primary/60 p-6 md:p-8 relative">
+            <div class="absolute -top-3 left-6 bg-primary text-on-primary font-label text-[10px] tracking-[0.3em] uppercase px-3 py-1">All-In</div>
+            <p class="font-label text-primary text-[10px] tracking-[0.3em] uppercase mb-3">Scope C · Maximum</p>
+            <h4 class="font-anton text-2xl md:text-3xl uppercase tracking-tight text-on-surface mb-4">Full marketing refresh.</h4>
+            <p class="text-stone-700 text-sm leading-relaxed mb-6">Everything in Scope B plus social strategy, content calendar, brand refresh, and paid campaigns against the US-87 traveler audience.</p>
+            <p class="font-label text-stone-600 text-[10px] tracking-widest uppercase">Pricing in the meeting</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========== BRAND DIRECTION (PROPOSED PALETTE) ========== -->
+  <section class="bg-surface-container-low py-24 md:py-32 px-6 md:px-12 relative overflow-hidden">
+    <div class="absolute inset-0 abyssal-grain opacity-60"></div>
+    <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-secondary/[0.04] rounded-full blur-[180px]"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="mb-14 md:mb-16 reveal">
+        <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-6">Brand Direction</p>
+        <h2 class="font-anton text-5xl md:text-7xl uppercase leading-[1.05] tracking-tight text-on-surface max-w-4xl">
+          Texas heritage. <span class="text-primary text-glow-lime">Clean enough.</span>
+        </h2>
+        <p class="text-stone-700 text-sm md:text-base mt-6 max-w-2xl leading-relaxed">
+          A direction for Scope B and C. Pulled from the cobalt of the Texas state flag, the rust of brisket bark and cabrito glaze, the parchment of the 1899 sandstone courthouse, and the saddle leather of the ranches north of town. Civic, plain-spoken, and legible. Not a costume.
+        </p>
+      </div>
+
+      <!-- Palette swatches -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16 md:mb-20">
+
+        <div class="reveal">
+          <div class="aspect-square border border-primary/10" style="background-color:#F7F4EE;"></div>
+          <div class="pt-4">
+            <p class="font-anton text-lg uppercase tracking-tight text-on-surface">Parchment</p>
+            <p class="font-label text-[10px] tracking-widest uppercase text-stone-600 mt-1">#F7F4EE</p>
+            <p class="text-stone-600 text-xs mt-2 leading-snug">The 1899 sandstone courthouse at noon.</p>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="aspect-square border border-primary/10" style="background-color:#1E3A6F;"></div>
+          <div class="pt-4">
+            <p class="font-anton text-lg uppercase tracking-tight text-on-surface">Cobalt</p>
+            <p class="font-label text-[10px] tracking-widest uppercase text-stone-600 mt-1">#1E3A6F</p>
+            <p class="text-stone-600 text-xs mt-2 leading-snug">The Texas flag, the deep field of it.</p>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="aspect-square border border-primary/10" style="background-color:#B5292B;"></div>
+          <div class="pt-4">
+            <p class="font-anton text-lg uppercase tracking-tight text-on-surface">Flag Red</p>
+            <p class="font-label text-[10px] tracking-widest uppercase text-stone-600 mt-1">#B5292B</p>
+            <p class="text-stone-600 text-xs mt-2 leading-snug">Brisket bark, cabrito glaze, the cook-off.</p>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="aspect-square border border-primary/10" style="background-color:#8B6E3F;"></div>
+          <div class="pt-4">
+            <p class="font-anton text-lg uppercase tracking-tight text-on-surface">Saddle Tan</p>
+            <p class="font-label text-[10px] tracking-widest uppercase text-stone-600 mt-1">#8B6E3F</p>
+            <p class="text-stone-600 text-xs mt-2 leading-snug">Ranches and tack rooms north of town.</p>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="aspect-square border border-primary/10" style="background-color:#F4ECD8;"></div>
+          <div class="pt-4">
+            <p class="font-anton text-lg uppercase tracking-tight text-on-surface">Cream</p>
+            <p class="font-label text-[10px] tracking-widest uppercase text-stone-600 mt-1">#F4ECD8</p>
+            <p class="text-stone-600 text-xs mt-2 leading-snug">Type on dark sections, smoke at first light.</p>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="aspect-square border border-primary/10" style="background-color:#14110E;"></div>
+          <div class="pt-4">
+            <p class="font-anton text-lg uppercase tracking-tight text-on-surface">Black Ink</p>
+            <p class="font-label text-[10px] tracking-widest uppercase text-stone-600 mt-1">#14110E</p>
+            <p class="text-stone-600 text-xs mt-2 leading-snug">The Brady Standard Herald at arm's length.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Typography + applied specimen -->
+      <div class="reveal relative overflow-hidden p-10 md:p-16" style="background-color:#F7F4EE;color:#14110E;">
+        <p class="absolute top-5 right-6 font-label text-[10px] tracking-[0.3em] uppercase" style="color:#1E3A6F;opacity:0.7;">Specimen · Roboto Slab + Inter</p>
+        <p class="font-label text-[10px] tracking-[0.3em] uppercase mb-6" style="color:#1E3A6F;">McCulloch County · Est 1858</p>
+        <h3 class="text-5xl md:text-7xl leading-[0.95] mb-8 md:mb-10" style="font-family:'Roboto Slab', serif;font-weight:900;">
+          Heart of Texas,<br/>literally.
+        </h3>
+        <p class="max-w-xl text-base md:text-lg leading-relaxed mb-8" style="font-family:'Inter', sans-serif;">
+          The 1899 sandstone courthouse at the geographic center of Texas. The Goat Cook-Off every Labor Day for 51 straight years. The only country music museum in the state. US-87 brings 6,000 cars a day past the front door. Brady is what happens when you finally tell them why to stop.
+        </p>
+        <div class="flex flex-wrap items-center gap-4">
+          <span class="inline-block px-4 py-2 text-xs font-semibold uppercase tracking-wider" style="background-color:#1E3A6F;color:#F4ECD8;font-family:'Inter',sans-serif;">Plan a Visit</span>
+          <span class="inline-block px-4 py-2 text-xs font-semibold uppercase tracking-wider border" style="color:#14110E;border-color:#14110E;font-family:'Inter',sans-serif;">Visit Brady</span>
+          <span class="font-label text-[10px] tracking-[0.3em] uppercase ml-2" style="color:#8B6E3F;">Cobalt + Saddle Tan accents</span>
+        </div>
+      </div>
+
+      <p class="text-stone-600 text-xs mt-8 max-w-2xl reveal leading-relaxed">
+        Direction only. The full identity system (wordmark, letterhead, signage, digital) is part of Scope C. The palette survives a black-and-white fax and a color print shop in Brady without losing its voice.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ========== PRODUCTION PLAN ========== -->
+  <section id="timeline" class="bg-background py-24 md:py-32 px-6 md:px-12 relative scroll-mt-24">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-16 md:mb-20 reveal">
+        <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-6">Production Plan</p>
+        <h2 class="font-anton text-5xl md:text-7xl uppercase leading-[1.05] tracking-tight text-on-surface">
+          Thirty minutes <span class="text-primary text-glow-lime">from Mason.</span>
+        </h2>
+        <p class="text-stone-700 text-sm md:text-base mt-6 max-w-2xl leading-relaxed">
+          BigSplash relocated to Mason in 2026, 30 minutes south of Brady on US-87. Production runs from a regional base, not a remote one. Hand-delivered USB drops, on-site member shoots, and Labor Day cook-off coverage all sit inside a single drive radius.
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        <div class="reveal grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-6 border-t border-primary/10">
+          <div class="md:col-span-2">
+            <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Week 1 – 2</p>
+          </div>
+          <div class="md:col-span-4">
+            <h3 class="font-anton text-2xl md:text-3xl uppercase tracking-tight text-on-surface">Anchor Shoots</h3>
+          </div>
+          <div class="md:col-span-6">
+            <p class="text-stone-700 leading-relaxed">Tracy Pitcox interview at the Country Music Museum. Courthouse-square mornings, drone aerials of US-87 and the geographic-center marker. The two anchors locked in the can before anything else moves.</p>
+          </div>
+        </div>
+
+        <div class="reveal grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-6 border-t border-primary/10">
+          <div class="md:col-span-2">
+            <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Week 3 – 4</p>
+          </div>
+          <div class="md:col-span-4">
+            <h3 class="font-anton text-2xl md:text-3xl uppercase tracking-tight text-on-surface">Member Spotlights</h3>
+          </div>
+          <div class="md:col-span-6">
+            <p class="text-stone-700 leading-relaxed">D&J's Good Ole Days, Mac's BBQ, Rockin' J Smokehouse, TruCountry Inn, Champion Ranch. Five member shoots over two weeks, each member co-funding their cut.</p>
+          </div>
+        </div>
+
+        <div class="reveal grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-6 border-t border-primary/10">
+          <div class="md:col-span-2">
+            <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Week 5 – 6</p>
+          </div>
+          <div class="md:col-span-4">
+            <h3 class="font-anton text-2xl md:text-3xl uppercase tracking-tight text-on-surface">Edit and First Cuts</h3>
+          </div>
+          <div class="md:col-span-6">
+            <p class="text-stone-700 leading-relaxed">Anthem, Pitcox, Lake & Land, Brady Made opener, vertical Square at Night. First cuts delivered for chamber review. 9:16 cutdowns shipped in parallel for Reels and Shorts.</p>
+          </div>
+        </div>
+
+        <div class="reveal grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-6 border-t border-primary/10">
+          <div class="md:col-span-2">
+            <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">Labor Day Weekend</p>
+          </div>
+          <div class="md:col-span-4">
+            <h3 class="font-anton text-2xl md:text-3xl uppercase tracking-tight text-on-surface">Goat Cook-Off Recap</h3>
+          </div>
+          <div class="md:col-span-6">
+            <p class="text-stone-700 leading-relaxed">On-site three-day shoot at Richards Park covering all 200+ teams, judging, trophy ceremony, and the cabrito close-ups that anchor the recap reel. Delivered late September.</p>
+          </div>
+        </div>
+
+        <div class="reveal grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-6 border-t border-b border-primary/10">
+          <div class="md:col-span-2">
+            <p class="font-label text-primary text-xs tracking-[0.3em] uppercase">March 2027</p>
+          </div>
+          <div class="md:col-span-4">
+            <h3 class="font-anton text-2xl md:text-3xl uppercase tracking-tight text-on-surface">Festival Recap and Retainer</h3>
+          </div>
+          <div class="md:col-span-6">
+            <p class="text-stone-700 leading-relaxed">Heart of Texas Country Music Festival recap shot at Ed Davenport Civic Center. YouTube channel launched. Quarterly-shoot retainer rolls forward with the next year of cook-off, festival, and member content already on the calendar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== WHO'S MAKING THIS (BigSplash-branded) ========== -->
+  <section id="maker" class="bigsplash-section py-24 md:py-32 px-6 md:px-12 relative scroll-mt-24">
+    <div class="absolute inset-0 abyssal-grain opacity-60"></div>
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="reveal">
+        <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-6">The Maker</p>
+        <h2 class="font-anton text-5xl md:text-6xl uppercase leading-[1.05] tracking-tight text-on-surface mb-12 md:mb-16">
+          Founder-led. <br class="md:hidden"/><em class="text-primary text-glow-lime normal-case">on the ground.</em>
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+
+          <!-- Headshot -->
+          <div class="md:col-span-4">
+            <div class="relative group">
+              <div class="absolute -inset-1 bg-primary/20 blur-xl opacity-50 group-hover:opacity-80 transition-opacity duration-500"></div>
+              <div class="relative overflow-hidden border border-primary/20">
+                <img
+                  src="assets/Christopher_List_Headshot_2026.jpg"
+                  alt="Christopher List, founder of Big Splash Agency"
+                  class="w-full h-auto block aspect-[4/5] object-cover"
+                  style="filter: brightness(0.92) contrast(1.08) saturate(0.95);"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 pointer-events-none abyssal-grain opacity-40"></div>
+              </div>
+              <div class="mt-5">
+                <p class="font-anton text-2xl md:text-3xl uppercase tracking-tight text-on-surface leading-none">Christopher List</p>
+                <p class="font-label text-[10px] tracking-[0.3em] uppercase text-primary mt-2">Founder · Big Splash Agency</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bio + contact -->
+          <div class="md:col-span-8 space-y-8">
+            <div class="space-y-5 text-stone-700 text-base md:text-lg leading-relaxed">
+              <p>
+                Christopher List is the founder of Big Splash Agency, a video-first marketing shop based in Austin. Big Splash writes the hook, shoots the footage, cuts to the metric, and ships creative built to convert.
+              </p>
+              <p>
+                The portfolio spans Torchy's Tacos, Covert Auto, Bell District Physical Medicine, Scottie Campbell, and fourteen other service businesses in Central Texas. Every client is a business where the spend has to pay back, which is exactly the bar a Chamber operates under.
+              </p>
+              <p>
+                Big Splash has never pitched a chamber before. Brady is the first. That means Brady gets founder attention, not account-manager attention, for the entire 60 days.
+              </p>
+            </div>
+
+            <div class="bg-background/60 border border-primary/15 p-6 md:p-7 backdrop-blur-sm">
+              <p class="font-label text-[10px] tracking-[0.3em] uppercase text-primary mb-4">Reach Chris Directly</p>
+              <a href="mailto:chris@bigsplash.agency" class="block font-anton text-2xl md:text-3xl uppercase tracking-tight text-on-surface hover:text-primary transition-colors duration-300 mb-5 break-all">
+                chris@bigsplash.agency
+              </a>
+              <a href="https://bigsplash.video" target="_blank" rel="noopener" class="inline-flex items-center gap-2 font-label text-xs tracking-[0.25em] uppercase text-stone-700 hover:text-primary transition-colors duration-300">
+                bigsplash.video
+                <span class="material-symbols-outlined text-sm">arrow_outward</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== CTA (BigSplash-branded) ========== -->
+  <section class="bigsplash-section relative py-32 md:py-48 overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-primary/[0.06] rounded-full blur-[200px]"></div>
+    <div class="absolute inset-0 abyssal-grain"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 md:px-12 text-center reveal">
+      <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-8">The Ask</p>
+      <h2 class="font-anton text-5xl sm:text-6xl md:text-8xl lg:text-9xl uppercase leading-[0.9] md:leading-[0.85] tracking-tight text-on-surface mb-10">
+        Twenty minutes. <br/><em class="text-primary text-glow-lime normal-case">one call.</em>
+      </h2>
+      <p class="text-stone-700 text-lg md:text-xl mb-12 max-w-xl mx-auto leading-relaxed">
+        Pick a morning that works. The free 60-second Brady reel gets made either way. The retainer conversation only happens after you have seen the first cut in your hands.
+      </p>
+      <button type="button" data-cal-open class="group inline-flex items-center gap-4 bg-primary text-on-primary px-10 md:px-14 py-6 md:py-7 font-anton text-2xl md:text-3xl tracking-tight transition-all duration-500 bloom-hover cursor-pointer">
+        Book a Call
+        <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform duration-300 text-3xl">arrow_forward</span>
+      </button>
+      <p class="mt-10 font-label text-[10px] md:text-xs tracking-[0.25em] uppercase text-stone-600">
+        chris@bigsplash.agency · bigsplash.video
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-surface-dim border-t border-white/5 py-14 md:py-16 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 mb-12">
+        <div>
+          <a href="https://bigsplash.video" target="_blank" rel="noopener" aria-label="Big Splash Home">
+            <svg class="h-5 w-auto mb-4" viewBox="0 0 655 191" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M170.856 172.036C170.856 175.982 169.691 179.3 167.449 182.08C162.786 187.729 153.191 190.778 136.96 190.778H133.014C125.481 190.778 119.473 190.42 114.9 189.433C105.933 187.64 102.077 184.142 102.077 178.852C102.077 172.037 107.009 168.45 120.101 167.373C108.085 167.284 101.808 165.67 101.808 157.958C101.808 151.95 106.56 147.376 119.742 146.928C109.789 145.493 104.318 141.727 104.318 132.849C104.318 121.909 114.183 114.825 135.166 114.825H137.229C140.726 114.825 143.416 114.645 145.568 114.018C149.783 113.031 151.487 110.251 151.487 103.974V103.257H168.345V103.885C168.345 110.341 167.269 113.569 163.862 115.094C160.634 116.529 154.805 116.618 145.568 116.618C161.351 117.605 167.718 122.626 167.718 132.849C167.718 144.596 157.764 149.618 137.587 149.618H131.49C126.558 149.618 122.971 149.708 120.549 149.977C115.886 150.425 114.81 151.501 114.81 153.295C114.81 154.012 115.259 154.729 116.245 155.088C118.128 155.895 122.702 156.164 130.862 156.164H144.851C163.144 156.164 170.856 160.02 170.856 171.588V172.036Z" fill="#EFF88B"/>
+            </svg>
+          </a>
+          <p class="text-stone-600 text-xs leading-relaxed">Video-first marketing for service businesses.</p>
+          <a href="https://bigsplash.video" target="_blank" rel="noopener" class="font-label text-[10px] tracking-[0.25em] uppercase text-stone-600 hover:text-primary transition-colors duration-300 mt-3 inline-block">
+            bigsplash.video
+          </a>
+        </div>
+
+        <div>
+          <h4 class="font-label text-[10px] tracking-widest uppercase text-stone-600 mb-5">This Proposal</h4>
+          <ul class="space-y-3">
+            <li><a href="#concepts" class="text-sm text-stone-600 hover:text-primary transition-colors duration-300">Six concepts</a></li>
+            <li><button type="button" data-cal-open class="text-sm text-stone-600 hover:text-primary transition-colors duration-300 cursor-pointer text-left">Book a coffee</button></li>
+            <li><a href="mailto:chris@bigsplash.agency" class="text-sm text-stone-600 hover:text-primary transition-colors duration-300">Reach Chris</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-label text-[10px] tracking-widest uppercase text-stone-600 mb-5">Prepared For</h4>
+          <p class="text-sm text-stone-700 leading-relaxed">Brady-McCulloch County Chamber of Commerce<br/>Daniel Mendoza, Executive Director<br/>108 Fort McKavitt · Brady, TX 76856</p>
+        </div>
+      </div>
+
+      <div class="border-t border-white/5 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="font-label text-[10px] tracking-widest uppercase text-stone-600">&copy; 2026 Big Splash Agency</p>
+        <p class="font-label text-[10px] tracking-widest uppercase text-stone-600">Prepared April 2026 · Delivery window May 1 – July 1</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ========== GHL CALENDAR MODAL ========== -->
+  <div id="cal-modal" class="fixed inset-0 z-[100] opacity-0 invisible pointer-events-none" role="dialog" aria-modal="true" aria-label="Book a discovery call with Chris">
+    <div data-cal-close class="fixed inset-0 bg-background/90 backdrop-blur-md cursor-pointer"></div>
+    <div class="fixed inset-0 z-10 overflow-y-auto pointer-events-none">
+      <div class="min-h-full flex items-start justify-center p-4 md:p-8 pt-12 md:pt-16 pointer-events-none">
+        <div class="pointer-events-auto w-full max-w-2xl bg-surface-container-low border border-primary/10 shadow-2xl shadow-black/80 relative">
+          <div class="sticky top-0 z-20 bg-surface-container-low flex items-center justify-between px-6 md:px-8 pt-6 md:pt-8 pb-4 border-b border-white/5">
+            <div>
+              <p class="font-label text-primary text-xs tracking-[0.3em] uppercase mb-2">Discovery Call</p>
+              <h2 class="font-anton text-3xl md:text-4xl uppercase text-on-surface leading-[1.05]">Pick a time</h2>
+            </div>
+            <button type="button" data-cal-close aria-label="Close" class="text-stone-700 hover:text-primary transition-colors p-2 cursor-pointer">
+              <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+          </div>
+          <div class="px-2 md:px-4 pb-6 md:pb-8 pt-4">
+            <div class="bg-surface-dim rounded overflow-hidden">
+              <iframe id="ghl-cal-embed" data-cal-src="https://api.leadconnectorhq.com/widget/booking/YcBm4L2c5a0DNBZyessz" class="ghl-cal-dark" style="width: 100%; height: 1000px; border: none;" scrolling="yes" title="Book a call with Chris"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    // Reveal animations on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+    revealEls.forEach(el => io.observe(el));
+
+    // Graceful video fallback — hide video if source 404s
+    document.querySelectorAll('.video-slot video').forEach(video => {
+      video.addEventListener('error', () => { video.style.display = 'none'; }, true);
+      const src = video.querySelector('source');
+      if (src) {
+        src.addEventListener('error', () => { video.style.display = 'none'; }, true);
+      }
+    });
+
+    // GHL calendar modal
+    (function () {
+      const modal = document.getElementById('cal-modal');
+      const iframe = document.getElementById('ghl-cal-embed');
+      const open = () => {
+        if (iframe.dataset.calSrc && !iframe.src) iframe.src = iframe.dataset.calSrc;
+        modal.classList.add('open');
+        document.body.classList.add('cal-locked');
+      };
+      const close = () => {
+        modal.classList.remove('open');
+        document.body.classList.remove('cal-locked');
+      };
+      document.querySelectorAll('[data-cal-open]').forEach(b => b.addEventListener('click', open));
+      modal.querySelectorAll('[data-cal-close]').forEach(b => b.addEventListener('click', close));
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) close();
+      });
+    })();
+  </script>
+</body>
+</html>
