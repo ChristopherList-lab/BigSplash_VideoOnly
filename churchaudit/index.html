@@ -366,6 +366,56 @@
   }
   .ghost-btn:hover { color: var(--primary); border-color: var(--primary); }
 
+  .upload-block {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .upload-block .filename-box {
+    flex: 1;
+    min-width: 220px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--primary);
+    word-break: break-all;
+  }
+  .upload-block .filename-box .placeholder { color: var(--ink-soft); }
+  .upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary);
+    color: var(--primary-ink);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-family: var(--display);
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .upload-btn:hover { box-shadow: 0 6px 20px rgba(239,248,139,0.3); }
+  .copy-btn {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .copy-btn:hover { border-color: var(--primary); color: var(--primary); }
+
   .toast {
     position: fixed;
     top: 90px; left: 50%;
@@ -450,6 +500,20 @@
             <label class="field" for="serviceTimes">Service times observed</label>
             <input type="text" id="serviceTimes" placeholder="e.g. Sun 9am, 11am" />
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card no-collapse">
+      <div class="card-head">
+        <h2 class="section-title">Upload Footage</h2>
+      </div>
+      <div class="card-body">
+        <p class="section-sub">Use this filename when uploading so footage lands organized in Dropbox.</p>
+        <div class="upload-block">
+          <div class="filename-box" id="filenameBox"><span class="placeholder">Fill in church name + date above to generate filename</span></div>
+          <button type="button" class="copy-btn" id="copyFilename">Copy</button>
+          <a class="upload-btn" href="https://www.dropbox.com/request/tsa7ga9lg1p4pdmzc2nt" target="_blank" rel="noopener">Open Dropbox Upload ↗</a>
         </div>
       </div>
     </section>
@@ -987,6 +1051,35 @@ function buildAllSections() {
 buildAllSections();
 
 document.getElementById("auditDate").valueAsDate = new Date();
+
+function sanitizeForFilename(s) {
+  return s.trim().replace(/[^a-zA-Z0-9\s-]/g, "").replace(/\s+/g, "_");
+}
+function updateFilename() {
+  const church = document.getElementById("churchName").value;
+  const date = document.getElementById("auditDate").value;
+  const location = document.getElementById("location").value;
+  const box = document.getElementById("filenameBox");
+  if (!church || !date) {
+    box.innerHTML = `<span class="placeholder">Fill in church name + date above to generate filename</span>`;
+    box.dataset.filename = "";
+    return;
+  }
+  const parts = [sanitizeForFilename(church), date];
+  if (location) parts.push(sanitizeForFilename(location));
+  const fname = parts.join("__");
+  box.textContent = fname;
+  box.dataset.filename = fname;
+}
+["churchName", "auditDate", "location"].forEach(id => {
+  document.getElementById(id).addEventListener("input", updateFilename);
+  document.getElementById(id).addEventListener("change", updateFilename);
+});
+document.getElementById("copyFilename").addEventListener("click", () => {
+  const fname = document.getElementById("filenameBox").dataset.filename;
+  if (!fname) { toast("Fill in church + date first", true); return; }
+  navigator.clipboard.writeText(fname).then(() => toast("Filename copied"));
+});
 
 document.getElementById("expandAll").addEventListener("click", () => {
   document.querySelectorAll(".card[data-section-key]").forEach(c => c.classList.remove("collapsed"));
