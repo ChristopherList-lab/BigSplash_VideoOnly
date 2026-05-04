@@ -484,6 +484,14 @@ async function loadAudits() {
     loading.style.display = "none";
     if (!allAudits.length) { empty.style.display = "block"; return; }
     renderList(allAudits);
+
+    // Deep link: ?id=<submittedAt> opens that specific report
+    const params = new URLSearchParams(location.search);
+    const id = params.get("id");
+    if (id) {
+      const idx = allAudits.findIndex(a => String(a["Submitted At"]) === id);
+      if (idx >= 0) showReport(idx);
+    }
   } catch (err) {
     loading.style.display = "none";
     empty.textContent = "Couldn't load audits. Check connection or endpoint setup.";
