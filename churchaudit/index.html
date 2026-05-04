@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bigsplash Branding Audit</title>
+<link rel="icon" href="logo.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #131318;
+    --bg-2: #1c1c23;
+    --bg-3: #25252e;
+    --line: #2f2f3a;
+    --ink: #ddd8ce;
+    --ink-soft: #8f8a82;
+    --primary: #eff88b;
+    --primary-ink: #131318;
+    --secondary: #ddd8ce;
+    --good: #eff88b;
+    --warn: #f5c266;
+    --bad: #ff6b6b;
+    --radius: 12px;
+    --display: "Anton", Impact, sans-serif;
+    --body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--body);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+  }
+
+  header.hero {
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding: 32px 24px 28px;
+  }
+  .hero-inner {
+    max-width: 920px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .hero-logo {
+    width: 56px; height: 56px;
+    flex-shrink: 0;
+  }
+  .hero-logo img { width: 100%; height: 100%; display: block; }
+  .hero-text h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 38px;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: var(--primary);
+    text-transform: uppercase;
+  }
+  .hero-text p {
+    margin: 6px 0 0;
+    color: var(--ink-soft);
+    font-size: 13px;
+    font-family: var(--mono);
+  }
+
+  main {
+    max-width: 920px;
+    margin: 28px auto 100px;
+    padding: 0 24px;
+  }
+
+  .card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px 28px;
+    margin-bottom: 18px;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin: 0 0 4px;
+    font-family: var(--display);
+    font-size: 26px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--secondary);
+  }
+  .section-score {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--primary);
+    background: var(--bg-3);
+    padding: 5px 11px;
+    border-radius: 999px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .section-sub {
+    color: var(--ink-soft);
+    font-size: 13px;
+    margin: 0 0 20px;
+    font-family: var(--mono);
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  label.field {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  input[type="text"], input[type="date"], textarea {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-family: var(--body);
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--bg-3);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  input::placeholder, textarea::placeholder { color: #5a5a64; }
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(239,248,139,0.15);
+  }
+  input[type="date"] { color-scheme: dark; }
+  textarea { min-height: 72px; resize: vertical; }
+
+  .subgroup {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    background: var(--bg);
+  }
+  .subgroup-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .subgroup h3 {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--secondary);
+    font-weight: 700;
+  }
+  .subgroup-score {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .check-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .check-row:last-of-type { border-bottom: none; }
+  .check-row label {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+
+  .scale {
+    display: inline-flex;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--bg-2);
+  }
+  .scale button {
+    background: transparent;
+    border: none;
+    padding: 6px 11px;
+    cursor: pointer;
+    color: var(--ink-soft);
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 12px;
+    min-width: 32px;
+    border-right: 1px solid var(--line);
+    transition: background 0.1s, color 0.1s;
+  }
+  .scale button:last-child { border-right: none; }
+  .scale button:hover { background: var(--bg-3); color: var(--ink); }
+  .scale button.active { color: var(--primary-ink); }
+  .scale button.active[data-val="0"] { background: #ff6b6b; }
+  .scale button.active[data-val="1"] { background: #ff8a5b; }
+  .scale button.active[data-val="2"] { background: #f5c266; }
+  .scale button.active[data-val="3"] { background: #d8e07a; }
+  .scale button.active[data-val="4"] { background: #c5e87a; }
+  .scale button.active[data-val="5"] { background: var(--primary); }
+  .scale button.active[data-val="na"] { background: #5a5a64; color: var(--ink); }
+
+  .notes-row { margin-top: 10px; }
+  .notes-row textarea { min-height: 48px; font-size: 13px; background: var(--bg-2); }
+
+  .submit-bar {
+    position: sticky;
+    bottom: 16px;
+    margin-top: 24px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .score-block {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    min-width: 220px;
+  }
+  .score-num {
+    font-family: var(--display);
+    font-size: 42px;
+    font-weight: 400;
+    color: var(--primary);
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+  .score-num small {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .progress-wrap {
+    flex: 1;
+    height: 6px;
+    background: var(--bg-3);
+    border-radius: 999px;
+    overflow: hidden;
+    min-width: 120px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--primary);
+    width: 0%;
+    transition: width 0.25s, background 0.25s;
+  }
+  .progress-text {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  button.primary {
+    background: var(--primary);
+    color: var(--primary-ink);
+    border: none;
+    padding: 13px 26px;
+    border-radius: 8px;
+    font-family: var(--display);
+    font-size: 17px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: transform 0.05s, box-shadow 0.15s;
+  }
+  button.primary:hover { box-shadow: 0 6px 20px rgba(239,248,139,0.3); }
+  button.primary:active { transform: translateY(1px); }
+  button.primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .toast {
+    position: fixed;
+    top: 24px; left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: var(--primary);
+    color: var(--primary-ink);
+    padding: 14px 22px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 100;
+    text-transform: uppercase;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.error { background: var(--bad); color: #fff; }
+
+  .meta-foot {
+    text-align: center;
+    color: var(--ink-soft);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 28px;
+  }
+
+  ::selection { background: var(--primary); color: var(--primary-ink); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-logo"><img src="logo.svg" alt="Bigsplash" /></div>
+    <div class="hero-text">
+      <h1>Branding Audit</h1>
+      <p>0 = MISSING &nbsp;·&nbsp; 5 = PERFECT &nbsp;·&nbsp; N/A EXCLUDES FROM SCORE</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <form id="audit-form">
+
+    <section class="card">
+      <h2 class="section-title">Audit details</h2>
+      <p class="section-sub">Fill these first so the report files correctly.</p>
+      <div class="grid-2">
+        <div>
+          <label class="field" for="churchName">Church name</label>
+          <input type="text" id="churchName" name="churchName" required placeholder="e.g. Grace Community Church" />
+        </div>
+        <div>
+          <label class="field" for="auditDate">Audit date</label>
+          <input type="date" id="auditDate" name="auditDate" required />
+        </div>
+        <div>
+          <label class="field" for="auditor">Your name</label>
+          <input type="text" id="auditor" name="auditor" required placeholder="Worker name" />
+        </div>
+        <div>
+          <label class="field" for="location">Church city / location</label>
+          <input type="text" id="location" name="location" placeholder="City, State" />
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-section="Online">
+      <h2 class="section-title">Online presence <span class="section-score" data-section-score="Online">— / 5</span></h2>
+      <p class="section-sub">Website, social, email, listings, digital assets.</p>
+      <div id="online-groups"></div>
+    </section>
+
+    <section class="card" data-section="In Person">
+      <h2 class="section-title">In-person presence <span class="section-score" data-section-score="In Person">— / 5</span></h2>
+      <p class="section-sub">Walk the building. Photograph anything that scores 0–2.</p>
+      <div id="inperson-groups"></div>
+    </section>
+
+    <section class="card" data-section="Governance">
+      <h2 class="section-title">Governance <span class="section-score" data-section-score="Governance">— / 5</span></h2>
+      <p class="section-sub">Who owns the brand and how it stays clean.</p>
+      <div id="gov-groups"></div>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">Summary</h2>
+      <p class="section-sub">Top fixes to recommend to the church.</p>
+      <label class="field" for="topFixes">Priority recommendations</label>
+      <textarea id="topFixes" name="topFixes" placeholder="The 3-5 most important things to fix first."></textarea>
+    </section>
+
+    <div class="submit-bar">
+      <div class="score-block">
+        <div class="score-num"><span id="overallScore">—</span><small> / 100</small></div>
+        <div style="flex:1">
+          <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+          <div class="progress-text" id="progressText">0 / 0 SCORED</div>
+        </div>
+      </div>
+      <button class="primary" type="submit" id="submitBtn">Submit Audit</button>
+    </div>
+  </form>
+
+  <p class="meta-foot">Bigsplash Agency &nbsp;·&nbsp; Branding Audit v2</p>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ====== CONFIG ======
+  const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbzqw-GdiRHeg6m0h9sgjtr6HqJx5CB-hiK5LnXBIzRHjz3JGK0gbC51Okl6-QAmUbSklQ/exec";
+  // ====================
+
+  const checklist = {
+    online: [
+      { group: "Website", items: [
+        "Logo present in header, correct file (SVG, no pixelation)",
+        "Logo clear-space and minimum size respected",
+        "Favicon set and matches brand mark",
+        "Brand colors match hex spec across all pages",
+        "Heading and body fonts match brand typography",
+        "Buttons use approved color, radius, hover states",
+        "Imagery style on-brand (tone, color, subjects)",
+        "Tagline / positioning line consistent on home and about",
+        "Footer has correct legal name, contact, social links",
+        "Meta title, description, OG image use brand assets",
+        "404 page branded",
+      ]},
+      { group: "Social profiles", items: [
+        "Handle consistent across platforms",
+        "Profile photo is approved logo mark, correct crop",
+        "Cover / banner uses current brand artwork",
+        "Bio copy matches approved positioning line",
+        "Link-in-bio points to correct URL",
+        "Pinned posts reflect current campaign or series",
+        "Highlight covers (Instagram) on-brand",
+        "Recent post grid feels cohesive in palette and tone",
+      ]},
+      { group: "Email", items: [
+        "Sender name and address use church domain",
+        "Email signature uses approved template, logo, colors",
+        "Newsletter header, footer, buttons match brand",
+        "Transactional emails branded (welcome, receipt, reset)",
+      ]},
+      { group: "Listings & third-party", items: [
+        "Google Business Profile: logo, cover, hours, description",
+        "Directory listings consistent (Yelp, church finders, etc.)",
+        "Review platforms show correct branding",
+        "Partner sites use approved logo version",
+      ]},
+      { group: "Digital assets", items: [
+        "Slide / sermon deck template current",
+        "Bulletin and PDF templates current",
+        "Zoom / livestream backgrounds branded",
+        "Document headers and footers consistent",
+      ]},
+    ],
+    inperson: [
+      { group: "Building & signage", items: [
+        "Exterior signage correct logo and colors",
+        "Window decals current",
+        "Lobby / welcome signage on-brand",
+        "Wayfinding and door signs consistent",
+        "Wall art, murals, printed graphics current",
+      ]},
+      { group: "Print collateral", items: [
+        "Business cards on current template",
+        "Letterhead and envelopes",
+        "Brochures, one-pagers, sell sheets",
+        "Connect cards / visitor cards",
+        "Folders, inserts, notepads, stickers, swag",
+      ]},
+      { group: "Stage & worship", items: [
+        "Stage backdrop / screens use current artwork",
+        "Sermon series graphics on-brand",
+        "Lower thirds and motion graphics consistent",
+        "Lyric / scripture slide template current",
+      ]},
+      { group: "Events & outreach", items: [
+        "Booth backdrop and banners current artwork",
+        "Tablecloths and runners on-brand",
+        "Pop-up / retractable banners",
+        "Name badges and lanyards",
+        "Giveaway items use approved logo placement",
+        "Printed handouts match digital versions",
+      ]},
+      { group: "Apparel & uniforms", items: [
+        "Shirts, polos, hats use correct logo and placement",
+        "Color matches brand spec (Pantone where relevant)",
+      ]},
+      { group: "Vehicles & equipment", items: [
+        "Vehicle wraps or magnets current",
+        "Equipment labels and decals",
+      ]},
+      { group: "Guest-facing materials", items: [
+        "Welcome packets",
+        "Thank-you cards and gifts",
+        "First-time visitor experience materials",
+      ]},
+    ],
+    gov: [
+      { group: "Brand governance", items: [
+        "Brand guide is current and accessible to the team",
+        "Logo and asset library stored in one known location",
+        "Old logo versions removed from shared drives",
+        "Vendor list with approved print specs documented",
+        "Audit owner and review cadence assigned",
+      ]},
+    ],
+  };
+
+  const sectionLabels = { online: "Online", inperson: "In Person", gov: "Governance" };
+
+  function slugify(s) {
+    return s.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+  }
+
+  function buildSection(containerId, sectionKey) {
+    const container = document.getElementById(containerId);
+    const sectionLabel = sectionLabels[sectionKey];
+    checklist[sectionKey].forEach(group => {
+      const wrap = document.createElement("div");
+      wrap.className = "subgroup";
+      const head = document.createElement("div");
+      head.className = "subgroup-head";
+      head.innerHTML = `
+        <h3>${group.group}</h3>
+        <span class="subgroup-score" data-group-score="${sectionLabel}::${group.group}">— / 5</span>
+      `;
+      wrap.appendChild(head);
+
+      group.items.forEach(item => {
+        const id = `${sectionKey}__${slugify(group.group)}__${slugify(item)}`;
+        const row = document.createElement("div");
+        row.className = "check-row";
+        row.innerHTML = `
+          <label for="${id}">${item}</label>
+          <div class="scale" data-target="${id}">
+            ${[0,1,2,3,4,5].map(n => `<button type="button" data-val="${n}">${n}</button>`).join("")}
+            <button type="button" data-val="na">N/A</button>
+          </div>
+          <input type="hidden" id="${id}" data-section="${sectionLabel}" data-group="${group.group}" data-item="${item}" />
+        `;
+        wrap.appendChild(row);
+      });
+
+      const noteWrap = document.createElement("div");
+      noteWrap.className = "notes-row";
+      noteWrap.innerHTML = `<textarea placeholder="Notes for ${group.group}" data-note-group="${sectionLabel} :: ${group.group}"></textarea>`;
+      wrap.appendChild(noteWrap);
+
+      container.appendChild(wrap);
+    });
+  }
+
+  buildSection("online-groups", "online");
+  buildSection("inperson-groups", "inperson");
+  buildSection("gov-groups", "gov");
+
+  document.getElementById("auditDate").valueAsDate = new Date();
+
+  document.querySelectorAll(".scale").forEach(group => {
+    group.addEventListener("click", e => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      group.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById(group.dataset.target).value = btn.dataset.val;
+      updateScores();
+    });
+  });
+
+  function avg(nums) {
+    if (!nums.length) return null;
+    return nums.reduce((a,b) => a+b, 0) / nums.length;
+  }
+
+  function updateScores() {
+    document.querySelectorAll(".subgroup").forEach(sg => {
+      const inputs = sg.querySelectorAll('input[type="hidden"]');
+      const scores = [];
+      inputs.forEach(i => { if (i.value !== "" && i.value !== "na") scores.push(parseInt(i.value, 10)); });
+      const a = avg(scores);
+      const el = sg.querySelector(".subgroup-score");
+      el.textContent = a === null ? "— / 5" : `${a.toFixed(1)} / 5`;
+    });
+
+    Object.values(sectionLabels).forEach(label => {
+      const inputs = document.querySelectorAll(`input[type="hidden"][data-section="${label}"]`);
+      const scores = [];
+      inputs.forEach(i => { if (i.value !== "" && i.value !== "na") scores.push(parseInt(i.value, 10)); });
+      const a = avg(scores);
+      document.querySelector(`[data-section-score="${label}"]`).textContent = a === null ? "— / 5" : `${a.toFixed(1)} / 5`;
+    });
+
+    const all = document.querySelectorAll('input[type="hidden"][data-item]');
+    const scores = [];
+    let scored = 0;
+    all.forEach(i => {
+      if (i.value === "") return;
+      scored++;
+      if (i.value !== "na") scores.push(parseInt(i.value, 10));
+    });
+    const overall = avg(scores);
+    const pct = overall === null ? null : Math.round((overall / 5) * 100);
+    document.getElementById("overallScore").textContent = pct === null ? "—" : pct;
+    const bar = document.getElementById("progressBar");
+    bar.style.width = `${pct || 0}%`;
+    bar.style.background = pct === null ? "var(--primary)"
+      : pct >= 80 ? "var(--primary)"
+      : pct >= 60 ? "var(--warn)"
+      : "var(--bad)";
+    document.getElementById("progressText").textContent = `${scored} / ${all.length} SCORED`;
+  }
+  updateScores();
+
+  function toast(msg, isError = false) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.toggle("error", isError);
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 3500);
+  }
+
+  document.getElementById("audit-form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const btn = document.getElementById("submitBtn");
+    btn.disabled = true;
+    btn.textContent = "Submitting…";
+
+    const items = [];
+    let scoredCount = 0, naCount = 0, scoreSum = 0, scoreN = 0;
+    document.querySelectorAll('input[type="hidden"][data-item]').forEach(i => {
+      const val = i.value === "" ? null : (i.value === "na" ? "na" : parseInt(i.value, 10));
+      items.push({ section: i.dataset.section, group: i.dataset.group, item: i.dataset.item, score: val });
+      if (val === null) return;
+      scoredCount++;
+      if (val === "na") naCount++;
+      else { scoreSum += val; scoreN++; }
+    });
+
+    const sectionAvgs = {};
+    Object.values(sectionLabels).forEach(label => {
+      const scores = items.filter(x => x.section === label && typeof x.score === "number").map(x => x.score);
+      sectionAvgs[label] = scores.length ? +(scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(2) : null;
+    });
+
+    const notes = [];
+    document.querySelectorAll('textarea[data-note-group]').forEach(t => {
+      const v = t.value.trim();
+      if (v) notes.push({ group: t.dataset.noteGroup, note: v });
+    });
+
+    const overallPct = scoreN ? Math.round((scoreSum / scoreN / 5) * 100) : null;
+
+    const payload = {
+      churchName: document.getElementById("churchName").value.trim(),
+      auditDate: document.getElementById("auditDate").value,
+      auditor: document.getElementById("auditor").value.trim(),
+      location: document.getElementById("location").value.trim(),
+      topFixes: document.getElementById("topFixes").value.trim(),
+      submittedAt: new Date().toISOString(),
+      overallScore: overallPct,
+      sectionScores: sectionAvgs,
+      counts: { scored: scoredCount, na: naCount, total: items.length },
+      items, notes,
+    };
+
+    if (!SUBMIT_URL || SUBMIT_URL.startsWith("PASTE_")) {
+      console.log("Audit payload (no endpoint configured):", payload);
+      toast("No endpoint set. Logged to console.", true);
+      btn.disabled = false;
+      btn.textContent = "Submit Audit";
+      return;
+    }
+
+    try {
+      await fetch(SUBMIT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload),
+      });
+      toast(`Submitted · Score ${overallPct}/100`);
+      setTimeout(() => location.reload(), 1800);
+    } catch (err) {
+      console.error(err);
+      toast("Submission failed", true);
+      btn.disabled = false;
+      btn.textContent = "Submit Audit";
+    }
+  });
+</script>
+</body>
+</html>
