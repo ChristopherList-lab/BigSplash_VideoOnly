@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bigsplash Branding Audit</title>
+<title>Bigsplash Church Audit</title>
 <link rel="icon" href="logo.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,45 +36,56 @@
     color: var(--ink);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    font-weight: 400;
   }
 
   header.hero {
     background: var(--bg);
     border-bottom: 1px solid var(--line);
-    padding: 32px 24px 28px;
+    padding: 28px 24px 24px;
+    position: sticky; top: 0; z-index: 50;
   }
   .hero-inner {
-    max-width: 920px;
+    max-width: 960px;
     margin: 0 auto;
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 16px;
   }
-  .hero-logo {
-    width: 56px; height: 56px;
-    flex-shrink: 0;
-  }
+  .hero-logo { width: 48px; height: 48px; flex-shrink: 0; }
   .hero-logo img { width: 100%; height: 100%; display: block; }
+  .hero-text { flex: 1; }
   .hero-text h1 {
     margin: 0;
     font-family: var(--display);
-    font-size: 38px;
+    font-size: 32px;
     line-height: 1;
     letter-spacing: 0.01em;
     color: var(--primary);
     text-transform: uppercase;
   }
   .hero-text p {
-    margin: 6px 0 0;
+    margin: 5px 0 0;
     color: var(--ink-soft);
-    font-size: 13px;
+    font-size: 11px;
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .hero-score {
+    text-align: right;
     font-family: var(--mono);
   }
+  .hero-score .num {
+    font-family: var(--display);
+    font-size: 36px;
+    color: var(--primary);
+    line-height: 1;
+  }
+  .hero-score small { font-size: 10px; color: var(--ink-soft); letter-spacing: 0.06em; }
 
   main {
-    max-width: 920px;
-    margin: 28px auto 100px;
+    max-width: 960px;
+    margin: 24px auto 100px;
     padding: 0 24px;
   }
 
@@ -82,24 +93,55 @@
     background: var(--bg-2);
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 26px 28px;
-    margin-bottom: 18px;
+    padding: 0;
+    margin-bottom: 14px;
+    overflow: hidden;
   }
-
-  .section-title {
+  .card-head {
+    padding: 20px 26px;
+    cursor: pointer;
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin: 0 0 4px;
+    gap: 16px;
+    user-select: none;
+  }
+  .card-head:hover { background: var(--bg-3); }
+  .card.no-collapse .card-head { cursor: default; }
+  .card.no-collapse .card-head:hover { background: transparent; }
+  .card-body {
+    padding: 0 26px 24px;
+    display: block;
+  }
+  .card.collapsed .card-body { display: none; }
+
+  .section-title {
+    margin: 0;
     font-family: var(--display);
-    font-size: 26px;
+    font-size: 24px;
     text-transform: uppercase;
     letter-spacing: 0.02em;
     color: var(--secondary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .chev {
+    display: inline-block;
+    transition: transform 0.2s;
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+  .card.collapsed .chev { transform: rotate(-90deg); }
+
+  .section-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 12px;
   }
   .section-score {
-    font-family: var(--mono);
-    font-size: 13px;
     color: var(--primary);
     background: var(--bg-3);
     padding: 5px 11px;
@@ -107,11 +149,16 @@
     font-weight: 700;
     letter-spacing: 0.02em;
   }
+  .section-progress {
+    color: var(--ink-soft);
+    font-size: 10px;
+  }
   .section-sub {
     color: var(--ink-soft);
-    font-size: 13px;
-    margin: 0 0 20px;
+    font-size: 12px;
+    margin: 4px 0 18px;
     font-family: var(--mono);
+    letter-spacing: 0.02em;
   }
 
   .grid-2 {
@@ -124,7 +171,7 @@
   label.field {
     display: block;
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-weight: 700;
@@ -137,7 +184,7 @@
     border: 1px solid var(--line);
     border-radius: 8px;
     font-family: var(--body);
-    font-size: 15px;
+    font-size: 14px;
     color: var(--ink);
     background: var(--bg-3);
     transition: border-color 0.15s, box-shadow 0.15s;
@@ -149,25 +196,25 @@
     box-shadow: 0 0 0 3px rgba(239,248,139,0.15);
   }
   input[type="date"] { color-scheme: dark; }
-  textarea { min-height: 72px; resize: vertical; }
+  textarea { min-height: 64px; resize: vertical; }
 
   .subgroup {
     border: 1px solid var(--line);
     border-radius: 10px;
-    padding: 16px 18px;
-    margin-bottom: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
     background: var(--bg);
   }
   .subgroup-head {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
   .subgroup h3 {
     margin: 0;
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--secondary);
@@ -178,20 +225,19 @@
     font-size: 11px;
     color: var(--primary);
     font-weight: 700;
-    letter-spacing: 0.04em;
   }
 
   .check-row {
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
-    gap: 14px;
-    padding: 11px 0;
+    gap: 12px;
+    padding: 9px 0;
     border-bottom: 1px solid var(--line);
   }
   .check-row:last-of-type { border-bottom: none; }
   .check-row label {
-    font-size: 14px;
+    font-size: 13.5px;
     color: var(--ink);
     line-height: 1.35;
   }
@@ -206,15 +252,14 @@
   .scale button {
     background: transparent;
     border: none;
-    padding: 6px 11px;
+    padding: 5px 9px;
     cursor: pointer;
     color: var(--ink-soft);
     font-family: var(--mono);
     font-weight: 700;
-    font-size: 12px;
-    min-width: 32px;
+    font-size: 11px;
+    min-width: 28px;
     border-right: 1px solid var(--line);
-    transition: background 0.1s, color 0.1s;
   }
   .scale button:last-child { border-right: none; }
   .scale button:hover { background: var(--bg-3); color: var(--ink); }
@@ -227,22 +272,22 @@
   .scale button.active[data-val="5"] { background: var(--primary); }
   .scale button.active[data-val="na"] { background: #5a5a64; color: var(--ink); }
 
-  .notes-row { margin-top: 10px; }
-  .notes-row textarea { min-height: 48px; font-size: 13px; background: var(--bg-2); }
+  .notes-row { margin-top: 8px; }
+  .notes-row textarea { min-height: 44px; font-size: 12.5px; background: var(--bg-2); }
 
   .submit-bar {
     position: sticky;
-    bottom: 16px;
+    bottom: 12px;
     margin-top: 24px;
     background: var(--bg-2);
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 16px 20px;
+    padding: 14px 18px;
     box-shadow: 0 12px 32px rgba(0,0,0,0.5);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 18px;
+    gap: 16px;
     flex-wrap: wrap;
   }
   .score-block {
@@ -250,22 +295,19 @@
     align-items: center;
     gap: 14px;
     flex: 1;
-    min-width: 220px;
+    min-width: 200px;
   }
   .score-num {
     font-family: var(--display);
-    font-size: 42px;
-    font-weight: 400;
+    font-size: 36px;
     color: var(--primary);
     line-height: 1;
-    letter-spacing: 0.02em;
   }
   .score-num small {
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 11px;
     color: var(--ink-soft);
     font-weight: 700;
-    letter-spacing: 0.04em;
   }
   .progress-wrap {
     flex: 1;
@@ -283,9 +325,8 @@
   }
   .progress-text {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 10px;
     color: var(--ink-soft);
-    white-space: nowrap;
     margin-top: 4px;
     letter-spacing: 0.04em;
   }
@@ -294,23 +335,40 @@
     background: var(--primary);
     color: var(--primary-ink);
     border: none;
-    padding: 13px 26px;
+    padding: 12px 24px;
     border-radius: 8px;
     font-family: var(--display);
-    font-size: 17px;
-    font-weight: 400;
+    font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     cursor: pointer;
-    transition: transform 0.05s, box-shadow 0.15s;
   }
   button.primary:hover { box-shadow: 0 6px 20px rgba(239,248,139,0.3); }
-  button.primary:active { transform: translateY(1px); }
   button.primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .controls-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .ghost-btn {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .ghost-btn:hover { color: var(--primary); border-color: var(--primary); }
 
   .toast {
     position: fixed;
-    top: 24px; left: 50%;
+    top: 90px; left: 50%;
     transform: translateX(-50%) translateY(-20px);
     background: var(--primary);
     color: var(--primary-ink);
@@ -319,7 +377,7 @@
     box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     font-family: var(--mono);
     font-weight: 700;
-    font-size: 13px;
+    font-size: 12px;
     letter-spacing: 0.04em;
     opacity: 0;
     pointer-events: none;
@@ -334,10 +392,10 @@
     text-align: center;
     color: var(--ink-soft);
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin-top: 28px;
+    margin-top: 24px;
   }
 
   ::selection { background: var(--primary); color: var(--primary-ink); }
@@ -349,8 +407,12 @@
   <div class="hero-inner">
     <div class="hero-logo"><img src="logo.svg" alt="Bigsplash" /></div>
     <div class="hero-text">
-      <h1>Branding Audit</h1>
-      <p>0 = MISSING &nbsp;·&nbsp; 5 = PERFECT &nbsp;·&nbsp; N/A EXCLUDES FROM SCORE</p>
+      <h1>Church Audit</h1>
+      <p>0 = Missing &nbsp;·&nbsp; 5 = Perfect &nbsp;·&nbsp; N/A excludes &nbsp;·&nbsp; Internal use</p>
+    </div>
+    <div class="hero-score">
+      <div class="num"><span id="heroScore">—</span></div>
+      <small>OVERALL / 100</small>
     </div>
   </div>
 </header>
@@ -358,52 +420,62 @@
 <main>
   <form id="audit-form">
 
-    <section class="card">
-      <h2 class="section-title">Audit details</h2>
-      <p class="section-sub">Fill these first so the report files correctly.</p>
-      <div class="grid-2">
-        <div>
-          <label class="field" for="churchName">Church name</label>
-          <input type="text" id="churchName" name="churchName" required placeholder="e.g. Grace Community Church" />
-        </div>
-        <div>
-          <label class="field" for="auditDate">Audit date</label>
-          <input type="date" id="auditDate" name="auditDate" required />
-        </div>
-        <div>
-          <label class="field" for="auditor">Your name</label>
-          <input type="text" id="auditor" name="auditor" required placeholder="Worker name" />
-        </div>
-        <div>
-          <label class="field" for="location">Church city / location</label>
-          <input type="text" id="location" name="location" placeholder="City, State" />
+    <section class="card no-collapse">
+      <div class="card-head">
+        <h2 class="section-title">Audit Details</h2>
+      </div>
+      <div class="card-body">
+        <div class="grid-2">
+          <div>
+            <label class="field" for="churchName">Church name</label>
+            <input type="text" id="churchName" required placeholder="e.g. Grace Community Church" />
+          </div>
+          <div>
+            <label class="field" for="auditDate">Audit date</label>
+            <input type="date" id="auditDate" required />
+          </div>
+          <div>
+            <label class="field" for="auditor">Your name</label>
+            <input type="text" id="auditor" required placeholder="Worker name" />
+          </div>
+          <div>
+            <label class="field" for="location">City / location</label>
+            <input type="text" id="location" placeholder="City, State" />
+          </div>
+          <div>
+            <label class="field" for="serviceSize">Avg. weekend attendance</label>
+            <input type="text" id="serviceSize" placeholder="e.g. 350" />
+          </div>
+          <div>
+            <label class="field" for="serviceTimes">Service times observed</label>
+            <input type="text" id="serviceTimes" placeholder="e.g. Sun 9am, 11am" />
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="card" data-section="Online">
-      <h2 class="section-title">Online presence <span class="section-score" data-section-score="Online">— / 5</span></h2>
-      <p class="section-sub">Website, social, email, listings, digital assets.</p>
-      <div id="online-groups"></div>
-    </section>
+    <div class="controls-bar">
+      <button type="button" class="ghost-btn" id="expandAll">Expand all</button>
+      <button type="button" class="ghost-btn" id="collapseAll">Collapse all</button>
+    </div>
 
-    <section class="card" data-section="In Person">
-      <h2 class="section-title">In-person presence <span class="section-score" data-section-score="In Person">— / 5</span></h2>
-      <p class="section-sub">Walk the building. Photograph anything that scores 0–2.</p>
-      <div id="inperson-groups"></div>
-    </section>
+    <div id="sections-container"></div>
 
-    <section class="card" data-section="Governance">
-      <h2 class="section-title">Governance <span class="section-score" data-section-score="Governance">— / 5</span></h2>
-      <p class="section-sub">Who owns the brand and how it stays clean.</p>
-      <div id="gov-groups"></div>
-    </section>
-
-    <section class="card">
-      <h2 class="section-title">Summary</h2>
-      <p class="section-sub">Top fixes to recommend to the church.</p>
-      <label class="field" for="topFixes">Priority recommendations</label>
-      <textarea id="topFixes" name="topFixes" placeholder="The 3-5 most important things to fix first."></textarea>
+    <section class="card no-collapse">
+      <div class="card-head">
+        <h2 class="section-title">Summary</h2>
+      </div>
+      <div class="card-body">
+        <p class="section-sub">Top fixes to recommend, dollar opportunity, next step.</p>
+        <label class="field" for="topFixes">Priority recommendations</label>
+        <textarea id="topFixes" placeholder="The 3-5 most important things to fix first."></textarea>
+        <div style="height:10px"></div>
+        <label class="field" for="opportunity">Bigsplash opportunity / scope estimate</label>
+        <textarea id="opportunity" placeholder="What we could sell them. Rough scope, services, dollar range."></textarea>
+        <div style="height:10px"></div>
+        <label class="field" for="nextStep">Recommended next step</label>
+        <textarea id="nextStep" placeholder="Discovery call, on-site visit, proposal, etc."></textarea>
+      </div>
     </section>
 
     <div class="submit-bar">
@@ -418,18 +490,20 @@
     </div>
   </form>
 
-  <p class="meta-foot">Bigsplash Agency &nbsp;·&nbsp; Branding Audit v2</p>
+  <p class="meta-foot">Bigsplash Agency &nbsp;·&nbsp; Church Audit v3 &nbsp;·&nbsp; Internal</p>
 </main>
 
 <div class="toast" id="toast"></div>
 
 <script>
-  // ====== CONFIG ======
-  const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbzqw-GdiRHeg6m0h9sgjtr6HqJx5CB-hiK5LnXBIzRHjz3JGK0gbC51Okl6-QAmUbSklQ/exec";
-  // ====================
+const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbwOn7TCoQ7QolRsGzWUVMAmfs-5mgo0TAHHulyu_HoibvgxSdb67YXu4wFLZbviyf_NKQ/exec";
 
-  const checklist = {
-    online: [
+const sections = [
+  {
+    key: "branding_online",
+    label: "Branding — Online",
+    desc: "Website, social, email, listings, digital assets.",
+    groups: [
       { group: "Website", items: [
         "Logo present in header, correct file (SVG, no pixelation)",
         "Logo clear-space and minimum size respected",
@@ -438,32 +512,36 @@
         "Heading and body fonts match brand typography",
         "Buttons use approved color, radius, hover states",
         "Imagery style on-brand (tone, color, subjects)",
-        "Tagline / positioning line consistent on home and about",
-        "Footer has correct legal name, contact, social links",
+        "Tagline / positioning consistent on home and about",
+        "Footer has correct legal name, contact, social",
         "Meta title, description, OG image use brand assets",
         "404 page branded",
+        "Mobile experience equal to desktop",
+        "Page speed acceptable (LCP under 2.5s)",
       ]},
       { group: "Social profiles", items: [
         "Handle consistent across platforms",
-        "Profile photo is approved logo mark, correct crop",
+        "Profile photo is approved logo, correct crop",
         "Cover / banner uses current brand artwork",
-        "Bio copy matches approved positioning line",
+        "Bio copy matches positioning line",
         "Link-in-bio points to correct URL",
         "Pinned posts reflect current campaign or series",
         "Highlight covers (Instagram) on-brand",
-        "Recent post grid feels cohesive in palette and tone",
+        "Recent post grid feels cohesive",
+        "Posting cadence consistent",
       ]},
       { group: "Email", items: [
         "Sender name and address use church domain",
-        "Email signature uses approved template, logo, colors",
+        "Email signature uses approved template",
         "Newsletter header, footer, buttons match brand",
         "Transactional emails branded (welcome, receipt, reset)",
+        "Email platform documented (MailChimp, CCB, etc.)",
       ]},
       { group: "Listings & third-party", items: [
-        "Google Business Profile: logo, cover, hours, description",
-        "Directory listings consistent (Yelp, church finders, etc.)",
+        "Google Business Profile: logo, cover, hours, photos",
+        "Directory listings (church finders) consistent",
         "Review platforms show correct branding",
-        "Partner sites use approved logo version",
+        "Apple Maps and Bing listings claimed",
       ]},
       { group: "Digital assets", items: [
         "Slide / sermon deck template current",
@@ -472,7 +550,12 @@
         "Document headers and footers consistent",
       ]},
     ],
-    inperson: [
+  },
+  {
+    key: "branding_inperson",
+    label: "Branding — In Person",
+    desc: "Walk the building. Photograph anything that scores 0–2.",
+    groups: [
       { group: "Building & signage", items: [
         "Exterior signage correct logo and colors",
         "Window decals current",
@@ -487,23 +570,10 @@
         "Connect cards / visitor cards",
         "Folders, inserts, notepads, stickers, swag",
       ]},
-      { group: "Stage & worship", items: [
-        "Stage backdrop / screens use current artwork",
-        "Sermon series graphics on-brand",
-        "Lower thirds and motion graphics consistent",
-        "Lyric / scripture slide template current",
-      ]},
-      { group: "Events & outreach", items: [
-        "Booth backdrop and banners current artwork",
-        "Tablecloths and runners on-brand",
-        "Pop-up / retractable banners",
-        "Name badges and lanyards",
-        "Giveaway items use approved logo placement",
-        "Printed handouts match digital versions",
-      ]},
       { group: "Apparel & uniforms", items: [
         "Shirts, polos, hats use correct logo and placement",
         "Color matches brand spec (Pantone where relevant)",
+        "Volunteer team apparel identifies them clearly",
       ]},
       { group: "Vehicles & equipment", items: [
         "Vehicle wraps or magnets current",
@@ -513,41 +583,381 @@
         "Welcome packets",
         "Thank-you cards and gifts",
         "First-time visitor experience materials",
+        "Connect / next-step path clear at entrance",
       ]},
     ],
-    gov: [
+  },
+  {
+    key: "live_sound",
+    label: "Live Sound",
+    desc: "FOH, monitors, mics, speakers, signal flow, room acoustics.",
+    groups: [
+      { group: "FOH console", items: [
+        "Console make/model documented",
+        "Firmware version current",
+        "Show file backed up off-site (cloud + local)",
+        "Channel list matches current band setup",
+        "Scenes / snapshots labeled and current",
+        "DCAs / VCAs assigned logically",
+        "Channel EQ and dynamics settings sensible (no presets dumped on)",
+        "Bus / aux structure documented",
+        "FX returns labeled, time-aligned where needed",
+        "Headphone / solo bus working",
+        "Talkback mic to monitors / cue working",
+        "Console surface clean, no scratchy faders/pots",
+        "USB / multitrack recording armed",
+      ]},
+      { group: "Monitors & in-ears", items: [
+        "Each musician has a dedicated mix",
+        "IEM RF stable, no dropouts",
+        "IEM frequency coordination documented",
+        "Personal mixers (Aviom, P16, etc.) labeled and working",
+        "Wedge monitors positioned to avoid feedback",
+        "Click track / cue mix routed",
+        "Spare IEM packs and cables on hand",
+        "Stage volume controlled (low-volume cymbals, shields if needed)",
+      ]},
+      { group: "Microphones", items: [
+        "Vocal mic count covers band + 2 spares",
+        "Wireless mic frequencies coordinated, no dropouts",
+        "Wireless battery management documented (rechargeable preferred)",
+        "Wireless receivers and antennas mounted correctly",
+        "DI boxes available, working, transformer-isolated where needed",
+        "Drum mic kit complete (kick, snare top/bot, toms, OH, hat)",
+        "Mic cables tested, labeled, no crackle",
+        "Mic stands stable, threading clean",
+        "Mic locker organized, inventory documented",
+      ]},
+      { group: "Speakers / PA", items: [
+        "Mains coverage even across full seating",
+        "Subs phase-aligned with tops",
+        "Front fills cover first 3 rows",
+        "Delay speakers (if used) time-aligned",
+        "System tuning measured (Smaart / REW data on file)",
+        "SPL within safe limits (under 95 dB A LEQ for service)",
+        "Hearing assist system available and tested",
+        "No obvious dead zones or hot spots",
+      ]},
+      { group: "Signal flow & infrastructure", items: [
+        "Stage box / snake routing documented",
+        "Audio network (Dante / AVB / MADI) healthy, no errors",
+        "Patch sheet current and posted at FOH",
+        "Backup analog snake or backup path in place",
+        "Power on conditioner, dedicated AV circuits",
+        "Grounding clean, no hum or buzz",
+        "Cable management labeled, dressed, no trip hazards",
+        "Network switches managed, VLANs documented",
+      ]},
+      { group: "Room acoustics", items: [
+        "Acoustic treatment in place (absorption / diffusion as needed)",
+        "No problem flutter echoes or standing waves",
+        "HVAC noise floor under NC-25",
+        "Reverb time appropriate for music + speech",
+      ]},
+    ],
+  },
+  {
+    key: "livestream",
+    label: "Livestream / Broadcast",
+    desc: "Cameras, switching, stream audio, encoding, graphics, archive.",
+    groups: [
+      { group: "Cameras", items: [
+        "Camera count matches service complexity",
+        "Cameras same brand or color-matched",
+        "White balance matched across all cameras",
+        "Exposure consistent across cameras",
+        "Focus sharp on all cameras (auto vs. manual decision documented)",
+        "PTZ presets saved and labeled",
+        "Tally lights working and visible",
+        "Camera operators have shot list / run sheet",
+        "Tripods / mounts stable, no drift",
+        "Lenses clean, no smudges or dust",
+      ]},
+      { group: "Video switcher", items: [
+        "Switcher (ATEM, Tricaster, vMix) make/model documented",
+        "Multiview monitor visible to director",
+        "Macros / transitions labeled",
+        "Lower thirds template current and on-brand",
+        "Sermon graphics, scripture refs, song titles ready",
+        "Backup switcher or recovery plan documented",
+        "Switcher operator trained and has run sheet",
+      ]},
+      { group: "Audio for stream", items: [
+        "Dedicated broadcast mix separate from FOH",
+        "Stream audio includes ambience / crowd mics",
+        "Levels target -16 LUFS integrated (or platform spec)",
+        "Peak ceiling -1 dBTP",
+        "Lipsync between audio and video verified",
+        "No FOH bleed or feedback into stream",
+        "Backup audio source (camera scratch) available",
+      ]},
+      { group: "Encoding & streaming", items: [
+        "Encoder (hardware / software) documented",
+        "Bitrate set for upload bandwidth (typ. 6-8 Mbps for 1080p)",
+        "Resolution and framerate match destination spec",
+        "Stream key stored securely (not on visible monitor)",
+        "Backup internet (cell modem / bonded) ready and tested",
+        "YouTube live tested",
+        "Facebook live tested",
+        "Church app / website embed tested",
+        "Stream tested on consumer devices weekly",
+        "Latency / delay acceptable for in-room overflow",
+      ]},
+      { group: "Graphics & overlays", items: [
+        "Pre-roll countdown branded",
+        "Welcome / outro slides on-brand",
+        "Lower thirds use church brand fonts and colors",
+        "Donation prompt overlay scheduled",
+        "Logo bug placement consistent and not distracting",
+        "Scripture / sermon point graphics ready in advance",
+      ]},
+      { group: "Recording & archive", items: [
+        "Service recorded locally as backup",
+        "ISO record per camera (if equipment allows)",
+        "Audio multitrack recorded for post mix",
+        "Files named with date + service",
+        "Files archived to cloud (Frame.io, Google Drive, etc.)",
+        "Retention policy documented",
+        "Sermon edited and posted within 48 hours",
+      ]},
+    ],
+  },
+  {
+    key: "video_proj",
+    label: "In-House Video & Projection",
+    desc: "IMAG, lobby screens, projection, presentation software.",
+    groups: [
+      { group: "Screens & displays", items: [
+        "IMAG screens bright enough vs. ambient light",
+        "Color calibrated to match cameras",
+        "Aspect ratio correct (16:9 standard)",
+        "No dead pixels, hot spots, rainbow effect",
+        "Bezel / mounting clean, no visible cabling",
+        "Lobby displays running current content",
+        "Kids / classrooms have functional displays",
+      ]},
+      { group: "Projection (if used)", items: [
+        "Lumens adequate for room and ambient light",
+        "Lamp / laser hours within service life",
+        "Keystone correction minimal",
+        "Backup projector or contingency plan",
+        "Screen surface clean, no tears or wrinkles",
+      ]},
+      { group: "Presentation software", items: [
+        "ProPresenter / EasyWorship / Mediashout version current",
+        "Song database current, CCLI logged",
+        "Lyric template uses church brand",
+        "Scripture module installed and current",
+        "Operator workflow documented (run sheet, hotkeys)",
+        "Backup laptop ready with synced library",
+        "NDI / output routing documented",
+        "Stage display / confidence monitor working",
+      ]},
+    ],
+  },
+  {
+    key: "lighting",
+    label: "Stage & Theatrical Lighting",
+    desc: "Console, fixtures, DMX, camera-friendly lighting.",
+    groups: [
+      { group: "Console", items: [
+        "Lighting console (grandMA, ETC, Hog, Onyx) documented",
+        "Show file backed up off-site",
+        "Cue list labeled",
+        "Operator trained on console",
+        "Console firmware current",
+      ]},
+      { group: "Fixtures", items: [
+        "Inventory documented (key, fill, back, wash, beam, spot)",
+        "CRI 90+ on key lights for camera",
+        "Fixtures focused and addressed correctly",
+        "Spare lamps / fixtures on hand",
+        "Moving fixtures pan/tilt smooth, no grinding",
+        "Color mixing consistent across fixtures",
+      ]},
+      { group: "DMX & network", items: [
+        "DMX universes documented",
+        "Art-Net / sACN network healthy",
+        "Patch sheet current",
+        "Nodes labeled and powered cleanly",
+      ]},
+      { group: "Camera-friendly", items: [
+        "Key light on stage adequate for cameras (no muddy faces)",
+        "No backlight bleed into camera lens",
+        "Color temperature matched to camera white balance",
+        "House lights dimmable for stream contrast",
+      ]},
+    ],
+  },
+  {
+    key: "production_team",
+    label: "Production Workflow & Team",
+    desc: "Run of show, comms, volunteer team, training, documentation.",
+    groups: [
+      { group: "Run of show", items: [
+        "Service order / run sheet template in use",
+        "Cue-to-cue documented for tech team",
+        "Pre-service rehearsal scheduled",
+        "Soundcheck time protected and respected",
+        "Post-service debrief happening",
+        "Special service playbook (Easter, Christmas) on file",
+      ]},
+      { group: "Communications", items: [
+        "Clear-Com / wireless intercom for all positions",
+        "Headset count matches role count + spares",
+        "Channel assignments documented",
+        "Producer / director can reach every position",
+      ]},
+      { group: "Volunteer team", items: [
+        "Roster with roles documented (FOH, monitors, cameras, switcher, lights, ProP, stream)",
+        "Training docs per role",
+        "Onboarding pathway for new volunteers",
+        "Planning Center (or equivalent) up to date",
+        "Backup volunteers identified per role",
+        "Recognition / culture practices in place",
+      ]},
+      { group: "Documentation", items: [
+        "Tech manual / equipment binder accessible",
+        "Wiring diagrams current",
+        "Equipment list with serial numbers",
+        "Vendor contacts (rental, repair, integration)",
+        "Warranty / service contracts logged",
+      ]},
+    ],
+  },
+  {
+    key: "content",
+    label: "Content Capture & Distribution",
+    desc: "Sermon, podcast, social clips, content workflow.",
+    groups: [
+      { group: "Sermon", items: [
+        "Sermon recorded video in highest available quality",
+        "Audio recorded multitrack for podcast cleanup",
+        "Scripture refs and sermon notes captured",
+        "Sermon edited and uploaded weekly",
+      ]},
+      { group: "Podcast", items: [
+        "Podcast feed active on Apple, Spotify, etc.",
+        "Episodes uploaded on schedule",
+        "Show art on-brand",
+        "Show notes template used",
+        "Audio leveled (-16 LUFS, mono or stereo per platform)",
+      ]},
+      { group: "Social clips", items: [
+        "Vertical clips cut weekly from sermon",
+        "Captions / subtitles on all clips",
+        "Reels, Shorts, TikTok cross-posted",
+        "Branded title cards on clips",
+        "Posting schedule documented",
+      ]},
+      { group: "Content workflow", items: [
+        "Editor handoff workflow defined (source files, naming)",
+        "Asset library / DAM in place",
+        "Approvals process before publish",
+        "Performance tracking (views, watch time) reviewed",
+      ]},
+    ],
+  },
+  {
+    key: "safety",
+    label: "Safety & Compliance",
+    desc: "Rigging, electrical, licensing, insurance, hearing safety.",
+    groups: [
+      { group: "Rigging & physical", items: [
+        "Rigging inspected annually (truss, line array, motors)",
+        "Safety cables on all overhead fixtures",
+        "Cable runs taped or ramped in walkways",
+        "Ladders / lifts inspected and operators trained",
+      ]},
+      { group: "Electrical", items: [
+        "Dedicated AV circuits, no daisy-chained strips",
+        "GFCI on wet locations (baptistry, kitchen)",
+        "Panels labeled, breakers identified",
+        "UPS on critical equipment (FOH, switcher, encoder)",
+      ]},
+      { group: "Hearing & acoustic safety", items: [
+        "SPL monitored and logged",
+        "Hearing protection available for tech team",
+        "Sound exposure within OSHA / WHO guidelines",
+      ]},
+      { group: "Licensing & insurance", items: [
+        "CCLI license current",
+        "CCLI streaming license current",
+        "Music licensing logged per service",
+        "Equipment insurance covers value",
+        "Volunteer / production liability covered",
+      ]},
+      { group: "Emergency", items: [
+        "Emergency lighting / exit signs working",
+        "Evacuation plan briefed to team",
+        "First aid kit accessible at FOH",
+        "Severe weather protocol documented",
+      ]},
+    ],
+  },
+  {
+    key: "governance",
+    label: "Governance",
+    desc: "Brand and tech ownership, asset library, review cadence.",
+    groups: [
       { group: "Brand governance", items: [
         "Brand guide is current and accessible to the team",
-        "Logo and asset library stored in one known location",
+        "Logo and asset library in one known location",
         "Old logo versions removed from shared drives",
         "Vendor list with approved print specs documented",
-        "Audit owner and review cadence assigned",
+        "Brand audit cadence assigned (quarterly suggested)",
+      ]},
+      { group: "Tech governance", items: [
+        "Tech director / lead identified",
+        "Capital replacement plan for AV gear (5-7 yr cycle)",
+        "Annual budget for AV maintenance and consumables",
+        "Asset register with purchase dates and warranties",
+        "Outside vendor / integrator on retainer or identified",
       ]},
     ],
-  };
+  },
+];
 
-  const sectionLabels = { online: "Online", inperson: "In Person", gov: "Governance" };
+function slugify(s) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+}
 
-  function slugify(s) {
-    return s.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
-  }
+function buildAllSections() {
+  const container = document.getElementById("sections-container");
+  sections.forEach(section => {
+    const card = document.createElement("section");
+    card.className = "card collapsed";
+    card.dataset.sectionKey = section.key;
 
-  function buildSection(containerId, sectionKey) {
-    const container = document.getElementById(containerId);
-    const sectionLabel = sectionLabels[sectionKey];
-    checklist[sectionKey].forEach(group => {
-      const wrap = document.createElement("div");
-      wrap.className = "subgroup";
-      const head = document.createElement("div");
-      head.className = "subgroup-head";
-      head.innerHTML = `
+    const head = document.createElement("div");
+    head.className = "card-head";
+    head.innerHTML = `
+      <h2 class="section-title"><span class="chev">▾</span>${section.label}</h2>
+      <div class="section-meta">
+        <span class="section-progress" data-section-progress="${section.label}">0 / 0</span>
+        <span class="section-score" data-section-score="${section.label}">— / 5</span>
+      </div>
+    `;
+    head.addEventListener("click", () => card.classList.toggle("collapsed"));
+    card.appendChild(head);
+
+    const body = document.createElement("div");
+    body.className = "card-body";
+    body.innerHTML = `<p class="section-sub">${section.desc}</p>`;
+
+    section.groups.forEach(group => {
+      const sg = document.createElement("div");
+      sg.className = "subgroup";
+      const sgHead = document.createElement("div");
+      sgHead.className = "subgroup-head";
+      sgHead.innerHTML = `
         <h3>${group.group}</h3>
-        <span class="subgroup-score" data-group-score="${sectionLabel}::${group.group}">— / 5</span>
+        <span class="subgroup-score" data-group-score="${section.label}::${group.group}">— / 5</span>
       `;
-      wrap.appendChild(head);
+      sg.appendChild(sgHead);
 
       group.items.forEach(item => {
-        const id = `${sectionKey}__${slugify(group.group)}__${slugify(item)}`;
+        const id = `${section.key}__${slugify(group.group)}__${slugify(item).slice(0,40)}`;
         const row = document.createElement("div");
         row.className = "check-row";
         row.innerHTML = `
@@ -556,157 +966,180 @@
             ${[0,1,2,3,4,5].map(n => `<button type="button" data-val="${n}">${n}</button>`).join("")}
             <button type="button" data-val="na">N/A</button>
           </div>
-          <input type="hidden" id="${id}" data-section="${sectionLabel}" data-group="${group.group}" data-item="${item}" />
+          <input type="hidden" id="${id}" data-section="${section.label}" data-group="${group.group}" data-item="${item.replace(/"/g,'&quot;')}" />
         `;
-        wrap.appendChild(row);
+        sg.appendChild(row);
       });
 
       const noteWrap = document.createElement("div");
       noteWrap.className = "notes-row";
-      noteWrap.innerHTML = `<textarea placeholder="Notes for ${group.group}" data-note-group="${sectionLabel} :: ${group.group}"></textarea>`;
-      wrap.appendChild(noteWrap);
+      noteWrap.innerHTML = `<textarea placeholder="Notes for ${group.group}" data-note-group="${section.label} :: ${group.group}"></textarea>`;
+      sg.appendChild(noteWrap);
 
-      container.appendChild(wrap);
+      body.appendChild(sg);
     });
-  }
 
-  buildSection("online-groups", "online");
-  buildSection("inperson-groups", "inperson");
-  buildSection("gov-groups", "gov");
+    card.appendChild(body);
+    container.appendChild(card);
+  });
+}
 
-  document.getElementById("auditDate").valueAsDate = new Date();
+buildAllSections();
 
-  document.querySelectorAll(".scale").forEach(group => {
-    group.addEventListener("click", e => {
-      const btn = e.target.closest("button");
-      if (!btn) return;
-      group.querySelectorAll("button").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      document.getElementById(group.dataset.target).value = btn.dataset.val;
-      updateScores();
-    });
+document.getElementById("auditDate").valueAsDate = new Date();
+
+document.getElementById("expandAll").addEventListener("click", () => {
+  document.querySelectorAll(".card[data-section-key]").forEach(c => c.classList.remove("collapsed"));
+});
+document.getElementById("collapseAll").addEventListener("click", () => {
+  document.querySelectorAll(".card[data-section-key]").forEach(c => c.classList.add("collapsed"));
+});
+
+document.querySelectorAll(".scale").forEach(group => {
+  group.addEventListener("click", e => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+    group.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(group.dataset.target).value = btn.dataset.val;
+    updateScores();
+  });
+});
+
+function avg(nums) {
+  if (!nums.length) return null;
+  return nums.reduce((a,b) => a+b, 0) / nums.length;
+}
+
+function updateScores() {
+  // subgroup scores
+  document.querySelectorAll(".subgroup").forEach(sg => {
+    const inputs = sg.querySelectorAll('input[type="hidden"]');
+    const scores = [];
+    inputs.forEach(i => { if (i.value !== "" && i.value !== "na") scores.push(parseInt(i.value, 10)); });
+    const a = avg(scores);
+    const el = sg.querySelector(".subgroup-score");
+    el.textContent = a === null ? "— / 5" : `${a.toFixed(1)} / 5`;
   });
 
-  function avg(nums) {
-    if (!nums.length) return null;
-    return nums.reduce((a,b) => a+b, 0) / nums.length;
-  }
-
-  function updateScores() {
-    document.querySelectorAll(".subgroup").forEach(sg => {
-      const inputs = sg.querySelectorAll('input[type="hidden"]');
-      const scores = [];
-      inputs.forEach(i => { if (i.value !== "" && i.value !== "na") scores.push(parseInt(i.value, 10)); });
-      const a = avg(scores);
-      const el = sg.querySelector(".subgroup-score");
-      el.textContent = a === null ? "— / 5" : `${a.toFixed(1)} / 5`;
-    });
-
-    Object.values(sectionLabels).forEach(label => {
-      const inputs = document.querySelectorAll(`input[type="hidden"][data-section="${label}"]`);
-      const scores = [];
-      inputs.forEach(i => { if (i.value !== "" && i.value !== "na") scores.push(parseInt(i.value, 10)); });
-      const a = avg(scores);
-      document.querySelector(`[data-section-score="${label}"]`).textContent = a === null ? "— / 5" : `${a.toFixed(1)} / 5`;
-    });
-
-    const all = document.querySelectorAll('input[type="hidden"][data-item]');
+  // section scores + progress
+  sections.forEach(section => {
+    const inputs = document.querySelectorAll(`input[type="hidden"][data-section="${section.label}"]`);
     const scores = [];
     let scored = 0;
-    all.forEach(i => {
-      if (i.value === "") return;
-      scored++;
-      if (i.value !== "na") scores.push(parseInt(i.value, 10));
+    inputs.forEach(i => {
+      if (i.value !== "") scored++;
+      if (i.value !== "" && i.value !== "na") scores.push(parseInt(i.value, 10));
     });
-    const overall = avg(scores);
-    const pct = overall === null ? null : Math.round((overall / 5) * 100);
-    document.getElementById("overallScore").textContent = pct === null ? "—" : pct;
-    const bar = document.getElementById("progressBar");
-    bar.style.width = `${pct || 0}%`;
-    bar.style.background = pct === null ? "var(--primary)"
-      : pct >= 80 ? "var(--primary)"
-      : pct >= 60 ? "var(--warn)"
-      : "var(--bad)";
-    document.getElementById("progressText").textContent = `${scored} / ${all.length} SCORED`;
-  }
-  updateScores();
-
-  function toast(msg, isError = false) {
-    const t = document.getElementById("toast");
-    t.textContent = msg;
-    t.classList.toggle("error", isError);
-    t.classList.add("show");
-    setTimeout(() => t.classList.remove("show"), 3500);
-  }
-
-  document.getElementById("audit-form").addEventListener("submit", async e => {
-    e.preventDefault();
-    const btn = document.getElementById("submitBtn");
-    btn.disabled = true;
-    btn.textContent = "Submitting…";
-
-    const items = [];
-    let scoredCount = 0, naCount = 0, scoreSum = 0, scoreN = 0;
-    document.querySelectorAll('input[type="hidden"][data-item]').forEach(i => {
-      const val = i.value === "" ? null : (i.value === "na" ? "na" : parseInt(i.value, 10));
-      items.push({ section: i.dataset.section, group: i.dataset.group, item: i.dataset.item, score: val });
-      if (val === null) return;
-      scoredCount++;
-      if (val === "na") naCount++;
-      else { scoreSum += val; scoreN++; }
-    });
-
-    const sectionAvgs = {};
-    Object.values(sectionLabels).forEach(label => {
-      const scores = items.filter(x => x.section === label && typeof x.score === "number").map(x => x.score);
-      sectionAvgs[label] = scores.length ? +(scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(2) : null;
-    });
-
-    const notes = [];
-    document.querySelectorAll('textarea[data-note-group]').forEach(t => {
-      const v = t.value.trim();
-      if (v) notes.push({ group: t.dataset.noteGroup, note: v });
-    });
-
-    const overallPct = scoreN ? Math.round((scoreSum / scoreN / 5) * 100) : null;
-
-    const payload = {
-      churchName: document.getElementById("churchName").value.trim(),
-      auditDate: document.getElementById("auditDate").value,
-      auditor: document.getElementById("auditor").value.trim(),
-      location: document.getElementById("location").value.trim(),
-      topFixes: document.getElementById("topFixes").value.trim(),
-      submittedAt: new Date().toISOString(),
-      overallScore: overallPct,
-      sectionScores: sectionAvgs,
-      counts: { scored: scoredCount, na: naCount, total: items.length },
-      items, notes,
-    };
-
-    if (!SUBMIT_URL || SUBMIT_URL.startsWith("PASTE_")) {
-      console.log("Audit payload (no endpoint configured):", payload);
-      toast("No endpoint set. Logged to console.", true);
-      btn.disabled = false;
-      btn.textContent = "Submit Audit";
-      return;
-    }
-
-    try {
-      await fetch(SUBMIT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload),
-      });
-      toast(`Submitted · Score ${overallPct}/100`);
-      setTimeout(() => location.reload(), 1800);
-    } catch (err) {
-      console.error(err);
-      toast("Submission failed", true);
-      btn.disabled = false;
-      btn.textContent = "Submit Audit";
-    }
+    const a = avg(scores);
+    document.querySelector(`[data-section-score="${section.label}"]`).textContent = a === null ? "— / 5" : `${a.toFixed(1)} / 5`;
+    document.querySelector(`[data-section-progress="${section.label}"]`).textContent = `${scored} / ${inputs.length}`;
   });
+
+  // overall
+  const all = document.querySelectorAll('input[type="hidden"][data-item]');
+  const scores = [];
+  let scored = 0;
+  all.forEach(i => {
+    if (i.value === "") return;
+    scored++;
+    if (i.value !== "na") scores.push(parseInt(i.value, 10));
+  });
+  const overall = avg(scores);
+  const pct = overall === null ? null : Math.round((overall / 5) * 100);
+  const display = pct === null ? "—" : pct;
+  document.getElementById("overallScore").textContent = display;
+  document.getElementById("heroScore").textContent = display;
+  const bar = document.getElementById("progressBar");
+  bar.style.width = `${pct || 0}%`;
+  bar.style.background = pct === null ? "var(--primary)"
+    : pct >= 80 ? "var(--primary)"
+    : pct >= 60 ? "var(--warn)"
+    : "var(--bad)";
+  document.getElementById("progressText").textContent = `${scored} / ${all.length} SCORED`;
+}
+updateScores();
+
+function toast(msg, isError = false) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.toggle("error", isError);
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 3500);
+}
+
+document.getElementById("audit-form").addEventListener("submit", async e => {
+  e.preventDefault();
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  btn.textContent = "Submitting…";
+
+  const items = [];
+  let scoredCount = 0, naCount = 0, scoreSum = 0, scoreN = 0;
+  document.querySelectorAll('input[type="hidden"][data-item]').forEach(i => {
+    const val = i.value === "" ? null : (i.value === "na" ? "na" : parseInt(i.value, 10));
+    items.push({ section: i.dataset.section, group: i.dataset.group, item: i.dataset.item, score: val });
+    if (val === null) return;
+    scoredCount++;
+    if (val === "na") naCount++;
+    else { scoreSum += val; scoreN++; }
+  });
+
+  const sectionAvgs = {};
+  sections.forEach(s => {
+    const scores = items.filter(x => x.section === s.label && typeof x.score === "number").map(x => x.score);
+    sectionAvgs[s.label] = scores.length ? +(scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(2) : null;
+  });
+
+  const notes = [];
+  document.querySelectorAll('textarea[data-note-group]').forEach(t => {
+    const v = t.value.trim();
+    if (v) notes.push({ group: t.dataset.noteGroup, note: v });
+  });
+
+  const overallPct = scoreN ? Math.round((scoreSum / scoreN / 5) * 100) : null;
+
+  const payload = {
+    churchName: document.getElementById("churchName").value.trim(),
+    auditDate: document.getElementById("auditDate").value,
+    auditor: document.getElementById("auditor").value.trim(),
+    location: document.getElementById("location").value.trim(),
+    serviceSize: document.getElementById("serviceSize").value.trim(),
+    serviceTimes: document.getElementById("serviceTimes").value.trim(),
+    topFixes: document.getElementById("topFixes").value.trim(),
+    opportunity: document.getElementById("opportunity").value.trim(),
+    nextStep: document.getElementById("nextStep").value.trim(),
+    submittedAt: new Date().toISOString(),
+    overallScore: overallPct,
+    sectionScores: sectionAvgs,
+    counts: { scored: scoredCount, na: naCount, total: items.length },
+    items, notes,
+  };
+
+  if (!SUBMIT_URL || SUBMIT_URL.startsWith("PASTE_")) {
+    console.log("Audit payload (no endpoint configured):", payload);
+    toast("No endpoint set. Logged to console.", true);
+    btn.disabled = false;
+    btn.textContent = "Submit Audit";
+    return;
+  }
+
+  try {
+    await fetch(SUBMIT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload),
+    });
+    toast(`Submitted · Score ${overallPct}/100`);
+    setTimeout(() => location.reload(), 1800);
+  } catch (err) {
+    console.error(err);
+    toast("Submission failed", true);
+    btn.disabled = false;
+    btn.textContent = "Submit Audit";
+  }
+});
 </script>
 </body>
 </html>
