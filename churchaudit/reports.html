@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bigsplash Audit Reports</title>
+<link rel="icon" href="logo.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #131318;
+    --bg-2: #1c1c23;
+    --bg-3: #25252e;
+    --line: #2f2f3a;
+    --ink: #ddd8ce;
+    --ink-soft: #8f8a82;
+    --primary: #eff88b;
+    --primary-ink: #131318;
+    --secondary: #ddd8ce;
+    --good: #eff88b;
+    --warn: #f5c266;
+    --bad: #ff6b6b;
+    --display: "Anton", Impact, sans-serif;
+    --body: "Inter", -apple-system, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--body);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header.hero {
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding: 24px;
+  }
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .hero-logo { width: 44px; height: 44px; }
+  .hero-logo img { width: 100%; height: 100%; display: block; }
+  .hero-text h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 28px;
+    color: var(--primary);
+    text-transform: uppercase;
+  }
+  .hero-text p {
+    margin: 4px 0 0;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .nav-link {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+  .nav-link:hover { color: var(--primary); border-color: var(--primary); }
+
+  main {
+    max-width: 1100px;
+    margin: 24px auto 80px;
+    padding: 0 24px;
+  }
+
+  .toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  #search {
+    flex: 1;
+    min-width: 240px;
+    padding: 11px 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--bg-2);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 14px;
+  }
+  #search:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(239,248,139,0.15);
+  }
+  .ghost-btn, .primary-btn {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .ghost-btn:hover { color: var(--primary); border-color: var(--primary); }
+  .primary-btn {
+    background: var(--primary);
+    color: var(--primary-ink);
+    border-color: var(--primary);
+    font-weight: 700;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .audit-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px;
+    cursor: pointer;
+    transition: border-color 0.15s, transform 0.05s;
+  }
+  .audit-card:hover { border-color: var(--primary); }
+  .audit-card:active { transform: translateY(1px); }
+  .ac-church {
+    font-family: var(--display);
+    font-size: 22px;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    margin: 0 0 4px;
+  }
+  .ac-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+    letter-spacing: 0.04em;
+  }
+  .ac-score-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .ac-score {
+    font-family: var(--display);
+    font-size: 36px;
+    line-height: 1;
+  }
+  .ac-score.good { color: var(--good); }
+  .ac-score.warn { color: var(--warn); }
+  .ac-score.bad { color: var(--bad); }
+  .ac-score-lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-soft);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .empty, .loading {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--ink-soft);
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ---- Report view ---- */
+  .report-wrap {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 32px;
+  }
+  .report-head {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .report-head .left { flex: 1; min-width: 250px; }
+  .report-head h1 {
+    margin: 0 0 8px;
+    font-family: var(--display);
+    font-size: 36px;
+    color: var(--primary);
+    text-transform: uppercase;
+  }
+  .report-head .meta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    letter-spacing: 0.03em;
+  }
+  .report-head .meta strong { color: var(--ink); }
+  .report-head .overall {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .report-head .overall-num {
+    font-family: var(--display);
+    font-size: 80px;
+    line-height: 0.9;
+  }
+  .report-head .overall-num.good { color: var(--good); }
+  .report-head .overall-num.warn { color: var(--warn); }
+  .report-head .overall-num.bad { color: var(--bad); }
+  .report-head .overall-lbl {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .summary-block {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 28px;
+  }
+  .summary-block h3 {
+    margin: 0 0 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .summary-block p {
+    margin: 0 0 14px;
+    white-space: pre-wrap;
+    font-size: 14px;
+  }
+  .summary-block p:last-child { margin-bottom: 0; }
+
+  .section-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .section-summary-tile {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .sst-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .sst-score {
+    font-family: var(--display);
+    font-size: 30px;
+    line-height: 1;
+  }
+  .sst-score.good { color: var(--good); }
+  .sst-score.warn { color: var(--warn); }
+  .sst-score.bad { color: var(--bad); }
+  .sst-score small {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+
+  .section-block {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .section-block-head {
+    background: var(--bg);
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .section-block-head h2 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 22px;
+    color: var(--secondary);
+    text-transform: uppercase;
+  }
+  .section-block-head .score {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--primary);
+    background: var(--bg-3);
+    padding: 5px 11px;
+    border-radius: 999px;
+    font-weight: 700;
+  }
+  .section-block-body { padding: 16px 20px; }
+  .group-block {
+    margin-bottom: 14px;
+  }
+  .group-block h3 {
+    margin: 0 0 6px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .item-line {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 14px;
+    padding: 6px 0;
+    font-size: 13.5px;
+    border-bottom: 1px dotted var(--line);
+  }
+  .item-line:last-child { border-bottom: none; }
+  .item-line .pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 9px;
+    border-radius: 999px;
+    min-width: 36px;
+    text-align: center;
+  }
+  .pill.s-0 { background: #ff6b6b; color: var(--bg); }
+  .pill.s-1 { background: #ff8a5b; color: var(--bg); }
+  .pill.s-2 { background: #f5c266; color: var(--bg); }
+  .pill.s-3 { background: #d8e07a; color: var(--bg); }
+  .pill.s-4 { background: #c5e87a; color: var(--bg); }
+  .pill.s-5 { background: var(--primary); color: var(--bg); }
+  .pill.s-na { background: #5a5a64; color: var(--ink); }
+  .pill.s-none { background: var(--bg-3); color: var(--ink-soft); }
+
+  .group-note {
+    background: var(--bg);
+    border-left: 3px solid var(--primary);
+    padding: 10px 14px;
+    margin-top: 8px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+
+  /* ---- Print ---- */
+  @media print {
+    @page { size: letter; margin: 0.5in; }
+    body { background: white; color: #131318; }
+    header.hero, .toolbar, #backBtn, .nav-link, .print-btn { display: none !important; }
+    main { margin: 0; padding: 0; max-width: none; }
+    .report-wrap {
+      background: white;
+      border: none;
+      padding: 0;
+    }
+    .report-head h1 { color: #131318; }
+    .report-head .overall-num.good { color: #4caf50; }
+    .report-head .overall-num.warn { color: #e2a23b; }
+    .report-head .overall-num.bad { color: #d04545; }
+    .report-head .meta, .report-head .meta strong, .summary-block p,
+    .section-block-head h2, .group-block h3, .item-line, .sst-label,
+    .group-note { color: #131318 !important; }
+    .summary-block, .section-summary-tile, .section-block, .section-block-head,
+    .group-note {
+      background: white !important;
+      border-color: #ccc !important;
+    }
+    .summary-block h3, .section-block-head .score { color: #1a6b3a !important; }
+    .section-block { page-break-inside: avoid; }
+    .pill.s-0 { background: #d04545 !important; color: white !important; }
+    .pill.s-1 { background: #d76a3a !important; color: white !important; }
+    .pill.s-2 { background: #e2a23b !important; color: white !important; }
+    .pill.s-3 { background: #b9b13a !important; color: white !important; }
+    .pill.s-4 { background: #6aae4a !important; color: white !important; }
+    .pill.s-5 { background: #1ea672 !important; color: white !important; }
+    .pill.s-na { background: #999 !important; color: white !important; }
+    .sst-score.good { color: #1ea672 !important; }
+    .sst-score.warn { color: #e2a23b !important; }
+    .sst-score.bad { color: #d04545 !important; }
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-logo"><img src="logo.svg" alt="Bigsplash" /></div>
+    <div class="hero-text">
+      <h1>Audit Reports</h1>
+      <p>View and export submitted church audits</p>
+    </div>
+    <a href="./" class="nav-link">+ New Audit</a>
+  </div>
+</header>
+
+<main>
+  <div id="list-view">
+    <div class="toolbar">
+      <input type="text" id="search" placeholder="Search by church name…" />
+      <button class="ghost-btn" id="refreshBtn">↻ Refresh</button>
+    </div>
+    <div id="grid" class="grid"></div>
+    <div id="loading" class="loading">Loading…</div>
+    <div id="empty" class="empty" style="display:none">No audits yet. Submit one from the audit page.</div>
+  </div>
+
+  <div id="report-view" style="display:none">
+    <div class="toolbar">
+      <button class="ghost-btn" id="backBtn">← Back to all audits</button>
+      <button class="primary-btn print-btn" id="printBtn">🖨 Save as PDF</button>
+    </div>
+    <div id="report-content" class="report-wrap"></div>
+  </div>
+</main>
+
+<script>
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbwOn7TCoQ7QolRsGzWUVMAmfs-5mgo0TAHHulyu_HoibvgxSdb67YXu4wFLZbviyf_NKQ/exec";
+
+let allAudits = [];
+
+function scoreClass(pct) {
+  if (pct === null || pct === undefined || pct === "") return "";
+  if (pct >= 80) return "good";
+  if (pct >= 60) return "warn";
+  return "bad";
+}
+
+function formatDate(s) {
+  if (!s) return "";
+  try {
+    const d = new Date(s);
+    if (isNaN(d)) return s;
+    return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+  } catch { return s; }
+}
+
+async function loadAudits() {
+  const grid = document.getElementById("grid");
+  const loading = document.getElementById("loading");
+  const empty = document.getElementById("empty");
+  loading.style.display = "block";
+  empty.style.display = "none";
+  grid.innerHTML = "";
+
+  try {
+    const res = await fetch(ENDPOINT + "?action=list", { method: "GET" });
+    const data = await res.json();
+    allAudits = (data || []).reverse();
+    loading.style.display = "none";
+    if (!allAudits.length) { empty.style.display = "block"; return; }
+    renderList(allAudits);
+  } catch (err) {
+    loading.style.display = "none";
+    empty.textContent = "Couldn't load audits. Check connection or endpoint setup.";
+    empty.style.display = "block";
+    console.error(err);
+  }
+}
+
+function renderList(list) {
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+  list.forEach((a, idx) => {
+    const realIdx = allAudits.indexOf(a);
+    const score = a["Overall /100"];
+    const cls = scoreClass(score);
+    const card = document.createElement("div");
+    card.className = "audit-card";
+    card.innerHTML = `
+      <h3 class="ac-church">${a["Church"] || "Untitled"}</h3>
+      <div class="ac-meta">${formatDate(a["Date"])} · ${a["Auditor"] || "—"}${a["Location"] ? " · " + a["Location"] : ""}</div>
+      <div class="ac-score-row">
+        <span class="ac-score ${cls}">${score ?? "—"}</span>
+        <span class="ac-score-lbl">/ 100</span>
+      </div>
+    `;
+    card.addEventListener("click", () => showReport(realIdx));
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById("search").addEventListener("input", e => {
+  const q = e.target.value.toLowerCase();
+  const filtered = allAudits.filter(a => (a["Church"] || "").toLowerCase().includes(q));
+  renderList(filtered);
+});
+document.getElementById("refreshBtn").addEventListener("click", loadAudits);
+
+function showReport(idx) {
+  const a = allAudits[idx];
+  if (!a) return;
+  document.getElementById("list-view").style.display = "none";
+  document.getElementById("report-view").style.display = "block";
+  window.scrollTo(0, 0);
+
+  let items = [];
+  let notes = [];
+  try { items = JSON.parse(a["Items (JSON)"] || "[]"); } catch {}
+  try { notes = JSON.parse(a["Notes (JSON)"] || "[]"); } catch {}
+
+  // group items by section then by group
+  const bySection = {};
+  items.forEach(i => {
+    if (!bySection[i.section]) bySection[i.section] = {};
+    if (!bySection[i.section][i.group]) bySection[i.section][i.group] = [];
+    bySection[i.section][i.group].push(i);
+  });
+
+  // section scores from header columns ending in " /5"
+  const sectionScores = {};
+  Object.keys(a).forEach(k => {
+    if (k.endsWith(" /5")) {
+      const label = k.slice(0, -3);
+      sectionScores[label] = a[k];
+    }
+  });
+
+  const score = a["Overall /100"];
+  const cls = scoreClass(score);
+
+  let html = `
+    <div class="report-head">
+      <div class="left">
+        <h1>${a["Church"] || "Untitled"}</h1>
+        <div class="meta">
+          <strong>Audit Date:</strong> ${formatDate(a["Date"])}<br>
+          <strong>Auditor:</strong> ${a["Auditor"] || "—"}<br>
+          <strong>Location:</strong> ${a["Location"] || "—"}<br>
+          ${a["Avg Attendance"] ? `<strong>Avg Attendance:</strong> ${a["Avg Attendance"]}<br>` : ""}
+          ${a["Service Times"] ? `<strong>Services Observed:</strong> ${a["Service Times"]}<br>` : ""}
+          <strong>Submitted:</strong> ${formatDate(a["Submitted At"])}
+        </div>
+      </div>
+      <div class="overall">
+        <div class="overall-num ${cls}">${score ?? "—"}</div>
+        <div class="overall-lbl">Overall / 100</div>
+      </div>
+    </div>
+  `;
+
+  if (a["Top Fixes"] || a["Opportunity"] || a["Next Step"]) {
+    html += `<div class="summary-block">`;
+    if (a["Top Fixes"]) html += `<h3>Priority Recommendations</h3><p>${escapeHtml(a["Top Fixes"])}</p>`;
+    if (a["Opportunity"]) html += `<h3>Bigsplash Opportunity</h3><p>${escapeHtml(a["Opportunity"])}</p>`;
+    if (a["Next Step"]) html += `<h3>Recommended Next Step</h3><p>${escapeHtml(a["Next Step"])}</p>`;
+    html += `</div>`;
+  }
+
+  // Section summary tiles
+  if (Object.keys(sectionScores).length) {
+    html += `<div class="section-summary-grid">`;
+    Object.entries(sectionScores).forEach(([label, sc]) => {
+      const pct = (typeof sc === "number") ? Math.round(sc / 5 * 100) : null;
+      const cls2 = scoreClass(pct);
+      const display = (sc === null || sc === undefined || sc === "") ? "—" : (typeof sc === "number" ? sc.toFixed(1) : sc);
+      html += `
+        <div class="section-summary-tile">
+          <div class="sst-label">${label}</div>
+          <div class="sst-score ${cls2}">${display}<small> / 5</small></div>
+        </div>
+      `;
+    });
+    html += `</div>`;
+  }
+
+  // Detailed sections
+  Object.entries(bySection).forEach(([sec, groups]) => {
+    const secScore = sectionScores[sec];
+    const secScoreDisplay = (typeof secScore === "number") ? secScore.toFixed(1) + " / 5" : "— / 5";
+    html += `
+      <div class="section-block">
+        <div class="section-block-head">
+          <h2>${sec}</h2>
+          <span class="score">${secScoreDisplay}</span>
+        </div>
+        <div class="section-block-body">
+    `;
+    Object.entries(groups).forEach(([groupName, groupItems]) => {
+      html += `<div class="group-block"><h3>${groupName}</h3>`;
+      groupItems.forEach(it => {
+        const v = it.score;
+        const pillCls = (v === null || v === undefined) ? "s-none" : (v === "na" ? "s-na" : `s-${v}`);
+        const pillText = (v === null || v === undefined) ? "—" : (v === "na" ? "N/A" : v);
+        html += `
+          <div class="item-line">
+            <div>${escapeHtml(it.item)}</div>
+            <div class="pill ${pillCls}">${pillText}</div>
+          </div>
+        `;
+      });
+      const note = notes.find(n => n.group === `${sec} :: ${groupName}`);
+      if (note) {
+        html += `<div class="group-note">${escapeHtml(note.note)}</div>`;
+      }
+      html += `</div>`;
+    });
+    html += `</div></div>`;
+  });
+
+  document.getElementById("report-content").innerHTML = html;
+}
+
+function escapeHtml(s) {
+  if (s === null || s === undefined) return "";
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+  })[c]);
+}
+
+document.getElementById("backBtn").addEventListener("click", () => {
+  document.getElementById("report-view").style.display = "none";
+  document.getElementById("list-view").style.display = "block";
+});
+document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+loadAudits();
+</script>
+</body>
+</html>
