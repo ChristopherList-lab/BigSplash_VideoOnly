@@ -1132,7 +1132,8 @@ document.getElementById("audit-form").addEventListener("submit", async e => {
       body: JSON.stringify(payload),
     });
     toast(`Submitted · Score ${overallPct}/100`);
-    setTimeout(() => location.reload(), 1800);
+    btn.textContent = "✓ Submitted — reload page to start a new audit";
+    btn.style.background = "var(--good)";
   } catch (err) {
     console.error(err);
     toast("Submission failed", true);
