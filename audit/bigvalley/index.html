@@ -1,0 +1,1423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Big Splash Audit</title>
+<link rel="icon" type="image/png" href="brand/favicon.png">
+<link rel="apple-touch-icon" href="brand/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #eff88b;
+    --on-primary: #2f3300;
+    --secondary: #ddd8ce;
+    --on-surface: #e4e1e9;
+    --bg: #131318;
+    --surface-dim: #0e0e13;
+    --sc-low: #1b1b20;
+    --sc: #1f1f25;
+    --sc-high: #2a292f;
+    --sc-highest: #35343a;
+    --outline: #92927f;
+    --outline-variant: #474838;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--on-surface); font-family: 'Inter', system-ui, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; scroll-behavior: smooth; }
+
+  @page { size: A4; margin: 0; }
+
+  /* ---------- DEFAULT (SCREEN) PAGE LAYOUT ---------- */
+  .page {
+    width: 100%;
+    max-width: 1100px;
+    min-height: auto;
+    padding: 80px 56px 96px;
+    position: relative;
+    margin: 0 auto;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+  }
+  .page + .page { border-top: 1px solid var(--outline-variant); }
+
+  /* ---------- PRINT MODE ---------- */
+  @media print {
+    body { background: var(--bg); }
+    .page {
+      width: 210mm;
+      max-width: none;
+      height: 297mm;
+      min-height: 297mm;
+      padding: 18mm 16mm;
+      margin: 0;
+      overflow: hidden;
+      page-break-after: always;
+      border-top: none !important;
+    }
+    .page:last-child { page-break-after: auto; }
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(239,248,139,0.8);
+    margin: 0 0 14px 0;
+  }
+  .eyebrow.muted { color: rgba(221,216,206,0.55); }
+
+  .h-display {
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: -0.025em;
+    line-height: 1.02;
+    color: #fff;
+    margin: 0;
+  }
+  .glow { color: var(--primary); text-shadow: 0 0 40px rgba(239,248,139,0.45); }
+
+  .body { font-size: 11pt; line-height: 1.6; color: var(--secondary); max-width: 62ch; }
+  .body.small { font-size: 10pt; }
+
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(221,216,206,0.6);
+  }
+
+  /* page footer */
+  .page-foot {
+    position: absolute;
+    left: 16mm; right: 16mm; bottom: 10mm;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(146,146,127,0.6);
+    border-top: 1px solid var(--outline-variant);
+    padding-top: 6mm;
+  }
+  .page-foot .dot { color: var(--primary); }
+
+  /* ============ COVER ============ */
+  .cover {
+    background:
+      radial-gradient(circle at 80% 10%, rgba(239,248,139,0.08), transparent 45%),
+      radial-gradient(circle at 10% 90%, rgba(239,248,139,0.05), transparent 50%),
+      var(--bg);
+  }
+  .cover-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .brand-mark {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'Anton', sans-serif; font-size: 18px; letter-spacing: -0.02em; text-transform: uppercase; color: #fff;
+  }
+  .brand-mark img { height: 28px; width: auto; filter: drop-shadow(0 0 10px rgba(239,248,139,0.35)); }
+  .brand-mark .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 12px rgba(239,248,139,0.7); }
+  .auditor-row { display: inline-flex; align-items: center; gap: 10px; }
+  .auditor-row .avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(239,248,139,0.4); box-shadow: 0 0 10px rgba(239,248,139,0.25); }
+
+  .cover-headline { margin-top: 80px; font-size: 110px; }
+  .cover-sub { margin-top: 28px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--secondary); }
+
+  .score-block { margin-top: 56px; display: flex; align-items: flex-end; gap: 36px; }
+  .score-ring {
+    position: relative;
+    width: 220px; height: 220px; flex-shrink: 0;
+    border-radius: 50%;
+    background:
+      conic-gradient(var(--primary) 0% 80%, rgba(255,255,255,0.06) 80% 100%);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 60px rgba(239,248,139,0.25);
+  }
+  .score-ring::before {
+    content: ""; position: absolute; inset: 14px; border-radius: 50%; background: var(--bg);
+  }
+  .score-ring-inner { position: relative; text-align: center; }
+  .score-ring-inner .num { font-family: 'Anton', sans-serif; font-size: 76px; line-height: 1; color: #fff; }
+  .score-ring-inner .denom { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.3em; color: rgba(221,216,206,0.55); margin-top: 6px; }
+
+  .pillar-chips { display: flex; flex-direction: column; gap: 12px; }
+  .pillar-chip {
+    background: var(--sc); border: 1px solid var(--outline-variant);
+    padding: 14px 18px; border-radius: 6px; min-width: 240px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .pillar-chip .name { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--secondary); }
+  .pillar-chip .val { font-family: 'Anton', sans-serif; font-size: 22px; color: var(--primary); }
+  .pillar-chip .val.na { color: var(--outline); }
+
+  .cover-meta {
+    position: absolute; left: 16mm; right: 16mm; bottom: 24mm;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    border-top: 1px solid var(--outline-variant); padding-top: 16px;
+  }
+  .cover-meta .kv .k { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(146,146,127,0.7); }
+  .cover-meta .kv .v { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; color: #fff; margin-top: 6px; }
+
+  /* ============ SECTION HEADERS ============ */
+  .section-head { margin-bottom: 38px; }
+  .section-head h2 { font-size: 60px; line-height: 1.04; }
+  .eyebrow { margin: 0 0 18px 0; }
+  .cover-headline { line-height: 0.96; }
+  .cta-headline { line-height: 1.0; }
+
+  /* ============ SCORE BARS ============ */
+  .bars { display: flex; flex-direction: column; gap: 22px; margin-top: 8px; }
+  .bar-row { }
+  .bar-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .bar-top .name { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--secondary); }
+  .bar-top .val { font-family: 'Anton', sans-serif; font-size: 28px; color: #fff; }
+  .bar-top .val.lime { color: var(--primary); }
+  .bar-top .val.na { color: var(--outline); font-size: 22px; }
+  .bar-track { height: 8px; background: var(--sc); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; background: var(--primary); box-shadow: 0 0 16px rgba(239,248,139,0.5); border-radius: 4px; }
+  .bar-fill.empty { background: repeating-linear-gradient(45deg, rgba(146,146,127,0.2) 0 6px, transparent 6px 12px); width: 100%; box-shadow: none; }
+  .bar-note { font-size: 10pt; color: var(--secondary); margin-top: 10px; max-width: 70ch; line-height: 1.55; }
+
+  .callout {
+    margin-top: 32px;
+    background: var(--sc-low);
+    border: 1px solid rgba(239,248,139,0.35);
+    border-left: 3px solid var(--primary);
+    padding: 22px 24px; border-radius: 6px;
+  }
+  .callout .lead { font-family: 'Anton', sans-serif; font-size: 22px; text-transform: uppercase; color: #fff; letter-spacing: -0.02em; margin: 0 0 10px 0; }
+  .callout .lead .lime { color: var(--primary); }
+  .callout ul { margin: 8px 0 0 0; padding: 0; list-style: none; columns: 2; column-gap: 24px; }
+  .callout li { font-size: 10pt; color: var(--secondary); padding: 4px 0 4px 18px; position: relative; break-inside: avoid; }
+  .callout li::before { content: "●"; color: var(--primary); position: absolute; left: 0; font-size: 8pt; top: 6px; }
+
+  /* ============ FIX CARDS ============ */
+  .fix-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .fix-card {
+    background: var(--sc); border: 1px solid var(--outline-variant);
+    border-radius: 8px; padding: 20px 22px;
+    position: relative;
+  }
+  .fix-card::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--primary);
+    border-radius: 8px 0 0 8px;
+    box-shadow: 0 0 18px rgba(239,248,139,0.5);
+  }
+  .fix-card h3 { font-family: 'Anton', sans-serif; font-size: 22px; text-transform: uppercase; color: #fff; letter-spacing: -0.02em; margin: 0 0 4px 0; }
+  .fix-card .sub { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(239,248,139,0.7); margin-bottom: 14px; }
+  .fix-card ul { margin: 0; padding: 0; list-style: none; }
+  .fix-card li {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    padding: 8px 0; border-bottom: 1px solid var(--outline-variant);
+    font-size: 10pt; color: var(--secondary);
+  }
+  .fix-card li:last-child { border-bottom: none; }
+  .score-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.1em;
+    padding: 3px 8px; border-radius: 999px;
+    background: rgba(239,248,139,0.15); color: var(--primary);
+    border: 1px solid rgba(239,248,139,0.35);
+    flex-shrink: 0;
+  }
+  .score-pill.na { background: transparent; color: var(--outline); border-color: var(--outline-variant); }
+  .score-pill.low { background: rgba(239,248,139,0.08); }
+
+  /* ============ SERVICE CARDS ============ */
+  .svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .svc-card {
+    background: var(--sc); border: 1px solid var(--outline-variant);
+    border-radius: 8px; padding: 22px 24px;
+    position: relative; min-height: 200px;
+    display: flex; flex-direction: column;
+  }
+  .svc-card .num { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(239,248,139,0.7); letter-spacing: 0.3em; }
+  .svc-card h3 { font-family: 'Anton', sans-serif; font-size: 26px; text-transform: uppercase; color: #fff; letter-spacing: -0.02em; margin: 6px 0 8px 0; line-height: 1; }
+  .svc-card h3 .lime { color: var(--primary); }
+  .svc-card .pitch { font-size: 10.5pt; color: var(--secondary); line-height: 1.5; margin-bottom: 14px; }
+  .svc-card ul { margin: 0; padding: 0; list-style: none; margin-top: auto; }
+  .svc-card li {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--secondary);
+    padding: 5px 0 5px 16px; position: relative;
+  }
+  .svc-card li::before { content: "→"; color: var(--primary); position: absolute; left: 0; font-family: 'Inter', sans-serif; }
+
+  /* ============ SCORECARD TABLE ============ */
+  .table-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 28px; margin-top: 8px; }
+  .tbl-section { break-inside: avoid; }
+  .tbl-section h4 {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--primary);
+    margin: 14px 0 8px 0; padding-bottom: 6px; border-bottom: 1px solid var(--outline-variant);
+  }
+  .tbl-row {
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    padding: 4px 0;
+    font-size: 9.5pt;
+    color: var(--secondary);
+  }
+  .tbl-row .lbl { flex: 1; line-height: 1.3; }
+  .mini-pill {
+    font-family: 'JetBrains Mono', monospace; font-size: 8.5px;
+    width: 28px; text-align: center;
+    padding: 2px 0; border-radius: 999px;
+    flex-shrink: 0;
+  }
+  .mp-5 { background: var(--primary); color: var(--on-primary); }
+  .mp-4 { background: rgba(239,248,139,0.7); color: var(--on-primary); }
+  .mp-3 { background: rgba(239,248,139,0.4); color: var(--on-primary); }
+  .mp-2 { background: rgba(239,248,139,0.22); color: var(--primary); }
+  .mp-1 { background: rgba(239,248,139,0.12); color: var(--primary); }
+  .mp-na { background: transparent; color: var(--outline); border: 1px solid var(--outline-variant); }
+
+  /* ============ CTA PAGE ============ */
+  .cta {
+    background:
+      radial-gradient(circle at 20% 80%, rgba(239,248,139,0.08), transparent 50%),
+      var(--bg);
+  }
+  .cta-headline { font-size: 96px; margin-top: 60px; }
+  .cta-pitch { font-size: 14pt; color: var(--secondary); line-height: 1.55; margin-top: 28px; max-width: 56ch; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    margin-top: 40px;
+    background: var(--primary); color: var(--on-primary);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 600;
+    padding: 18px 28px; border-radius: 999px;
+    box-shadow: 0 0 50px rgba(239,248,139,0.35);
+  }
+  .cta-btn .arr { font-family: 'Inter', sans-serif; font-weight: 700; }
+
+  .cta-meta {
+    position: absolute; left: 16mm; right: 16mm; bottom: 22mm;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-top: 1px solid var(--outline-variant); padding-top: 18px;
+  }
+  .cta-meta .left .brand-mark { font-size: 22px; }
+  .cta-meta .right { text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--secondary); line-height: 1.8; }
+
+  /* ============ EXECUTIVE SUMMARY ============ */
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0 28px; }
+  .stat {
+    background: var(--sc); border: 1px solid var(--outline-variant);
+    border-radius: 8px; padding: 18px 18px;
+  }
+  .stat .k { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(221,216,206,0.6); }
+  .stat .v { font-family: 'Anton', sans-serif; font-size: 44px; line-height: 1; color: #fff; margin-top: 10px; }
+  .stat .v.lime { color: var(--primary); }
+  .stat .sub { font-size: 9.5pt; color: var(--secondary); margin-top: 8px; line-height: 1.4; }
+
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; margin-top: 8px; }
+  .summary-block h4 { font-family: 'Anton', sans-serif; font-size: 22px; text-transform: uppercase; color: #fff; letter-spacing: -0.02em; margin: 0 0 10px; }
+  .summary-block h4 .lime { color: var(--primary); }
+  .summary-block p { font-size: 10.5pt; color: var(--secondary); line-height: 1.55; margin: 0 0 10px; }
+
+  /* ============ METHODOLOGY ============ */
+  .rubric { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 24px; }
+  .rubric-cell {
+    background: var(--sc); border: 1px solid var(--outline-variant);
+    border-radius: 8px; padding: 16px 14px; min-height: 150px;
+    display: flex; flex-direction: column;
+  }
+  .rubric-cell .num { font-family: 'Anton', sans-serif; font-size: 38px; line-height: 1; color: var(--primary); }
+  .rubric-cell .name { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: #fff; margin-top: 12px; }
+  .rubric-cell .desc { font-size: 9.5pt; color: var(--secondary); margin-top: 8px; line-height: 1.4; flex: 1; }
+  .rubric-cell.na .num { color: var(--outline); font-size: 30px; padding-top: 8px; }
+
+  .pillar-defs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 28px; }
+  .pillar-def {
+    background: var(--sc-low); border-left: 3px solid var(--primary);
+    padding: 16px 18px; border-radius: 4px;
+  }
+  .pillar-def h5 { font-family: 'Anton', sans-serif; font-size: 20px; text-transform: uppercase; color: #fff; letter-spacing: -0.02em; margin: 0 0 6px; }
+  .pillar-def p { font-size: 10pt; color: var(--secondary); line-height: 1.5; margin: 0; }
+
+  /* ============ DEEP-DIVE ============ */
+  .dd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+  .dd-card {
+    background: var(--sc); border: 1px solid var(--outline-variant);
+    border-radius: 8px; padding: 18px 20px;
+    break-inside: avoid;
+  }
+  .dd-card .head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .dd-card h4 { font-family: 'Anton', sans-serif; font-size: 18px; text-transform: uppercase; color: #fff; letter-spacing: -0.02em; margin: 0; }
+  .dd-card .badge {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.18em;
+    padding: 3px 9px; border-radius: 999px;
+    background: rgba(239,248,139,0.18); color: var(--primary); border: 1px solid rgba(239,248,139,0.4);
+  }
+  .dd-card .badge.warn { background: rgba(146,146,127,0.15); color: var(--outline); border-color: var(--outline-variant); }
+  .dd-card p { font-size: 9.5pt; color: var(--secondary); line-height: 1.5; margin: 0 0 8px; }
+  .dd-card .verdict { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(239,248,139,0.85); margin-top: 8px; }
+
+  /* ============ TIMELINE ============ */
+  .timeline { position: relative; margin-top: 30px; padding-left: 28px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 8px; top: 8px; bottom: 8px;
+    width: 2px; background: linear-gradient(to bottom, var(--primary), rgba(239,248,139,0.1));
+  }
+  .tl-step { position: relative; padding: 14px 0 22px 18px; break-inside: avoid; }
+  .tl-step::before {
+    content: ""; position: absolute; left: -28px; top: 18px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--primary);
+    box-shadow: 0 0 12px rgba(239,248,139,0.6);
+  }
+  .tl-week { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--primary); }
+  .tl-step h4 { font-family: 'Anton', sans-serif; font-size: 22px; text-transform: uppercase; color: #fff; letter-spacing: -0.02em; margin: 4px 0 6px; }
+  .tl-step h4 .lime { color: var(--primary); }
+  .tl-step p { font-size: 10pt; color: var(--secondary); line-height: 1.5; margin: 0 0 8px; max-width: 75ch; }
+  .tl-step .deliv { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(221,216,206,0.7); }
+  .tl-step .deliv span { color: var(--primary); }
+
+  /* ============ GOOD LOOKS LIKE ============ */
+  .good-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
+  .good-card {
+    background: var(--sc); border: 1px solid var(--outline-variant);
+    border-radius: 8px; padding: 18px 20px;
+    break-inside: avoid;
+  }
+  .good-card .head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .good-card h4 { font-family: 'Anton', sans-serif; font-size: 20px; text-transform: uppercase; color: #fff; letter-spacing: -0.02em; margin: 0; }
+  .good-card .check {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--primary); color: var(--on-primary);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    box-shadow: 0 0 10px rgba(239,248,139,0.5);
+  }
+  .good-card p { font-size: 10pt; color: var(--secondary); line-height: 1.5; margin: 0; }
+
+  /* ============ VIDEO SECTIONS (ONLINE ONLY) ============ */
+  @media print {
+    .online-only { display: none !important; }
+  }
+  .video-page { background: var(--bg); }
+  .video-frame {
+    margin-top: 18px;
+    position: relative;
+    background: var(--sc-low);
+    border: 1px solid var(--outline-variant);
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    box-shadow: 0 0 60px rgba(239,248,139,0.12);
+  }
+  .video-frame.vertical { aspect-ratio: 9 / 16; max-width: 360px; margin-left: auto; margin-right: auto; }
+  .video-frame iframe, .video-frame video {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+    background: #000;
+  }
+  .video-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px;
+    background:
+      radial-gradient(circle at center, rgba(239,248,139,0.12), transparent 60%),
+      var(--sc-low);
+    color: var(--secondary);
+    text-align: center; padding: 24px;
+  }
+  .video-placeholder .play {
+    width: 70px; height: 70px; border-radius: 50%;
+    background: var(--primary); color: var(--on-primary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; font-weight: 700;
+    box-shadow: 0 0 40px rgba(239,248,139,0.5);
+  }
+  .video-placeholder .ph-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--primary); }
+  .video-placeholder .ph-note { font-size: 10pt; color: var(--secondary); max-width: 40ch; line-height: 1.5; }
+
+  .video-meta {
+    margin-top: 18px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+  }
+  .video-meta .vm {
+    background: var(--sc); border: 1px solid var(--outline-variant);
+    border-radius: 8px; padding: 12px 14px;
+  }
+  .video-meta .vm .k { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(221,216,206,0.6); }
+  .video-meta .vm .v { font-family: 'Inter', sans-serif; font-size: 12px; color: #fff; margin-top: 4px; font-weight: 500; }
+
+  .online-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--on-primary); background: var(--primary);
+    padding: 4px 10px; border-radius: 999px;
+  }
+  .online-badge::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--on-primary);
+  }
+
+  /* ============ SCREEN-ONLY: NAV + HERO + FOOTER ============ */
+  .site-nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(19,19,24,0.85);
+    backdrop-filter: saturate(140%) blur(14px);
+    -webkit-backdrop-filter: saturate(140%) blur(14px);
+    border-bottom: 1px solid var(--outline-variant);
+  }
+  .site-nav .inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .site-nav .links { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+  .site-nav a {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--secondary); text-decoration: none;
+    transition: color 0.25s cubic-bezier(0.16,1,0.3,1);
+  }
+  .site-nav a:hover { color: var(--primary); }
+  .site-nav .cta-mini {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.25em; text-transform: uppercase; font-weight: 600;
+    background: var(--primary); color: var(--on-primary);
+    padding: 10px 16px; border-radius: 999px;
+    text-decoration: none;
+    transition: box-shadow 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  .site-nav .cta-mini:hover { box-shadow: 0 0 30px rgba(239,248,139,0.5); color: var(--on-primary); }
+
+  .site-foot {
+    background: var(--surface-dim);
+    border-top: 1px solid var(--outline-variant);
+    padding: 56px 24px 36px;
+  }
+  .site-foot .inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+  }
+  .site-foot h5 {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(221,216,206,0.55); margin: 0 0 14px;
+  }
+  .site-foot a { color: var(--secondary); text-decoration: none; transition: color 0.25s; }
+  .site-foot a:hover { color: var(--primary); }
+  .site-foot ul { list-style: none; padding: 0; margin: 0; }
+  .site-foot li { padding: 4px 0; font-size: 11pt; }
+  .site-foot .legal {
+    max-width: 1100px; margin: 40px auto 0;
+    padding-top: 20px; border-top: 1px solid var(--outline-variant);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.25em; text-transform: uppercase; color: rgba(146,146,127,0.7);
+  }
+  .site-foot .brand-line { font-size: 12pt; color: var(--secondary); line-height: 1.55; max-width: 38ch; margin-top: 12px; }
+
+  /* hide nav and footer in print */
+  @media print {
+    .site-nav, .site-foot { display: none !important; }
+  }
+
+  /* hide page-foot (print-only page numbers) on screen */
+  @media screen {
+    .page-foot { display: none; }
+    .page { scroll-margin-top: 80px; }
+  }
+
+  /* screen-mode hero on the cover */
+  @media screen {
+    .cover {
+      min-height: calc(100vh - 60px);
+      padding-top: 60px;
+    }
+    .cover-headline { font-size: clamp(64px, 10vw, 140px) !important; }
+    .cover-meta { position: static !important; margin-top: 60px; }
+    .cta {
+      min-height: 70vh;
+    }
+    .cta-headline { font-size: clamp(56px, 9vw, 110px) !important; }
+    .cta-meta { position: static !important; margin-top: 60px; }
+  }
+
+  /* ============ MOBILE ============ */
+  @media screen and (max-width: 768px) {
+    .page { padding: 56px 22px 72px; }
+    .section-head h2 { font-size: 40px; line-height: 1.05; }
+    .h-display { letter-spacing: -0.02em; }
+    .body { font-size: 12pt; }
+
+    .site-nav .links { display: none; }
+    .site-nav .inner { padding: 12px 18px; }
+
+    /* stack grids */
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .summary-grid,
+    .fix-grid,
+    .svc-grid,
+    .dd-grid,
+    .good-grid,
+    .pillar-defs,
+    .table-grid { grid-template-columns: 1fr !important; }
+    .video-meta { grid-template-columns: 1fr; }
+    .rubric { grid-template-columns: repeat(2, 1fr); }
+    .cover-meta { grid-template-columns: repeat(2, 1fr) !important; gap: 18px; }
+
+    .score-block { flex-direction: column; align-items: flex-start; gap: 24px; }
+    .pillar-chip { min-width: 0; width: 100%; }
+    .score-ring { width: 180px; height: 180px; }
+
+    .dd-card[style*="grid-column"] { grid-column: auto !important; }
+
+    .site-foot .inner { grid-template-columns: 1fr; gap: 30px; }
+    .site-foot .legal { flex-direction: column; gap: 12px; text-align: center; }
+  }
+
+  /* ambient grid lines on dark pages */
+  .grid-bg::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 75%);
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ TOP NAV (screen only) ============ -->
+<nav class="site-nav online-only" aria-label="Audit sections">
+  <div class="inner">
+    <a href="#cover" class="brand-mark"><img src="brand/logo.svg" alt="Big Splash"></a>
+    <div class="links">
+      <a href="#summary">Summary</a>
+      <a href="#walkin">POV</a>
+      <a href="#scores">Scores</a>
+      <a href="#online">Online</a>
+      <a href="#inperson">In Person</a>
+      <a href="#governance">Governance</a>
+      <a href="#fixes">Fixes</a>
+      <a href="#services">Services</a>
+      <a href="#timeline">Timeline</a>
+    </div>
+    <a href="Big-Valley-Brand-Audit.pdf" class="cta-mini" style="background:transparent; color:var(--primary); border:1px solid rgba(239,248,139,0.5); margin-right:8px;" download>Download PDF</a>
+    <a href="#cta" class="cta-mini">Book a call →</a>
+  </div>
+</nav>
+
+<!-- ====================================================== -->
+<!-- PAGE 1 — COVER                                         -->
+<!-- ====================================================== -->
+<section id="cover" class="page cover grid-bg">
+  <div class="cover-top">
+    <div class="brand-mark"><img src="brand/logo.svg" alt="Big Splash"></div>
+    <div class="eyebrow" style="margin:0;">Brand Audit · Church Edition</div>
+  </div>
+
+  <h1 class="h-display cover-headline">
+    BIG <span class="glow">VALLEY</span>
+  </h1>
+  <div class="cover-sub">A brand check of every place your church shows up.</div>
+
+  <div class="score-block">
+    <div class="score-ring">
+      <div class="score-ring-inner">
+        <div class="num">80</div>
+        <div class="denom">Overall / 100</div>
+      </div>
+    </div>
+    <div class="pillar-chips">
+      <div class="pillar-chip"><span class="name">Online</span><span class="val">4.0</span></div>
+      <div class="pillar-chip"><span class="name">In Person</span><span class="val">4.0</span></div>
+      <div class="pillar-chip"><span class="name">Governance</span><span class="val na">—</span></div>
+    </div>
+  </div>
+
+  <div class="cover-meta">
+    <div class="kv"><div class="k">Client</div><div class="v">Big Valley Church</div></div>
+    <div class="kv"><div class="k">Location</div><div class="v">Turlock, CA</div></div>
+    <div class="kv"><div class="k">Auditor</div><div class="v auditor-row"><img class="avatar" src="brand/auditor.jpg" alt="Christopher List">Christopher List</div></div>
+    <div class="kv"><div class="k">Date</div><div class="v">May 4, 2026</div></div>
+  </div>
+</section>
+
+<!-- ====================================================== -->
+<!-- ONLINE-ONLY · POV FIRST-TIME VISITOR (placed first)    -->
+<!-- ====================================================== -->
+<section id="walkin" class="page video-page online-only">
+  <div class="section-head">
+    <div class="eyebrow"><span class="online-badge">Online Only</span> &nbsp; · &nbsp; POV Walk-In</div>
+    <h2 class="h-display">A FIRST-TIMER'S <span class="glow">SUNDAY.</span></h2>
+  </div>
+
+  <p class="body">Watch this before you read the audit. Filmed POV from the parking lot, past the exterior sign, through the lobby, to a seat. No commentary. The touchpoints a first-time guest sees in the order they see them.</p>
+
+  <div class="video-frame">
+    <!-- Drop the MP4 into assets/ and update the src, or swap to a Vimeo iframe -->
+    <!-- <video src="assets/pov-first-time.mp4" controls poster="assets/pov-poster.webp"></video> -->
+    <div class="video-placeholder">
+      <div class="play">▶</div>
+      <div class="ph-label">POV Video Slot</div>
+      <div class="ph-note">Drop the POV first-time visitor MP4 into the video element to enable playback.</div>
+    </div>
+  </div>
+
+  <div class="video-meta">
+    <div class="vm"><div class="k">Format</div><div class="v">POV walk-in, no narration</div></div>
+    <div class="vm"><div class="k">Length</div><div class="v">~ 4 minutes</div></div>
+    <div class="vm"><div class="k">Watch For</div><div class="v">Exterior sign, lobby, packet handoff</div></div>
+  </div>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span class="dot">● Online Only</span></div>
+</section>
+
+<!-- ====================================================== -->
+<!-- PAGE 2 — EXECUTIVE SUMMARY                             -->
+<!-- ====================================================== -->
+<section id="summary" class="page">
+  <div class="section-head">
+    <div class="eyebrow">01 · Executive Summary</div>
+    <h2 class="h-display">THE SHORT <span class="glow">VERSION.</span></h2>
+  </div>
+
+  <p class="body">Big Valley has a strong worship-stage brand and a clean email system. The gaps sit on the perimeter: exterior signage, social cover artwork, document templates, and a missing governance layer. Close those four and the score moves from 80 to the low 90s in one quarter.</p>
+
+  <div class="stat-row">
+    <div class="stat"><div class="k">Overall</div><div class="v lime">80</div><div class="sub">Out of 100. Strong, with clear room to grow.</div></div>
+    <div class="stat"><div class="k">Strengths</div><div class="v">14</div><div class="sub">Items scoring a perfect 5 of 5.</div></div>
+    <div class="stat"><div class="k">To Improve</div><div class="v">14</div><div class="sub">Items at 3 or below across both pillars.</div></div>
+    <div class="stat"><div class="k">Gaps</div><div class="v">5</div><div class="sub">Governance items not yet in place.</div></div>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-block">
+      <h4>WHAT'S <span class="lime">WORKING.</span></h4>
+      <p>The Sunday experience is on-brand. Stage, lyric slides, lower thirds, and series graphics all hit a 5. Email looks the same every send. Pinned posts and IG highlight covers feel intentional. Google Business Profile is dialed.</p>
+    </div>
+    <div class="summary-block">
+      <h4>WHAT'S <span class="lime">DRIFTING.</span></h4>
+      <p>The favicon, brand color spec, and 404 page point to a website that grew organically. The social cover artwork lags a season behind. Bulletin and document templates are inconsistent across teams. Exterior signage looks like a different church than the one inside.</p>
+    </div>
+    <div class="summary-block">
+      <h4>THE BIGGEST <span class="lime">RISK.</span></h4>
+      <p>No brand guide, asset library, or named owner is on file. Without governance, every fix you make this quarter starts to drift again next quarter. Lock the foundation first, then ship the polish.</p>
+    </div>
+    <div class="summary-block">
+      <h4>WHAT TO DO <span class="lime">NEXT.</span></h4>
+      <p>Run a 90-day brand sprint. Week one sets governance. Weeks two through six fix digital and document touchpoints. Weeks seven through twelve handle exterior signage and the visitor packet. Page 11 has the schedule.</p>
+    </div>
+  </div>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>02 / 13 <span class="dot">●</span></span></div>
+</section>
+
+<!-- ====================================================== -->
+<!-- PAGE 3 — METHODOLOGY                                   -->
+<!-- ====================================================== -->
+<section id="rubric" class="page">
+  <div class="section-head">
+    <div class="eyebrow">02 · How This Audit Works</div>
+    <h2 class="h-display">THE <span class="glow">RUBRIC.</span></h2>
+  </div>
+
+  <p class="body">Every line item is scored on a five-point scale. The score reflects how a first-time visitor would experience the brand at that touchpoint, not whether the asset technically exists. A logo that loads is a 1. A logo that loads, looks crisp, sits in correct clear-space, and matches the rest of the system is a 5.</p>
+
+  <div class="rubric">
+    <div class="rubric-cell"><div class="num">5</div><div class="name">Dialed In</div><div class="desc">Matches spec. On-brand across every angle. Nothing to fix.</div></div>
+    <div class="rubric-cell"><div class="num">4</div><div class="name">Strong</div><div class="desc">Reads on-brand at a glance. Small details could tighten.</div></div>
+    <div class="rubric-cell"><div class="num">3</div><div class="name">Drifting</div><div class="desc">Recognizable, with visible inconsistencies. Worth fixing this year.</div></div>
+    <div class="rubric-cell"><div class="num">2</div><div class="name">Off-Brand</div><div class="desc">Wrong color, old logo, stale artwork. First impression takes a hit.</div></div>
+    <div class="rubric-cell na"><div class="num">N/A</div><div class="name">Not Scored</div><div class="desc">Touchpoint does not apply, or no asset exists yet to evaluate.</div></div>
+  </div>
+
+  <p class="body" style="margin-top: 36px;">Three pillars roll up to the overall score. Online and In Person each weigh forty points. Governance weighs twenty.</p>
+
+  <div class="pillar-defs">
+    <div class="pillar-def">
+      <h5>ONLINE</h5>
+      <p>Every digital surface a visitor lands on before Sunday. Website, social profiles, email, listings, and digital asset templates.</p>
+    </div>
+    <div class="pillar-def">
+      <h5>IN PERSON</h5>
+      <p>Every physical touchpoint from the parking lot to the lobby. Signage, print, stage, events, apparel, and guest-facing materials.</p>
+    </div>
+    <div class="pillar-def">
+      <h5>GOVERNANCE</h5>
+      <p>The behind-the-scenes system that keeps the first two pillars from drifting. Brand guide, asset library, vendors, and review cadence.</p>
+    </div>
+  </div>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>03 / 13 <span class="dot">●</span></span></div>
+</section>
+
+<!-- ====================================================== -->
+<!-- PAGE 4 — WHERE YOU STAND                               -->
+<!-- ====================================================== -->
+<section id="scores" class="page">
+  <div class="section-head">
+    <div class="eyebrow">03 · Score Breakdown</div>
+    <h2 class="h-display">WHERE YOU <span class="glow">STAND.</span></h2>
+  </div>
+
+  <p class="body">Big Valley scores 80 out of 100. The brand reads strong on stage and in email, weaker on signage and social artwork. Governance is the gap that ties every other fix together.</p>
+
+  <div class="bars" style="margin-top: 36px;">
+    <div class="bar-row">
+      <div class="bar-top"><span class="name">Online</span><span class="val lime">4.0 <span style="color:var(--outline); font-size:14px;">/ 5</span></span></div>
+      <div class="bar-track"><div class="bar-fill" style="width: 80%;"></div></div>
+      <p class="bar-note">Website, social, email and listings all hold the line. Favicon, brand colors, and the social cover artwork drag the score down.</p>
+    </div>
+    <div class="bar-row">
+      <div class="bar-top"><span class="name">In Person</span><span class="val lime">4.0 <span style="color:var(--outline); font-size:14px;">/ 5</span></span></div>
+      <div class="bar-track"><div class="bar-fill" style="width: 80%;"></div></div>
+      <p class="bar-note">Stage, lyric slides, and event banners are dialed. Exterior signage and visitor materials are the weakest physical touchpoints.</p>
+    </div>
+    <div class="bar-row">
+      <div class="bar-top"><span class="name">Governance</span><span class="val na">Not Set</span></div>
+      <div class="bar-track"><div class="bar-fill empty"></div></div>
+      <p class="bar-note">No brand guide, asset library, or owner is on file. Without governance, every fix above will drift back inside a year.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p class="lead">WINS WORTH <span class="lime">PROTECTING.</span></p>
+    <ul>
+      <li>Stage backdrop and screens</li>
+      <li>Lyric and scripture slide template</li>
+      <li>Sermon series graphics</li>
+      <li>Lower thirds and motion graphics</li>
+      <li>Email signature and newsletter</li>
+      <li>Pinned posts and IG highlight covers</li>
+      <li>Google Business Profile</li>
+      <li>Sermon deck template</li>
+    </ul>
+  </div>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>04 / 13 <span class="dot">●</span></span></div>
+</section>
+
+<!-- ====================================================== -->
+<!-- PAGE 5 — ONLINE DEEP-DIVE                              -->
+<!-- ====================================================== -->
+<section id="online" class="page">
+  <div class="section-head">
+    <div class="eyebrow">04 · Pillar Deep-Dive</div>
+    <h2 class="h-display">ONLINE, UP <span class="glow">CLOSE.</span></h2>
+  </div>
+
+  <p class="body">A visitor decides whether to walk in your doors before they ever leave the house. Five subsections roll up to the Online score. Three of them carry the weight at Big Valley. Two need work.</p>
+
+  <div class="dd-grid">
+
+    <div class="dd-card">
+      <div class="head"><h4>Website</h4><span class="badge">3.6 / 5</span></div>
+      <p>Solid foundation. The header, footer, fonts, and meta tags are doing their job. The favicon, color spec, and 404 page betray a site that has been edited piece by piece without a master file to point to.</p>
+      <div class="verdict">Fix: favicon, color tokens, 404 page</div>
+    </div>
+
+    <div class="dd-card">
+      <div class="head"><h4>Social Profiles</h4><span class="badge">4.0 / 5</span></div>
+      <p>Pinned posts, IG highlight covers, and the recent grid all read 5 of 5. The cover artwork is the single weakest spot in the entire pillar at 2 of 5. Bio copy needs a one-line rewrite to match positioning.</p>
+      <div class="verdict">Fix: cover artwork, bio copy</div>
+    </div>
+
+    <div class="dd-card">
+      <div class="head"><h4>Email</h4><span class="badge">5.0 / 5</span></div>
+      <p>Perfect score across sender domain, signature, newsletter, and transactional emails. The brand reads identical from welcome email to giving receipt. This is the model to copy onto every other surface.</p>
+      <div class="verdict">Status: protect, do not touch</div>
+    </div>
+
+    <div class="dd-card">
+      <div class="head"><h4>Listings + Third-Party</h4><span class="badge">4.3 / 5</span></div>
+      <p>Google Business Profile is dialed at 5. Yelp, church finders, and partner sites carry approved logos at 4. Light cleanup on a couple of legacy partner pages would push this to a 5.</p>
+      <div class="verdict">Fix: legacy partner logo swaps</div>
+    </div>
+
+    <div class="dd-card" style="grid-column: span 2;">
+      <div class="head"><h4>Digital Assets + Templates</h4><span class="badge warn">3.5 / 5</span></div>
+      <p>The Sunday sermon deck template is a 5 and gets reused weekly without drift. Bulletin PDFs, livestream backgrounds, and document headers all sit at 3, which means they exist but do not match each other. Anyone on staff making a flyer is starting from a different file. Fix the template library and ten weak items snap into place at once.</p>
+      <div class="verdict">Fix: bulletin, livestream, document headers</div>
+    </div>
+
+  </div>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>05 / 13 <span class="dot">●</span></span></div>
+</section>
+
+<!-- ====================================================== -->
+<!-- ONLINE-ONLY · LOOM WALKTHROUGH                         -->
+<!-- ====================================================== -->
+<section id="loom" class="page video-page online-only">
+  <div class="section-head">
+    <div class="eyebrow"><span class="online-badge">Online Only</span> &nbsp; · &nbsp; Walkthrough</div>
+    <h2 class="h-display">SOCIALS + WEBSITE, <span class="glow">ON CAMERA.</span></h2>
+  </div>
+
+  <p class="body">A Loom walkthrough of the audit. We move through every social profile and the website page by page, calling out what is on-brand and what is drifting. Listen at 1.5x and you are done in eight minutes.</p>
+
+  <div class="video-frame">
+    <!-- Replace data-loom-id with the real Loom share id, then uncomment the iframe -->
+    <!-- <iframe src="https://www.loom.com/embed/REPLACE_WITH_LOOM_ID" allowfullscreen></iframe> -->
+    <div class="video-placeholder">
+      <div class="play">▶</div>
+      <div class="ph-label">Loom Embed Slot</div>
+      <div class="ph-note">Drop the Loom share URL into the iframe src to enable playback.</div>
+    </div>
+  </div>
+
+  <div class="video-meta">
+    <div class="vm"><div class="k">Format</div><div class="v">Loom screen recording</div></div>
+    <div class="vm"><div class="k">Length</div><div class="v">~ 12 minutes</div></div>
+    <div class="vm"><div class="k">Best Watched</div><div class="v">With the team, 1.5x speed</div></div>
+  </div>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span class="dot">● Online Only</span></div>
+</section>
+
+<!-- ====================================================== -->
+<!-- PAGE 6 — IN PERSON DEEP-DIVE                           -->
+<!-- ====================================================== -->
+<section id="inperson" class="page">
+  <div class="section-head">
+    <div class="eyebrow">05 · Pillar Deep-Dive</div>
+    <h2 class="h-display">IN PERSON, UP <span class="glow">CLOSE.</span></h2>
+  </div>
+
+  <p class="body">Six subsections roll up to the In Person score. Worship-stage assets and event collateral carry the pillar. Building signage and visitor materials are the soft spots a guest sees on the way in.</p>
+
+  <div class="dd-grid">
+
+    <div class="dd-card">
+      <div class="head"><h4>Building + Signage</h4><span class="badge warn">3.3 / 5</span></div>
+      <p>The lobby and wayfinding read at 4. The exterior sign sits at 2 and looks like a different church than the one inside. This is the first impression and the cheapest single fix in the audit.</p>
+      <div class="verdict">Fix: exterior sign, wall art refresh</div>
+    </div>
+
+    <div class="dd-card">
+      <div class="head"><h4>Print Collateral</h4><span class="badge">4.0 / 5</span></div>
+      <p>Business cards, letterhead, brochures, connect cards, and swag all hold a steady 4. Light cleanup pass on print specs in the vendor file would move this set to 5 across the board.</p>
+      <div class="verdict">Fix: print spec consistency</div>
+    </div>
+
+    <div class="dd-card">
+      <div class="head"><h4>Stage + Worship</h4><span class="badge">5.0 / 5</span></div>
+      <p>Stage backdrop, sermon series graphics, lower thirds, and lyric slides are all 5 of 5. The strongest set of assets in the building. The bar the rest of the brand needs to clear.</p>
+      <div class="verdict">Status: protect, do not touch</div>
+    </div>
+
+    <div class="dd-card">
+      <div class="head"><h4>Events + Outreach</h4><span class="badge">4.3 / 5</span></div>
+      <p>Booth backdrop and banners hit 5. Tablecloths, retractable banners, badges, giveaways, and printed handouts all hold 4. A consistent palette pass would push the whole set to 5.</p>
+      <div class="verdict">Fix: palette pass on event collateral</div>
+    </div>
+
+    <div class="dd-card">
+      <div class="head"><h4>Apparel + Uniforms</h4><span class="badge">4.0 / 5</span></div>
+      <p>Shirts, polos, hats, and color match all sit at 4. The logo placements are correct, the color is close. Pantone-locked specs would get this to a 5 next print run.</p>
+      <div class="verdict">Fix: lock Pantone in vendor file</div>
+    </div>
+
+    <div class="dd-card">
+      <div class="head"><h4>Guest-Facing Materials</h4><span class="badge warn">3.7 / 5</span></div>
+      <p>Welcome packets and thank-you cards sit at 4. First-time visitor materials are at 3, which is the touchpoint with the highest leverage on whether a first-timer comes back. Treat this as a priority fix.</p>
+      <div class="verdict">Fix: first-time visitor packet</div>
+    </div>
+
+  </div>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>06 / 13 <span class="dot">●</span></span></div>
+</section>
+
+<!-- ====================================================== -->
+<!-- PAGE 7 — GOVERNANCE                                    -->
+<!-- ====================================================== -->
+<section id="governance" class="page">
+  <div class="section-head">
+    <div class="eyebrow">06 · The Foundation</div>
+    <h2 class="h-display">GOVERNANCE IS THE <span class="glow">GAP.</span></h2>
+  </div>
+
+  <p class="body">Five governance items are blank. Not low. Blank. No brand guide, no shared asset library, no vendor list with print specs, no named audit owner, no review cadence. Every fix on the next pages stays fixed only if these five are in place.</p>
+
+  <div class="fix-grid" style="margin-top: 24px;">
+
+    <div class="fix-card">
+      <h3>Brand Guide</h3>
+      <div class="sub">The Single Source</div>
+      <ul>
+        <li><span>Logo, color, type, voice in one PDF</span><span class="score-pill na">—</span></li>
+        <li><span>Linked from staff onboarding doc</span><span class="score-pill na">—</span></li>
+        <li><span>Updated when assets change</span><span class="score-pill na">—</span></li>
+      </ul>
+    </div>
+
+    <div class="fix-card">
+      <h3>Asset Library</h3>
+      <div class="sub">One Place, Always Current</div>
+      <ul>
+        <li><span>Logos, fonts, colors, templates</span><span class="score-pill na">—</span></li>
+        <li><span>Old logos removed from drives</span><span class="score-pill na">—</span></li>
+        <li><span>Permissions set for staff</span><span class="score-pill na">—</span></li>
+      </ul>
+    </div>
+
+    <div class="fix-card">
+      <h3>Vendor List</h3>
+      <div class="sub">No More Print Surprises</div>
+      <ul>
+        <li><span>Approved print + signage vendors</span><span class="score-pill na">—</span></li>
+        <li><span>Pantone, paper stock, coatings</span><span class="score-pill na">—</span></li>
+        <li><span>Apparel decoration specs</span><span class="score-pill na">—</span></li>
+      </ul>
+    </div>
+
+    <div class="fix-card">
+      <h3>Owner + Cadence</h3>
+      <div class="sub">Who, How Often</div>
+      <ul>
+        <li><span>Named brand owner on staff</span><span class="score-pill na">—</span></li>
+        <li><span>Quarterly mini-audit</span><span class="score-pill na">—</span></li>
+        <li><span>Annual full audit</span><span class="score-pill na">—</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <p class="body" style="margin-top: 26px;">A brand guide is a one-time build. The asset library is a half-day setup. The vendor list is a Google Doc. The owner is a name. Without these four pieces, your 80 will slip back to 72 inside a year as new staff make new files.</p>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>07 / 13 <span class="dot">●</span></span></div>
+</section>
+
+<!-- ====================================================== -->
+<!-- PAGE 8 — FIX THESE FIRST                               -->
+<!-- ====================================================== -->
+<section id="fixes" class="page">
+  <div class="section-head">
+    <div class="eyebrow">07 · Priority Fixes</div>
+    <h2 class="h-display">FIX THESE <span class="glow">FIRST.</span></h2>
+  </div>
+
+  <p class="body" style="margin-bottom: 22px;">Eighteen items scored at or below 3, plus five governance gaps. Group them this way and the work stays small.</p>
+
+  <div class="fix-grid">
+
+    <div class="fix-card">
+      <h3>Digital Polish</h3>
+      <div class="sub">Website + Social</div>
+      <ul>
+        <li><span>Favicon matches brand mark</span><span class="score-pill low">3 / 5</span></li>
+        <li><span>Brand colors match hex spec</span><span class="score-pill low">3 / 5</span></li>
+        <li><span>Logo clear-space respected</span><span class="score-pill low">3 / 5</span></li>
+        <li><span>404 page branded</span><span class="score-pill low">3 / 5</span></li>
+        <li><span>Social cover / banner artwork</span><span class="score-pill low">2 / 5</span></li>
+        <li><span>Bio copy matches positioning</span><span class="score-pill low">3 / 5</span></li>
+      </ul>
+    </div>
+
+    <div class="fix-card">
+      <h3>Document System</h3>
+      <div class="sub">Print + Livestream Templates</div>
+      <ul>
+        <li><span>Bulletin and PDF templates</span><span class="score-pill low">3 / 5</span></li>
+        <li><span>Zoom / livestream backgrounds</span><span class="score-pill low">3 / 5</span></li>
+        <li><span>Document headers and footers</span><span class="score-pill low">3 / 5</span></li>
+      </ul>
+    </div>
+
+    <div class="fix-card">
+      <h3>Physical Presence</h3>
+      <div class="sub">Building + Visitor Touchpoints</div>
+      <ul>
+        <li><span>Exterior signage logo and color</span><span class="score-pill low">2 / 5</span></li>
+        <li><span>Wall art and printed graphics</span><span class="score-pill low">3 / 5</span></li>
+        <li><span>First-time visitor materials</span><span class="score-pill low">3 / 5</span></li>
+      </ul>
+    </div>
+
+    <div class="fix-card">
+      <h3>Governance Gap</h3>
+      <div class="sub">The Foundation</div>
+      <ul>
+        <li><span>Brand guide current and shared</span><span class="score-pill na">—</span></li>
+        <li><span>Asset library in one location</span><span class="score-pill na">—</span></li>
+        <li><span>Old logos pulled from drives</span><span class="score-pill na">—</span></li>
+        <li><span>Vendor list with print specs</span><span class="score-pill na">—</span></li>
+        <li><span>Audit owner and review cadence</span><span class="score-pill na">—</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>08 / 13 <span class="dot">●</span></span></div>
+</section>
+
+<!-- ====================================================== -->
+<!-- PAGE 9 — WHAT GOOD LOOKS LIKE                          -->
+<!-- ====================================================== -->
+<section id="good" class="page">
+  <div class="section-head">
+    <div class="eyebrow">08 · The Bar</div>
+    <h2 class="h-display">WHAT A 5 <span class="glow">LOOKS LIKE.</span></h2>
+  </div>
+
+  <p class="body">A 5 is not a perfect church. A 5 is a touchpoint that does not make a guest pause. Here is the standard for the eight items that drag the score down today.</p>
+
+  <div class="good-grid">
+
+    <div class="good-card">
+      <div class="head"><div class="check">✓</div><h4>Favicon</h4></div>
+      <p>The brand mark, on a transparent background, exported at 16, 32, 48, and 192 px. Loads crisp in the browser tab. Matches the social profile photo at a glance.</p>
+    </div>
+
+    <div class="good-card">
+      <div class="head"><div class="check">✓</div><h4>Brand Colors</h4></div>
+      <p>Hex, RGB, CMYK, and Pantone codes locked in the brand guide. Every button, header, and chart on the site uses the same six values. No off-by-one greens.</p>
+    </div>
+
+    <div class="good-card">
+      <div class="head"><div class="check">✓</div><h4>Social Cover Art</h4></div>
+      <p>Refreshed each sermon series. Same series art that lives on the stage screen, cropped for Facebook, Instagram, YouTube, and the website hero. One artwork, four crops.</p>
+    </div>
+
+    <div class="good-card">
+      <div class="head"><div class="check">✓</div><h4>Bulletin Template</h4></div>
+      <p>One INDD or Canva file. Locked layout, type styles, and color. Volunteers fill copy, not formatting. Every Sunday's bulletin reads like the same church made it.</p>
+    </div>
+
+    <div class="good-card">
+      <div class="head"><div class="check">✓</div><h4>Livestream Backgrounds</h4></div>
+      <p>Lower thirds, scene transitions, and pre-stream loop all share palette and type with the stage. The livestream feels like attending, not watching from a different church.</p>
+    </div>
+
+    <div class="good-card">
+      <div class="head"><div class="check">✓</div><h4>Exterior Sign</h4></div>
+      <p>Current logo, current color, lit at night, readable from the road at 35 mph. Matches the lobby sign a guest sees thirty seconds later. The drive in and the walk in connect.</p>
+    </div>
+
+    <div class="good-card">
+      <div class="head"><div class="check">✓</div><h4>404 Page</h4></div>
+      <p>Same header and footer as the site. A short on-brand line. A button back to the homepage. Not a default server page that breaks the spell.</p>
+    </div>
+
+    <div class="good-card">
+      <div class="head"><div class="check">✓</div><h4>Visitor Packet</h4></div>
+      <p>Designed like the sermon series, not like an HR onboarding doc. One folder, three inserts, a connect card, and a small gift. Hands a first-timer a reason to come back.</p>
+    </div>
+
+  </div>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>09 / 13 <span class="dot">●</span></span></div>
+</section>
+
+<!-- ====================================================== -->
+<!-- PAGE 10 — WHAT WE BUILD                                -->
+<!-- ====================================================== -->
+<section id="services" class="page">
+  <div class="section-head">
+    <div class="eyebrow">09 · How Big Splash Closes the Gaps</div>
+    <h2 class="h-display">WHAT WE <span class="glow">BUILD.</span></h2>
+  </div>
+
+  <p class="body" style="margin-bottom: 24px;">Four bundles, each tied to a fix theme on the previous page. Pick one or run them in sequence.</p>
+
+  <div class="svc-grid">
+
+    <div class="svc-card">
+      <div class="num">01 / Service</div>
+      <h3>BRAND SYSTEM <span class="lime">REFRESH</span></h3>
+      <p class="pitch">A clean color, type, and logo system that survives every doc, slide, and template you ship.</p>
+      <ul>
+        <li>Logo lockups + clear-space</li>
+        <li>Favicon and app icons</li>
+        <li>Color and type tokens</li>
+        <li>Bulletin, slide, doc templates</li>
+      </ul>
+    </div>
+
+    <div class="svc-card">
+      <div class="num">02 / Service</div>
+      <h3>SOCIAL & WEB <span class="lime">POLISH</span></h3>
+      <p class="pitch">The first thing a visitor sees online. Cover art, profile crops, bio rewrite, branded 404.</p>
+      <ul>
+        <li>Cover and banner artwork</li>
+        <li>Profile photo crops</li>
+        <li>Bio rewrite to positioning</li>
+        <li>Branded 404 and OG images</li>
+      </ul>
+    </div>
+
+    <div class="svc-card">
+      <div class="num">03 / Service</div>
+      <h3>SIGNAGE & <span class="lime">LIVESTREAM</span></h3>
+      <p class="pitch">Exterior sign refresh and a livestream kit that matches the stage. One look, every screen.</p>
+      <ul>
+        <li>Exterior signage rework</li>
+        <li>Livestream backgrounds</li>
+        <li>Lower thirds + scene graphics</li>
+        <li>Visitor packet redesign</li>
+      </ul>
+    </div>
+
+    <div class="svc-card">
+      <div class="num">04 / Service</div>
+      <h3>BRAND <span class="lime">GOVERNANCE</span> KIT</h3>
+      <p class="pitch">A guide, a shared library, and a named owner. The work above stays in place a year from now.</p>
+      <ul>
+        <li>Brand guide PDF</li>
+        <li>Asset library setup</li>
+        <li>Approved vendor list</li>
+        <li>Quarterly review cadence</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>10 / 13 <span class="dot">●</span></span></div>
+</section>
+
+<!-- ====================================================== -->
+<!-- PAGE 11 — THE 90-DAY PATH                              -->
+<!-- ====================================================== -->
+<section id="timeline" class="page">
+  <div class="section-head">
+    <div class="eyebrow">10 · Process + Timeline</div>
+    <h2 class="h-display">THE 90-DAY <span class="glow">PATH.</span></h2>
+  </div>
+
+  <p class="body">Twelve weeks from kickoff to a 95. Each phase is short, scoped, and tied to a deliverable a guest will see on a Sunday.</p>
+
+  <div class="timeline">
+
+    <div class="tl-step">
+      <div class="tl-week">Week 01 · Kickoff</div>
+      <h4>LOCK THE <span class="lime">FOUNDATION.</span></h4>
+      <p>Ninety-minute kickoff with the brand owner and senior staff. Pull every existing logo, font, and template into one shared drive. Confirm scope, roles, and review cadence.</p>
+      <div class="deliv">Deliverable: <span>Asset library, named owner, signed scope</span></div>
+    </div>
+
+    <div class="tl-step">
+      <div class="tl-week">Weeks 02 – 03 · Brand System</div>
+      <h4>THE <span class="lime">GUIDE.</span></h4>
+      <p>Refine the logo lockups, lock color and type tokens, and ship the brand guide PDF. Approved vendor list and print specs live inside the same document.</p>
+      <div class="deliv">Deliverable: <span>Brand guide v1, vendor + print specs</span></div>
+    </div>
+
+    <div class="tl-step">
+      <div class="tl-week">Weeks 04 – 06 · Digital + Documents</div>
+      <h4>SHIP THE <span class="lime">TEMPLATES.</span></h4>
+      <p>Favicon, 404 page, bulletin template, livestream backgrounds, document headers, and social cover artwork. Every digital fix on page 8 lands in this window.</p>
+      <div class="deliv">Deliverable: <span>10 templates, social pack, branded 404</span></div>
+    </div>
+
+    <div class="tl-step">
+      <div class="tl-week">Weeks 07 – 09 · Physical Touchpoints</div>
+      <h4>FIX THE <span class="lime">PERIMETER.</span></h4>
+      <p>Exterior signage rework, wall art update, and a redesigned visitor packet. Coordinate with the approved print vendor from the guide. Install around a Sunday with low foot traffic.</p>
+      <div class="deliv">Deliverable: <span>Exterior sign, wall graphics, visitor packet</span></div>
+    </div>
+
+    <div class="tl-step">
+      <div class="tl-week">Weeks 10 – 11 · Polish + Train</div>
+      <h4>HAND IT <span class="lime">OFF.</span></h4>
+      <p>Train the brand owner and the comms team on the guide and the asset library. Run a tabletop walkthrough of the next bulletin, slide deck, and social post using the new system.</p>
+      <div class="deliv">Deliverable: <span>Staff training, walkthrough recording</span></div>
+    </div>
+
+    <div class="tl-step">
+      <div class="tl-week">Week 12 · Re-Audit</div>
+      <h4>SCORE THE <span class="lime">RESULT.</span></h4>
+      <p>Repeat this audit end-to-end. Confirm the score moved from 80 to 90 or higher. Set the next quarterly mini-audit on the calendar before the engagement closes.</p>
+      <div class="deliv">Deliverable: <span>Re-audit report, quarterly cadence on calendar</span></div>
+    </div>
+
+  </div>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>11 / 13 <span class="dot">●</span></span></div>
+</section>
+
+<!-- ====================================================== -->
+<!-- PAGE 12 — THE FULL CHECK                               -->
+<!-- ====================================================== -->
+<section id="appendix" class="page">
+  <div class="section-head">
+    <div class="eyebrow">11 · Appendix</div>
+    <h2 class="h-display">THE FULL <span class="glow">CHECK.</span></h2>
+  </div>
+
+  <p class="body small" style="margin-bottom: 8px;">Every line item, scored. Five is dialed in. Three or below needs attention. A dash means we did not score it yet.</p>
+
+  <div class="table-grid">
+
+    <!-- LEFT COLUMN -->
+    <div>
+      <div class="tbl-section">
+        <h4>Online · Website</h4>
+        <div class="tbl-row"><span class="lbl">Logo present, correct file</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Logo clear-space + min size</span><span class="mini-pill mp-3">3</span></div>
+        <div class="tbl-row"><span class="lbl">Favicon matches brand mark</span><span class="mini-pill mp-3">3</span></div>
+        <div class="tbl-row"><span class="lbl">Brand colors match hex spec</span><span class="mini-pill mp-3">3</span></div>
+        <div class="tbl-row"><span class="lbl">Heading + body fonts</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Buttons: color, radius, hover</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Imagery style on-brand</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Tagline consistency</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Footer: legal, contact, social</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Meta title, description, OG</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">404 page branded</span><span class="mini-pill mp-3">3</span></div>
+      </div>
+
+      <div class="tbl-section">
+        <h4>Online · Social Profiles</h4>
+        <div class="tbl-row"><span class="lbl">Handle consistent across</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Profile photo: logo, crop</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Cover / banner artwork</span><span class="mini-pill mp-2">2</span></div>
+        <div class="tbl-row"><span class="lbl">Bio copy matches positioning</span><span class="mini-pill mp-3">3</span></div>
+        <div class="tbl-row"><span class="lbl">Link in bio</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Pinned posts current</span><span class="mini-pill mp-5">5</span></div>
+        <div class="tbl-row"><span class="lbl">IG highlight covers</span><span class="mini-pill mp-5">5</span></div>
+        <div class="tbl-row"><span class="lbl">Recent grid feels cohesive</span><span class="mini-pill mp-5">5</span></div>
+      </div>
+
+      <div class="tbl-section">
+        <h4>Online · Email</h4>
+        <div class="tbl-row"><span class="lbl">Sender uses church domain</span><span class="mini-pill mp-5">5</span></div>
+        <div class="tbl-row"><span class="lbl">Email signature template</span><span class="mini-pill mp-5">5</span></div>
+        <div class="tbl-row"><span class="lbl">Newsletter header / footer</span><span class="mini-pill mp-5">5</span></div>
+        <div class="tbl-row"><span class="lbl">Transactional emails branded</span><span class="mini-pill mp-5">5</span></div>
+      </div>
+
+      <div class="tbl-section">
+        <h4>Online · Listings + Assets</h4>
+        <div class="tbl-row"><span class="lbl">Google Business Profile</span><span class="mini-pill mp-5">5</span></div>
+        <div class="tbl-row"><span class="lbl">Directory listings consistent</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Review platforms branding</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Partner sites approved logo</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Sermon deck template</span><span class="mini-pill mp-5">5</span></div>
+        <div class="tbl-row"><span class="lbl">Bulletin + PDF templates</span><span class="mini-pill mp-3">3</span></div>
+        <div class="tbl-row"><span class="lbl">Livestream backgrounds</span><span class="mini-pill mp-3">3</span></div>
+        <div class="tbl-row"><span class="lbl">Document headers + footers</span><span class="mini-pill mp-3">3</span></div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div>
+      <div class="tbl-section">
+        <h4>In Person · Building + Signage</h4>
+        <div class="tbl-row"><span class="lbl">Exterior signage</span><span class="mini-pill mp-2">2</span></div>
+        <div class="tbl-row"><span class="lbl">Window decals</span><span class="mini-pill mp-na">N/A</span></div>
+        <div class="tbl-row"><span class="lbl">Lobby / welcome signage</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Wayfinding + door signs</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Wall art, murals, graphics</span><span class="mini-pill mp-3">3</span></div>
+      </div>
+
+      <div class="tbl-section">
+        <h4>In Person · Print Collateral</h4>
+        <div class="tbl-row"><span class="lbl">Business cards</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Letterhead and envelopes</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Brochures and one-pagers</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Connect / visitor cards</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Folders, inserts, swag</span><span class="mini-pill mp-4">4</span></div>
+      </div>
+
+      <div class="tbl-section">
+        <h4>In Person · Stage + Worship</h4>
+        <div class="tbl-row"><span class="lbl">Stage backdrop / screens</span><span class="mini-pill mp-5">5</span></div>
+        <div class="tbl-row"><span class="lbl">Sermon series graphics</span><span class="mini-pill mp-5">5</span></div>
+        <div class="tbl-row"><span class="lbl">Lower thirds + motion</span><span class="mini-pill mp-5">5</span></div>
+        <div class="tbl-row"><span class="lbl">Lyric / scripture slides</span><span class="mini-pill mp-5">5</span></div>
+      </div>
+
+      <div class="tbl-section">
+        <h4>In Person · Events + Outreach</h4>
+        <div class="tbl-row"><span class="lbl">Booth backdrop + banners</span><span class="mini-pill mp-5">5</span></div>
+        <div class="tbl-row"><span class="lbl">Tablecloths and runners</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Pop-up / retractable banners</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Name badges and lanyards</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Giveaway items</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Printed handouts</span><span class="mini-pill mp-4">4</span></div>
+      </div>
+
+      <div class="tbl-section">
+        <h4>In Person · Apparel + Guest</h4>
+        <div class="tbl-row"><span class="lbl">Shirts, polos, hats</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Color matches brand spec</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Vehicle wraps / magnets</span><span class="mini-pill mp-na">N/A</span></div>
+        <div class="tbl-row"><span class="lbl">Equipment labels + decals</span><span class="mini-pill mp-na">N/A</span></div>
+        <div class="tbl-row"><span class="lbl">Welcome packets</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Thank-you cards and gifts</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">First-time visitor materials</span><span class="mini-pill mp-3">3</span></div>
+      </div>
+
+      <div class="tbl-section">
+        <h4>Brand Governance</h4>
+        <div class="tbl-row"><span class="lbl">Brand guide current + shared</span><span class="mini-pill mp-na">—</span></div>
+        <div class="tbl-row"><span class="lbl">Asset library in one place</span><span class="mini-pill mp-na">—</span></div>
+        <div class="tbl-row"><span class="lbl">Old logo versions removed</span><span class="mini-pill mp-na">—</span></div>
+        <div class="tbl-row"><span class="lbl">Vendor list with print specs</span><span class="mini-pill mp-na">—</span></div>
+        <div class="tbl-row"><span class="lbl">Audit owner + review cadence</span><span class="mini-pill mp-na">—</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>12 / 13 <span class="dot">●</span></span></div>
+</section>
+
+<!-- ====================================================== -->
+<!-- PAGE 13 — CTA                                          -->
+<!-- ====================================================== -->
+<section id="cta" class="page cta grid-bg">
+  <div class="eyebrow">12 · Next Step</div>
+
+  <h2 class="h-display cta-headline">
+    LET'S GET<br>TO <span class="glow">WORK.</span>
+  </h2>
+
+  <p class="cta-pitch">
+    You scored 80. The path to 95 is short and the order matters. Book a 30-minute call and we will sequence the fixes around your next sermon series and the church calendar.
+  </p>
+
+  <a class="cta-btn" href="https://bigsplash.video">Book a 30-min call <span class="arr">→</span></a>
+
+  <div class="cta-meta">
+    <div class="left">
+      <div class="brand-mark"><img src="brand/logo.svg" alt="Big Splash"></div>
+      <div class="label" style="margin-top: 10px;">Video + Brand for Churches</div>
+    </div>
+    <div class="right">
+      bigsplash.video<br>
+      Georgetown, TX<br>
+      hello@bigsplash.agency
+    </div>
+  </div>
+</section>
+
+<!-- ============ SITE FOOTER (screen only) ============ -->
+<footer class="site-foot online-only">
+  <div class="inner">
+    <div>
+      <div class="brand-mark"><img src="brand/logo.svg" alt="Big Splash"></div>
+      <p class="brand-line">Brand and video production for churches that want every touchpoint to feel like the same place.</p>
+    </div>
+    <div>
+      <h5>Audit</h5>
+      <ul>
+        <li><a href="#summary">Summary</a></li>
+        <li><a href="#scores">Scores</a></li>
+        <li><a href="#fixes">Priority fixes</a></li>
+        <li><a href="#appendix">Full check</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="mailto:hello@bigsplash.agency">hello@bigsplash.agency</a></li>
+        <li><a href="https://bigsplash.video" target="_blank" rel="noopener">bigsplash.video</a></li>
+        <li>Georgetown, TX</li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal">
+    <span>© Big Splash 2026</span>
+    <span>Brand Audit · Big Valley Church</span>
+  </div>
+</footer>
+
+</body>
+</html>
