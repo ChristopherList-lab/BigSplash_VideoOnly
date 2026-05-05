@@ -685,73 +685,73 @@ let allAudits = [];
 // ============ BIG SPLASH OFFER CATALOG ============
 const OFFERS = {
   "Brand Identity Refresh": {
-    price: "$5,997", type: "project",
+    price: "Custom quote", type: "project",
     summary: "Logo, color, type, and template system that holds across every doc and slide.",
     triggers: ["brand color","color spec","logo clear","favicon","brand mark","brand guide","document header","document footer","print spec","pantone","tagline","positioning","apparel","welcome packet","first-time visitor"]
   },
   "First Impression Website Rebuild": {
-    price: "$3,497", type: "project",
+    price: "Custom quote", type: "project",
     summary: "A site built around the first-time guest. Plan a Visit, sermons, giving, branded 404.",
     triggers: ["website","404","meta title","og image","heading and body","buttons","tagline","footer has correct"]
   },
   "Signage + Wayfinding Plan": {
-    price: "$2,997", type: "project",
+    price: "Custom quote", type: "project",
     summary: "Exterior sign rework plus interior wayfinding that connects parking lot to seat.",
     triggers: ["exterior signage","window decals","lobby","wayfinding","door signs","wall art","mural"]
   },
   "Sermon Series Launch Package": {
-    price: "$2,497", type: "project",
+    price: "Custom quote", type: "project",
     summary: "Per-series artwork that travels from stage to social to website.",
     triggers: ["sermon series","series graphic","cover","banner","pinned post","series art","lower thirds template"]
   },
   "Stage Design Refresh Consult": {
-    price: "$2,497", type: "project",
+    price: "Custom quote", type: "project",
     summary: "Stage backdrop and motion-graphics consult. Quarterly evolution plan.",
     triggers: ["stage backdrop","stage design","stage screen","scrim"]
   },
   "Vision Sunday Video": {
-    price: "$3,497", type: "project",
+    price: "Custom quote", type: "project",
     summary: "A 3-minute story film that anchors the year's vision.",
     triggers: ["vision","testimony video"]
   },
   "Annual Report Video": {
-    price: "$7,997", type: "project",
+    price: "Custom quote", type: "project",
     summary: "Board-room caliber recap film. Numbers, stories, vision.",
     triggers: ["annual report"]
   },
   "Capital / Giving Campaign Video": {
-    price: "$5,997", type: "project",
+    price: "Custom quote", type: "project",
     summary: "The film that gets the next pledge made.",
     triggers: ["capital","giving","pledge"]
   },
   "Children's / Youth Ministry Branding": {
-    price: "$3,497", type: "project",
+    price: "Custom quote", type: "project",
     summary: "Sub-brand system for kids and youth that lives under the main church brand.",
     triggers: ["children","youth","kids","ministry brand"]
   },
   "Easter or Christmas Promo Campaign": {
-    price: "$4,497", type: "project",
+    price: "Custom quote", type: "project",
     summary: "Full seasonal campaign. Series art, promo video, social pack, ads, follow-up flow.",
     triggers: ["easter","christmas","seasonal campaign"]
   },
   "Audio System Audit": {
-    price: "$4,997", type: "audit", featured: true,
+    price: "$2,500 + travel", type: "audit", featured: true,
     summary: "On-site sound system measurement, mix analysis, EQ tuning, FOH operator training.",
     triggers: ["audio mix","stream audio","mix balance","audio levels","lipsync","levels target","peak ceiling","foh","ambience","backup audio","audio network","crowd mics"]
   },
   "Brand Governance Kit": {
-    price: "$1,997", type: "project",
+    price: "Custom quote", type: "project",
     summary: "Brand guide, asset library, vendor list, named owner, quarterly review cadence.",
     triggers: ["brand guide","asset library","old logo","vendor list","audit owner","review cadence"]
   },
 };
 
 const RETAINERS = [
-  { name: "Reach", price: "$1,997", buyer: "Comms director with a Plan-a-Visit KPI",
+  { name: "Reach", price: "Custom quote", buyer: "Comms director with a Plan-a-Visit KPI",
     includes: ["Meta ads (Plan-a-Visit campaigns)", "Sermon edits + 4 vertical clips/mo", "Weekly highlight reel", "Content calendar + GBP mgmt", "Monthly performance report"] },
-  { name: "Reach + Experience", price: "$3,997", buyer: "Executive pastor coordinating worship + comms",
+  { name: "Reach + Experience", price: "Custom quote", buyer: "Executive pastor coordinating worship + comms",
     includes: ["Everything in Reach", "Livestream support + audio consulting", "On-camera coaching", "Monthly testimony video", "8 reels / month", "Quarterly experience review"] },
-  { name: "Full Presence", price: "$6,997", buyer: "Lead pastor at 600+ church",
+  { name: "Full Presence", price: "Custom quote", buyer: "Lead pastor at 600+ church",
     includes: ["Everything in Reach + Experience", "Dedicated producer (single POC)", "Quarterly in-person visit (travel in)", "1 brand film + 4 testimonies + 12 reels / mo", "Annual brand health audit", "Pastor monthly studio shoot"] },
 ];
 
@@ -1059,7 +1059,8 @@ function showReport(idx) {
             <div class="amn-title">Audio System Audit</div>
             <div class="amn-sub">On-site measurement · Mix analysis · EQ tuning · 30-day follow-up</div>
           </div>
-          <div class="audio-moat-price">$4,997</div>
+          <div class="audio-moat-price">$2,500</div>
+          <div class="audio-moat-price-sub" style="font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:var(--ink-soft);text-transform:uppercase;text-align:right;margin-top:4px;">+ Travel</div>
         </div>
       </div>
     `;
@@ -1095,7 +1096,7 @@ function showReport(idx) {
       <div class="rh-tier-card${featured}">
         ${featured ? '<div class="rh-tier-badge">Recommended</div>' : ''}
         <div class="rh-tier-name">${tier.name}</div>
-        <div class="rh-tier-price">${tier.price}<small>/mo</small></div>
+        <div class="rh-tier-price">${tier.price.startsWith("$") ? `${tier.price}<small>/mo</small>` : tier.price}</div>
         <div class="rh-tier-buyer">For: ${tier.buyer}</div>
         <ul>
           ${tier.includes.map(i => `<li>${i}</li>`).join('')}

@@ -245,24 +245,26 @@
   .svc-card li::before { content: "→"; color: var(--primary); position: absolute; left: 0; font-family: 'Inter', sans-serif; }
 
   /* ============ SCORECARD TABLE ============ */
-  .table-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 28px; margin-top: 8px; }
+  .table-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 28px; margin-top: 4px; }
   .tbl-section { break-inside: avoid; }
   .tbl-section h4 {
     font-family: 'JetBrains Mono', monospace; font-size: 9px;
     letter-spacing: 0.3em; text-transform: uppercase; color: var(--primary);
-    margin: 14px 0 8px 0; padding-bottom: 6px; border-bottom: 1px solid var(--outline-variant);
+    margin: 10px 0 4px 0; padding-bottom: 4px; border-bottom: 1px solid var(--outline-variant);
   }
+  .tbl-section:first-child h4 { margin-top: 0; }
   .tbl-row {
     display: flex; justify-content: space-between; align-items: center; gap: 8px;
-    padding: 4px 0;
-    font-size: 9.5pt;
+    padding: 2px 0;
+    font-size: 8.8pt;
     color: var(--secondary);
+    line-height: 1.25;
   }
-  .tbl-row .lbl { flex: 1; line-height: 1.3; }
+  .tbl-row .lbl { flex: 1; line-height: 1.25; }
   .mini-pill {
-    font-family: 'JetBrains Mono', monospace; font-size: 8.5px;
-    width: 28px; text-align: center;
-    padding: 2px 0; border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace; font-size: 8px;
+    width: 26px; text-align: center;
+    padding: 1px 0; border-radius: 999px;
     flex-shrink: 0;
   }
   .mp-5 { background: var(--primary); color: var(--on-primary); }
@@ -878,7 +880,7 @@
     </div>
   </div>
 
-  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>02 / 13 <span class="dot">●</span></span></div>
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>02 / 15 <span class="dot">●</span></span></div>
 </section>
 
 <!-- ====================================================== -->
@@ -917,7 +919,7 @@
     </div>
   </div>
 
-  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>03 / 13 <span class="dot">●</span></span></div>
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>03 / 15 <span class="dot">●</span></span></div>
 </section>
 
 <!-- ====================================================== -->
@@ -963,7 +965,7 @@
     </ul>
   </div>
 
-  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>04 / 13 <span class="dot">●</span></span></div>
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>04 / 15 <span class="dot">●</span></span></div>
 </section>
 
 <!-- ====================================================== -->
@@ -983,14 +985,14 @@
       <div class="head"><h4>Website</h4><span class="badge">3.6 / 5</span></div>
       <p>Solid foundation. The header, footer, fonts, and meta tags are doing their job. The favicon, color spec, and 404 page betray a site that has been edited piece by piece without a master file to point to.</p>
       <div class="verdict">Fix: favicon, color tokens, 404 page</div>
-      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">First Impression Website Rebuild</span> <span class="rec-price">$3,497</span></div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">First Impression Website Rebuild</span> <span class="rec-price">Custom quote</span></div>
     </div>
 
     <div class="dd-card">
       <div class="head"><h4>Social Profiles</h4><span class="badge">4.0 / 5</span></div>
       <p>Pinned posts, IG highlight covers, and the recent grid all read 5 of 5. The cover artwork is the single weakest spot in the entire pillar at 2 of 5. Bio copy needs a one-line rewrite to match positioning.</p>
       <div class="verdict">Fix: cover artwork, bio copy</div>
-      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Sermon Series Launch Package</span> <span class="rec-price">$2,497</span></div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Sermon Series Launch Package</span> <span class="rec-price">Custom quote</span></div>
     </div>
 
     <div class="dd-card">
@@ -1003,26 +1005,26 @@
       <div class="head"><h4>Listings + Third-Party</h4><span class="badge">4.3 / 5</span></div>
       <p>Google Business Profile is dialed at 5. Yelp, church finders, and partner sites carry approved logos at 4. Light cleanup on a couple of legacy partner pages would push this to a 5.</p>
       <div class="verdict">Fix: legacy partner logo swaps</div>
-      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">$5,997</span></div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">Custom quote</span></div>
     </div>
 
     <div class="dd-card">
       <div class="head"><h4>Digital Assets + Templates</h4><span class="badge warn">3.5 / 5</span></div>
       <p>The Sunday sermon deck template is a 5 and gets reused weekly without drift. Bulletin PDFs, livestream backgrounds, and document headers all sit at 3. Fix the template library and ten weak items snap into place at once.</p>
       <div class="verdict">Fix: bulletin, livestream, document headers</div>
-      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">$5,997</span></div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">Custom quote</span></div>
     </div>
 
     <div class="dd-card">
       <div class="head"><h4>Livestream Video + Audio</h4><span class="badge warn">3.0 / 5</span></div>
       <p>Video framing and resolution hold at 4. Audio mix, multicam cuts, channel art, and pre-stream loop all sit at 3. Sermon clip cadence is the weakest at 2. Captions on VOD are not yet in place. The stream feels live, but it does not feel produced.</p>
       <div class="verdict">Fix: audio mix, multicam, sermon clips, captions</div>
-      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Audio System Audit</span> <span class="rec-price">$4,997</span></div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Audio System Audit</span> <span class="rec-price">Custom quote</span></div>
     </div>
 
   </div>
 
-  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>05 / 13 <span class="dot">●</span></span></div>
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>05 / 15 <span class="dot">●</span></span></div>
 </section>
 
 <!-- ====================================================== -->
@@ -1072,14 +1074,14 @@
       <div class="head"><h4>Building + Signage</h4><span class="badge warn">3.3 / 5</span></div>
       <p>The lobby and wayfinding read at 4. The exterior sign sits at 2 and looks like a different church than the one inside. This is the first impression and the cheapest single fix in the audit.</p>
       <div class="verdict">Fix: exterior sign, wall art refresh</div>
-      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Signage + Wayfinding Plan</span> <span class="rec-price">$2,997</span></div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Signage + Wayfinding Plan</span> <span class="rec-price">Custom quote</span></div>
     </div>
 
     <div class="dd-card">
       <div class="head"><h4>Print Collateral</h4><span class="badge">4.0 / 5</span></div>
       <p>Business cards, letterhead, brochures, connect cards, and swag all hold a steady 4. Light cleanup pass on print specs in the vendor file would move this set to 5 across the board.</p>
       <div class="verdict">Fix: print spec consistency</div>
-      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">$5,997</span></div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">Custom quote</span></div>
     </div>
 
     <div class="dd-card">
@@ -1092,26 +1094,26 @@
       <div class="head"><h4>Events + Outreach</h4><span class="badge">4.3 / 5</span></div>
       <p>Booth backdrop and banners hit 5. Tablecloths, retractable banners, badges, giveaways, and printed handouts all hold 4. A consistent palette pass would push the whole set to 5.</p>
       <div class="verdict">Fix: palette pass on event collateral</div>
-      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">$5,997</span></div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">Custom quote</span></div>
     </div>
 
     <div class="dd-card">
       <div class="head"><h4>Apparel + Uniforms</h4><span class="badge">4.0 / 5</span></div>
       <p>Shirts, polos, hats, and color match all sit at 4. The logo placements are correct, the color is close. Pantone-locked specs would get this to a 5 next print run.</p>
       <div class="verdict">Fix: lock Pantone in vendor file</div>
-      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">$5,997</span></div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">Custom quote</span></div>
     </div>
 
     <div class="dd-card">
       <div class="head"><h4>Guest-Facing Materials</h4><span class="badge warn">3.7 / 5</span></div>
       <p>Welcome packets and thank-you cards sit at 4. First-time visitor materials are at 3, which is the touchpoint with the highest leverage on whether a first-timer comes back. Treat this as a priority fix.</p>
       <div class="verdict">Fix: first-time visitor packet</div>
-      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">$5,997</span></div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">Custom quote</span></div>
     </div>
 
   </div>
 
-  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>06 / 13 <span class="dot">●</span></span></div>
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>06 / 15 <span class="dot">●</span></span></div>
 </section>
 
 <!-- ====================================================== -->
@@ -1130,8 +1132,8 @@
     <h3>AUDIO SYSTEM <span style="color:var(--primary);">AUDIT.</span></h3>
     <p>On-site sound system measurement across three services, mix analysis, EQ and gain-structure tuning, fifteen-page report, FOH operator training, and a thirty-day follow-up. Targets the worship pastor or technical director as a separate buyer.</p>
     <div class="price-row">
-      <span class="big-price">$4,997</span>
-      <span class="price-sub">All-in · Two service days · 30-day follow-up</span>
+      <span class="big-price">$2,500</span>
+      <span class="price-sub">+ Travel · Two service days · 30-day follow-up</span>
     </div>
     <a class="moat-cta" href="#cta">Book the audio audit <span style="font-family:Inter,sans-serif;font-weight:700;">→</span></a>
   </div>
@@ -1214,7 +1216,7 @@
 
   <p class="body" style="margin-top: 26px;">A brand guide is a one-time build. The asset library is a half-day setup. The vendor list is a Google Doc. The owner is a name. Without these four pieces, your 80 will slip back to 72 inside a year as new staff make new files.</p>
 
-  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>07 / 13 <span class="dot">●</span></span></div>
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>08 / 15 <span class="dot">●</span></span></div>
 </section>
 
 <!-- ====================================================== -->
@@ -1290,7 +1292,7 @@
 
   </div>
 
-  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>08 / 13 <span class="dot">●</span></span></div>
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>09 / 15 <span class="dot">●</span></span></div>
 </section>
 
 <!-- ====================================================== -->
@@ -1348,7 +1350,7 @@
 
   </div>
 
-  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>09 / 13 <span class="dot">●</span></span></div>
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>10 / 15 <span class="dot">●</span></span></div>
 </section>
 
 <!-- ====================================================== -->
@@ -1367,7 +1369,7 @@
     <div class="proj-card priority">
       <div class="proj-head">
         <h4>BRAND IDENTITY <span class="lime">REFRESH</span></h4>
-        <span class="price">$5,997</span>
+        <span class="price">Custom quote</span>
       </div>
       <p class="pitch">Logo, color, type, and template system. The single fix that lifts ten weak items at once.</p>
       <ul>
@@ -1382,7 +1384,7 @@
     <div class="proj-card priority">
       <div class="proj-head">
         <h4>FIRST IMPRESSION <span class="lime">WEBSITE REBUILD</span></h4>
-        <span class="price">$3,497</span>
+        <span class="price">Custom quote</span>
       </div>
       <p class="pitch">A site built around the first-time guest. Plan a Visit, sermons, giving, branded 404.</p>
       <ul>
@@ -1397,7 +1399,7 @@
     <div class="proj-card priority">
       <div class="proj-head">
         <h4>SIGNAGE + <span class="lime">WAYFINDING PLAN</span></h4>
-        <span class="price">$2,997</span>
+        <span class="price">Custom quote</span>
       </div>
       <p class="pitch">Exterior sign rework and an interior wayfinding system that connects parking lot to seat.</p>
       <ul>
@@ -1412,7 +1414,7 @@
     <div class="proj-card priority">
       <div class="proj-head">
         <h4>SERMON SERIES <span class="lime">LAUNCH PACK</span></h4>
-        <span class="price">$2,497</span>
+        <span class="price">Custom quote</span>
       </div>
       <p class="pitch">Per-series artwork that travels from stage to social to website. Cover art for every channel.</p>
       <ul>
@@ -1427,7 +1429,7 @@
     <div class="proj-card">
       <div class="proj-head">
         <h4>STAGE DESIGN <span class="lime">REFRESH</span></h4>
-        <span class="price">$2,497</span>
+        <span class="price">Custom quote</span>
       </div>
       <p class="pitch">Stage backdrop and motion-graphics consult. Already a 5/5 — protect and evolve.</p>
       <ul>
@@ -1441,7 +1443,7 @@
     <div class="proj-card">
       <div class="proj-head">
         <h4>VISION SUNDAY <span class="lime">VIDEO</span></h4>
-        <span class="price">$3,497</span>
+        <span class="price">Custom quote</span>
       </div>
       <p class="pitch">A 3-minute story film that anchors the year's vision and travels through every Sunday.</p>
       <ul>
@@ -1455,7 +1457,7 @@
     <div class="proj-card">
       <div class="proj-head">
         <h4>EASTER OR <span class="lime">CHRISTMAS PUSH</span></h4>
-        <span class="price">$4,497</span>
+        <span class="price">Custom quote</span>
       </div>
       <p class="pitch">A full seasonal campaign. Series art, promo video, social pack, ads, follow-up flow.</p>
       <ul>
@@ -1469,7 +1471,7 @@
     <div class="proj-card">
       <div class="proj-head">
         <h4>ANNUAL REPORT <span class="lime">VIDEO</span></h4>
-        <span class="price">$7,997</span>
+        <span class="price">Custom quote</span>
       </div>
       <p class="pitch">A board-room caliber recap film. Numbers, stories, vision. The film that gets the next pledge made.</p>
       <ul>
@@ -1501,7 +1503,7 @@
     <div class="tier-card">
       <div class="tname">Tier 01</div>
       <h4>REACH</h4>
-      <div class="tprice">$1,997<small>/ mo</small></div>
+      <div class="tprice" style="font-size: 26px;">Custom quote</div>
       <div class="tbuyer">For: Comms director with a Plan-a-Visit KPI</div>
       <ul>
         <li>Meta ads (Plan-a-Visit campaigns)</li>
@@ -1515,7 +1517,7 @@
     <div class="tier-card featured">
       <div class="tname">Tier 02</div>
       <h4>REACH + <span style="color:var(--primary);">EXPERIENCE</span></h4>
-      <div class="tprice">$3,997<small>/ mo</small></div>
+      <div class="tprice" style="font-size: 26px;">Custom quote</div>
       <div class="tbuyer">For: Executive pastor coordinating worship + comms</div>
       <ul>
         <li>Everything in Reach</li>
@@ -1530,7 +1532,7 @@
     <div class="tier-card">
       <div class="tname">Tier 03</div>
       <h4>FULL <span class="lime">PRESENCE</span></h4>
-      <div class="tprice">$6,997<small>/ mo</small></div>
+      <div class="tprice" style="font-size: 26px;">Custom quote</div>
       <div class="tbuyer">For: Lead pastor at 600+ church</div>
       <ul>
         <li>Everything in Reach + Experience</li>
@@ -1729,7 +1731,7 @@
 
   </div>
 
-  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>12 / 13 <span class="dot">●</span></span></div>
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>14 / 15 <span class="dot">●</span></span></div>
 </section>
 
 <!-- ====================================================== -->
