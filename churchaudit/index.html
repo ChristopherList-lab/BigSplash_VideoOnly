@@ -366,6 +366,48 @@
   }
   .ghost-btn:hover { color: var(--primary); border-color: var(--primary); }
 
+  .mode-toggle-bar {
+    max-width: 960px;
+    margin: 16px auto 0;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .mode-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .mode-label strong { color: var(--primary); }
+  .mode-toggle-btn {
+    background: var(--bg-2);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: background 0.15s, color 0.15s;
+  }
+  .mode-toggle-btn:hover { background: var(--primary); color: var(--primary-ink); }
+  body.mode-digital .mode-toggle-btn {
+    background: var(--primary);
+    color: var(--primary-ink);
+  }
+  body.mode-digital .mode-toggle-btn:hover {
+    background: var(--bg-2);
+    color: var(--primary);
+  }
+
   .upload-block {
     display: flex;
     align-items: center;
@@ -467,6 +509,11 @@
   </div>
 </header>
 
+<div class="mode-toggle-bar">
+  <div class="mode-label">Mode: <strong id="modeLabel">Full Audit</strong> &nbsp;·&nbsp; <span id="modeHint">All sections including in-person, AV, livestream, production</span></div>
+  <button type="button" id="modeToggle" class="mode-toggle-btn">Switch to Digital Audit</button>
+</div>
+
 <main>
   <form id="audit-form">
 
@@ -567,6 +614,7 @@ const sections = [
     key: "branding_online",
     label: "Branding — Online",
     desc: "Website, social, email, listings, digital assets.",
+    modes: ["full", "digital"],
     groups: [
       { group: "Website", items: [
         "Logo present in header, correct file (SVG, no pixelation)",
@@ -582,6 +630,11 @@ const sections = [
         "404 page branded",
         "Mobile experience equal to desktop",
         "Page speed acceptable (LCP under 2.5s)",
+        "HTTPS enforced site-wide",
+        "Sitemap.xml submitted to Google Search Console",
+        "Structured data / schema markup for church and events",
+        "Service times prominent on home page",
+        "Plan-a-visit page linked from header",
       ]},
       { group: "Social profiles", items: [
         "Handle consistent across platforms",
@@ -600,12 +653,17 @@ const sections = [
         "Newsletter header, footer, buttons match brand",
         "Transactional emails branded (welcome, receipt, reset)",
         "Email platform documented (MailChimp, CCB, etc.)",
+        "Welcome series active for new subscribers",
+        "List segmented by guest / member / volunteer",
+        "Open and click rates tracked",
       ]},
       { group: "Listings & third-party", items: [
         "Google Business Profile: logo, cover, hours, photos",
         "Directory listings (church finders) consistent",
         "Review platforms show correct branding",
         "Apple Maps and Bing listings claimed",
+        "Google Business Profile posts updated regularly",
+        "Google reviews actively responded to",
       ]},
       { group: "Digital assets", items: [
         "Slide / sermon deck template current",
@@ -619,6 +677,7 @@ const sections = [
     key: "branding_inperson",
     label: "Branding — In Person",
     desc: "Walk the building. Photograph anything that scores 0–2.",
+    modes: ["full"],
     groups: [
       { group: "Building & signage", items: [
         "Exterior signage correct logo and colors",
@@ -655,6 +714,7 @@ const sections = [
     key: "live_sound",
     label: "Live Sound",
     desc: "FOH, monitors, mics, speakers, signal flow, room acoustics.",
+    modes: ["full"],
     groups: [
       { group: "FOH console", items: [
         "Console make/model documented",
@@ -724,6 +784,7 @@ const sections = [
     key: "livestream",
     label: "Livestream / Broadcast",
     desc: "Cameras, switching, stream audio, encoding, graphics, archive.",
+    modes: ["full", "digital"],
     groups: [
       { group: "Cameras", items: [
         "Camera count matches service complexity",
@@ -790,6 +851,7 @@ const sections = [
     key: "video_proj",
     label: "In-House Video & Projection",
     desc: "IMAG, lobby screens, projection, presentation software.",
+    modes: ["full"],
     groups: [
       { group: "Screens & displays", items: [
         "IMAG screens bright enough vs. ambient light",
@@ -823,6 +885,7 @@ const sections = [
     key: "lighting",
     label: "Stage & Theatrical Lighting",
     desc: "Console, fixtures, DMX, camera-friendly lighting.",
+    modes: ["full"],
     groups: [
       { group: "Console", items: [
         "Lighting console (grandMA, ETC, Hog, Onyx) documented",
@@ -857,6 +920,7 @@ const sections = [
     key: "production_team",
     label: "Production Workflow & Team",
     desc: "Run of show, comms, volunteer team, training, documentation.",
+    modes: ["full"],
     groups: [
       { group: "Run of show", items: [
         "Service order / run sheet template in use",
@@ -893,6 +957,7 @@ const sections = [
     key: "content",
     label: "Content Capture & Distribution",
     desc: "Sermon, podcast, social clips, content workflow.",
+    modes: ["full", "digital"],
     groups: [
       { group: "Sermon", items: [
         "Sermon recorded video in highest available quality",
@@ -926,6 +991,7 @@ const sections = [
     key: "safety",
     label: "Safety & Compliance",
     desc: "Rigging, electrical, licensing, insurance, hearing safety.",
+    modes: ["full"],
     groups: [
       { group: "Rigging & physical", items: [
         "Rigging inspected annually (truss, line array, motors)",
@@ -963,6 +1029,7 @@ const sections = [
     key: "governance",
     label: "Governance",
     desc: "Brand and tech ownership, asset library, review cadence.",
+    modes: ["full", "digital"],
     groups: [
       { group: "Brand governance", items: [
         "Brand guide is current and accessible to the team",
@@ -971,7 +1038,7 @@ const sections = [
         "Vendor list with approved print specs documented",
         "Brand audit cadence assigned (quarterly suggested)",
       ]},
-      { group: "Tech governance", items: [
+      { group: "Tech governance", modes: ["full"], items: [
         "Tech director / lead identified",
         "Capital replacement plan for AV gear (5-7 yr cycle)",
         "Annual budget for AV maintenance and consumables",
@@ -992,6 +1059,7 @@ function buildAllSections() {
     const card = document.createElement("section");
     card.className = "card collapsed";
     card.dataset.sectionKey = section.key;
+    card.dataset.modes = (section.modes || ["full"]).join(",");
 
     const head = document.createElement("div");
     head.className = "card-head";
@@ -1012,6 +1080,7 @@ function buildAllSections() {
     section.groups.forEach(group => {
       const sg = document.createElement("div");
       sg.className = "subgroup";
+      sg.dataset.modes = (group.modes || section.modes || ["full"]).join(",");
       const sgHead = document.createElement("div");
       sgHead.className = "subgroup-head";
       sgHead.innerHTML = `
@@ -1049,6 +1118,38 @@ function buildAllSections() {
 }
 
 buildAllSections();
+
+// ---- Mode toggle (Full vs Digital) ----
+let currentMode = localStorage.getItem("auditMode") || "full";
+
+function applyMode(mode) {
+  currentMode = mode;
+  localStorage.setItem("auditMode", mode);
+  document.body.classList.toggle("mode-digital", mode === "digital");
+
+  document.querySelectorAll(".card[data-section-key]").forEach(card => {
+    const modes = (card.dataset.modes || "full").split(",");
+    card.style.display = modes.includes(mode) ? "" : "none";
+  });
+  document.querySelectorAll(".subgroup").forEach(sg => {
+    const modes = (sg.dataset.modes || "full").split(",");
+    sg.style.display = modes.includes(mode) ? "" : "none";
+  });
+
+  document.getElementById("modeLabel").textContent = mode === "digital" ? "Digital Audit" : "Full Audit";
+  document.getElementById("modeHint").textContent = mode === "digital"
+    ? "Online presence only — site, social, livestream, content, governance"
+    : "All sections including in-person, AV, livestream, production";
+  document.getElementById("modeToggle").textContent = mode === "digital"
+    ? "Switch to Full Audit" : "Switch to Digital Audit";
+
+  updateScores();
+}
+
+document.getElementById("modeToggle").addEventListener("click", () => {
+  applyMode(currentMode === "digital" ? "full" : "digital");
+});
+applyMode(currentMode);
 
 document.getElementById("auditDate").valueAsDate = new Date();
 
@@ -1104,9 +1205,19 @@ function avg(nums) {
   return nums.reduce((a,b) => a+b, 0) / nums.length;
 }
 
+function isVisibleForMode(el) {
+  const sg = el.closest(".subgroup");
+  const card = el.closest(".card[data-section-key]");
+  const sgModes = sg ? (sg.dataset.modes || "full").split(",") : ["full"];
+  const cardModes = card ? (card.dataset.modes || "full").split(",") : ["full"];
+  return cardModes.includes(currentMode) && sgModes.includes(currentMode);
+}
+
 function updateScores() {
-  // subgroup scores
+  // subgroup scores (only visible)
   document.querySelectorAll(".subgroup").forEach(sg => {
+    const sgModes = (sg.dataset.modes || "full").split(",");
+    if (!sgModes.includes(currentMode)) return;
     const inputs = sg.querySelectorAll('input[type="hidden"]');
     const scores = [];
     inputs.forEach(i => { if (i.value !== "" && i.value !== "na") scores.push(parseInt(i.value, 10)); });
@@ -1115,9 +1226,12 @@ function updateScores() {
     el.textContent = a === null ? "— / 5" : `${a.toFixed(1)} / 5`;
   });
 
-  // section scores + progress
+  // section scores + progress (only visible)
   sections.forEach(section => {
-    const inputs = document.querySelectorAll(`input[type="hidden"][data-section="${section.label}"]`);
+    const sectionModes = section.modes || ["full"];
+    if (!sectionModes.includes(currentMode)) return;
+    const allInputs = document.querySelectorAll(`input[type="hidden"][data-section="${section.label}"]`);
+    const inputs = Array.from(allInputs).filter(isVisibleForMode);
     const scores = [];
     let scored = 0;
     inputs.forEach(i => {
@@ -1125,12 +1239,14 @@ function updateScores() {
       if (i.value !== "" && i.value !== "na") scores.push(parseInt(i.value, 10));
     });
     const a = avg(scores);
-    document.querySelector(`[data-section-score="${section.label}"]`).textContent = a === null ? "— / 5" : `${a.toFixed(1)} / 5`;
-    document.querySelector(`[data-section-progress="${section.label}"]`).textContent = `${scored} / ${inputs.length}`;
+    const scoreEl = document.querySelector(`[data-section-score="${section.label}"]`);
+    const progEl = document.querySelector(`[data-section-progress="${section.label}"]`);
+    if (scoreEl) scoreEl.textContent = a === null ? "— / 5" : `${a.toFixed(1)} / 5`;
+    if (progEl) progEl.textContent = `${scored} / ${inputs.length}`;
   });
 
-  // overall
-  const all = document.querySelectorAll('input[type="hidden"][data-item]');
+  // overall (only visible)
+  const all = Array.from(document.querySelectorAll('input[type="hidden"][data-item]')).filter(isVisibleForMode);
   const scores = [];
   let scored = 0;
   all.forEach(i => {
@@ -1169,17 +1285,20 @@ document.getElementById("audit-form").addEventListener("submit", async e => {
 
   const items = [];
   let scoredCount = 0, naCount = 0, scoreSum = 0, scoreN = 0;
-  document.querySelectorAll('input[type="hidden"][data-item]').forEach(i => {
-    const val = i.value === "" ? null : (i.value === "na" ? "na" : parseInt(i.value, 10));
-    items.push({ section: i.dataset.section, group: i.dataset.group, item: i.dataset.item, score: val });
-    if (val === null) return;
-    scoredCount++;
-    if (val === "na") naCount++;
-    else { scoreSum += val; scoreN++; }
-  });
+  Array.from(document.querySelectorAll('input[type="hidden"][data-item]'))
+    .filter(isVisibleForMode)
+    .forEach(i => {
+      const val = i.value === "" ? null : (i.value === "na" ? "na" : parseInt(i.value, 10));
+      items.push({ section: i.dataset.section, group: i.dataset.group, item: i.dataset.item, score: val });
+      if (val === null) return;
+      scoredCount++;
+      if (val === "na") naCount++;
+      else { scoreSum += val; scoreN++; }
+    });
 
   const sectionAvgs = {};
   sections.forEach(s => {
+    if (!(s.modes || ["full"]).includes(currentMode)) return;
     const scores = items.filter(x => x.section === s.label && typeof x.score === "number").map(x => x.score);
     sectionAvgs[s.label] = scores.length ? +(scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(2) : null;
   });
@@ -1193,6 +1312,7 @@ document.getElementById("audit-form").addEventListener("submit", async e => {
   const overallPct = scoreN ? Math.round((scoreSum / scoreN / 5) * 100) : null;
 
   const payload = {
+    auditType: currentMode === "digital" ? "Digital" : "Full",
     churchName: document.getElementById("churchName").value.trim(),
     auditDate: document.getElementById("auditDate").value,
     auditor: document.getElementById("auditor").value.trim(),
