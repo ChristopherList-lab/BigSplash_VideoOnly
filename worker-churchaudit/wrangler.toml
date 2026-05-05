@@ -1,0 +1,13 @@
+# Bigsplash Church Audit auto-audit Worker
+#
+# Deploy steps (run from this worker-churchaudit/ directory):
+#   npx wrangler login
+#   npx wrangler deploy
+#
+# After deploy, copy the workers.dev URL Wrangler prints
+# and paste it into AUTO_AUDIT_URL in audit/index.html.
+
+name = "bigsplash-church-audit"
+main = "index.js"
+compatibility_date = "2026-04-01"
+workers_dev = true

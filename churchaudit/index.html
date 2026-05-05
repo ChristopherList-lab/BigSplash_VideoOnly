@@ -553,6 +553,20 @@
 
     <section class="card no-collapse">
       <div class="card-head">
+        <h2 class="section-title">Auto-Audit Website ⚡</h2>
+      </div>
+      <div class="card-body">
+        <p class="section-sub">Paste the church website URL to auto-score the technical website items. Saves ~10 minutes per audit.</p>
+        <div class="upload-block">
+          <input type="url" id="autoUrl" class="filename-box" style="font-family: var(--mono); color: var(--ink); border: 1px solid var(--line); padding: 11px 14px;" placeholder="https://gracecommunity.org" />
+          <button type="button" id="runAutoAudit" class="upload-btn">Run Auto-Audit ⚡</button>
+        </div>
+        <div id="autoResults" style="display:none; margin-top: 14px; font-family: var(--mono); font-size: 12px; color: var(--ink-soft); line-height: 1.7;"></div>
+      </div>
+    </section>
+
+    <section class="card no-collapse">
+      <div class="card-head">
         <h2 class="section-title">Upload Footage</h2>
       </div>
       <div class="card-body">
@@ -1202,6 +1216,80 @@ document.getElementById("copyFilename").addEventListener("click", () => {
   const fname = document.getElementById("filenameBox").dataset.filename;
   if (!fname) { toast("Fill in church + date first", true); return; }
   navigator.clipboard.writeText(fname).then(() => toast("Filename copied"));
+});
+
+// ---- Auto-Audit ----
+const AUTO_AUDIT_URL = "https://bigsplash-church-audit.chris-bc4.workers.dev";
+
+document.getElementById("runAutoAudit").addEventListener("click", async () => {
+  const url = document.getElementById("autoUrl").value.trim();
+  if (!url) { toast("Enter a website URL first", true); return; }
+  const btn = document.getElementById("runAutoAudit");
+  const resultsDiv = document.getElementById("autoResults");
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "Auditing…";
+  resultsDiv.style.display = "block";
+  resultsDiv.innerHTML = "Fetching site and running checks…";
+
+  try {
+    const res = await fetch(AUTO_AUDIT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    // Apply scores to matching inputs
+    const allInputs = Array.from(document.querySelectorAll('input[type="hidden"][data-item]'));
+    let applied = 0;
+    const lines = [];
+    Object.entries(data.scores || {}).forEach(([itemText, score]) => {
+      if (score === null || score === undefined) return;
+      const input = allInputs.find(i => i.dataset.item === itemText);
+      if (!input) {
+        lines.push(`<span style="color: var(--warn);">⚠ Item not found in form: "${itemText}"</span>`);
+        return;
+      }
+      input.value = String(score);
+      const scaleGroup = document.querySelector(`.scale[data-target="${input.id}"]`);
+      if (scaleGroup) {
+        scaleGroup.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+        const sBtn = scaleGroup.querySelector(`button[data-val="${score}"]`);
+        if (sBtn) sBtn.classList.add("active");
+      }
+      const reason = (data.reasons || {})[itemText] || "";
+      lines.push(`<span style="color: var(--primary);">✓ ${score}/5</span> &nbsp; <strong style="color: var(--ink);">${itemText}</strong><br><span style="margin-left: 18px; color: var(--ink-soft);">${reason}</span>`);
+      applied++;
+    });
+
+    let html = `<div style="margin-bottom: 10px; color: var(--primary); font-weight: 700; font-size: 13px;">⚡ Auto-scored ${applied} items</div>`;
+    if (data.detected?.socials?.length) {
+      const socialList = data.detected.socials.map(s => `${s.platform.toUpperCase()} (${s.urls.length})`).join(", ");
+      html += `<div style="margin-bottom: 10px;">Socials detected: ${socialList}</div>`;
+    }
+    if (data.detected?.responseMs !== undefined) {
+      html += `<div style="margin-bottom: 14px;">Server responded in ${data.detected.responseMs}ms · ${data.detected.finalUrl}</div>`;
+    }
+    html += `<div style="border-top: 1px solid var(--line); padding-top: 10px;">${lines.join("<br><br>")}</div>`;
+    html += `<div style="margin-top: 14px; padding: 10px; background: var(--bg); border-left: 3px solid var(--warn); color: var(--ink-soft);">⚠ Review and adjust each auto-scored item — these are heuristics. Items not covered need manual scoring.</div>`;
+    resultsDiv.innerHTML = html;
+
+    // Expand the Branding-Online section so the user can see the auto-scored items
+    const onlineCard = document.querySelector('.card[data-section-key="branding_online"]');
+    if (onlineCard) onlineCard.classList.remove("collapsed");
+
+    updateScores();
+    toast(`Auto-scored ${applied} items`);
+  } catch (err) {
+    resultsDiv.innerHTML = `<span style="color: var(--bad);">Audit failed: ${err.message}</span>`;
+    toast("Auto-audit failed", true);
+    console.error(err);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
 });
 
 document.getElementById("expandAll").addEventListener("click", () => {
