@@ -178,6 +178,32 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
+  .type-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .type-badge.full { background: var(--primary); color: var(--primary-ink); }
+  .type-badge.digital { background: var(--bg-3); color: var(--primary); border: 1px solid var(--primary); }
+  #typeFilter {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  #typeFilter:focus { outline: none; border-color: var(--primary); }
 
   .empty, .loading {
     text-align: center;
@@ -432,6 +458,11 @@
   <div id="list-view">
     <div class="toolbar">
       <input type="text" id="search" placeholder="Search by church name…" />
+      <select id="typeFilter">
+        <option value="all">All types</option>
+        <option value="Full">Full only</option>
+        <option value="Digital">Digital only</option>
+      </select>
       <button class="ghost-btn" id="refreshBtn">↻ Refresh</button>
     </div>
     <div id="grid" class="grid"></div>
@@ -500,6 +531,10 @@ async function loadAudits() {
   }
 }
 
+function getType(a) {
+  return (a["Type"] || a["type"] || "Full").toString();
+}
+
 function renderList(list) {
   const grid = document.getElementById("grid");
   grid.innerHTML = "";
@@ -507,9 +542,12 @@ function renderList(list) {
     const realIdx = allAudits.indexOf(a);
     const score = a["Overall /100"];
     const cls = scoreClass(score);
+    const type = getType(a);
+    const badgeCls = type.toLowerCase() === "digital" ? "digital" : "full";
     const card = document.createElement("div");
     card.className = "audit-card";
     card.innerHTML = `
+      <span class="type-badge ${badgeCls}">${type}</span>
       <h3 class="ac-church">${a["Church"] || "Untitled"}</h3>
       <div class="ac-meta">${formatDate(a["Date"])} · ${a["Auditor"] || "—"}${a["Location"] ? " · " + a["Location"] : ""}</div>
       <div class="ac-score-row">
@@ -522,11 +560,19 @@ function renderList(list) {
   });
 }
 
-document.getElementById("search").addEventListener("input", e => {
-  const q = e.target.value.toLowerCase();
-  const filtered = allAudits.filter(a => (a["Church"] || "").toLowerCase().includes(q));
+function applyFilters() {
+  const q = document.getElementById("search").value.toLowerCase();
+  const typeF = document.getElementById("typeFilter").value;
+  const filtered = allAudits.filter(a => {
+    const churchMatch = (a["Church"] || "").toLowerCase().includes(q);
+    const typeMatch = typeF === "all" || getType(a) === typeF;
+    return churchMatch && typeMatch;
+  });
   renderList(filtered);
-});
+}
+
+document.getElementById("search").addEventListener("input", applyFilters);
+document.getElementById("typeFilter").addEventListener("change", applyFilters);
 document.getElementById("refreshBtn").addEventListener("click", loadAudits);
 
 function showReport(idx) {
@@ -561,9 +607,13 @@ function showReport(idx) {
   const score = a["Overall /100"];
   const cls = scoreClass(score);
 
+  const typeStr = getType(a);
+  const typeBadgeCls = typeStr.toLowerCase() === "digital" ? "digital" : "full";
+
   let html = `
     <div class="report-head">
       <div class="left">
+        <span class="type-badge ${typeBadgeCls}">${typeStr} Audit</span>
         <h1>${a["Church"] || "Untitled"}</h1>
         <div class="meta">
           <strong>Audit Date:</strong> ${formatDate(a["Date"])}<br>
