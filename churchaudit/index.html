@@ -1292,6 +1292,50 @@ document.getElementById("runAutoAudit").addEventListener("click", async () => {
 
     html += `<div style="border-top: 1px solid var(--line); padding-top: 10px; margin-top: 14px;">${lines.join("<br><br>")}</div>`;
     html += `<div style="margin-top: 14px; padding: 10px; background: var(--bg); border-left: 3px solid var(--warn); color: var(--ink-soft);">⚠ Review and adjust each auto-scored item — these are heuristics. Items not covered need manual scoring.</div>`;
+
+    // Drop detected info into group notes so it's saved with the submission
+    const stamp = new Date().toLocaleDateString();
+    function injectNote(groupKey, content) {
+      const el = document.querySelector(`textarea[data-note-group="${groupKey}"]`);
+      if (!el) return;
+      const prefix = `[Auto-audit ${stamp}]\n${content}\n\n`;
+      if (!el.value.includes("[Auto-audit")) {
+        el.value = prefix + el.value;
+      } else {
+        // Replace existing auto-audit block
+        el.value = prefix + el.value.replace(/\[Auto-audit[^\]]+\][\s\S]*?\n\n/, "");
+      }
+    }
+
+    // Website notes: response time, final URL, schema/sitemap status
+    const websiteSummary = [
+      `URL: ${data.detected.finalUrl}`,
+      `Response: ${data.detected.responseMs}ms (status ${data.detected.status})`,
+      `HTTPS: ${data.scores["HTTPS enforced site-wide"]}/5`,
+      `Sitemap: ${data.reasons["Sitemap.xml submitted to Google Search Console"] || "n/a"}`,
+      `Schema: ${data.reasons["Structured data / schema markup for church and events"] || "n/a"}`,
+      `Mobile viewport: ${data.reasons["Mobile experience equal to desktop"] || "n/a"}`,
+    ].join("\n");
+    injectNote("Branding — Online :: Website", websiteSummary);
+
+    // Social profiles notes: full social health dump
+    if (data.detected?.socialHealth?.length) {
+      const socialSummary = data.detected.socialHealth.map(sh => {
+        let line = `${sh.platform.toUpperCase()}: ${sh.alive ? "✓ alive" : "✗ " + (sh.status || "err")} — ${sh.url}`;
+        if (sh.daysSinceLastUpload !== undefined) {
+          line += `\n  Last upload: ${sh.daysSinceLastUpload}d ago${sh.lastVideoTitle ? ` — "${sh.lastVideoTitle}"` : ""}`;
+        }
+        if (sh.bio) line += `\n  Bio: ${sh.bio.slice(0, 240)}`;
+        return line;
+      }).join("\n\n");
+      injectNote("Branding — Online :: Social profiles", socialSummary);
+    }
+
+    // Listings notes: leave a placeholder so worker remembers to check GBP
+    if (data.detected?.finalUrl) {
+      const listingsSummary = `Auto-audit did not check Google Business Profile. Search "${(data.detected.finalUrl || "").replace(/^https?:\/\//, "").split("/")[0]}" on Google Maps + verify GBP completeness manually.`;
+      injectNote("Branding — Online :: Listings & third-party", listingsSummary);
+    }
     resultsDiv.innerHTML = html;
 
     // Expand the Branding-Online section so the user can see the auto-scored items
