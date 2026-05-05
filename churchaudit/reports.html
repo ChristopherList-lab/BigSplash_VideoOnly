@@ -511,7 +511,14 @@ async function loadAudits() {
   try {
     const res = await fetch(ENDPOINT + "?action=list", { method: "GET" });
     const data = await res.json();
-    allAudits = (data || []).reverse();
+    // Filter out broken/legacy rows where Overall /100 is out of range (column-shift bugs)
+    const cleaned = (data || []).filter(r => {
+      const s = r["Overall /100"];
+      if (s === "" || s === null || s === undefined) return true;
+      const n = Number(s);
+      return !isNaN(n) && n >= 0 && n <= 100;
+    });
+    allAudits = cleaned.reverse();
     loading.style.display = "none";
     if (!allAudits.length) { empty.style.display = "block"; return; }
     renderList(allAudits);
