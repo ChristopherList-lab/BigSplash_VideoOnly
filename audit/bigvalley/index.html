@@ -354,6 +354,65 @@
   .dd-card p { font-size: 9.5pt; color: var(--secondary); line-height: 1.5; margin: 0 0 8px; }
   .dd-card .verdict { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(239,248,139,0.85); margin-top: 8px; }
 
+  /* ============ EVIDENCE THUMBNAILS (inline on deep-dive cards) ============ */
+  .evidence-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 10px 0 12px;
+  }
+  .evidence-strip.two { grid-template-columns: repeat(2, 1fr); }
+  .evidence-thumb {
+    background: var(--sc-low);
+    border: 1px dashed rgba(239,248,139,0.35);
+    border-radius: 6px;
+    aspect-ratio: 4 / 3;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .evidence-thumb img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .evidence-thumb::before {
+    content: "+";
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 300;
+    color: rgba(239,248,139,0.5);
+    pointer-events: none;
+  }
+  .evidence-thumb:has(img)::before { display: none; }
+  .evidence-thumb .e-meta {
+    position: relative; z-index: 1;
+    display: flex; justify-content: space-between; align-items: center; gap: 6px;
+    padding: 5px 7px;
+    background: linear-gradient(180deg, transparent, rgba(14,14,19,0.95));
+  }
+  .evidence-thumb .e-cap {
+    font-family: 'JetBrains Mono', monospace; font-size: 7.5px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--secondary);
+    flex: 1; min-width: 0;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .evidence-thumb .e-score {
+    font-family: 'JetBrains Mono', monospace; font-size: 7.5px; font-weight: 700;
+    background: var(--primary); color: var(--on-primary);
+    padding: 2px 5px; border-radius: 999px;
+    flex-shrink: 0;
+  }
+  .evidence-thumb .e-score.warn { background: rgba(239,248,139,0.4); color: var(--on-primary); }
+  .evidence-thumb .e-score.low { background: rgba(239,248,139,0.22); color: var(--primary); }
+  .evidence-thumb .e-score.na { background: transparent; color: var(--outline); border: 1px solid var(--outline-variant); }
+
+  @media screen and (max-width: 768px) {
+    .evidence-strip { grid-template-columns: repeat(2, 1fr) !important; }
+  }
+
   /* ============ TIMELINE ============ */
   .timeline { position: relative; margin-top: 30px; padding-left: 28px; }
   .timeline::before {
@@ -984,6 +1043,17 @@
     <div class="dd-card">
       <div class="head"><h4>Website</h4><span class="badge">3.6 / 5</span></div>
       <p>Solid foundation. The header, footer, fonts, and meta tags are doing their job. The favicon, color spec, and 404 page betray a site that has been edited piece by piece without a master file to point to.</p>
+      <div class="evidence-strip">
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Homepage"> -->
+          <div class="e-meta"><span class="e-cap">Homepage</span><span class="e-score">4</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Sermons page"> -->
+          <div class="e-meta"><span class="e-cap">Sermons page</span><span class="e-score">4</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="404 page"> -->
+          <div class="e-meta"><span class="e-cap">404 page</span><span class="e-score warn">3</span></div>
+        </div>
+      </div>
       <div class="verdict">Fix: favicon, color tokens, 404 page</div>
       <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">First Impression Website Rebuild</span> <span class="rec-price">Custom quote</span></div>
     </div>
@@ -991,6 +1061,17 @@
     <div class="dd-card">
       <div class="head"><h4>Social Profiles</h4><span class="badge">4.0 / 5</span></div>
       <p>Pinned posts, IG highlight covers, and the recent grid all read 5 of 5. The cover artwork is the single weakest spot in the entire pillar at 2 of 5. Bio copy needs a one-line rewrite to match positioning.</p>
+      <div class="evidence-strip">
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="IG profile"> -->
+          <div class="e-meta"><span class="e-cap">IG profile</span><span class="e-score">4</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="FB cover"> -->
+          <div class="e-meta"><span class="e-cap">FB cover</span><span class="e-score low">2</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Recent grid"> -->
+          <div class="e-meta"><span class="e-cap">Recent grid</span><span class="e-score">5</span></div>
+        </div>
+      </div>
       <div class="verdict">Fix: cover artwork, bio copy</div>
       <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Sermon Series Launch Package</span> <span class="rec-price">Custom quote</span></div>
     </div>
@@ -998,12 +1079,34 @@
     <div class="dd-card">
       <div class="head"><h4>Email</h4><span class="badge">5.0 / 5</span></div>
       <p>Perfect score across sender domain, signature, newsletter, and transactional emails. The brand reads identical from welcome email to giving receipt. This is the model to copy onto every other surface.</p>
+      <div class="evidence-strip">
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Newsletter"> -->
+          <div class="e-meta"><span class="e-cap">Newsletter</span><span class="e-score">5</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Signature"> -->
+          <div class="e-meta"><span class="e-cap">Signature</span><span class="e-score">5</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Welcome email"> -->
+          <div class="e-meta"><span class="e-cap">Welcome email</span><span class="e-score">5</span></div>
+        </div>
+      </div>
       <div class="verdict">Status: protect, do not touch</div>
     </div>
 
     <div class="dd-card">
       <div class="head"><h4>Listings + Third-Party</h4><span class="badge">4.3 / 5</span></div>
       <p>Google Business Profile is dialed at 5. Yelp, church finders, and partner sites carry approved logos at 4. Light cleanup on a couple of legacy partner pages would push this to a 5.</p>
+      <div class="evidence-strip">
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Google Business"> -->
+          <div class="e-meta"><span class="e-cap">Google Business</span><span class="e-score">5</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Yelp + finders"> -->
+          <div class="e-meta"><span class="e-cap">Yelp + finders</span><span class="e-score">4</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Partner site"> -->
+          <div class="e-meta"><span class="e-cap">Partner site</span><span class="e-score">4</span></div>
+        </div>
+      </div>
       <div class="verdict">Fix: legacy partner logo swaps</div>
       <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">Custom quote</span></div>
     </div>
@@ -1011,6 +1114,17 @@
     <div class="dd-card">
       <div class="head"><h4>Digital Assets + Templates</h4><span class="badge warn">3.5 / 5</span></div>
       <p>The Sunday sermon deck template is a 5 and gets reused weekly without drift. Bulletin PDFs, livestream backgrounds, and document headers all sit at 3. Fix the template library and ten weak items snap into place at once.</p>
+      <div class="evidence-strip">
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Sermon deck"> -->
+          <div class="e-meta"><span class="e-cap">Sermon deck</span><span class="e-score">5</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Bulletin"> -->
+          <div class="e-meta"><span class="e-cap">Bulletin</span><span class="e-score warn">3</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Doc header"> -->
+          <div class="e-meta"><span class="e-cap">Doc header</span><span class="e-score warn">3</span></div>
+        </div>
+      </div>
       <div class="verdict">Fix: bulletin, livestream, document headers</div>
       <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">Custom quote</span></div>
     </div>
@@ -1018,6 +1132,17 @@
     <div class="dd-card">
       <div class="head"><h4>Livestream Video + Audio</h4><span class="badge warn">3.0 / 5</span></div>
       <p>Video framing and resolution hold at 4. Audio mix, multicam cuts, channel art, and pre-stream loop all sit at 3. Sermon clip cadence is the weakest at 2. Captions on VOD are not yet in place. The stream feels live, but it does not feel produced.</p>
+      <div class="evidence-strip">
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Stream frame"> -->
+          <div class="e-meta"><span class="e-cap">Stream frame</span><span class="e-score">4</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Lower thirds"> -->
+          <div class="e-meta"><span class="e-cap">Lower thirds</span><span class="e-score warn">3</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Channel art"> -->
+          <div class="e-meta"><span class="e-cap">Channel art</span><span class="e-score warn">3</span></div>
+        </div>
+      </div>
       <div class="verdict">Fix: audio mix, multicam, sermon clips, captions</div>
       <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Audio System Audit</span> <span class="rec-price">Custom quote</span></div>
     </div>
@@ -1073,6 +1198,17 @@
     <div class="dd-card">
       <div class="head"><h4>Building + Signage</h4><span class="badge warn">3.3 / 5</span></div>
       <p>The lobby and wayfinding read at 4. The exterior sign sits at 2 and looks like a different church than the one inside. This is the first impression and the cheapest single fix in the audit.</p>
+      <div class="evidence-strip">
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Exterior sign"> -->
+          <div class="e-meta"><span class="e-cap">Exterior sign</span><span class="e-score low">2</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Lobby signage"> -->
+          <div class="e-meta"><span class="e-cap">Lobby signage</span><span class="e-score">4</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Wall art"> -->
+          <div class="e-meta"><span class="e-cap">Wall art</span><span class="e-score warn">3</span></div>
+        </div>
+      </div>
       <div class="verdict">Fix: exterior sign, wall art refresh</div>
       <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Signage + Wayfinding Plan</span> <span class="rec-price">Custom quote</span></div>
     </div>
@@ -1080,6 +1216,17 @@
     <div class="dd-card">
       <div class="head"><h4>Print Collateral</h4><span class="badge">4.0 / 5</span></div>
       <p>Business cards, letterhead, brochures, connect cards, and swag all hold a steady 4. Light cleanup pass on print specs in the vendor file would move this set to 5 across the board.</p>
+      <div class="evidence-strip">
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Bulletin print"> -->
+          <div class="e-meta"><span class="e-cap">Bulletin print</span><span class="e-score">4</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Connect card"> -->
+          <div class="e-meta"><span class="e-cap">Connect card</span><span class="e-score">4</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Business card"> -->
+          <div class="e-meta"><span class="e-cap">Business card</span><span class="e-score">4</span></div>
+        </div>
+      </div>
       <div class="verdict">Fix: print spec consistency</div>
       <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">Custom quote</span></div>
     </div>
@@ -1087,12 +1234,34 @@
     <div class="dd-card">
       <div class="head"><h4>Stage + Worship</h4><span class="badge">5.0 / 5</span></div>
       <p>Stage backdrop, sermon series graphics, lower thirds, and lyric slides are all 5 of 5. The strongest set of assets in the building. The bar the rest of the brand needs to clear.</p>
+      <div class="evidence-strip">
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Stage backdrop"> -->
+          <div class="e-meta"><span class="e-cap">Stage backdrop</span><span class="e-score">5</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Lyric slide"> -->
+          <div class="e-meta"><span class="e-cap">Lyric slide</span><span class="e-score">5</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Lower third"> -->
+          <div class="e-meta"><span class="e-cap">Lower third</span><span class="e-score">5</span></div>
+        </div>
+      </div>
       <div class="verdict">Status: protect, do not touch</div>
     </div>
 
     <div class="dd-card">
       <div class="head"><h4>Events + Outreach</h4><span class="badge">4.3 / 5</span></div>
       <p>Booth backdrop and banners hit 5. Tablecloths, retractable banners, badges, giveaways, and printed handouts all hold 4. A consistent palette pass would push the whole set to 5.</p>
+      <div class="evidence-strip">
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Booth backdrop"> -->
+          <div class="e-meta"><span class="e-cap">Booth backdrop</span><span class="e-score">5</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Tablecloth"> -->
+          <div class="e-meta"><span class="e-cap">Tablecloth</span><span class="e-score">4</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Pop-up banner"> -->
+          <div class="e-meta"><span class="e-cap">Pop-up banner</span><span class="e-score">4</span></div>
+        </div>
+      </div>
       <div class="verdict">Fix: palette pass on event collateral</div>
       <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">Custom quote</span></div>
     </div>
@@ -1100,6 +1269,14 @@
     <div class="dd-card">
       <div class="head"><h4>Apparel + Uniforms</h4><span class="badge">4.0 / 5</span></div>
       <p>Shirts, polos, hats, and color match all sit at 4. The logo placements are correct, the color is close. Pantone-locked specs would get this to a 5 next print run.</p>
+      <div class="evidence-strip two">
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Volunteer shirt"> -->
+          <div class="e-meta"><span class="e-cap">Volunteer shirt</span><span class="e-score">4</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Hat"> -->
+          <div class="e-meta"><span class="e-cap">Hat</span><span class="e-score">4</span></div>
+        </div>
+      </div>
       <div class="verdict">Fix: lock Pantone in vendor file</div>
       <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">Custom quote</span></div>
     </div>
@@ -1107,6 +1284,17 @@
     <div class="dd-card">
       <div class="head"><h4>Guest-Facing Materials</h4><span class="badge warn">3.7 / 5</span></div>
       <p>Welcome packets and thank-you cards sit at 4. First-time visitor materials are at 3, which is the touchpoint with the highest leverage on whether a first-timer comes back. Treat this as a priority fix.</p>
+      <div class="evidence-strip">
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Welcome packet"> -->
+          <div class="e-meta"><span class="e-cap">Welcome packet</span><span class="e-score">4</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Visitor card"> -->
+          <div class="e-meta"><span class="e-cap">Visitor card</span><span class="e-score warn">3</span></div>
+        </div>
+        <div class="evidence-thumb"><!-- <img src="brand/screenshots/website-homepage.webp" alt="Thank-you gift"> -->
+          <div class="e-meta"><span class="e-cap">Thank-you gift</span><span class="e-score">4</span></div>
+        </div>
+      </div>
       <div class="verdict">Fix: first-time visitor packet</div>
       <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">Custom quote</span></div>
     </div>
