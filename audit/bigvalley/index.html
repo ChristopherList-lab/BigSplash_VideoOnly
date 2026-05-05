@@ -553,6 +553,21 @@
   /* hide nav and footer in print */
   @media print {
     .site-nav, .site-foot { display: none !important; }
+    /* kill lime halos / shadows so PDF doesn't look "highlighted" */
+    .glow,
+    .cta-headline .glow,
+    .cover-headline .glow,
+    .h-display .glow,
+    .brand-mark .dot,
+    .brand-mark img,
+    .auditor-row .avatar { text-shadow: none !important; box-shadow: none !important; filter: none !important; }
+    .score-ring { box-shadow: none !important; }
+    .callout, .fix-card::before, .bar-fill, .cta-btn,
+    .video-frame, .pov-frame, .good-card .check,
+    .tl-step::before { box-shadow: none !important; }
+    .grid-bg::after { display: none !important; }
+    .cover { background: var(--bg) !important; }
+    .cta { background: var(--bg) !important; }
   }
 
   /* hide page-foot (print-only page numbers) on screen */
@@ -861,10 +876,16 @@
       <div class="verdict">Fix: legacy partner logo swaps</div>
     </div>
 
-    <div class="dd-card" style="grid-column: span 2;">
+    <div class="dd-card">
       <div class="head"><h4>Digital Assets + Templates</h4><span class="badge warn">3.5 / 5</span></div>
-      <p>The Sunday sermon deck template is a 5 and gets reused weekly without drift. Bulletin PDFs, livestream backgrounds, and document headers all sit at 3, which means they exist but do not match each other. Anyone on staff making a flyer is starting from a different file. Fix the template library and ten weak items snap into place at once.</p>
+      <p>The Sunday sermon deck template is a 5 and gets reused weekly without drift. Bulletin PDFs, livestream backgrounds, and document headers all sit at 3. Fix the template library and ten weak items snap into place at once.</p>
       <div class="verdict">Fix: bulletin, livestream, document headers</div>
+    </div>
+
+    <div class="dd-card">
+      <div class="head"><h4>Livestream Video + Audio</h4><span class="badge warn">3.0 / 5</span></div>
+      <p>Video framing and resolution hold at 4. Audio mix, multicam cuts, channel art, and pre-stream loop all sit at 3. Sermon clip cadence is the weakest at 2. Captions on VOD are not yet in place. The stream feels live, but it does not feel produced.</p>
+      <div class="verdict">Fix: audio mix, multicam, sermon clips, captions</div>
     </div>
 
   </div>
@@ -1059,6 +1080,19 @@
         <li><span>Exterior signage logo and color</span><span class="score-pill low">2 / 5</span></li>
         <li><span>Wall art and printed graphics</span><span class="score-pill low">3 / 5</span></li>
         <li><span>First-time visitor materials</span><span class="score-pill low">3 / 5</span></li>
+      </ul>
+    </div>
+
+    <div class="fix-card">
+      <h3>Livestream Production</h3>
+      <div class="sub">Video + Audio</div>
+      <ul>
+        <li><span>Audio mix (vocals, band, talk)</span><span class="score-pill low">3 / 5</span></li>
+        <li><span>Multicam coverage and cuts</span><span class="score-pill low">3 / 5</span></li>
+        <li><span>Pre-stream loop / countdown</span><span class="score-pill low">3 / 5</span></li>
+        <li><span>Channel art (YouTube, Facebook)</span><span class="score-pill low">3 / 5</span></li>
+        <li><span>Sermon clip publishing cadence</span><span class="score-pill low">2 / 5</span></li>
+        <li><span>Captions on VOD</span><span class="score-pill na">—</span></li>
       </ul>
     </div>
 
@@ -1323,6 +1357,17 @@
         <div class="tbl-row"><span class="lbl">Bulletin + PDF templates</span><span class="mini-pill mp-3">3</span></div>
         <div class="tbl-row"><span class="lbl">Livestream backgrounds</span><span class="mini-pill mp-3">3</span></div>
         <div class="tbl-row"><span class="lbl">Document headers + footers</span><span class="mini-pill mp-3">3</span></div>
+      </div>
+
+      <div class="tbl-section">
+        <h4>Online · Livestream Video + Audio</h4>
+        <div class="tbl-row"><span class="lbl">Stream video resolution + framing</span><span class="mini-pill mp-4">4</span></div>
+        <div class="tbl-row"><span class="lbl">Audio mix on stream (vocals, band, talk)</span><span class="mini-pill mp-3">3</span></div>
+        <div class="tbl-row"><span class="lbl">Multicam coverage + cuts</span><span class="mini-pill mp-3">3</span></div>
+        <div class="tbl-row"><span class="lbl">Pre-stream loop / countdown screen</span><span class="mini-pill mp-3">3</span></div>
+        <div class="tbl-row"><span class="lbl">Stream platform channel art (YT, FB)</span><span class="mini-pill mp-3">3</span></div>
+        <div class="tbl-row"><span class="lbl">Sermon clip publishing cadence</span><span class="mini-pill mp-2">2</span></div>
+        <div class="tbl-row"><span class="lbl">Captions / accessibility on VOD</span><span class="mini-pill mp-na">—</span></div>
       </div>
     </div>
 
