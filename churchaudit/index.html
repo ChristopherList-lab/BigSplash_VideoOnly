@@ -647,7 +647,7 @@ const sections = [
         "Recent post grid feels cohesive",
         "Posting cadence consistent",
       ]},
-      { group: "Email", items: [
+      { group: "Email", modes: ["full"], items: [
         "Sender name and address use church domain",
         "Email signature uses approved template",
         "Newsletter header, footer, buttons match brand",
@@ -665,7 +665,7 @@ const sections = [
         "Google Business Profile posts updated regularly",
         "Google reviews actively responded to",
       ]},
-      { group: "Digital assets", items: [
+      { group: "Digital assets", modes: ["full"], items: [
         "Slide / sermon deck template current",
         "Bulletin and PDF templates current",
         "Zoom / livestream backgrounds branded",
@@ -786,7 +786,29 @@ const sections = [
     desc: "Cameras, switching, stream audio, encoding, graphics, archive.",
     modes: ["full", "digital"],
     groups: [
-      { group: "Cameras", items: [
+      { group: "Livestream — viewer experience", modes: ["digital"], items: [
+        "Stream resolution sharp (looks 1080p, not pixelated)",
+        "No buffering or freezing during service",
+        "Stream available on YouTube",
+        "Stream available on Facebook",
+        "Stream embedded on the church website",
+        "Camera exposure consistent across shots",
+        "Camera focus sharp throughout service",
+        "Cameras color-matched (no green vs blue tint shifts)",
+        "Smooth camera moves, no jarring cuts",
+        "Stream audio mix balanced (vocals, music, speaker)",
+        "Audio levels consistent (no sudden loud / quiet)",
+        "Lipsync between audio and video correct",
+        "Pre-roll countdown branded",
+        "Welcome / outro slides on-brand",
+        "Lower thirds use church brand fonts and colors",
+        "Donation prompt overlay shown",
+        "Logo bug placement consistent and not distracting",
+        "Sermon posted within 48 hours of service",
+        "Past services accessible from website",
+        "Sermon series organized in playlists",
+      ]},
+      { group: "Cameras", modes: ["full"], items: [
         "Camera count matches service complexity",
         "Cameras same brand or color-matched",
         "White balance matched across all cameras",
@@ -798,7 +820,7 @@ const sections = [
         "Tripods / mounts stable, no drift",
         "Lenses clean, no smudges or dust",
       ]},
-      { group: "Video switcher", items: [
+      { group: "Video switcher", modes: ["full"], items: [
         "Switcher (ATEM, Tricaster, vMix) make/model documented",
         "Multiview monitor visible to director",
         "Macros / transitions labeled",
@@ -807,7 +829,7 @@ const sections = [
         "Backup switcher or recovery plan documented",
         "Switcher operator trained and has run sheet",
       ]},
-      { group: "Audio for stream", items: [
+      { group: "Audio for stream", modes: ["full"], items: [
         "Dedicated broadcast mix separate from FOH",
         "Stream audio includes ambience / crowd mics",
         "Levels target -16 LUFS integrated (or platform spec)",
@@ -816,7 +838,7 @@ const sections = [
         "No FOH bleed or feedback into stream",
         "Backup audio source (camera scratch) available",
       ]},
-      { group: "Encoding & streaming", items: [
+      { group: "Encoding & streaming", modes: ["full"], items: [
         "Encoder (hardware / software) documented",
         "Bitrate set for upload bandwidth (typ. 6-8 Mbps for 1080p)",
         "Resolution and framerate match destination spec",
@@ -836,7 +858,7 @@ const sections = [
         "Logo bug placement consistent and not distracting",
         "Scripture / sermon point graphics ready in advance",
       ]},
-      { group: "Recording & archive", items: [
+      { group: "Recording & archive", modes: ["full"], items: [
         "Service recorded locally as backup",
         "ISO record per camera (if equipment allows)",
         "Audio multitrack recorded for post mix",
@@ -979,7 +1001,7 @@ const sections = [
         "Branded title cards on clips",
         "Posting schedule documented",
       ]},
-      { group: "Content workflow", items: [
+      { group: "Content workflow", modes: ["full"], items: [
         "Editor handoff workflow defined (source files, naming)",
         "Asset library / DAM in place",
         "Approvals process before publish",
@@ -1029,9 +1051,9 @@ const sections = [
     key: "governance",
     label: "Governance",
     desc: "Brand and tech ownership, asset library, review cadence.",
-    modes: ["full", "digital"],
+    modes: ["full"],
     groups: [
-      { group: "Brand governance", items: [
+      { group: "Brand governance", modes: ["full"], items: [
         "Brand guide is current and accessible to the team",
         "Logo and asset library in one known location",
         "Old logo versions removed from shared drives",
