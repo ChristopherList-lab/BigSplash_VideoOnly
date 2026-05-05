@@ -401,6 +401,66 @@
     color: var(--ink-soft);
   }
 
+  /* ---- Mobile ---- */
+  @media (max-width: 640px) {
+    header.hero { padding: 16px 14px; }
+    .hero-inner { gap: 10px; flex-wrap: wrap; }
+    .hero-logo { width: 36px; height: 36px; }
+    .hero-text h1 { font-size: 22px; }
+    .hero-text p { font-size: 9px; }
+    .nav-link {
+      margin-left: 0;
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+      order: 99;
+    }
+
+    main { padding: 0 14px; margin: 16px auto 60px; }
+
+    .toolbar { gap: 6px; }
+    #search { min-width: 0; width: 100%; padding: 10px 12px; font-size: 14px; }
+    #typeFilter, .ghost-btn, .primary-btn {
+      flex: 1;
+      padding: 10px 10px;
+      font-size: 10px;
+      text-align: center;
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .audit-card { padding: 14px; }
+    .ac-church { font-size: 18px; }
+    .ac-meta { font-size: 10px; margin-bottom: 10px; }
+    .ac-score { font-size: 30px; }
+
+    .report-wrap { padding: 18px; }
+    .report-head { gap: 14px; padding-bottom: 16px; margin-bottom: 18px; }
+    .report-head h1 { font-size: 26px; }
+    .report-head .meta { font-size: 11px; }
+    .report-head .overall { text-align: left; }
+    .report-head .overall-num { font-size: 56px; }
+
+    .summary-block { padding: 14px 16px; }
+    .summary-block p { font-size: 13px; }
+
+    .section-summary-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .section-summary-tile { padding: 10px 12px; }
+    .sst-score { font-size: 24px; }
+
+    .section-block-head { padding: 12px 14px; }
+    .section-block-head h2 { font-size: 18px; }
+    .section-block-body { padding: 12px 14px; }
+    .item-line { font-size: 12.5px; padding: 5px 0; gap: 10px; }
+    .group-block h3 { font-size: 10px; }
+    .group-note { font-size: 12px; padding: 8px 12px; }
+  }
+
   /* ---- Print ---- */
   @media print {
     @page { size: letter; margin: 0.5in; }

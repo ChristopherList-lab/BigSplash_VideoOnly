@@ -491,6 +491,96 @@
   }
 
   ::selection { background: var(--primary); color: var(--primary-ink); }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 640px) {
+    header.hero { padding: 16px 14px 14px; }
+    .hero-inner { gap: 10px; }
+    .hero-logo { width: 36px; height: 36px; }
+    .hero-text h1 { font-size: 22px; }
+    .hero-text p { font-size: 9px; letter-spacing: 0.04em; }
+    .hero-score .num { font-size: 26px; }
+    .hero-score small { font-size: 9px; }
+
+    .mode-toggle-bar {
+      padding: 0 14px;
+      margin-top: 12px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+    .mode-label { font-size: 10px; line-height: 1.4; }
+    #modeHint { display: none; }
+    .mode-toggle-btn { width: 100%; padding: 12px; }
+
+    main {
+      padding: 0 14px;
+      margin: 16px auto 80px;
+    }
+    .card { margin-bottom: 12px; }
+    .card-head { padding: 16px 18px; }
+    .card-body { padding: 0 18px 18px; }
+    .section-title { font-size: 18px; }
+    .section-meta { gap: 6px; }
+    .section-score { padding: 4px 8px; font-size: 11px; }
+    .section-progress { font-size: 9px; }
+
+    /* Check-row: stack label above scale on small phones */
+    .check-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 10px 0;
+    }
+    .check-row label { font-size: 13px; }
+    .scale {
+      width: 100%;
+      justify-content: space-between;
+    }
+    .scale button {
+      flex: 1;
+      min-width: 0;
+      padding: 8px 4px;
+      font-size: 12px;
+    }
+
+    .subgroup { padding: 12px 14px; }
+    .subgroup h3 { font-size: 10px; }
+
+    /* Auto-audit + Upload Footage blocks: stack vertically */
+    .upload-block {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+    .upload-block .filename-box { min-width: 0; width: 100%; }
+    .upload-block input[type="url"] { width: 100%; }
+    .upload-btn, .copy-btn { width: 100%; text-align: center; justify-content: center; }
+
+    /* Submit bar: stack score + button on phone */
+    .submit-bar {
+      bottom: 8px;
+      padding: 12px 14px;
+      gap: 10px;
+    }
+    .score-block { min-width: 0; gap: 10px; }
+    .score-num { font-size: 28px; }
+    button.primary { width: 100%; padding: 14px; font-size: 15px; }
+
+    .controls-bar { gap: 6px; }
+    .ghost-btn { padding: 8px 10px; font-size: 10px; flex: 1; text-align: center; }
+
+    .grid-2 { gap: 10px; }
+
+    /* Auto-audit results: tighter on mobile */
+    #autoResults { font-size: 11px !important; }
+    #autoResults strong { word-break: break-word; }
+  }
+
+  @media (max-width: 380px) {
+    .scale button { font-size: 11px; padding: 7px 2px; }
+    .hero-score { display: none; }
+    .hero-text h1 { font-size: 20px; }
+  }
 </style>
 </head>
 <body>
