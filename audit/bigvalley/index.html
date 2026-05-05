@@ -624,6 +624,131 @@
     .site-foot .legal { flex-direction: column; gap: 12px; text-align: center; }
   }
 
+  /* ============ OFFER CHIPS + RECOMMENDED FIX LINKS ============ */
+  .rec {
+    margin-top: 10px; padding-top: 10px;
+    border-top: 1px dashed var(--outline-variant);
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .rec .rec-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 8px;
+    letter-spacing: 0.3em; text-transform: uppercase; color: rgba(221,216,206,0.55);
+  }
+  .rec .rec-offer {
+    font-family: 'Inter', sans-serif; font-size: 10pt; color: #fff; font-weight: 600;
+  }
+  .rec .rec-price {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.1em; padding: 3px 8px; border-radius: 999px;
+    background: var(--primary); color: var(--on-primary); font-weight: 700;
+  }
+
+  /* ============ PROJECT MENU CARDS ============ */
+  .proj-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 8px; }
+  .proj-card {
+    background: var(--sc); border: 1px solid var(--outline-variant);
+    border-radius: 10px; padding: 20px 22px;
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+  .proj-card.priority { border-color: rgba(239,248,139,0.45); }
+  .proj-card.priority::after {
+    content: "RECOMMENDED"; position: absolute; top: -9px; right: 16px;
+    font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.3em;
+    background: var(--primary); color: var(--on-primary); padding: 3px 9px; border-radius: 999px; font-weight: 700;
+  }
+  .proj-card .proj-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .proj-card h4 { font-family: 'Anton', sans-serif; font-size: 22px; text-transform: uppercase; color: #fff; letter-spacing: -0.02em; margin: 0; line-height: 1.05; }
+  .proj-card h4 .lime { color: var(--primary); }
+  .proj-card .price {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+    color: var(--primary); letter-spacing: 0.05em; flex-shrink: 0; margin-top: 4px;
+  }
+  .proj-card .pitch { font-size: 10pt; color: var(--secondary); line-height: 1.5; margin: 10px 0 12px; }
+  .proj-card ul { margin: 0; padding: 0; list-style: none; }
+  .proj-card li {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--secondary);
+    padding: 4px 0 4px 16px; position: relative;
+  }
+  .proj-card li::before { content: "→"; color: var(--primary); position: absolute; left: 0; font-family: 'Inter', sans-serif; }
+  .proj-card .recs { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--outline-variant);
+    font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(239,248,139,0.85); }
+
+  /* ============ AUDIO MOAT PAGE ============ */
+  .moat-hero {
+    background: linear-gradient(180deg, var(--sc-low), var(--bg));
+    border: 1px solid rgba(239,248,139,0.45);
+    border-radius: 14px; padding: 38px 36px;
+    margin-top: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .moat-hero::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: var(--primary);
+  }
+  .moat-hero .price-row { display: flex; align-items: baseline; gap: 18px; margin-top: 10px; }
+  .moat-hero .price-row .big-price {
+    font-family: 'Anton', sans-serif; font-size: 64px; color: var(--primary); line-height: 1;
+  }
+  .moat-hero .price-row .price-sub {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--secondary);
+  }
+  .moat-hero h3 { font-family: 'Anton', sans-serif; font-size: 36px; text-transform: uppercase; color: #fff; letter-spacing: -0.025em; margin: 24px 0 6px; line-height: 1.05; }
+  .moat-hero p { font-size: 11pt; color: var(--secondary); line-height: 1.55; margin: 8px 0 0; max-width: 64ch; }
+  .moat-points { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 28px; }
+  .moat-point {
+    background: var(--sc); border: 1px solid var(--outline-variant);
+    border-radius: 8px; padding: 16px 18px;
+  }
+  .moat-point .num { font-family: 'Anton', sans-serif; font-size: 28px; color: var(--primary); line-height: 1; }
+  .moat-point h5 { font-family: 'Anton', sans-serif; font-size: 18px; text-transform: uppercase; color: #fff; letter-spacing: -0.02em; margin: 8px 0 6px; }
+  .moat-point p { font-size: 10pt; color: var(--secondary); line-height: 1.5; margin: 0; }
+  .moat-cta {
+    margin-top: 24px;
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--primary); color: var(--on-primary);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700;
+    padding: 16px 22px; border-radius: 999px; text-decoration: none;
+  }
+
+  /* ============ RETAINER TIER CARDS ============ */
+  .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 8px; }
+  .tier-card {
+    background: var(--sc); border: 1px solid var(--outline-variant);
+    border-radius: 10px; padding: 22px 22px;
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+  .tier-card.featured { border-color: rgba(239,248,139,0.5); background: linear-gradient(180deg, rgba(239,248,139,0.04), var(--sc)); }
+  .tier-card.featured::after {
+    content: "RECOMMENDED FOR BIG VALLEY"; position: absolute; top: -9px; left: 16px;
+    font-family: 'JetBrains Mono', monospace; font-size: 7.5px; letter-spacing: 0.3em;
+    background: var(--primary); color: var(--on-primary); padding: 3px 10px; border-radius: 999px; font-weight: 700;
+  }
+  .tier-card .tname { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(239,248,139,0.85); }
+  .tier-card h4 { font-family: 'Anton', sans-serif; font-size: 30px; text-transform: uppercase; color: #fff; letter-spacing: -0.025em; margin: 6px 0 4px; line-height: 1; }
+  .tier-card .tprice { font-family: 'Anton', sans-serif; font-size: 36px; color: var(--primary); line-height: 1; margin-top: 4px; }
+  .tier-card .tprice small { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--secondary); margin-left: 4px; }
+  .tier-card .tbuyer { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(221,216,206,0.6); margin-top: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--outline-variant); }
+  .tier-card ul { margin: 14px 0 0; padding: 0; list-style: none; }
+  .tier-card li { font-size: 9.5pt; color: var(--secondary); padding: 5px 0 5px 16px; position: relative; line-height: 1.4; }
+  .tier-card li::before { content: "✓"; color: var(--primary); position: absolute; left: 0; font-weight: 700; }
+
+  .prepay {
+    margin-top: 22px;
+    background: var(--sc-low); border-left: 3px solid var(--primary);
+    padding: 14px 18px; border-radius: 4px;
+    font-size: 10.5pt; color: var(--secondary);
+  }
+  .prepay strong { color: var(--primary); font-family: 'Anton', sans-serif; font-size: 16px; letter-spacing: 0.02em; text-transform: uppercase; }
+
+  /* mobile */
+  @media screen and (max-width: 768px) {
+    .proj-grid, .tier-grid, .moat-points { grid-template-columns: 1fr !important; }
+  }
+
   /* ambient grid lines on dark pages */
   .grid-bg::after {
     content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -647,10 +772,12 @@
       <a href="#scores">Scores</a>
       <a href="#online">Online</a>
       <a href="#inperson">In Person</a>
+      <a href="#audio">Audio</a>
       <a href="#governance">Governance</a>
       <a href="#fixes">Fixes</a>
-      <a href="#services">Services</a>
-      <a href="#timeline">Timeline</a>
+      <a href="#services">Projects</a>
+      <a href="#retainers">Retainers</a>
+      <a href="#timeline">30/60/90</a>
     </div>
     <a href="Big-Valley-Brand-Audit.pdf" class="cta-mini" style="background:transparent; color:var(--primary); border:1px solid rgba(239,248,139,0.5); margin-right:8px;" download>Download PDF</a>
     <a href="#cta" class="cta-mini">Book a call →</a>
@@ -723,7 +850,7 @@
     <h2 class="h-display">THE SHORT <span class="glow">VERSION.</span></h2>
   </div>
 
-  <p class="body">Big Valley has a strong worship-stage brand and a clean email system. The gaps sit on the perimeter: exterior signage, social cover artwork, document templates, and a missing governance layer. Close those four and the score moves from 80 to the low 90s in one quarter.</p>
+  <p class="body">Ads bring guests to the door. The brand decides whether they stay. Big Valley has a strong worship-stage brand and a clean email system. The gaps sit on the perimeter: exterior signage, social cover artwork, document templates, livestream production, and a missing governance layer. Patch those and the leaky bucket holds. Score moves from 80 to the low 90s in one quarter.</p>
 
   <div class="stat-row">
     <div class="stat"><div class="k">Overall</div><div class="v lime">80</div><div class="sub">Out of 100. Strong, with clear room to grow.</div></div>
@@ -747,7 +874,7 @@
     </div>
     <div class="summary-block">
       <h4>WHAT TO DO <span class="lime">NEXT.</span></h4>
-      <p>Run a 90-day brand sprint. Week one sets governance. Weeks two through six fix digital and document touchpoints. Weeks seven through twelve handle exterior signage and the visitor packet. Page 11 has the schedule.</p>
+      <p>Run a 30/60/90 sprint. Quick wins in month one. Foundation in month two. Compounding in month three. Apply your $498 audit credit toward month-one retainer if signed in 30 days.</p>
     </div>
   </div>
 
@@ -856,12 +983,14 @@
       <div class="head"><h4>Website</h4><span class="badge">3.6 / 5</span></div>
       <p>Solid foundation. The header, footer, fonts, and meta tags are doing their job. The favicon, color spec, and 404 page betray a site that has been edited piece by piece without a master file to point to.</p>
       <div class="verdict">Fix: favicon, color tokens, 404 page</div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">First Impression Website Rebuild</span> <span class="rec-price">$3,497</span></div>
     </div>
 
     <div class="dd-card">
       <div class="head"><h4>Social Profiles</h4><span class="badge">4.0 / 5</span></div>
       <p>Pinned posts, IG highlight covers, and the recent grid all read 5 of 5. The cover artwork is the single weakest spot in the entire pillar at 2 of 5. Bio copy needs a one-line rewrite to match positioning.</p>
       <div class="verdict">Fix: cover artwork, bio copy</div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Sermon Series Launch Package</span> <span class="rec-price">$2,497</span></div>
     </div>
 
     <div class="dd-card">
@@ -874,18 +1003,21 @@
       <div class="head"><h4>Listings + Third-Party</h4><span class="badge">4.3 / 5</span></div>
       <p>Google Business Profile is dialed at 5. Yelp, church finders, and partner sites carry approved logos at 4. Light cleanup on a couple of legacy partner pages would push this to a 5.</p>
       <div class="verdict">Fix: legacy partner logo swaps</div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">$5,997</span></div>
     </div>
 
     <div class="dd-card">
       <div class="head"><h4>Digital Assets + Templates</h4><span class="badge warn">3.5 / 5</span></div>
       <p>The Sunday sermon deck template is a 5 and gets reused weekly without drift. Bulletin PDFs, livestream backgrounds, and document headers all sit at 3. Fix the template library and ten weak items snap into place at once.</p>
       <div class="verdict">Fix: bulletin, livestream, document headers</div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">$5,997</span></div>
     </div>
 
     <div class="dd-card">
       <div class="head"><h4>Livestream Video + Audio</h4><span class="badge warn">3.0 / 5</span></div>
       <p>Video framing and resolution hold at 4. Audio mix, multicam cuts, channel art, and pre-stream loop all sit at 3. Sermon clip cadence is the weakest at 2. Captions on VOD are not yet in place. The stream feels live, but it does not feel produced.</p>
       <div class="verdict">Fix: audio mix, multicam, sermon clips, captions</div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Audio System Audit</span> <span class="rec-price">$4,997</span></div>
     </div>
 
   </div>
@@ -940,12 +1072,14 @@
       <div class="head"><h4>Building + Signage</h4><span class="badge warn">3.3 / 5</span></div>
       <p>The lobby and wayfinding read at 4. The exterior sign sits at 2 and looks like a different church than the one inside. This is the first impression and the cheapest single fix in the audit.</p>
       <div class="verdict">Fix: exterior sign, wall art refresh</div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Signage + Wayfinding Plan</span> <span class="rec-price">$2,997</span></div>
     </div>
 
     <div class="dd-card">
       <div class="head"><h4>Print Collateral</h4><span class="badge">4.0 / 5</span></div>
       <p>Business cards, letterhead, brochures, connect cards, and swag all hold a steady 4. Light cleanup pass on print specs in the vendor file would move this set to 5 across the board.</p>
       <div class="verdict">Fix: print spec consistency</div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">$5,997</span></div>
     </div>
 
     <div class="dd-card">
@@ -958,23 +1092,69 @@
       <div class="head"><h4>Events + Outreach</h4><span class="badge">4.3 / 5</span></div>
       <p>Booth backdrop and banners hit 5. Tablecloths, retractable banners, badges, giveaways, and printed handouts all hold 4. A consistent palette pass would push the whole set to 5.</p>
       <div class="verdict">Fix: palette pass on event collateral</div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">$5,997</span></div>
     </div>
 
     <div class="dd-card">
       <div class="head"><h4>Apparel + Uniforms</h4><span class="badge">4.0 / 5</span></div>
       <p>Shirts, polos, hats, and color match all sit at 4. The logo placements are correct, the color is close. Pantone-locked specs would get this to a 5 next print run.</p>
       <div class="verdict">Fix: lock Pantone in vendor file</div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">$5,997</span></div>
     </div>
 
     <div class="dd-card">
       <div class="head"><h4>Guest-Facing Materials</h4><span class="badge warn">3.7 / 5</span></div>
       <p>Welcome packets and thank-you cards sit at 4. First-time visitor materials are at 3, which is the touchpoint with the highest leverage on whether a first-timer comes back. Treat this as a priority fix.</p>
       <div class="verdict">Fix: first-time visitor packet</div>
+      <div class="rec"><span class="rec-label">Recommended</span> <span class="rec-offer">Brand Identity Refresh</span> <span class="rec-price">$5,997</span></div>
     </div>
 
   </div>
 
   <div class="page-foot"><span>Big Splash · Brand Audit</span><span>06 / 13 <span class="dot">●</span></span></div>
+</section>
+
+<!-- ====================================================== -->
+<!-- PAGE 6.5 — AUDIO IS THE MOAT                           -->
+<!-- ====================================================== -->
+<section id="audio" class="page">
+  <div class="section-head">
+    <div class="eyebrow">Special Engagement · Audio Audit</div>
+    <h2 class="h-display">AUDIO IS THE <span class="glow">MOAT.</span></h2>
+  </div>
+
+  <p class="body">No church marketing agency in the country offers audio consulting as a core service. Big Splash does. Fifteen plus years of live-sound expertise, on-site measurement, and mix tuning that no graphic designer can copy. If your audio mix scored a 3 or below on this audit, the next conversation should be with our worship pastor, not your comms director.</p>
+
+  <div class="moat-hero">
+    <div class="eyebrow muted" style="margin:0;">Standalone Engagement</div>
+    <h3>AUDIO SYSTEM <span style="color:var(--primary);">AUDIT.</span></h3>
+    <p>On-site sound system measurement across three services, mix analysis, EQ and gain-structure tuning, fifteen-page report, FOH operator training, and a thirty-day follow-up. Targets the worship pastor or technical director as a separate buyer.</p>
+    <div class="price-row">
+      <span class="big-price">$4,997</span>
+      <span class="price-sub">All-in · Two service days · 30-day follow-up</span>
+    </div>
+    <a class="moat-cta" href="#cta">Book the audio audit <span style="font-family:Inter,sans-serif;font-weight:700;">→</span></a>
+  </div>
+
+  <div class="moat-points">
+    <div class="moat-point">
+      <div class="num">15+</div>
+      <h5>YEARS OF LIVE SOUND</h5>
+      <p>Pro audio engineering experience that takes a decade to build. Cannot be duplicated in a quarter by another agency.</p>
+    </div>
+    <div class="moat-point">
+      <div class="num">0</div>
+      <h5>COMPETITORS DO THIS</h5>
+      <p>Every other church agency stops at video and design. Audio is the room nobody else walks into.</p>
+    </div>
+    <div class="moat-point">
+      <div class="num">1</div>
+      <h5>NEW CONVERSATION</h5>
+      <p>The worship pastor controls the audio budget. Different buyer, different timeline, same trust we built with this audit.</p>
+    </div>
+  </div>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>07 / 15 <span class="dot">●</span></span></div>
 </section>
 
 <!-- ====================================================== -->
@@ -1172,69 +1352,203 @@
 </section>
 
 <!-- ====================================================== -->
-<!-- PAGE 10 — WHAT WE BUILD                                -->
+<!-- PAGE 10 — PROJECT MENU                                 -->
 <!-- ====================================================== -->
 <section id="services" class="page">
   <div class="section-head">
-    <div class="eyebrow">09 · How Big Splash Closes the Gaps</div>
-    <h2 class="h-display">WHAT WE <span class="glow">BUILD.</span></h2>
+    <div class="eyebrow">09 · One-Time Projects · Pick from the Menu</div>
+    <h2 class="h-display">PROJECT <span class="glow">MENU.</span></h2>
   </div>
 
-  <p class="body" style="margin-bottom: 24px;">Four bundles, each tied to a fix theme on the previous page. Pick one or run them in sequence.</p>
+  <p class="body" style="margin-bottom: 24px;">Each project maps to a finding above. Run one. Run a few. Pricing is fixed and includes the full deliverable.</p>
 
-  <div class="svc-grid">
+  <div class="proj-grid">
 
-    <div class="svc-card">
-      <div class="num">01 / Service</div>
-      <h3>BRAND SYSTEM <span class="lime">REFRESH</span></h3>
-      <p class="pitch">A clean color, type, and logo system that survives every doc, slide, and template you ship.</p>
+    <div class="proj-card priority">
+      <div class="proj-head">
+        <h4>BRAND IDENTITY <span class="lime">REFRESH</span></h4>
+        <span class="price">$5,997</span>
+      </div>
+      <p class="pitch">Logo, color, type, and template system. The single fix that lifts ten weak items at once.</p>
       <ul>
         <li>Logo lockups + clear-space</li>
-        <li>Favicon and app icons</li>
-        <li>Color and type tokens</li>
+        <li>Color, type, favicon tokens</li>
         <li>Bulletin, slide, doc templates</li>
+        <li>Brand guide PDF + asset library</li>
       </ul>
+      <div class="recs">Recommended for: brand colors, favicon, document templates, visitor packet</div>
     </div>
 
-    <div class="svc-card">
-      <div class="num">02 / Service</div>
-      <h3>SOCIAL & WEB <span class="lime">POLISH</span></h3>
-      <p class="pitch">The first thing a visitor sees online. Cover art, profile crops, bio rewrite, branded 404.</p>
+    <div class="proj-card priority">
+      <div class="proj-head">
+        <h4>FIRST IMPRESSION <span class="lime">WEBSITE REBUILD</span></h4>
+        <span class="price">$3,497</span>
+      </div>
+      <p class="pitch">A site built around the first-time guest. Plan a Visit, sermons, giving, branded 404.</p>
       <ul>
-        <li>Cover and banner artwork</li>
-        <li>Profile photo crops</li>
-        <li>Bio rewrite to positioning</li>
-        <li>Branded 404 and OG images</li>
+        <li>Visitor-flow redesign</li>
+        <li>Branded 404 + favicon + OG</li>
+        <li>Sermons + giving wired up</li>
+        <li>Mobile-first build</li>
       </ul>
+      <div class="recs">Recommended for: 404 page, favicon, brand colors</div>
     </div>
 
-    <div class="svc-card">
-      <div class="num">03 / Service</div>
-      <h3>SIGNAGE & <span class="lime">LIVESTREAM</span></h3>
-      <p class="pitch">Exterior sign refresh and a livestream kit that matches the stage. One look, every screen.</p>
+    <div class="proj-card priority">
+      <div class="proj-head">
+        <h4>SIGNAGE + <span class="lime">WAYFINDING PLAN</span></h4>
+        <span class="price">$2,997</span>
+      </div>
+      <p class="pitch">Exterior sign rework and an interior wayfinding system that connects parking lot to seat.</p>
       <ul>
         <li>Exterior signage rework</li>
-        <li>Livestream backgrounds</li>
-        <li>Lower thirds + scene graphics</li>
-        <li>Visitor packet redesign</li>
+        <li>Wayfinding + door signs</li>
+        <li>Wall art and printed graphics</li>
+        <li>Vendor specs locked in</li>
+      </ul>
+      <div class="recs">Recommended for: exterior signage (2/5), wall art</div>
+    </div>
+
+    <div class="proj-card priority">
+      <div class="proj-head">
+        <h4>SERMON SERIES <span class="lime">LAUNCH PACK</span></h4>
+        <span class="price">$2,497</span>
+      </div>
+      <p class="pitch">Per-series artwork that travels from stage to social to website. Cover art for every channel.</p>
+      <ul>
+        <li>Series artwork + variants</li>
+        <li>Social cover crops (FB, IG, YT)</li>
+        <li>Lower thirds + slide pack</li>
+        <li>Promo reel</li>
+      </ul>
+      <div class="recs">Recommended for: social cover artwork (2/5)</div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-head">
+        <h4>STAGE DESIGN <span class="lime">REFRESH</span></h4>
+        <span class="price">$2,497</span>
+      </div>
+      <p class="pitch">Stage backdrop and motion-graphics consult. Already a 5/5 — protect and evolve.</p>
+      <ul>
+        <li>Stage backdrop concepts</li>
+        <li>Motion graphics direction</li>
+        <li>Lighting cue notes</li>
+        <li>Quarterly refresh plan</li>
       </ul>
     </div>
 
-    <div class="svc-card">
-      <div class="num">04 / Service</div>
-      <h3>BRAND <span class="lime">GOVERNANCE</span> KIT</h3>
-      <p class="pitch">A guide, a shared library, and a named owner. The work above stays in place a year from now.</p>
+    <div class="proj-card">
+      <div class="proj-head">
+        <h4>VISION SUNDAY <span class="lime">VIDEO</span></h4>
+        <span class="price">$3,497</span>
+      </div>
+      <p class="pitch">A 3-minute story film that anchors the year's vision and travels through every Sunday.</p>
       <ul>
-        <li>Brand guide PDF</li>
-        <li>Asset library setup</li>
-        <li>Approved vendor list</li>
-        <li>Quarterly review cadence</li>
+        <li>Script + interview direction</li>
+        <li>Multi-cam production day</li>
+        <li>Edit + color + mix</li>
+        <li>Cutdowns for socials</li>
+      </ul>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-head">
+        <h4>EASTER OR <span class="lime">CHRISTMAS PUSH</span></h4>
+        <span class="price">$4,497</span>
+      </div>
+      <p class="pitch">A full seasonal campaign. Series art, promo video, social pack, ads, follow-up flow.</p>
+      <ul>
+        <li>Campaign creative</li>
+        <li>Promo + invite videos</li>
+        <li>Meta ads setup</li>
+        <li>Plan-a-Visit funnel</li>
+      </ul>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-head">
+        <h4>ANNUAL REPORT <span class="lime">VIDEO</span></h4>
+        <span class="price">$7,997</span>
+      </div>
+      <p class="pitch">A board-room caliber recap film. Numbers, stories, vision. The film that gets the next pledge made.</p>
+      <ul>
+        <li>Story arc + script</li>
+        <li>Multi-day shoot</li>
+        <li>Motion graphics + color</li>
+        <li>Premiere pack for service</li>
       </ul>
     </div>
 
   </div>
 
-  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>10 / 13 <span class="dot">●</span></span></div>
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>11 / 15 <span class="dot">●</span></span></div>
+</section>
+
+<!-- ====================================================== -->
+<!-- PAGE 11.5 — ONGOING ENGAGEMENT (RETAINERS)             -->
+<!-- ====================================================== -->
+<section id="retainers" class="page">
+  <div class="section-head">
+    <div class="eyebrow">10 · Monthly Retainers · Compound the Wins</div>
+    <h2 class="h-display">ONGOING <span class="glow">ENGAGEMENT.</span></h2>
+  </div>
+
+  <p class="body" style="margin-bottom: 24px;">Three tiers. Pick the buyer in your church and the workload that matches. Every tier compounds month over month. Annual prepay gets two months free.</p>
+
+  <div class="tier-grid">
+
+    <div class="tier-card">
+      <div class="tname">Tier 01</div>
+      <h4>REACH</h4>
+      <div class="tprice">$1,997<small>/ mo</small></div>
+      <div class="tbuyer">For: Comms director with a Plan-a-Visit KPI</div>
+      <ul>
+        <li>Meta ads (Plan-a-Visit campaigns)</li>
+        <li>Sermon edits + 4 vertical clips/mo</li>
+        <li>Weekly highlight reel</li>
+        <li>Content calendar + GBP mgmt</li>
+        <li>Monthly performance report</li>
+      </ul>
+    </div>
+
+    <div class="tier-card featured">
+      <div class="tname">Tier 02</div>
+      <h4>REACH + <span style="color:var(--primary);">EXPERIENCE</span></h4>
+      <div class="tprice">$3,997<small>/ mo</small></div>
+      <div class="tbuyer">For: Executive pastor coordinating worship + comms</div>
+      <ul>
+        <li>Everything in Reach</li>
+        <li>Livestream support + audio consulting</li>
+        <li>On-camera coaching</li>
+        <li>Monthly testimony video</li>
+        <li>8 reels / month</li>
+        <li>Quarterly experience review</li>
+      </ul>
+    </div>
+
+    <div class="tier-card">
+      <div class="tname">Tier 03</div>
+      <h4>FULL <span class="lime">PRESENCE</span></h4>
+      <div class="tprice">$6,997<small>/ mo</small></div>
+      <div class="tbuyer">For: Lead pastor at 600+ church</div>
+      <ul>
+        <li>Everything in Reach + Experience</li>
+        <li>Dedicated producer (single POC)</li>
+        <li>Quarterly in-person visit (travel in)</li>
+        <li>1 brand film + 4 testimonies + 12 reels/mo</li>
+        <li>Annual brand health audit</li>
+        <li>Pastor monthly studio shoot</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="prepay">
+    <strong>Annual prepay.</strong> Pay ten months upfront, get twelve. Two months free, equivalent to a 17 percent discount. Locks pricing for the year.
+  </div>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>12 / 15 <span class="dot">●</span></span></div>
 </section>
 
 <!-- ====================================================== -->
@@ -1242,59 +1556,42 @@
 <!-- ====================================================== -->
 <section id="timeline" class="page">
   <div class="section-head">
-    <div class="eyebrow">10 · Process + Timeline</div>
-    <h2 class="h-display">THE 90-DAY <span class="glow">PATH.</span></h2>
+    <div class="eyebrow">11 · Action Plan</div>
+    <h2 class="h-display">YOUR <span class="glow">30 / 60 / 90.</span></h2>
   </div>
 
-  <p class="body">Twelve weeks from kickoff to a 95. Each phase is short, scoped, and tied to a deliverable a guest will see on a Sunday.</p>
+  <p class="body">Quick wins in month one. Foundation in month two. Compounding in month three. Apply your $498 audit credit toward month-one retainer if you sign within 30 days.</p>
 
   <div class="timeline">
 
     <div class="tl-step">
-      <div class="tl-week">Week 01 · Kickoff</div>
-      <h4>LOCK THE <span class="lime">FOUNDATION.</span></h4>
-      <p>Ninety-minute kickoff with the brand owner and senior staff. Pull every existing logo, font, and template into one shared drive. Confirm scope, roles, and review cadence.</p>
-      <div class="deliv">Deliverable: <span>Asset library, named owner, signed scope</span></div>
+      <div class="tl-week">Days 01 – 30 · Quick Wins</div>
+      <h4>QUICK <span class="lime">WINS.</span></h4>
+      <p>Lock governance in week one. Ship favicon, 404, social cover artwork, and a refreshed bulletin template. Every fix in this window is a guest-facing item that lands inside one Sunday cycle.</p>
+      <div class="deliv">Deliverable: <span>Asset library, branded 404, favicon, social cover, bulletin v1</span></div>
     </div>
 
     <div class="tl-step">
-      <div class="tl-week">Weeks 02 – 03 · Brand System</div>
-      <h4>THE <span class="lime">GUIDE.</span></h4>
-      <p>Refine the logo lockups, lock color and type tokens, and ship the brand guide PDF. Approved vendor list and print specs live inside the same document.</p>
-      <div class="deliv">Deliverable: <span>Brand guide v1, vendor + print specs</span></div>
+      <div class="tl-week">Days 31 – 60 · Build the Foundation</div>
+      <h4>BUILD THE <span class="lime">FOUNDATION.</span></h4>
+      <p>Brand guide PDF, document templates, livestream backgrounds, and the visitor packet redesign. The Brand Identity Refresh project lands here. Train the comms team on the guide.</p>
+      <div class="deliv">Deliverable: <span>Brand guide, document templates, livestream kit, visitor packet</span></div>
     </div>
 
     <div class="tl-step">
-      <div class="tl-week">Weeks 04 – 06 · Digital + Documents</div>
-      <h4>SHIP THE <span class="lime">TEMPLATES.</span></h4>
-      <p>Favicon, 404 page, bulletin template, livestream backgrounds, document headers, and social cover artwork. Every digital fix on page 8 lands in this window.</p>
-      <div class="deliv">Deliverable: <span>10 templates, social pack, branded 404</span></div>
-    </div>
-
-    <div class="tl-step">
-      <div class="tl-week">Weeks 07 – 09 · Physical Touchpoints</div>
-      <h4>FIX THE <span class="lime">PERIMETER.</span></h4>
-      <p>Exterior signage rework, wall art update, and a redesigned visitor packet. Coordinate with the approved print vendor from the guide. Install around a Sunday with low foot traffic.</p>
-      <div class="deliv">Deliverable: <span>Exterior sign, wall graphics, visitor packet</span></div>
-    </div>
-
-    <div class="tl-step">
-      <div class="tl-week">Weeks 10 – 11 · Polish + Train</div>
-      <h4>HAND IT <span class="lime">OFF.</span></h4>
-      <p>Train the brand owner and the comms team on the guide and the asset library. Run a tabletop walkthrough of the next bulletin, slide deck, and social post using the new system.</p>
-      <div class="deliv">Deliverable: <span>Staff training, walkthrough recording</span></div>
-    </div>
-
-    <div class="tl-step">
-      <div class="tl-week">Week 12 · Re-Audit</div>
-      <h4>SCORE THE <span class="lime">RESULT.</span></h4>
-      <p>Repeat this audit end-to-end. Confirm the score moved from 80 to 90 or higher. Set the next quarterly mini-audit on the calendar before the engagement closes.</p>
-      <div class="deliv">Deliverable: <span>Re-audit report, quarterly cadence on calendar</span></div>
+      <div class="tl-week">Days 61 – 90 · Scale + Compound</div>
+      <h4>SCALE +  <span class="lime">COMPOUND.</span></h4>
+      <p>Exterior sign rework installs around a low-traffic Sunday. Wall art refreshed. Quarterly review cadence on the calendar. Re-audit at day 90 to confirm score moved to 90+.</p>
+      <div class="deliv">Deliverable: <span>Exterior signage, wall art, re-audit report, ongoing cadence</span></div>
     </div>
 
   </div>
 
-  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>11 / 13 <span class="dot">●</span></span></div>
+  <div class="prepay" style="margin-top: 32px;">
+    <strong>Apply your audit credit.</strong> The $997 you paid for this audit converts to a $498 credit toward month-one retainer if you sign within 30 days. Reach + Experience month-one drops to $3,499.
+  </div>
+
+  <div class="page-foot"><span>Big Splash · Brand Audit</span><span>13 / 15 <span class="dot">●</span></span></div>
 </section>
 
 <!-- ====================================================== -->
@@ -1442,14 +1739,17 @@
   <div class="eyebrow">12 · Next Step</div>
 
   <h2 class="h-display cta-headline">
-    LET'S GET<br>TO <span class="glow">WORK.</span>
+    PATCH THE<br><span class="glow">BUCKET.</span>
   </h2>
 
   <p class="cta-pitch">
-    You scored 80. The path to 95 is short and the order matters. Book a 30-minute call and we will sequence the fixes around your next sermon series and the church calendar.
+    Ads bring guests through the door. Brand decides whether they stay. You scored 80. Your $498 audit credit is on the table for thirty days. Book the call and we sequence every fix around the next sermon series.
   </p>
 
-  <a class="cta-btn" href="https://bigsplash.video">Book a 30-min call <span class="arr">→</span></a>
+  <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:40px; align-items:center;">
+    <a class="cta-btn" href="https://bigsplash.video">Apply $498 credit · start retainer <span class="arr">→</span></a>
+    <a href="https://bigsplash.video" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.3em; text-transform:uppercase; font-weight:600; color:var(--primary); border:1px solid rgba(239,248,139,0.5); padding:18px 24px; border-radius:999px; text-decoration:none;">Book 30-min planning call</a>
+  </div>
 
   <div class="cta-meta">
     <div class="left">

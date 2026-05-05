@@ -461,6 +461,127 @@
     .group-note { font-size: 12px; padding: 8px 12px; }
   }
 
+  /* ---- BIG SPLASH OFFER BLOCKS ---- */
+  .rec-block {
+    margin: 18px 0 6px;
+    background: linear-gradient(180deg, rgba(239,248,139,0.04), transparent);
+    border: 1px solid rgba(239,248,139,0.25);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .rec-block-head {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--primary);
+    margin-bottom: 12px;
+  }
+  .rec-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .rec-card {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: 8px; padding: 12px 14px;
+  }
+  .rec-card-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .rec-card-name { font-family: var(--display); font-size: 16px; color: #fff; text-transform: uppercase; letter-spacing: 0.01em; }
+  .rec-card-price { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--primary-ink); background: var(--primary); padding: 3px 9px; border-radius: 999px; }
+  .rec-card-summary { font-size: 12px; color: var(--ink); line-height: 1.5; margin-bottom: 6px; }
+  .rec-card-fixes { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; color: var(--ink-soft); text-transform: uppercase; }
+
+  .audio-moat {
+    margin: 36px 0 24px;
+    background: linear-gradient(180deg, rgba(239,248,139,0.08), var(--bg-2));
+    border: 1px solid rgba(239,248,139,0.5);
+    border-radius: 12px;
+    padding: 28px 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  .audio-moat::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: var(--primary);
+  }
+  .audio-moat-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--primary); }
+  .audio-moat h2 { font-family: var(--display); font-size: 38px; color: #fff; text-transform: uppercase; letter-spacing: 0.005em; margin: 10px 0 12px; line-height: 1.05; }
+  .audio-moat p { font-size: 14px; color: var(--ink); line-height: 1.55; margin: 0 0 18px; max-width: 64ch; }
+  .audio-moat-row { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding-top: 18px; border-top: 1px solid rgba(239,248,139,0.25); }
+  .audio-moat-name .amn-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-soft); }
+  .audio-moat-name .amn-title { font-family: var(--display); font-size: 22px; color: #fff; text-transform: uppercase; margin: 4px 0; }
+  .audio-moat-name .amn-sub { font-family: var(--mono); font-size: 10px; color: var(--ink-soft); letter-spacing: 0.05em; }
+  .audio-moat-price { font-family: var(--display); font-size: 50px; color: var(--primary); line-height: 1; }
+
+  .offer-section { margin: 36px 0 24px; }
+  .offer-section-title {
+    font-family: var(--display); font-size: 28px; color: var(--primary);
+    text-transform: uppercase; margin: 0 0 6px; letter-spacing: 0.005em;
+  }
+  .offer-section-sub { font-size: 13px; color: var(--ink); margin: 0 0 16px; line-height: 1.5; }
+
+  .offer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .offer-card {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: 10px; padding: 16px 18px;
+  }
+  .offer-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+  .offer-card h3 { font-family: var(--display); font-size: 18px; color: #fff; text-transform: uppercase; margin: 0; line-height: 1.1; letter-spacing: 0.005em; }
+  .offer-price { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--primary-ink); background: var(--primary); padding: 4px 10px; border-radius: 999px; flex-shrink: 0; }
+  .offer-summary { font-size: 12.5px; color: var(--ink); line-height: 1.5; margin: 0 0 10px; }
+  .offer-rec-for { font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; color: var(--ink-soft); padding-top: 8px; border-top: 1px dashed var(--line); }
+  .offer-rec-for em { color: var(--primary); font-style: normal; }
+
+  .rh-tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .rh-tier-card {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: 10px; padding: 18px 18px;
+    position: relative;
+  }
+  .rh-tier-card.featured { border-color: rgba(239,248,139,0.5); background: linear-gradient(180deg, rgba(239,248,139,0.05), var(--bg-2)); }
+  .rh-tier-badge {
+    position: absolute; top: -10px; left: 14px;
+    background: var(--primary); color: var(--primary-ink);
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.3em;
+    text-transform: uppercase; font-weight: 700;
+    padding: 3px 10px; border-radius: 999px;
+  }
+  .rh-tier-name { font-family: var(--mono); font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--primary); }
+  .rh-tier-card h3, .rh-tier-card .name-big {
+    font-family: var(--display); font-size: 22px; color: #fff;
+    text-transform: uppercase; margin: 4px 0;
+  }
+  .rh-tier-price { font-family: var(--display); font-size: 32px; color: var(--primary); line-height: 1; }
+  .rh-tier-price small { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; color: var(--ink); margin-left: 4px; }
+  .rh-tier-buyer { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin: 12px 0; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .rh-tier-card ul { margin: 0; padding: 0; list-style: none; }
+  .rh-tier-card li { font-size: 12px; color: var(--ink); padding: 4px 0 4px 16px; position: relative; line-height: 1.4; }
+  .rh-tier-card li::before { content: "✓"; color: var(--primary); position: absolute; left: 0; font-weight: 700; }
+
+  .day-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .day-card { background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; border-left: 3px solid var(--primary); }
+  .day-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--primary); }
+  .day-title { font-family: var(--display); font-size: 22px; color: #fff; text-transform: uppercase; margin: 6px 0 8px; }
+  .day-body { font-size: 12.5px; color: var(--ink); line-height: 1.5; }
+
+  .final-cta {
+    margin: 36px 0 24px;
+    background: linear-gradient(180deg, rgba(239,248,139,0.06), var(--bg));
+    border: 1px solid rgba(239,248,139,0.4);
+    border-radius: 12px;
+    padding: 36px 32px;
+    text-align: center;
+  }
+  .final-cta h2 { font-family: var(--display); font-size: 42px; color: #fff; text-transform: uppercase; margin: 0 0 14px; letter-spacing: 0.005em; }
+  .final-cta p { font-size: 14px; color: var(--ink); line-height: 1.55; margin: 0 auto 22px; max-width: 56ch; }
+  .final-cta-btn {
+    display: inline-block;
+    background: var(--primary); color: var(--primary-ink);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 700;
+    padding: 16px 28px; border-radius: 999px; text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    .rec-cards, .offer-grid, .rh-tier-grid, .day-grid { grid-template-columns: 1fr !important; }
+    .audio-moat-row { flex-direction: column; align-items: flex-start; }
+    .audio-moat-price { font-size: 40px; }
+    .audio-moat h2 { font-size: 28px; }
+  }
+
   /* ---- Print ---- */
   @media print {
     @page { size: letter; margin: 0.5in; }
@@ -498,6 +619,23 @@
     .sst-score.bad { color: #d04545 !important; }
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+
+    /* Offer blocks in print */
+    .rec-block, .audio-moat, .offer-card, .rh-tier-card, .day-card, .final-cta {
+      background: white !important; border: 1px solid #ccc !important;
+    }
+    .rec-block-head, .offer-section-title, .audio-moat-eyebrow,
+    .rh-tier-name, .day-label { color: #1a6b3a !important; }
+    .audio-moat h2, .final-cta h2, .day-title, .rh-tier-card h3,
+    .offer-card h3, .rec-card-name { color: #131318 !important; }
+    .audio-moat p, .final-cta p, .day-body, .offer-summary,
+    .rec-card-summary, .rh-tier-card li, .offer-section-sub { color: #131318 !important; }
+    .rh-tier-buyer, .rec-card-fixes, .offer-rec-for { color: #555 !important; }
+    .audio-moat-price, .rh-tier-price { color: #1a6b3a !important; }
+    .rec-card-price, .offer-price, .rh-tier-badge, .final-cta-btn {
+      background: #1a6b3a !important; color: white !important;
+    }
+    .rec-block, .audio-moat, .offer-section, .final-cta { page-break-inside: avoid; }
   }
 </style>
 </head>
@@ -543,6 +681,125 @@
 const ENDPOINT = "https://script.google.com/macros/s/AKfycbzSwX2eHHNMjASxeJhrRHkg-f_dZRDEEjARyZDjusfA4gr_RGj9bTWs_Fj4uIznw5VeAA/exec";
 
 let allAudits = [];
+
+// ============ BIG SPLASH OFFER CATALOG ============
+const OFFERS = {
+  "Brand Identity Refresh": {
+    price: "$5,997", type: "project",
+    summary: "Logo, color, type, and template system that holds across every doc and slide.",
+    triggers: ["brand color","color spec","logo clear","favicon","brand mark","brand guide","document header","document footer","print spec","pantone","tagline","positioning","apparel","welcome packet","first-time visitor"]
+  },
+  "First Impression Website Rebuild": {
+    price: "$3,497", type: "project",
+    summary: "A site built around the first-time guest. Plan a Visit, sermons, giving, branded 404.",
+    triggers: ["website","404","meta title","og image","heading and body","buttons","tagline","footer has correct"]
+  },
+  "Signage + Wayfinding Plan": {
+    price: "$2,997", type: "project",
+    summary: "Exterior sign rework plus interior wayfinding that connects parking lot to seat.",
+    triggers: ["exterior signage","window decals","lobby","wayfinding","door signs","wall art","mural"]
+  },
+  "Sermon Series Launch Package": {
+    price: "$2,497", type: "project",
+    summary: "Per-series artwork that travels from stage to social to website.",
+    triggers: ["sermon series","series graphic","cover","banner","pinned post","series art","lower thirds template"]
+  },
+  "Stage Design Refresh Consult": {
+    price: "$2,497", type: "project",
+    summary: "Stage backdrop and motion-graphics consult. Quarterly evolution plan.",
+    triggers: ["stage backdrop","stage design","stage screen","scrim"]
+  },
+  "Vision Sunday Video": {
+    price: "$3,497", type: "project",
+    summary: "A 3-minute story film that anchors the year's vision.",
+    triggers: ["vision","testimony video"]
+  },
+  "Annual Report Video": {
+    price: "$7,997", type: "project",
+    summary: "Board-room caliber recap film. Numbers, stories, vision.",
+    triggers: ["annual report"]
+  },
+  "Capital / Giving Campaign Video": {
+    price: "$5,997", type: "project",
+    summary: "The film that gets the next pledge made.",
+    triggers: ["capital","giving","pledge"]
+  },
+  "Children's / Youth Ministry Branding": {
+    price: "$3,497", type: "project",
+    summary: "Sub-brand system for kids and youth that lives under the main church brand.",
+    triggers: ["children","youth","kids","ministry brand"]
+  },
+  "Easter or Christmas Promo Campaign": {
+    price: "$4,497", type: "project",
+    summary: "Full seasonal campaign. Series art, promo video, social pack, ads, follow-up flow.",
+    triggers: ["easter","christmas","seasonal campaign"]
+  },
+  "Audio System Audit": {
+    price: "$4,997", type: "audit", featured: true,
+    summary: "On-site sound system measurement, mix analysis, EQ tuning, FOH operator training.",
+    triggers: ["audio mix","stream audio","mix balance","audio levels","lipsync","levels target","peak ceiling","foh","ambience","backup audio","audio network","crowd mics"]
+  },
+  "Brand Governance Kit": {
+    price: "$1,997", type: "project",
+    summary: "Brand guide, asset library, vendor list, named owner, quarterly review cadence.",
+    triggers: ["brand guide","asset library","old logo","vendor list","audit owner","review cadence"]
+  },
+};
+
+const RETAINERS = [
+  { name: "Reach", price: "$1,997", buyer: "Comms director with a Plan-a-Visit KPI",
+    includes: ["Meta ads (Plan-a-Visit campaigns)", "Sermon edits + 4 vertical clips/mo", "Weekly highlight reel", "Content calendar + GBP mgmt", "Monthly performance report"] },
+  { name: "Reach + Experience", price: "$3,997", buyer: "Executive pastor coordinating worship + comms",
+    includes: ["Everything in Reach", "Livestream support + audio consulting", "On-camera coaching", "Monthly testimony video", "8 reels / month", "Quarterly experience review"] },
+  { name: "Full Presence", price: "$6,997", buyer: "Lead pastor at 600+ church",
+    includes: ["Everything in Reach + Experience", "Dedicated producer (single POC)", "Quarterly in-person visit (travel in)", "1 brand film + 4 testimonies + 12 reels / mo", "Annual brand health audit", "Pastor monthly studio shoot"] },
+];
+
+// Score is "weak" if 1-3 (not 4, 5, or N/A)
+function isWeak(score) {
+  if (score === null || score === undefined || score === "" || score === "na") return false;
+  const n = Number(score);
+  return !isNaN(n) && n >= 1 && n <= 3;
+}
+
+// Returns a list of { offer, item } pairs for items in this group that are weak and match offer triggers
+function recommendOffersForItems(items) {
+  const recs = new Map(); // offerName -> [items it solves]
+  items.forEach(it => {
+    if (!isWeak(it.score)) return;
+    const itemTextLower = (it.item || "").toLowerCase();
+    Object.entries(OFFERS).forEach(([name, offer]) => {
+      if (offer.triggers.some(t => itemTextLower.includes(t.toLowerCase()))) {
+        if (!recs.has(name)) recs.set(name, []);
+        recs.get(name).push(it.item);
+      }
+    });
+  });
+  return recs; // Map<offerName, [item strings]>
+}
+
+function recommendOffersForAudit(allItems) {
+  const recs = new Map();
+  allItems.forEach(it => {
+    if (!isWeak(it.score)) return;
+    const itemTextLower = (it.item || "").toLowerCase();
+    Object.entries(OFFERS).forEach(([name, offer]) => {
+      if (offer.triggers.some(t => itemTextLower.includes(t.toLowerCase()))) {
+        if (!recs.has(name)) recs.set(name, []);
+        recs.get(name).push(it.item);
+      }
+    });
+  });
+  return recs;
+}
+
+function pickRetainerTier(overall) {
+  if (overall === null || overall === undefined || overall === "") return "Reach + Experience";
+  const n = Number(overall);
+  if (n < 70) return "Full Presence";
+  if (n < 85) return "Reach + Experience";
+  return "Reach";
+}
 
 function scoreClass(pct) {
   if (pct === null || pct === undefined || pct === "") return "";
@@ -724,6 +981,7 @@ function showReport(idx) {
   }
 
   // Detailed sections
+  const allItems = [];
   Object.entries(bySection).forEach(([sec, groups]) => {
     const secScore = sectionScores[sec];
     const secScoreDisplay = (typeof secScore === "number") ? secScore.toFixed(1) + " / 5" : "— / 5";
@@ -735,9 +993,12 @@ function showReport(idx) {
         </div>
         <div class="section-block-body">
     `;
+    const sectionItems = [];
     Object.entries(groups).forEach(([groupName, groupItems]) => {
       html += `<div class="group-block"><h3>${groupName}</h3>`;
       groupItems.forEach(it => {
+        sectionItems.push(it);
+        allItems.push(it);
         const v = it.score;
         const pillCls = (v === null || v === undefined) ? "s-none" : (v === "na" ? "s-na" : `s-${v}`);
         const pillText = (v === null || v === undefined) ? "—" : (v === "na" ? "N/A" : v);
@@ -754,8 +1015,115 @@ function showReport(idx) {
       }
       html += `</div>`;
     });
+
+    // Per-section recommended fixes from Big Splash
+    const sectionRecs = recommendOffersForItems(sectionItems);
+    if (sectionRecs.size > 0) {
+      html += `<div class="rec-block"><div class="rec-block-head">Recommended fixes from Big Splash</div><div class="rec-cards">`;
+      sectionRecs.forEach((items, name) => {
+        const offer = OFFERS[name];
+        html += `
+          <div class="rec-card">
+            <div class="rec-card-head">
+              <span class="rec-card-name">${name}</span>
+              <span class="rec-card-price">${offer.price}</span>
+            </div>
+            <div class="rec-card-summary">${escapeHtml(offer.summary)}</div>
+            <div class="rec-card-fixes">Fixes ${items.length} weak ${items.length === 1 ? 'item' : 'items'} in this section</div>
+          </div>
+        `;
+      });
+      html += `</div></div>`;
+    }
+
     html += `</div></div>`;
   });
+
+  // ============ FINAL OFFER BLOCKS ============
+  const auditRecs = recommendOffersForAudit(allItems);
+  const audioMatched = auditRecs.has("Audio System Audit");
+  const projects = Array.from(auditRecs.entries())
+    .filter(([name]) => OFFERS[name].type === "project")
+    .sort((a, b) => b[1].length - a[1].length);
+
+  if (audioMatched) {
+    const audioCount = auditRecs.get("Audio System Audit").length;
+    html += `
+      <div class="audio-moat">
+        <div class="audio-moat-eyebrow">Special engagement · Bigsplash moat</div>
+        <h2>Audio is the moat.</h2>
+        <p>Your audit flagged ${audioCount} audio item${audioCount === 1 ? '' : 's'} at 3 of 5 or below. No church marketing agency in the country offers audio consulting as a core service. Big Splash does. Fifteen plus years of live-sound expertise, on-site measurement, and mix tuning that no graphic designer can copy.</p>
+        <div class="audio-moat-row">
+          <div class="audio-moat-name">
+            <div class="amn-label">Standalone</div>
+            <div class="amn-title">Audio System Audit</div>
+            <div class="amn-sub">On-site measurement · Mix analysis · EQ tuning · 30-day follow-up</div>
+          </div>
+          <div class="audio-moat-price">$4,997</div>
+        </div>
+      </div>
+    `;
+  }
+
+  if (projects.length > 0) {
+    html += `<div class="offer-section"><h2 class="offer-section-title">Project menu</h2>`;
+    html += `<p class="offer-section-sub">Each project maps to a finding above. Pricing is fixed and includes the full deliverable.</p>`;
+    html += `<div class="offer-grid">`;
+    projects.forEach(([name, items]) => {
+      const offer = OFFERS[name];
+      html += `
+        <div class="offer-card">
+          <div class="offer-card-head">
+            <h3>${name}</h3>
+            <span class="offer-price">${offer.price}</span>
+          </div>
+          <p class="offer-summary">${escapeHtml(offer.summary)}</p>
+          <div class="offer-rec-for">Recommended for: <em>${escapeHtml(items.slice(0, 2).join(' · '))}${items.length > 2 ? ` · +${items.length - 2} more` : ''}</em></div>
+        </div>
+      `;
+    });
+    html += `</div></div>`;
+  }
+
+  const recommendedTier = pickRetainerTier(score);
+  html += `<div class="offer-section"><h2 class="offer-section-title">Ongoing engagement</h2>`;
+  html += `<p class="offer-section-sub">Three tiers. Annual prepay gets two months free. Recommended for this church: <strong style="color:var(--primary);">${recommendedTier}</strong>.</p>`;
+  html += `<div class="rh-tier-grid">`;
+  RETAINERS.forEach(tier => {
+    const featured = tier.name === recommendedTier ? ' featured' : '';
+    html += `
+      <div class="rh-tier-card${featured}">
+        ${featured ? '<div class="rh-tier-badge">Recommended</div>' : ''}
+        <div class="rh-tier-name">${tier.name}</div>
+        <div class="rh-tier-price">${tier.price}<small>/mo</small></div>
+        <div class="rh-tier-buyer">For: ${tier.buyer}</div>
+        <ul>
+          ${tier.includes.map(i => `<li>${i}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  });
+  html += `</div></div>`;
+
+  html += `
+    <div class="offer-section">
+      <h2 class="offer-section-title">Your 30 / 60 / 90</h2>
+      <p class="offer-section-sub">Quick wins in month one. Foundation in month two. Compounding in month three.</p>
+      <div class="day-grid">
+        <div class="day-card"><div class="day-label">Days 01 – 30</div><div class="day-title">Quick Wins</div><div class="day-body">Lock governance. Ship favicon, 404, social cover artwork, and a refreshed bulletin template. Every fix lands in one Sunday cycle.</div></div>
+        <div class="day-card"><div class="day-label">Days 31 – 60</div><div class="day-title">Build the Foundation</div><div class="day-body">Brand guide, document templates, livestream backgrounds, visitor packet redesign. Train the comms team on the guide.</div></div>
+        <div class="day-card"><div class="day-label">Days 61 – 90</div><div class="day-title">Scale + Compound</div><div class="day-body">Exterior signage installs around a low-traffic Sunday. Re-audit at day 90. Set the quarterly cadence on the calendar.</div></div>
+      </div>
+    </div>
+  `;
+
+  html += `
+    <div class="final-cta">
+      <h2>Patch the bucket.</h2>
+      <p>Ads bring guests through the door. Brand decides whether they stay. Apply your audit credit toward month-one retainer if signed in 30 days.</p>
+      <a href="https://bigsplash.video" class="final-cta-btn">Book the planning call →</a>
+    </div>
+  `;
 
   document.getElementById("report-content").innerHTML = html;
 }
