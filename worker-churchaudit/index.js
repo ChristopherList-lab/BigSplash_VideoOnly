@@ -217,6 +217,76 @@ async function runAudit(rawUrl) {
     );
   }
 
+  // ---- 15. Probe each social URL + YouTube cadence
+  detected.socialHealth = [];
+  let mostRecentDays = null;
+  for (const s of detected.socials) {
+    const url = s.urls[0];
+    const info = { platform: s.platform, url, alive: false };
+    try {
+      const r = await fetch(url, {
+        redirect: "follow",
+        headers: { "User-Agent": "Mozilla/5.0 BigsplashAuditBot/1.0" },
+      });
+      info.alive = r.ok;
+      info.status = r.status;
+      if (r.ok) {
+        const text = await r.text();
+        const ogImg = text.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
+        const ogDesc = text.match(/<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']+)["']/i);
+        if (ogImg) info.profileImage = ogImg[1];
+        if (ogDesc) info.bio = ogDesc[1].slice(0, 200);
+
+        // YouTube: extract channel_id, fetch RSS, get latest upload
+        if (s.platform === "youtube") {
+          const cidMatch = text.match(/"channelId":"(UC[a-zA-Z0-9_-]+)"/) ||
+                           text.match(/<meta[^>]+itemprop=["']channelId["'][^>]+content=["']([^"']+)["']/i);
+          if (cidMatch) {
+            info.channelId = cidMatch[1];
+            try {
+              const rssRes = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${cidMatch[1]}`);
+              if (rssRes.ok) {
+                const rss = await rssRes.text();
+                // First <entry> block is the most recent video; channel-level <published> is before <entry> so we scope match inside the first entry
+                const firstEntry = rss.match(/<entry>[\s\S]*?<\/entry>/);
+                if (firstEntry) {
+                  const entryBlock = firstEntry[0];
+                  const pubMatch = entryBlock.match(/<published>([^<]+)<\/published>/);
+                  if (pubMatch) {
+                    info.lastUpload = pubMatch[1];
+                    const days = Math.floor((Date.now() - new Date(pubMatch[1]).getTime()) / 86400000);
+                    info.daysSinceLastUpload = days;
+                    if (mostRecentDays === null || days < mostRecentDays) mostRecentDays = days;
+                  }
+                  const titleMatch = entryBlock.match(/<title>([^<]+)<\/title>/);
+                  if (titleMatch) info.lastVideoTitle = titleMatch[1];
+                }
+              }
+            } catch {}
+          }
+        }
+      }
+    } catch (err) {
+      info.error = err.message;
+    }
+    detected.socialHealth.push(info);
+  }
+
+  // Score posting cadence based on most recent detectable activity (YouTube only for now)
+  if (mostRecentDays !== null) {
+    let cadenceScore;
+    if (mostRecentDays <= 7) cadenceScore = 5;
+    else if (mostRecentDays <= 14) cadenceScore = 4;
+    else if (mostRecentDays <= 30) cadenceScore = 3;
+    else if (mostRecentDays <= 60) cadenceScore = 2;
+    else cadenceScore = 1;
+    set(
+      "Posting cadence consistent",
+      cadenceScore,
+      `Most recent YouTube upload: ${mostRecentDays} days ago. (Other platforms not auto-checkable.)`
+    );
+  }
+
   // ---- 11. Service times on home page
   const stripped = homeText.replace(/<script[\s\S]*?<\/script>/gi, " ")
                            .replace(/<style[\s\S]*?<\/style>/gi, " ")

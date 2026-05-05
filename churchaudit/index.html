@@ -1265,14 +1265,32 @@ document.getElementById("runAutoAudit").addEventListener("click", async () => {
     });
 
     let html = `<div style="margin-bottom: 10px; color: var(--primary); font-weight: 700; font-size: 13px;">⚡ Auto-scored ${applied} items</div>`;
-    if (data.detected?.socials?.length) {
-      const socialList = data.detected.socials.map(s => `${s.platform.toUpperCase()} (${s.urls.length})`).join(", ");
-      html += `<div style="margin-bottom: 10px;">Socials detected: ${socialList}</div>`;
-    }
     if (data.detected?.responseMs !== undefined) {
       html += `<div style="margin-bottom: 14px;">Server responded in ${data.detected.responseMs}ms · ${data.detected.finalUrl}</div>`;
     }
-    html += `<div style="border-top: 1px solid var(--line); padding-top: 10px;">${lines.join("<br><br>")}</div>`;
+
+    // Social health panel
+    if (data.detected?.socialHealth?.length) {
+      html += `<div style="margin-top: 14px; padding: 12px 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px;">`;
+      html += `<div style="color: var(--primary); font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; font-size: 11px;">Social Health</div>`;
+      data.detected.socialHealth.forEach(sh => {
+        const status = sh.alive ? `<span style="color: var(--good);">✓ ${sh.status}</span>` : `<span style="color: var(--bad);">✗ ${sh.status || "err"}</span>`;
+        let line = `<div style="margin-bottom: 6px;"><strong style="color: var(--ink); text-transform: uppercase;">${sh.platform}</strong> &nbsp; ${status}`;
+        if (sh.daysSinceLastUpload !== undefined) {
+          const fresh = sh.daysSinceLastUpload <= 14 ? "var(--good)" : sh.daysSinceLastUpload <= 30 ? "var(--warn)" : "var(--bad)";
+          line += ` &nbsp; <span style="color: ${fresh};">last upload ${sh.daysSinceLastUpload}d ago</span>`;
+          if (sh.lastVideoTitle) line += ` &nbsp; <span style="color: var(--ink-soft); font-style: italic;">"${sh.lastVideoTitle}"</span>`;
+        }
+        if (sh.bio) {
+          line += `<br><span style="margin-left: 18px; color: var(--ink-soft); font-size: 11px;">${sh.bio.slice(0, 140)}</span>`;
+        }
+        line += `</div>`;
+        html += line;
+      });
+      html += `</div>`;
+    }
+
+    html += `<div style="border-top: 1px solid var(--line); padding-top: 10px; margin-top: 14px;">${lines.join("<br><br>")}</div>`;
     html += `<div style="margin-top: 14px; padding: 10px; background: var(--bg); border-left: 3px solid var(--warn); color: var(--ink-soft);">⚠ Review and adjust each auto-scored item — these are heuristics. Items not covered need manual scoring.</div>`;
     resultsDiv.innerHTML = html;
 
