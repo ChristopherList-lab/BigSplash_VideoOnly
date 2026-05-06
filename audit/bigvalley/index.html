@@ -614,6 +614,8 @@
   /* hide nav and footer in print */
   @media print {
     .site-nav, .site-foot { display: none !important; }
+    /* hide empty evidence placeholders in print so deep-dive pages fit */
+    .evidence-strip:not(:has(img)) { display: none !important; }
     /* kill lime halos / shadows so PDF doesn't look "highlighted" */
     .glow,
     .cta-headline .glow,
