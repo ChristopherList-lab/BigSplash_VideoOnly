@@ -842,7 +842,7 @@
       <a href="#retainers">Retainers</a>
       <a href="#timeline">30/60/90</a>
     </div>
-    <a href="Big-Valley-Brand-Audit.pdf" class="cta-mini" style="background:transparent; color:var(--primary); border:1px solid rgba(239,248,139,0.5); margin-right:8px;" download>Download PDF</a>
+    <a id="download-pdf-link" href="#" class="cta-mini" style="background:transparent; color:var(--primary); border:1px solid rgba(239,248,139,0.5); margin-right:8px; display:none;">Download PDF</a>
     <a href="#cta" class="cta-mini">Book a call →</a>
   </div>
 </nav>
@@ -1339,6 +1339,19 @@
     document.title = `${audit["Church"] || "Audit"} · Big Splash Brand Audit`;
   }
 
+  // Set the worker URL once it's deployed. Use either the workers.dev URL or
+  // a custom route like https://bigsplash.video/api/render-pdf
+  const AUDIT_PDF_WORKER = "https://bigsplash-audit-pdf.bigsplash.workers.dev";
+
+  function wireDownloadPdf(audit) {
+    const link = document.getElementById("download-pdf-link");
+    if (!link || !AUDIT_PDF_WORKER) return;
+    const slug = (new URLSearchParams(location.search)).get("id");
+    if (!slug) return;
+    link.href = `${AUDIT_PDF_WORKER}/?id=${encodeURIComponent(slug)}`;
+    link.style.display = "";
+  }
+
   // ============ BOOT ============
   async function boot() {
     const params = new URLSearchParams(location.search);
@@ -1358,6 +1371,7 @@
         return;
       }
       render(audit);
+      wireDownloadPdf(audit);
     } catch (e) {
       document.getElementById("load-msg").textContent = "Error loading audit: " + (e.message || e);
     }

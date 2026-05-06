@@ -1,0 +1,36 @@
+# Bigsplash Audit PDF Worker
+#
+# Renders any /audit/?id=<slug> page to PDF using Cloudflare Browser
+# Rendering. Requires Workers Paid + Browser Rendering enabled.
+#
+# Deploy steps (run from this worker-pdf/ directory):
+#
+#   npm install
+#   npx wrangler login
+#   npx wrangler deploy
+#
+# After first deploy, copy the workers.dev URL Wrangler prints
+# (e.g. https://bigsplash-audit-pdf.<account>.workers.dev) and paste
+# it into AUDIT_PDF_WORKER in ../audit/index.html.
+#
+# Optional: bind a custom route on bigsplash.video so the URL becomes
+# bigsplash.video/api/render-pdf instead of the workers.dev subdomain.
+
+name = "bigsplash-audit-pdf"
+main = "index.js"
+compatibility_date = "2026-04-01"
+workers_dev = true
+
+# Browser Rendering binding — required for headless Chrome.
+# Enable Browser Rendering in your Cloudflare dashboard before deploying.
+browser = { binding = "BROWSER" }
+
+# Optional: cache rendered PDFs in R2 by audit id + last-modified.
+# Uncomment after creating the bucket:  npx wrangler r2 bucket create bigsplash-audit-pdfs
+# [[r2_buckets]]
+# binding = "PDF_CACHE"
+# bucket_name = "bigsplash-audit-pdfs"
+
+[vars]
+AUDIT_BASE_URL = "https://bigsplash.video/audit/"
+ALLOWED_ORIGIN = "https://bigsplash.video"

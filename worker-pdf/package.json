@@ -1,0 +1,17 @@
+{
+  "name": "bigsplash-audit-pdf",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare Worker that renders Big Splash audit pages to PDF using Browser Rendering.",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev"
+  },
+  "dependencies": {
+    "@cloudflare/puppeteer": "^0.0.14"
+  },
+  "devDependencies": {
+    "wrangler": "^3.78.0"
+  }
+}
