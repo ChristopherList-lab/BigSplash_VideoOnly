@@ -1,0 +1,11 @@
+# Cloudflare Pages redirects
+#
+# Pretty per-audit URLs. Clients can be sent bigsplash.video/audit/big-valley/
+# and the dynamic renderer at /audit/?id=big-valley loads the matching audit
+# from the Apps Script endpoint.
+#
+# Static files take precedence — /audit/bigvalley/index.html still serves the
+# hand-built fallback page if the folder exists.
+
+/audit/:slug/  /audit/?id=:slug  200
+/audit/:slug   /audit/?id=:slug  200

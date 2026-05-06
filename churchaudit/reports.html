@@ -671,6 +671,7 @@
   <div id="report-view" style="display:none">
     <div class="toolbar">
       <button class="ghost-btn" id="backBtn">← Back to all audits</button>
+      <button class="ghost-btn" id="shareBtn" title="Copy public client-facing URL">🔗 Copy share link</button>
       <button class="primary-btn print-btn" id="printBtn">🖨 Save as PDF</button>
     </div>
     <div id="report-content" class="report-wrap"></div>
@@ -899,9 +900,11 @@ document.getElementById("search").addEventListener("input", applyFilters);
 document.getElementById("typeFilter").addEventListener("change", applyFilters);
 document.getElementById("refreshBtn").addEventListener("click", loadAudits);
 
+let currentAudit = null;
 function showReport(idx) {
   const a = allAudits[idx];
   if (!a) return;
+  currentAudit = a;
   document.getElementById("list-view").style.display = "none";
   document.getElementById("report-view").style.display = "block";
   window.scrollTo(0, 0);
@@ -1140,6 +1143,27 @@ document.getElementById("backBtn").addEventListener("click", () => {
   document.getElementById("list-view").style.display = "block";
 });
 document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+document.getElementById("shareBtn").addEventListener("click", async () => {
+  if (!currentAudit) return;
+  const slug = String(currentAudit["Church"] || "")
+    .toLowerCase().trim()
+    .replace(/['']/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  const url = `https://bigsplash.video/audit/${slug}/`;
+  const btn = document.getElementById("shareBtn");
+  const original = btn.textContent;
+  try {
+    await navigator.clipboard.writeText(url);
+    btn.textContent = "✓ Copied: " + url;
+    btn.style.color = "var(--primary)";
+    btn.style.borderColor = "var(--primary)";
+  } catch {
+    prompt("Copy this URL:", url);
+  }
+  setTimeout(() => { btn.textContent = original; btn.style.color = ""; btn.style.borderColor = ""; }, 3500);
+});
 
 loadAudits();
 </script>
