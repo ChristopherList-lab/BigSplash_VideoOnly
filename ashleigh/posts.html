@@ -42,6 +42,7 @@
 
   .content{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
   .content > *{min-width:0}
+  .post:has(.slides.carousel) .content{grid-template-columns:1fr}
   @media (max-width:900px){.content{grid-template-columns:1fr}}
 
   .visual{background:var(--ink);padding:24px;border-radius:10px}
