@@ -41,6 +41,7 @@
   .post .hook{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:22px;color:var(--sage-deep);margin-top:8px}
 
   .content{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  .content > *{min-width:0}
   @media (max-width:900px){.content{grid-template-columns:1fr}}
 
   .visual{background:var(--ink);padding:24px;border-radius:10px}
@@ -68,6 +69,7 @@
   }
   .reel-cover .reel-text::before{content:"\201C";display:block;font-size:22px;font-style:normal;opacity:.6;margin-bottom:2px;line-height:.5}
   .reel-cover .reel-text::after{content:"\201D";display:block;font-size:22px;font-style:normal;opacity:.6;margin-top:6px;line-height:.5}
+  .slides.still .reel-cover{width:248px}
   .visual .template-tag{display:inline-block;margin:0 auto 14px;padding:5px 12px;border-radius:3px;background:var(--gold);color:var(--ink);font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
   .visual .caption{color:#888;font-size:11px;text-align:center;margin-top:10px;letter-spacing:.12em;text-transform:uppercase}
 
@@ -203,7 +205,9 @@ xo, Ash</div>
     <div class="content">
       <div class="visual">
         <div class="slides carousel">
-          <img src="slides/template/page_1.png" alt="Slide 1">
+          <div class="reel-cover" style="background-image:url('slides/template/page_1.png')" role="img" aria-label="Slide 1: Nobody tells you about the messy middle">
+            <div class="reel-text">Nobody tells you about<br>the messy middle</div>
+          </div>
           <img src="slides/template/page_2.png" alt="Slide 2">
           <img src="slides/template/page_3.png" alt="Slide 3">
           <img src="slides/template/page_4.png" alt="Slide 4">
@@ -281,7 +285,9 @@ xo, Ash</div>
     <div class="content">
       <div class="visual">
         <div class="slides carousel">
-          <img src="slides/template/page_1.png" alt="Slide 1">
+          <div class="reel-cover" style="background-image:url('slides/template/page_3.png')" role="img" aria-label="Slide 1: Prayers I don't say out loud">
+            <div class="reel-text">Prayers I don't<br>say out loud</div>
+          </div>
           <img src="slides/template/page_2.png" alt="Slide 2">
           <img src="slides/template/page_3.png" alt="Slide 3">
           <img src="slides/template/page_4.png" alt="Slide 4">
@@ -360,7 +366,11 @@ xo, Ash</div>
     </header>
     <div class="content">
       <div class="visual">
-        <div class="slides still"><img src="slides/template/page_5.png" alt="Still · Ashleigh's Story Template"></div>
+        <div class="slides still">
+          <div class="reel-cover" style="background-image:url('slides/template/page_4.png')" role="img" aria-label="Still: Filled cups fill cups">
+            <div class="reel-text">Filled cups<br>fill cups</div>
+          </div>
+        </div>
         <div class="caption">Single still · 1080 × 1920</div>
       </div>
       <div class="details">
@@ -433,7 +443,9 @@ xo, Ash</div>
     <div class="content">
       <div class="visual">
         <div class="slides carousel">
-          <img src="slides/template/page_1.png" alt="Slide 1">
+          <div class="reel-cover" style="background-image:url('slides/template/page_5.png')" role="img" aria-label="Slide 1: Permission slip · 2026 edition">
+            <div class="reel-text">Permission slip<br>·  2026 edition  ·</div>
+          </div>
           <img src="slides/template/page_2.png" alt="Slide 2">
           <img src="slides/template/page_3.png" alt="Slide 3">
           <img src="slides/template/page_4.png" alt="Slide 4">
