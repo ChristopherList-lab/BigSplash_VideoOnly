@@ -92,6 +92,30 @@
   .ws-back .arrow{font-size:16px;line-height:1;transition:transform .2s ease}
   .ws-back:hover{background:var(--gold);color:var(--ink);border-color:var(--ink);box-shadow:0 8px 24px -6px rgba(212,175,55,.5)}
   .ws-back:hover .arrow{transform:translateX(-3px)}
+
+  /* ---------- approval block ---------- */
+  .approval{margin-top:36px;padding:28px;border-top:3px solid var(--sage);background:#fff;border-radius:10px;box-shadow:0 4px 16px -8px rgba(26,26,26,.08)}
+  .approval-h{font-family:'Playfair Display',serif;font-size:20px;color:var(--sage-deep);margin-bottom:6px}
+  .approval-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:#777;margin-bottom:18px}
+  .approval-opts{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+  .approval-opts label{cursor:pointer;flex:1;min-width:180px}
+  .approval-opts input{position:absolute;opacity:0;pointer-events:none}
+  .approval-opts .opt{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 18px;border-radius:8px;border:2px solid rgba(26,26,26,.12);font-size:14px;font-weight:600;letter-spacing:.04em;color:#555;transition:all .18s ease}
+  .approval-opts label:hover .opt{border-color:rgba(26,26,26,.3)}
+  .approval-opts input:checked + .opt.approve{background:var(--sage);color:#fff;border-color:var(--sage);box-shadow:0 4px 12px -4px rgba(125,139,127,.4)}
+  .approval-opts input:checked + .opt.changes{background:var(--rose);color:#fff;border-color:var(--rose);box-shadow:0 4px 12px -4px rgba(181,146,159,.4)}
+  .approval textarea{width:100%;padding:14px;border-radius:8px;border:1px solid rgba(26,26,26,.14);font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;min-height:70px;resize:vertical;background:var(--cream)}
+  .approval textarea:focus{outline:none;border-color:var(--sage);background:#fff}
+  .approval .saved{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--sage-deep);margin-top:8px;opacity:0;transition:opacity .3s}
+  .approval .saved.show{opacity:.7}
+
+  /* ---------- floating send bar ---------- */
+  .send-bar{position:fixed;bottom:24px;right:24px;z-index:100;background:var(--ink);color:var(--cream);padding:10px 10px 10px 22px;border-radius:999px;display:flex;align-items:center;gap:16px;box-shadow:0 14px 32px -10px rgba(0,0,0,.45),0 0 0 4px rgba(212,175,55,.12);border:2px solid var(--gold)}
+  .send-bar .status{font-size:12px;letter-spacing:.1em;opacity:.85;font-family:'Inter',sans-serif}
+  .send-bar .status strong{color:var(--gold)}
+  .send-bar .send-btn{background:var(--gold);color:var(--ink);padding:11px 22px;border-radius:999px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;text-decoration:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s ease}
+  .send-bar .send-btn:hover{background:#fff;transform:translateY(-1px)}
+  @media (max-width:600px){.send-bar{bottom:16px;right:16px;left:16px;justify-content:space-between}}
 </style>
 </head>
 <body>
@@ -525,6 +549,99 @@ xo, Ash</div>
     <div class="m">biggirlthoughts.com · @ashleighleege · brand package 2026</div>
   </div>
 </footer>
+
+<script>
+(function(){
+  const KEY='bgt-post-approvals-v1';
+  const RECIPIENT='chris@bigsplash.agency';
+  const data=JSON.parse(localStorage.getItem(KEY)||'{}');
+  const posts=Array.from(document.querySelectorAll('.post[id^="p"]'));
+
+  posts.forEach(post=>{
+    const id=post.id;
+    const wrap=post.querySelector('.wrap');
+    if(!wrap) return;
+    const cur=data[id]||{};
+    const block=document.createElement('div');
+    block.className='approval';
+    block.dataset.postId=id;
+    block.innerHTML=
+      '<div class="approval-h">Your call, babe</div>'+
+      '<div class="approval-sub">Mark it approved or flag changes — Chris gets it all when you hit "Send".</div>'+
+      '<div class="approval-opts">'+
+        '<label><input type="radio" name="r-'+id+'" value="approved"'+(cur.status==='approved'?' checked':'')+'><span class="opt approve">✓ Approved — ship it</span></label>'+
+        '<label><input type="radio" name="r-'+id+'" value="changes"'+(cur.status==='changes'?' checked':'')+'><span class="opt changes">↻ Needs changes</span></label>'+
+      '</div>'+
+      '<textarea placeholder="Notes for Chris (optional)…">'+(cur.notes||'').replace(/</g,'&lt;')+'</textarea>'+
+      '<div class="saved">Saved</div>';
+    wrap.appendChild(block);
+  });
+
+  function save(){
+    const out={};
+    posts.forEach(post=>{
+      const id=post.id;
+      const block=post.querySelector('.approval');
+      if(!block) return;
+      const checked=block.querySelector('input:checked');
+      const notes=block.querySelector('textarea').value;
+      const title=(post.querySelector('h2')||{}).textContent||'';
+      if(checked||notes.trim()) out[id]={status:checked?checked.value:'',notes:notes,title:title.replace(/^“|”$/g,'').trim()};
+    });
+    localStorage.setItem(KEY,JSON.stringify(out));
+    updateBar(out);
+    return out;
+  }
+
+  function flashSaved(block){
+    const s=block.querySelector('.saved');
+    if(!s) return;
+    s.classList.add('show');
+    clearTimeout(s._t);
+    s._t=setTimeout(()=>s.classList.remove('show'),1600);
+  }
+
+  document.querySelectorAll('.approval').forEach(block=>{
+    block.querySelectorAll('input').forEach(el=>el.addEventListener('change',()=>{save();flashSaved(block);}));
+    const ta=block.querySelector('textarea');
+    let dt;
+    ta.addEventListener('input',()=>{clearTimeout(dt);dt=setTimeout(()=>{save();flashSaved(block);},400);});
+  });
+
+  const bar=document.createElement('div');
+  bar.className='send-bar';
+  bar.innerHTML='<div class="status"><strong id="rv-count">0</strong> of '+posts.length+' reviewed</div><button class="send-btn" type="button">Send to Chris</button>';
+  document.body.appendChild(bar);
+  function updateBar(out){
+    const reviewed=Object.values(out).filter(v=>v.status).length;
+    const el=document.getElementById('rv-count');
+    if(el) el.textContent=reviewed;
+  }
+
+  bar.querySelector('.send-btn').addEventListener('click',()=>{
+    const out=save();
+    let body='Big Girl Thoughts — 10-Post Review\n';
+    body+='From: Ashleigh Leege\n';
+    body+='Date: '+new Date().toLocaleString()+'\n\n';
+    body+='---\n\n';
+    posts.forEach(post=>{
+      const id=post.id;
+      const r=out[id]||{};
+      const title=(post.querySelector('h2')||{}).textContent||'';
+      const status=r.status==='approved'?'APPROVED — ship it':r.status==='changes'?'NEEDS CHANGES':'(not yet reviewed)';
+      body+=id.toUpperCase()+' — '+title.replace(/^“|”$/g,'').trim()+'\n';
+      body+='Status: '+status+'\n';
+      if(r.notes) body+='Notes: '+r.notes+'\n';
+      body+='\n';
+    });
+    body+='---\nxo, Ash';
+    const subject='BGT Post Review — Ashleigh';
+    window.location.href='mailto:'+RECIPIENT+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  });
+
+  updateBar(data);
+})();
+</script>
 
 </body>
 </html>
