@@ -88,13 +88,15 @@
   footer .sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:32px;color:var(--gold)}
   footer .m{opacity:.5;font-size:12px;letter-spacing:.14em;margin-top:14px}
 
-  .ws-back{position:fixed;top:18px;left:18px;z-index:100;padding:9px 16px;border-radius:999px;background:rgba(26,26,26,.88);backdrop-filter:blur(10px);color:#F5F3F0;text-decoration:none;font-family:'Inter',-apple-system,sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;border:1px solid rgba(255,255,255,.12);transition:all .2s ease}
-  .ws-back:hover{background:var(--gold);color:#1A1A1A;border-color:transparent}
+  .ws-back{position:fixed;top:20px;left:20px;z-index:100;padding:12px 22px;border-radius:999px;background:var(--ink);color:var(--cream);text-decoration:none;font-family:'Inter',-apple-system,sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;border:2px solid var(--gold);box-shadow:0 6px 20px -6px rgba(26,26,26,.45),0 0 0 4px rgba(212,175,55,.15);display:inline-flex;align-items:center;gap:8px;transition:all .2s ease}
+  .ws-back .arrow{font-size:16px;line-height:1;transition:transform .2s ease}
+  .ws-back:hover{background:var(--gold);color:var(--ink);border-color:var(--ink);box-shadow:0 8px 24px -6px rgba(212,175,55,.5)}
+  .ws-back:hover .arrow{transform:translateX(-3px)}
 </style>
 </head>
 <body>
 
-<a href="index.html" class="ws-back" aria-label="Back to workspace">← Workspace</a>
+<a href="index.html" class="ws-back" aria-label="Back to workspace"><span class="arrow">←</span> Back to Workspace</a>
 
 <header>
   <div class="wrap">
