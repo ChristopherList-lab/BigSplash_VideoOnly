@@ -30,8 +30,10 @@
   /* top bar */
   .bar{position:fixed;top:0;left:0;right:0;z-index:20;padding:18px 0;background:rgba(26,26,26,.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
   .bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px}
-  .brand{display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--lime);font-weight:600}
-  .brand svg{width:24px;height:24px}
+  .brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--lime)}
+  .brand img{height:26px;width:auto;display:block;filter:drop-shadow(0 0 8px rgba(214,255,58,.25))}
+  .brand span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:600;padding-left:14px;border-left:1px solid rgba(255,255,255,.15)}
+  .brand:hover span{color:var(--lime)}
   .bar a.back{color:rgba(255,255,255,.5);font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
   .bar a.back:hover{color:var(--lime)}
 
@@ -86,10 +88,10 @@
 
 <nav class="bar">
   <div class="wrap">
-    <div class="brand">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="6" x2="8" y2="14"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="16" y1="10" x2="16" y2="18"/><circle cx="8" cy="14" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="16" cy="10" r="1.5" fill="currentColor"/></svg>
-      BigSplash · Client Workspace
-    </div>
+    <a class="brand" href="https://bigsplash.video" aria-label="Big Splash home">
+      <img src="../assets/images/logo-bigsplash.svg" alt="Big Splash">
+      <span>Client Workspace</span>
+    </a>
     <a class="back" href="/">← bigsplash.video</a>
   </div>
 </nav>
