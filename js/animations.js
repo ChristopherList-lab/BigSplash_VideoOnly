@@ -192,12 +192,12 @@ document.addEventListener('DOMContentLoaded', () => {
       overlay.classList.add('pointer-events-auto');
       document.body.classList.add('video-playing');
 
-      // Animate in
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          playerEl.classList.add('vp-active');
-        });
-      });
+      // Animate in. We have to wait a tick for the browser to commit the
+      // initial (opacity:0, scale:0.97) state — adding the class in the
+      // same frame as the element is created gets optimized away and the
+      // transition never fires.
+      const el = playerEl;
+      setTimeout(() => el.classList.add('vp-active'), 20);
     });
   });
 
