@@ -49,9 +49,26 @@
   .slides::-webkit-scrollbar{height:8px}
   .slides::-webkit-scrollbar-thumb{background:var(--sage);border-radius:4px}
   .slides img{scroll-snap-align:start;border-radius:6px;flex-shrink:0;box-shadow:0 10px 30px -10px rgba(0,0,0,.4)}
-  .slides.carousel img{width:260px;height:325px;object-fit:cover}
-  .slides.still img{width:320px;height:400px;object-fit:cover}
-  .slides.reel img{width:200px;height:356px;object-fit:cover}
+  .slides img{display:block;height:auto;aspect-ratio:9/16;object-fit:cover}
+  .slides.carousel img{width:225px}
+  .slides.still img{width:248px}
+  .slides.reel img{width:225px}
+  .reel-cover{
+    position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    width:225px;aspect-ratio:9/16;border-radius:6px;overflow:hidden;
+    background-size:cover;background-position:center;
+    box-shadow:0 10px 30px -10px rgba(0,0,0,.4);scroll-snap-align:start;
+  }
+  .reel-cover .reel-text{
+    position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);
+    width:74%;text-align:center;
+    font-family:'Playfair Display',serif;font-weight:700;font-style:italic;
+    font-size:16px;line-height:1.18;letter-spacing:-.005em;
+    color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.08);
+  }
+  .reel-cover .reel-text::before{content:"\201C";display:block;font-size:22px;font-style:normal;opacity:.6;margin-bottom:2px;line-height:.5}
+  .reel-cover .reel-text::after{content:"\201D";display:block;font-size:22px;font-style:normal;opacity:.6;margin-top:6px;line-height:.5}
+  .visual .template-tag{display:inline-block;margin:0 auto 14px;padding:5px 12px;border-radius:3px;background:var(--gold);color:var(--ink);font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
   .visual .caption{color:#888;font-size:11px;text-align:center;margin-top:10px;letter-spacing:.12em;text-transform:uppercase}
 
   .details{background:#fff;padding:32px;border-radius:10px;border:1px solid rgba(26,26,26,.08)}
@@ -105,7 +122,9 @@
     <div class="content">
       <div class="visual">
         <div class="slides reel">
-          <img src="slides/01_reel_awkward_honesty/thumbnail.png" alt="Reel cover">
+          <div class="reel-cover" style="background-image:url('slides/template/page_1.png')" role="img" aria-label="Reel cover: Things I almost said at church today">
+            <div class="reel-text">Things I almost said at church today</div>
+          </div>
         </div>
         <div class="caption">Reel cover · 1080 × 1920</div>
       </div>
@@ -143,7 +162,11 @@ xo, Ash</div>
     </header>
     <div class="content">
       <div class="visual">
-        <div class="slides reel"><img src="slides/02_reel_shawn_bit/thumbnail.png" alt="Reel cover"></div>
+        <div class="slides reel">
+          <div class="reel-cover" style="background-image:url('slides/template/page_2.png')" role="img" aria-label="Reel cover: If you know Shawn, you know Shawn">
+            <div class="reel-text">If you know Shawn,<br>you know Shawn</div>
+          </div>
+        </div>
         <div class="caption">Reel cover · 1080 × 1920</div>
       </div>
       <div class="details">
@@ -180,13 +203,13 @@ xo, Ash</div>
     <div class="content">
       <div class="visual">
         <div class="slides carousel">
-          <img src="slides/03_carousel_messy_middle/slide_01.png">
-          <img src="slides/03_carousel_messy_middle/slide_02.png">
-          <img src="slides/03_carousel_messy_middle/slide_03.png">
-          <img src="slides/03_carousel_messy_middle/slide_04.png">
-          <img src="slides/03_carousel_messy_middle/slide_05.png">
+          <img src="slides/template/page_1.png" alt="Slide 1">
+          <img src="slides/template/page_2.png" alt="Slide 2">
+          <img src="slides/template/page_3.png" alt="Slide 3">
+          <img src="slides/template/page_4.png" alt="Slide 4">
+          <img src="slides/template/page_5.png" alt="Slide 5">
         </div>
-        <div class="caption">5 slides · 1080 × 1350 · swipe →</div>
+        <div class="caption">5 slides · 1080 × 1920 · swipe →</div>
       </div>
       <div class="details">
         <h3>Caption</h3>
@@ -215,7 +238,11 @@ xo, Ash</div>
     </header>
     <div class="content">
       <div class="visual">
-        <div class="slides reel"><img src="slides/04_reel_jesus_wine/thumbnail.png"></div>
+        <div class="slides reel">
+          <div class="reel-cover" style="background-image:url('slides/template/page_3.png')" role="img" aria-label="Reel cover: Jesus was the first winemaker influencer">
+            <div class="reel-text">Jesus was the first winemaker influencer</div>
+          </div>
+        </div>
         <div class="caption">Reel cover · 1080 × 1920</div>
       </div>
       <div class="details">
@@ -254,12 +281,12 @@ xo, Ash</div>
     <div class="content">
       <div class="visual">
         <div class="slides carousel">
-          <img src="slides/05_carousel_prayers_out_loud/slide_01.png">
-          <img src="slides/05_carousel_prayers_out_loud/slide_02.png">
-          <img src="slides/05_carousel_prayers_out_loud/slide_03.png">
-          <img src="slides/05_carousel_prayers_out_loud/slide_04.png">
-          <img src="slides/05_carousel_prayers_out_loud/slide_05.png">
-          <img src="slides/05_carousel_prayers_out_loud/slide_06.png">
+          <img src="slides/template/page_1.png" alt="Slide 1">
+          <img src="slides/template/page_2.png" alt="Slide 2">
+          <img src="slides/template/page_3.png" alt="Slide 3">
+          <img src="slides/template/page_4.png" alt="Slide 4">
+          <img src="slides/template/page_5.png" alt="Slide 5">
+          <img src="slides/template/page_6.png" alt="Slide 6">
         </div>
         <div class="caption">6 slides · swipe →</div>
       </div>
@@ -290,7 +317,11 @@ xo, Ash</div>
     </header>
     <div class="content">
       <div class="visual">
-        <div class="slides reel"><img src="slides/06_reel_protein_real/thumbnail.png"></div>
+        <div class="slides reel">
+          <div class="reel-cover" style="background-image:url('slides/template/page_4.png')" role="img" aria-label="Reel cover: 20g of protein, zero aesthetic">
+            <div class="reel-text">20g of protein,<br>zero aesthetic</div>
+          </div>
+        </div>
         <div class="caption">Reel cover · 1080 × 1920</div>
       </div>
       <div class="details">
@@ -329,8 +360,8 @@ xo, Ash</div>
     </header>
     <div class="content">
       <div class="visual">
-        <div class="slides still"><img src="slides/07_still_quote_anchor/slide_01.png"></div>
-        <div class="caption">Single still · 1080 × 1350</div>
+        <div class="slides still"><img src="slides/template/page_5.png" alt="Still · Ashleigh's Story Template"></div>
+        <div class="caption">Single still · 1080 × 1920</div>
       </div>
       <div class="details">
         <h3>Caption</h3>
@@ -359,7 +390,11 @@ xo, Ash</div>
     </header>
     <div class="content">
       <div class="visual">
-        <div class="slides reel"><img src="slides/08_reel_empty_nest/thumbnail.png"></div>
+        <div class="slides reel">
+          <div class="reel-cover" style="background-image:url('slides/template/page_6.png')" role="img" aria-label="Reel cover: Mom of almost-grown humans">
+            <div class="reel-text">Mom of almost-grown humans — the thing no one warned me</div>
+          </div>
+        </div>
         <div class="caption">Reel cover · 1080 × 1920</div>
       </div>
       <div class="details">
@@ -398,13 +433,13 @@ xo, Ash</div>
     <div class="content">
       <div class="visual">
         <div class="slides carousel">
-          <img src="slides/09_carousel_permission_list/slide_01.png">
-          <img src="slides/09_carousel_permission_list/slide_02.png">
-          <img src="slides/09_carousel_permission_list/slide_03.png">
-          <img src="slides/09_carousel_permission_list/slide_04.png">
-          <img src="slides/09_carousel_permission_list/slide_05.png">
-          <img src="slides/09_carousel_permission_list/slide_06.png">
-          <img src="slides/09_carousel_permission_list/slide_07.png">
+          <img src="slides/template/page_1.png" alt="Slide 1">
+          <img src="slides/template/page_2.png" alt="Slide 2">
+          <img src="slides/template/page_3.png" alt="Slide 3">
+          <img src="slides/template/page_4.png" alt="Slide 4">
+          <img src="slides/template/page_5.png" alt="Slide 5">
+          <img src="slides/template/page_6.png" alt="Slide 6">
+          <img src="slides/template/page_1.png" alt="Slide 7">
         </div>
         <div class="caption">7 slides · swipe →</div>
       </div>
@@ -435,7 +470,11 @@ xo, Ash</div>
     </header>
     <div class="content">
       <div class="visual">
-        <div class="slides reel"><img src="slides/10_reel_dance_watching/thumbnail.png"></div>
+        <div class="slides reel">
+          <div class="reel-cover" style="background-image:url('slides/template/page_2.png')" role="img" aria-label="Reel cover: Dance even when no one's watching">
+            <div class="reel-text">Dance even when no one's watching</div>
+          </div>
+        </div>
         <div class="caption">Reel cover · 1080 × 1920</div>
       </div>
       <div class="details">

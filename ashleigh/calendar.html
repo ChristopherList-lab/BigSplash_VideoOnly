@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Big Girl Thoughts — Podcast Launch &amp; Calendar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Podcast launch plan and release calendar for Big Girl Thoughts with Ashleigh Leege. Weekly drops starting June 1, 2026.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/favicon-180x180-apple.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<meta name="theme-color" content="#1A1A1A">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sage:#7D8B7F; --sage-deep:#6B7D73; --rose:#B5929F;
+    --taupe:#9B8F89; --tan:#B8A69F; --cream:#F5F3F0;
+    --ink:#1A1A1A; --gold:#D4AF37; --lime:#D6FF3A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--cream);color:var(--ink);font-family:'Inter',-apple-system,sans-serif;line-height:1.55}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+
+  header.top{padding:64px 0 28px;text-align:center;background:var(--ink);color:var(--cream)}
+  header.top .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--lime);font-weight:600;margin-bottom:14px}
+  header.top h1{font-family:'Playfair Display',serif;font-weight:900;font-size:54px;letter-spacing:-.02em}
+  header.top .sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:28px;color:var(--gold);margin-top:6px}
+  header.top .meta{opacity:.6;font-size:12px;letter-spacing:.18em;text-transform:uppercase;margin-top:14px}
+
+  nav.tabs{background:var(--ink);color:var(--cream);padding:16px 0 36px;border-bottom:1px solid rgba(255,255,255,.08)}
+  nav.tabs .wrap{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  nav.tabs a{color:var(--cream);text-decoration:none;font-size:12px;padding:8px 14px;border:1px solid rgba(255,255,255,.25);border-radius:999px;letter-spacing:.08em}
+  nav.tabs a:hover{background:var(--lime);color:var(--ink);border-color:transparent}
+  nav.tabs a.back{background:rgba(255,255,255,.06)}
+
+  /* stats */
+  .stats{padding:48px 0;background:#fff;border-bottom:1px solid rgba(26,26,26,.08)}
+  .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  @media(max-width:700px){.stats .wrap{grid-template-columns:repeat(2,1fr)}}
+  .stat{text-align:center}
+  .stat .n{font-family:'Playfair Display',serif;font-weight:900;font-size:44px;color:var(--sage-deep);line-height:1}
+  .stat .l{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(26,26,26,.5);margin-top:8px}
+
+  section.block{padding:72px 0;border-bottom:1px solid rgba(26,26,26,.08)}
+  section.block:nth-of-type(even){background:#fff}
+  section.block h2{font-family:'Playfair Display',serif;font-weight:700;font-size:36px;letter-spacing:-.01em;margin-bottom:8px}
+  section.block .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--sage-deep);margin-bottom:32px;max-width:720px}
+
+  /* checklist */
+  .check-table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 0 rgba(26,26,26,.04);border:1px solid rgba(26,26,26,.06)}
+  .check-table th,.check-table td{padding:14px 18px;text-align:left;font-size:15px;border-bottom:1px solid rgba(26,26,26,.06)}
+  .check-table th{background:var(--ink);color:var(--cream);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:600}
+  .check-table tr:last-child td{border-bottom:none}
+  .check-table .date{font-family:'Playfair Display',serif;font-weight:700;color:var(--sage-deep);white-space:nowrap}
+  .check-table .who{color:var(--taupe);font-size:13px}
+  .check-table tr.critical .date{color:#a84747}
+  .check-table tr.critical{background:rgba(168,71,71,.04)}
+
+  /* rhythm */
+  .rhythm{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  @media(max-width:900px){.rhythm{grid-template-columns:repeat(2,1fr)}}
+  .day{background:#fff;border:1px solid rgba(26,26,26,.08);border-radius:10px;padding:24px}
+  .day .d{font-family:'Playfair Display',serif;font-weight:900;font-size:20px;color:var(--ink);letter-spacing:.04em;text-transform:uppercase}
+  .day .a{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--sage-deep);margin-top:8px;line-height:1.35}
+  .day .ch{margin-top:14px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--taupe)}
+
+  /* calendar */
+  .cal{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:10px;overflow:hidden;border:1px solid rgba(26,26,26,.08)}
+  .cal th,.cal td{padding:16px 14px;text-align:left;font-size:14px;border-bottom:1px solid rgba(26,26,26,.06);vertical-align:top}
+  .cal th{background:var(--ink);color:var(--cream);font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+  .cal tr.pre td{background:rgba(214,175,55,.06)}
+  .cal tr.launch td{background:rgba(214,255,58,.10)}
+  .cal td.ep{font-family:'Playfair Display',serif;font-weight:700}
+  .cal .wknum{font-family:'Playfair Display',serif;font-weight:900;color:var(--sage-deep);font-size:18px}
+  .cal .date{color:var(--taupe);font-size:12px;letter-spacing:.06em;display:block;margin-top:2px}
+  @media(max-width:900px){.cal th:nth-child(n+4),.cal td:nth-child(n+4){display:none}}
+
+  /* episode list */
+  .eps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:900px){.eps{grid-template-columns:1fr}}
+  .ep-card{background:#fff;border:1px solid rgba(26,26,26,.08);border-radius:10px;padding:22px;position:relative}
+  .ep-card .num{font-family:'Playfair Display',serif;font-weight:900;font-size:36px;color:rgba(125,139,127,.25);position:absolute;top:14px;right:18px}
+  .ep-card .when{font-family:'Playfair Display',serif;font-weight:700;color:var(--sage-deep);font-size:14px;letter-spacing:.06em}
+  .ep-card .title{font-family:'Playfair Display',serif;font-weight:700;font-size:20px;margin:8px 0 10px;line-height:1.2}
+  .ep-card .status{display:inline-block;padding:3px 10px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;border-radius:3px;background:var(--sage);color:#fff;font-weight:600}
+  .ep-card .status.pending{background:var(--gold);color:var(--ink)}
+  .ep-card .note{font-family:'Cormorant Garamond',serif;font-style:italic;color:#666;font-size:14px;margin-top:10px}
+
+  /* decisions */
+  .decisions{background:#fff;border-left:4px solid var(--lime);padding:28px 32px;border-radius:6px;box-shadow:0 2px 0 rgba(26,26,26,.04)}
+  .decisions h3{font-family:'Playfair Display',serif;font-size:20px;margin-bottom:14px}
+  .decisions ol{margin-left:22px}
+  .decisions li{margin:8px 0;font-size:15px}
+  .decisions li strong{color:var(--sage-deep)}
+
+  /* critical dates */
+  .crit{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:700px){.crit{grid-template-columns:1fr}}
+  .crit-row{background:#fff;border:1px solid rgba(26,26,26,.08);border-left:4px solid var(--gold);border-radius:6px;padding:16px 22px}
+  .crit-row .d{font-family:'Playfair Display',serif;font-weight:900;color:var(--ink);font-size:18px}
+  .crit-row .w{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--sage-deep);font-size:16px;margin-top:4px}
+
+  footer{padding:64px 0;text-align:center;background:var(--ink);color:#fff}
+  footer .sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:32px;color:var(--gold)}
+  footer .m{opacity:.5;font-size:12px;letter-spacing:.14em;margin-top:14px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Section 05 · Launch Plan</div>
+    <h1>Podcast Launch &amp; Calendar</h1>
+    <div class="sig">xo, Ash</div>
+    <div class="meta">Big Girl Thoughts · Weekly drops · June 1, 2026</div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="wrap">
+    <a class="back" href="index.html">← Workspace</a>
+    <a href="#snapshot">Snapshot</a>
+    <a href="#prelaunch">Pre-Launch</a>
+    <a href="#rhythm">Weekly Rhythm</a>
+    <a href="#calendar">Release Calendar</a>
+    <a href="#episodes">Episodes</a>
+    <a href="#beyond">Beyond Aug 10</a>
+    <a href="#decisions">Decisions</a>
+    <a href="#critical">Critical Dates</a>
+  </div>
+</nav>
+
+<section class="stats" id="snapshot">
+  <div class="wrap">
+    <div class="stat"><div class="n">11</div><div class="l">Episodes Recorded</div></div>
+    <div class="stat"><div class="n">9</div><div class="l">Ready to Ship</div></div>
+    <div class="stat"><div class="n">5</div><div class="l">Posts / Week</div></div>
+    <div class="stat"><div class="n">Jun 1</div><div class="l">Launch Date</div></div>
+  </div>
+</section>
+
+<section class="block" id="prelaunch">
+  <div class="wrap">
+    <h2>Pre-Launch Checklist</h2>
+    <p class="sub">Three weeks of work before Episode 1 drops. Hit the May 22 dates or the June 1 launch slips.</p>
+    <table class="check-table">
+      <thead>
+        <tr><th style="width:130px">Date</th><th>Task</th><th style="width:130px">Owner</th></tr>
+      </thead>
+      <tbody>
+        <tr class="critical"><td class="date">May 22</td><td>Submit show to Apple Podcasts (5–7 day approval window)</td><td class="who">BigSplash</td></tr>
+        <tr class="critical"><td class="date">May 22</td><td>Submit show to Spotify for Podcasters</td><td class="who">BigSplash</td></tr>
+        <tr><td class="date">May 22</td><td>YouTube channel set up as podcast (Studio → Settings → Podcasts)</td><td class="who">BigSplash</td></tr>
+        <tr><td class="date">May 22</td><td>Confirm 9 final cuts; identify what's blocking eps 10 &amp; 11</td><td class="who">Ashleigh</td></tr>
+        <tr><td class="date">May 25</td><td>Trailer episode (60–90s) live on all platforms</td><td class="who">BigSplash</td></tr>
+        <tr><td class="date">May 28</td><td>Per-episode asset packs ready: 3 clips, 2 quote graphics, 1 BTS each</td><td class="who">BigSplash</td></tr>
+        <tr><td class="date">May 30</td><td>First 4 weeks of social posts batched and scheduled</td><td class="who">BigSplash</td></tr>
+        <tr class="critical"><td class="date">Jun 1</td><td>Episode 1 launches — confirm playback on all 5 platforms</td><td class="who">Both</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="block" id="rhythm">
+  <div class="wrap">
+    <h2>Weekly Rhythm</h2>
+    <p class="sub">The existing 10-post / 2-week plan = 5 posts per week. One full cycle covers two episodes — Mon drop + 5 promo days, repeated.</p>
+    <div class="rhythm">
+      <div class="day"><div class="d">Mon AM</div><div class="a">Full episode drop</div><div class="ch">YouTube · Spotify · Apple</div></div>
+      <div class="day"><div class="d">Mon PM</div><div class="a">Trailer clip — 60s vertical</div><div class="ch">IG Reel · TikTok · Story</div></div>
+      <div class="day"><div class="d">Tue</div><div class="a">Pull-quote carousel</div><div class="ch">IG feed</div></div>
+      <div class="day"><div class="d">Wed</div><div class="a">Second clip — different angle</div><div class="ch">IG Reel · TikTok</div></div>
+      <div class="day"><div class="d">Thu</div><div class="a">Behind-the-mic / BTS</div><div class="ch">IG Story · TikTok</div></div>
+      <div class="day"><div class="d">Fri</div><div class="a">Quote graphic + episode CTA</div><div class="ch">IG feed · Story</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="calendar">
+  <div class="wrap">
+    <h2>Release Calendar — Episodes 1–9</h2>
+    <p class="sub">Nine ready episodes carry the show from June 1 through July 31. Then episodes 10–11 keep cadence into August.</p>
+    <table class="cal">
+      <thead>
+        <tr><th>Week</th><th>Mon — Episode</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th></tr>
+      </thead>
+      <tbody>
+        <tr class="pre"><td><span class="wknum">Pre</span></td><td class="ep">Trailer<span class="date">May 25</span></td><td>BTS<span class="date">May 26</span></td><td>"Coming Jun 1"<span class="date">May 27</span></td><td>Host intro<span class="date">May 28</span></td><td>Trailer Reel<span class="date">May 29</span></td></tr>
+        <tr class="launch"><td><span class="wknum">01</span></td><td class="ep">Episode 1<span class="date">Jun 1</span></td><td>Quote<span class="date">Jun 2</span></td><td>Clip B<span class="date">Jun 3</span></td><td>BTS<span class="date">Jun 4</span></td><td>CTA<span class="date">Jun 5</span></td></tr>
+        <tr><td><span class="wknum">02</span></td><td class="ep">Episode 2<span class="date">Jun 8</span></td><td>Quote<span class="date">Jun 9</span></td><td>Clip B<span class="date">Jun 10</span></td><td>BTS<span class="date">Jun 11</span></td><td>CTA<span class="date">Jun 12</span></td></tr>
+        <tr><td><span class="wknum">03</span></td><td class="ep">Episode 3<span class="date">Jun 15</span></td><td>Quote<span class="date">Jun 16</span></td><td>Clip B<span class="date">Jun 17</span></td><td>BTS<span class="date">Jun 18</span></td><td>CTA<span class="date">Jun 19</span></td></tr>
+        <tr><td><span class="wknum">04</span></td><td class="ep">Episode 4<span class="date">Jun 22</span></td><td>Quote<span class="date">Jun 23</span></td><td>Clip B<span class="date">Jun 24</span></td><td>BTS<span class="date">Jun 25</span></td><td>CTA<span class="date">Jun 26</span></td></tr>
+        <tr><td><span class="wknum">05</span></td><td class="ep">Episode 5<span class="date">Jun 29</span></td><td>Quote<span class="date">Jun 30</span></td><td>Clip B<span class="date">Jul 1</span></td><td>BTS<span class="date">Jul 2</span></td><td>CTA<span class="date">Jul 3</span></td></tr>
+        <tr><td><span class="wknum">06</span></td><td class="ep">Episode 6<span class="date">Jul 6</span></td><td>Quote<span class="date">Jul 7</span></td><td>Clip B<span class="date">Jul 8</span></td><td>BTS<span class="date">Jul 9</span></td><td>CTA<span class="date">Jul 10</span></td></tr>
+        <tr><td><span class="wknum">07</span></td><td class="ep">Episode 7<span class="date">Jul 13</span></td><td>Quote<span class="date">Jul 14</span></td><td>Clip B<span class="date">Jul 15</span></td><td>BTS<span class="date">Jul 16</span></td><td>CTA<span class="date">Jul 17</span></td></tr>
+        <tr><td><span class="wknum">08</span></td><td class="ep">Episode 8<span class="date">Jul 20</span></td><td>Quote<span class="date">Jul 21</span></td><td>Clip B<span class="date">Jul 22</span></td><td>BTS<span class="date">Jul 23</span></td><td>CTA<span class="date">Jul 24</span></td></tr>
+        <tr><td><span class="wknum">09</span></td><td class="ep">Episode 9<span class="date">Jul 27</span></td><td>Quote<span class="date">Jul 28</span></td><td>Clip B<span class="date">Jul 29</span></td><td>BTS<span class="date">Jul 30</span></td><td>CTA<span class="date">Jul 31</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="block" id="episodes">
+  <div class="wrap">
+    <h2>Episode Slots</h2>
+    <p class="sub">Each slot is a placeholder — fill in titles after the meeting. Episode 1 gets the strongest hook; Episode 2 carries the most retention weight.</p>
+    <div class="eps">
+      <div class="ep-card"><div class="num">01</div><div class="when">Mon · Jun 1</div><div class="title">Episode 1 — TBD</div><span class="status">Ready</span><div class="note">Strongest hook · most shareable</div></div>
+      <div class="ep-card"><div class="num">02</div><div class="when">Mon · Jun 8</div><div class="title">Episode 2 — TBD</div><span class="status">Ready</span><div class="note">Second-strongest · retention anchor</div></div>
+      <div class="ep-card"><div class="num">03</div><div class="when">Mon · Jun 15</div><div class="title">Episode 3 — TBD</div><span class="status">Ready</span></div>
+      <div class="ep-card"><div class="num">04</div><div class="when">Mon · Jun 22</div><div class="title">Episode 4 — TBD</div><span class="status">Ready</span></div>
+      <div class="ep-card"><div class="num">05</div><div class="when">Mon · Jun 29</div><div class="title">Episode 5 — TBD</div><span class="status">Ready</span></div>
+      <div class="ep-card"><div class="num">06</div><div class="when">Mon · Jul 6</div><div class="title">Episode 6 — TBD</div><span class="status">Ready</span></div>
+      <div class="ep-card"><div class="num">07</div><div class="when">Mon · Jul 13</div><div class="title">Episode 7 — TBD</div><span class="status">Ready</span></div>
+      <div class="ep-card"><div class="num">08</div><div class="when">Mon · Jul 20</div><div class="title">Episode 8 — TBD</div><span class="status">Ready</span></div>
+      <div class="ep-card"><div class="num">09</div><div class="when">Mon · Jul 27</div><div class="title">Episode 9 — TBD</div><span class="status">Ready</span></div>
+      <div class="ep-card"><div class="num">10</div><div class="when">Mon · Aug 3</div><div class="title">Episode 10 — TBD</div><span class="status pending">Finish by Jul 15</span></div>
+      <div class="ep-card"><div class="num">11</div><div class="when">Mon · Aug 10</div><div class="title">Episode 11 — TBD</div><span class="status pending">Finish by Jul 15</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="beyond">
+  <div class="wrap">
+    <h2>Sustaining Past August 10</h2>
+    <p class="sub">Maintain a rolling 4-episode buffer. Record 3 episodes every 3 weeks so the bank never runs dry.</p>
+    <div class="crit">
+      <div class="crit-row"><div class="d">Jun 17</div><div class="w">Buffer recording session — episodes 12, 13, 14</div></div>
+      <div class="crit-row"><div class="d">Jul 8</div><div class="w">Buffer recording session — episodes 15, 16, 17</div></div>
+      <div class="crit-row"><div class="d">Jul 29</div><div class="w">Buffer recording session — episodes 18, 19, 20</div></div>
+      <div class="crit-row"><div class="d">Aug 19</div><div class="w">Buffer recording session — episodes 21, 22, 23</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="decisions">
+  <div class="wrap">
+    <h2>Decisions for the Meeting</h2>
+    <p class="sub">Three calls Ashleigh needs to make before BigSplash can finalize the schedule.</p>
+    <div class="decisions">
+      <h3>Open items</h3>
+      <ol>
+        <li><strong>Episode order.</strong> Rank the 9 ready episodes by "would a stranger send this to a friend?" — top two slot into Jun 1 and Jun 8.</li>
+        <li><strong>Episodes 10 &amp; 11.</strong> What's blocking finish? Confirm both can be locked by Jul 15.</li>
+        <li><strong>Recording calendar.</strong> Confirm Jun 17 for the first buffer session — three episodes back-to-back.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="critical">
+  <div class="wrap">
+    <h2>Critical Dates</h2>
+    <p class="sub">If a date here slips, the launch slips with it.</p>
+    <div class="crit">
+      <div class="crit-row"><div class="d">May 22</div><div class="w">Apple, Spotify, YouTube-as-podcast submissions</div></div>
+      <div class="crit-row"><div class="d">May 25</div><div class="w">Trailer goes live</div></div>
+      <div class="crit-row"><div class="d">May 30</div><div class="w">First month of social content scheduled</div></div>
+      <div class="crit-row"><div class="d">Jun 1</div><div class="w">Episode 1 launches</div></div>
+      <div class="crit-row"><div class="d">Jun 17</div><div class="w">First buffer recording (eps 12–14)</div></div>
+      <div class="crit-row"><div class="d">Jul 15</div><div class="w">Episodes 10 &amp; 11 finished</div></div>
+      <div class="crit-row"><div class="d">Jul 27</div><div class="w">Episodes 12–14 in the can</div></div>
+      <div class="crit-row"><div class="d">Aug 10</div><div class="w">Last episode in the original bank drops — buffer must be live</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="sig">xo, Ash</div>
+    <div class="m">Big Girl Thoughts · @ashleighleege · biggirlthoughts.com</div>
+  </div>
+</footer>
+
+</body>
+</html>
