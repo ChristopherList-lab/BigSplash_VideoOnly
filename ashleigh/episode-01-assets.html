@@ -103,9 +103,19 @@
   .thumb-a .a-from{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:88px;color:var(--off-white);line-height:.9;letter-spacing:-.01em;margin-bottom:8px}
   .thumb-a .a-but{font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:200px;color:var(--off-white);line-height:.88;letter-spacing:-.04em}
   .thumb-a .a-but .gold{color:var(--gold)}
-  .thumb-a .a-right{position:absolute;right:60px;bottom:60px;z-index:2;text-align:right;display:flex;flex-direction:column;gap:6px}
+  .thumb-a .a-right{position:absolute;right:60px;bottom:60px;z-index:2;text-align:right;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
   .thumb-a .a-with{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--off-white);text-shadow:0 2px 8px rgba(0,0,0,.55);opacity:.95}
   .thumb-a .a-brand{font-family:'Dancing Script',cursive;font-weight:700;font-size:38px;color:var(--gold);line-height:1;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+  .thumb-a .a-sig-row{display:flex;align-items:center;gap:14px;justify-content:flex-end}
+  .thumb-a .a-avatar{width:72px;height:72px;border-radius:50%;background:url('frames/ash-avatar.jpg') center/cover no-repeat;border:3px solid var(--gold);box-shadow:0 6px 18px -4px rgba(0,0,0,.5);flex-shrink:0;display:block}
+
+  .thumb-b .b-host{position:absolute;bottom:50px;right:60px;display:flex;align-items:center;gap:14px;z-index:3}
+  .thumb-b .b-host-sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:38px;color:var(--gold);line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+  .thumb-b .b-host-avatar{width:72px;height:72px;border-radius:50%;background:url('frames/ash-avatar.jpg') center/cover no-repeat;border:3px solid var(--gold);box-shadow:0 6px 18px -4px rgba(0,0,0,.6);flex-shrink:0;display:block}
+
+  .thumb-c .c-host{position:absolute;bottom:48px;right:60px;display:flex;align-items:center;gap:14px;z-index:3}
+  .thumb-c .c-host-sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:38px;color:var(--off-white);line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+  .thumb-c .c-host-avatar{width:72px;height:72px;border-radius:50%;background:url('frames/ash-avatar.jpg') center/cover no-repeat;border:3px solid var(--gold);box-shadow:0 6px 18px -4px rgba(0,0,0,.55);flex-shrink:0;display:block}
 
   /* Concept B: Split — sage block left + speaking photo right */
   .thumb-b{background:var(--cream)}
@@ -305,7 +315,10 @@ xo, Ash
                 </div>
                 <div class="a-right">
                   <div class="a-with">with Treasa McGinnis · Mama T</div>
-                  <div class="a-brand">xo, Ash</div>
+                  <div class="a-sig-row">
+                    <div class="a-brand">xo, Ash</div>
+                    <div class="a-avatar"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -352,6 +365,10 @@ xo, Ash
                     <div class="ep">Big Girl Thoughts</div>
                   </div>
                 </div>
+                <div class="b-host">
+                  <span class="b-host-sig">xo, Ash</span>
+                  <span class="b-host-avatar"></span>
+                </div>
               </div>
             </div>
           </div>
@@ -368,6 +385,10 @@ xo, Ash
                       <div class="name">Mama T</div>
                       <div class="ep">Big Girl Thoughts</div>
                     </div>
+                  </div>
+                  <div class="b-host">
+                    <span class="b-host-sig">xo, Ash</span>
+                    <span class="b-host-avatar"></span>
                   </div>
                 </div>
               </div>
@@ -397,6 +418,10 @@ xo, Ash
                   </div>
                 </div>
                 <div class="c-brand">Big Girl Thoughts</div>
+                <div class="c-host">
+                  <span class="c-host-sig">xo, Ash</span>
+                  <span class="c-host-avatar"></span>
+                </div>
               </div>
             </div>
           </div>
@@ -414,6 +439,10 @@ xo, Ash
                     </div>
                   </div>
                   <div class="c-brand">Big Girl Thoughts</div>
+                  <div class="c-host">
+                    <span class="c-host-sig">xo, Ash</span>
+                    <span class="c-host-avatar"></span>
+                  </div>
                 </div>
               </div>
             </div>
