@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Episode 01 · A/B Thumbnail Lab · Big Girl Thoughts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+<meta name="theme-color" content="#FEFDFB">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sage:#7D8B7F; --sage-deep:#6B7D73;
+    --rose:#B5929F; --taupe:#9B8F89; --tan:#B8A69F;
+    --cream:#F5F3F0; --off-white:#FEFDFB;
+    --ink:#1A1A1A; --gold:#D4AF37;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  html,body{background:var(--off-white);color:var(--ink);font-family:'Inter',-apple-system,sans-serif;line-height:1.55}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  a{color:var(--sage-deep);text-decoration:none;transition:opacity .2s}
+  a:hover{opacity:.7}
+
+  .ws-back{position:fixed;top:20px;left:20px;z-index:100;padding:12px 22px;border-radius:999px;background:var(--ink);color:var(--off-white);text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;border:2px solid var(--gold);box-shadow:0 6px 20px -6px rgba(26,26,26,.45),0 0 0 4px rgba(212,175,55,.15);display:inline-flex;align-items:center;gap:8px;transition:all .2s ease}
+  .ws-back .arrow{transition:transform .2s ease}
+  .ws-back:hover{background:var(--gold);color:var(--ink);border-color:var(--ink);box-shadow:0 8px 24px -6px rgba(212,175,55,.5);opacity:1}
+  .ws-back:hover .arrow{transform:translateX(-3px)}
+
+  .hero{padding:140px 0 80px;border-bottom:1px solid rgba(26,26,26,.08)}
+  .eyebrow{text-transform:uppercase;letter-spacing:.22em;font-size:12px;font-weight:600;opacity:.65;margin-bottom:24px}
+  .eyebrow .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--sage);margin-right:10px;vertical-align:middle}
+  h1.display{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(48px,7vw,96px);line-height:1.02;letter-spacing:-.02em;color:var(--ink)}
+  h1.display em{font-style:italic;color:var(--sage-deep);font-weight:700}
+  .script-tag{font-family:'Dancing Script',cursive;font-weight:700;font-size:clamp(36px,4.4vw,56px);color:var(--sage);display:block;margin-top:-4px}
+  .lede{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,2.2vw,26px);opacity:.85;margin-top:28px;max-width:680px}
+
+  section.block{padding:96px 0;border-bottom:1px solid rgba(26,26,26,.06)}
+  section.block.cream{background:var(--cream)}
+  section.block.sage{background:var(--sage);color:var(--off-white)}
+  section.block.sage h2,section.block.sage .eyebrow,section.block.sage .sub{color:var(--off-white)}
+  section.block.sage .eyebrow{opacity:.8}
+  h2.section-title{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(32px,4vw,52px);letter-spacing:-.01em;margin-bottom:10px;line-height:1.05}
+  h2.section-title em{font-style:italic;color:var(--sage-deep);font-weight:700}
+  section.block.sage h2.section-title em{color:var(--gold)}
+  .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;opacity:.7;max-width:680px;margin-bottom:48px}
+
+  /* methodology grid */
+  .ref-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+  @media(max-width:880px){.ref-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.ref-grid{grid-template-columns:1fr}}
+  .ref{padding:28px;border-radius:10px;background:var(--off-white);border:1px solid rgba(26,26,26,.1)}
+  .ref .creator{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--sage-deep);font-weight:600;margin-bottom:8px}
+  .ref h4{font-family:'Playfair Display',serif;font-weight:700;font-size:22px;color:var(--ink);margin-bottom:10px;letter-spacing:-.01em;line-height:1.15}
+  .ref p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--ink);opacity:.7;line-height:1.4}
+
+  /* variant block */
+  .variants{display:grid;grid-template-columns:1fr;gap:80px}
+  .variant-meta{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:24px;flex-wrap:wrap}
+  .variant-meta .ml-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .variant-meta .chip{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;padding:5px 11px;border-radius:999px;color:var(--ink)}
+  .chip.hypo{background:var(--sage);color:var(--off-white)}
+  .chip.pattern{background:transparent;color:var(--ink);border:1px solid rgba(26,26,26,.18)}
+  .variant-meta h3{font-family:'Playfair Display',serif;font-weight:700;font-size:30px;letter-spacing:-.01em;color:var(--ink);line-height:1.1}
+  .variant-meta h3 .num{font-style:italic;color:var(--sage-deep);font-weight:900}
+  .variant-meta h3 em{font-style:italic;color:var(--sage-deep);font-weight:700}
+  .variant-meta .note{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);opacity:.7;margin-top:6px;max-width:520px}
+  section.block.sage .variant-meta h3{color:var(--off-white)}
+  section.block.sage .variant-meta h3 em{color:var(--gold)}
+  section.block.sage .variant-meta h3 .num{color:var(--gold)}
+  section.block.sage .variant-meta .note{color:rgba(254,253,251,.85)}
+  section.block.sage .chip.pattern{color:var(--off-white);border-color:rgba(254,253,251,.3)}
+  section.block.sage .chip.hypo{background:var(--gold);color:var(--ink)}
+  section.block.sage .ref{background:rgba(0,0,0,.18);border-color:rgba(254,253,251,.12)}
+  section.block.sage .ref .creator{color:var(--gold)}
+  section.block.sage .ref h4{color:var(--off-white)}
+  section.block.sage .ref p{color:rgba(254,253,251,.8)}
+
+  .download-btn{background:var(--off-white);color:var(--ink);border:0;padding:12px 24px;border-radius:999px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;border:2px solid var(--gold)}
+  .download-btn:hover{background:var(--gold);color:var(--ink);transform:translateY(-1px);opacity:1}
+  .download-btn.loading{background:var(--sage-deep);color:var(--off-white);border-color:var(--sage-deep);cursor:wait}
+
+  .variant-stage{display:grid;grid-template-columns:1fr 220px;gap:32px;align-items:flex-start}
+  @media(max-width:720px){.variant-stage{grid-template-columns:1fr}}
+  .thumb-frame{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;border-radius:10px;box-shadow:0 32px 64px -28px rgba(26,26,26,.5)}
+  .thumb-frame .thumb-inner{position:absolute;top:0;left:0;width:1280px;height:720px;transform-origin:top left}
+  .thumb-mobile{width:220px}
+  .thumb-mobile .mc-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;margin-bottom:10px;display:block;text-align:center;opacity:.55}
+  section.block.sage .thumb-mobile .mc-label{color:rgba(254,253,251,.7);opacity:1}
+  .thumb-mobile-frame{width:220px;aspect-ratio:16/9;position:relative;overflow:hidden;border-radius:6px;box-shadow:0 12px 24px -10px rgba(0,0,0,.4)}
+  .thumb-mobile-frame .thumb-inner{position:absolute;top:0;left:0;width:1280px;height:720px;transform:scale(.171875);transform-origin:top left}
+
+  /* shared thumb base */
+  .thumb{width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Inter',sans-serif;color:var(--off-white)}
+
+  /* photo chooser */
+  .photo-swap{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:18px;padding:12px 20px;background:var(--cream);border-radius:999px;border:1px solid rgba(26,26,26,.08)}
+  section.block.sage .photo-swap{background:rgba(0,0,0,.18);border-color:rgba(254,253,251,.15)}
+  section.block.sage .photo-swap .lbl{color:rgba(254,253,251,.8)}
+  section.block.sage .photo-swap button{color:var(--off-white);border-color:rgba(254,253,251,.25)}
+  section.block.sage .photo-swap button:hover{border-color:var(--gold);color:var(--gold)}
+  section.block.sage .photo-swap button.active{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+  .photo-swap .lbl{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);font-weight:600;opacity:.65;margin-right:6px}
+  .photo-swap button{background:transparent;border:1px solid rgba(26,26,26,.18);padding:7px 14px;border-radius:999px;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--ink);cursor:pointer;transition:all .2s}
+  .photo-swap button:hover{border-color:var(--sage);color:var(--sage-deep)}
+  .photo-swap button.active{background:var(--sage);color:var(--off-white);border-color:var(--sage)}
+
+  /* V1 — "But God." (default = listening shot, swappable) */
+  .v1{background-image:url('frames/thumb-listening.jpg');background-size:cover;background-position:center}
+  .v1::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,26,.85) 0%,rgba(26,26,26,.35) 38%,rgba(26,26,26,.05) 55%,transparent 70%);pointer-events:none}
+  .v1 .v1-ebr{position:absolute;top:48px;left:60px;font-family:'Inter',sans-serif;font-size:18px;letter-spacing:.32em;text-transform:uppercase;color:var(--off-white);font-weight:600;text-shadow:0 2px 8px rgba(0,0,0,.5);display:flex;align-items:center;gap:14px;z-index:2}
+  .v1 .v1-ebr::before{content:"";width:10px;height:10px;background:var(--gold);border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.7)}
+  .v1 .v1-title{position:absolute;left:60px;bottom:80px;z-index:2;text-shadow:0 2px 12px rgba(0,0,0,.55)}
+  .v1 .v1-title .from{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:88px;line-height:.9;letter-spacing:-.01em;margin-bottom:8px}
+  .v1 .v1-title .but{font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:200px;line-height:.88;letter-spacing:-.04em}
+  .v1 .v1-title .but .gold{color:var(--gold)}
+  .v1 .v1-right{position:absolute;right:60px;bottom:60px;z-index:2;text-align:right;display:flex;flex-direction:column;gap:6px;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+  .v1 .v1-right .with{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--off-white);opacity:.95}
+  .v1 .v1-right .brand{font-family:'Dancing Script',cursive;font-weight:700;font-size:38px;color:var(--gold);line-height:1}
+
+  /* V2 — Sage split + Treasa emphatic photo */
+  .v2{background:var(--cream)}
+  .v2 .v2-left{position:absolute;left:0;top:0;width:42%;height:100%;background:var(--sage);padding:64px 56px;display:flex;flex-direction:column;justify-content:space-between;color:var(--off-white);z-index:2}
+  .v2 .v2-left::after{content:"";position:absolute;right:-20px;top:0;width:40px;height:100%;background:linear-gradient(to right,var(--sage),transparent)}
+  .v2 .v2-ebr{font-family:'Inter',sans-serif;font-size:15px;letter-spacing:.32em;text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:12px;opacity:.9}
+  .v2 .v2-ebr::before{content:"";width:36px;height:1px;background:var(--gold)}
+  .v2 .v2-q{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:62px;line-height:1.08;letter-spacing:-.02em;color:var(--off-white);margin-top:auto;margin-bottom:auto}
+  .v2 .v2-q .gold{color:var(--gold)}
+  .v2 .v2-attrib{display:flex;flex-direction:column;gap:8px}
+  .v2 .v2-attrib .name{font-family:'Dancing Script',cursive;font-weight:700;font-size:48px;color:var(--gold);line-height:1}
+  .v2 .v2-attrib .ep{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;opacity:.85}
+  .v2 .v2-photo{position:absolute;right:0;top:0;width:62%;height:100%;background-image:url('frames/thumb-speaking.jpg');background-size:cover;background-position:35% center}
+  .v2 .v2-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(125,139,127,.18) 0%,transparent 40%)}
+
+  /* V3 — Solo Treasa portrait + curiosity statement */
+  .v3{background-image:url('frames/frame_1560s.jpg');background-size:cover;background-position:center}
+  .v3::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(26,26,26,.78) 0%,rgba(26,26,26,.45) 40%,rgba(26,26,26,.05) 70%,transparent 90%);pointer-events:none}
+  .v3 .v3-ebr{position:absolute;top:48px;left:60px;font-family:'Inter',sans-serif;font-size:16px;letter-spacing:.32em;text-transform:uppercase;color:var(--off-white);font-weight:600;text-shadow:0 2px 8px rgba(0,0,0,.5);display:flex;align-items:center;gap:14px;z-index:2}
+  .v3 .v3-ebr::before{content:"";width:10px;height:10px;background:var(--gold);border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.7)}
+  .v3 .v3-headline{position:absolute;left:60px;top:50%;transform:translateY(-50%);z-index:2;text-shadow:0 2px 14px rgba(0,0,0,.55);max-width:640px}
+  .v3 .v3-headline .small{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:42px;line-height:1.05;color:var(--off-white);opacity:.95;margin-bottom:12px}
+  .v3 .v3-headline .big{font-family:'Playfair Display',serif;font-weight:900;font-size:110px;line-height:.92;letter-spacing:-.025em;color:var(--off-white)}
+  .v3 .v3-headline .big em{font-style:italic;color:var(--gold);font-weight:900}
+  .v3 .v3-foot{position:absolute;bottom:48px;left:60px;z-index:2;display:flex;align-items:center;gap:24px;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+  .v3 .v3-foot .ep{font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;color:var(--off-white);opacity:.85}
+  .v3 .v3-foot .name{font-family:'Dancing Script',cursive;font-weight:700;font-size:38px;color:var(--gold)}
+
+  /* V4 — Brand-led editorial */
+  .v4{background-image:url('frames/frame_20s.jpg');background-size:cover;background-position:center}
+  .v4::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(245,243,240,.78),rgba(245,243,240,.55) 35%,rgba(125,139,127,.45) 75%,rgba(26,26,26,.6) 100%);pointer-events:none}
+  .v4 .v4-ebr{position:absolute;top:54px;left:50%;transform:translateX(-50%);font-family:'Inter',sans-serif;font-size:16px;letter-spacing:.4em;text-transform:uppercase;color:var(--ink);font-weight:700;z-index:2;display:flex;align-items:center;gap:14px}
+  .v4 .v4-ebr::before,.v4 .v4-ebr::after{content:"";width:36px;height:1px;background:var(--sage-deep)}
+  .v4 .v4-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;text-align:center}
+  .v4 .v4-center .word{font-family:'Playfair Display',serif;font-weight:900;font-size:148px;line-height:.9;letter-spacing:-.04em;color:var(--ink)}
+  .v4 .v4-center .word em{font-style:italic;color:var(--sage-deep)}
+  .v4 .v4-center .script{font-family:'Dancing Script',cursive;font-weight:700;font-size:96px;color:var(--sage-deep);line-height:1;margin-top:-12px}
+  .v4 .v4-bot{position:absolute;bottom:54px;left:50%;transform:translateX(-50%);z-index:2;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;color:var(--ink);opacity:.78;text-align:center}
+  .v4 .v4-bot strong{font-style:normal;font-family:'Inter',sans-serif;font-weight:600;font-size:22px;letter-spacing:.04em}
+
+  /* V5 — Listening photo + cream blob "tell the truth" */
+  .v5{background-image:url('frames/thumb-listening.jpg');background-size:cover;background-position:center}
+  .v5::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,243,240,.35),rgba(125,139,127,.25));pointer-events:none}
+  .v5 .v5-ebr{position:absolute;top:48px;left:60px;font-family:'Inter',sans-serif;font-size:16px;letter-spacing:.32em;text-transform:uppercase;color:var(--off-white);font-weight:600;text-shadow:0 2px 8px rgba(0,0,0,.5);z-index:3;display:flex;align-items:center;gap:12px}
+  .v5 .v5-ebr::before{content:"";width:10px;height:10px;background:var(--gold);border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.7)}
+  .v5 .v5-blob{position:absolute;right:60px;top:50%;transform:translateY(-50%);width:560px;height:560px;background:var(--cream);border-radius:58% 42% 55% 45% / 48% 52% 48% 52%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px;box-shadow:0 30px 70px -20px rgba(26,26,26,.4);z-index:3;text-align:center;gap:24px}
+  .v5 .v5-q{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:52px;color:var(--ink);line-height:1.15;letter-spacing:-.01em}
+  .v5 .v5-q .accent{color:var(--sage-deep)}
+  .v5 .v5-meta{display:flex;flex-direction:column;gap:6px;align-items:center}
+  .v5 .v5-meta .ep{font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:var(--sage-deep);font-weight:600}
+  .v5 .v5-meta .name{font-family:'Dancing Script',cursive;font-weight:700;font-size:42px;color:var(--sage);line-height:1}
+  .v5 .v5-brand{position:absolute;bottom:48px;left:60px;font-family:'Dancing Script',cursive;font-weight:700;font-size:38px;color:var(--off-white);text-shadow:0 2px 8px rgba(0,0,0,.5);z-index:3}
+
+  /* V6 — "From foster care to pastor" payoff statement */
+  .v6{background-image:url('frames/thumb-speaking.jpg');background-size:cover;background-position:35% center}
+  .v6::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(26,26,26,.85) 0%,rgba(26,26,26,.5) 35%,rgba(26,26,26,.1) 65%,transparent 90%);pointer-events:none}
+  .v6 .v6-ebr{position:absolute;top:48px;left:60px;font-family:'Inter',sans-serif;font-size:16px;letter-spacing:.32em;text-transform:uppercase;color:var(--off-white);font-weight:600;text-shadow:0 2px 8px rgba(0,0,0,.5);display:flex;align-items:center;gap:14px;z-index:2}
+  .v6 .v6-ebr::before{content:"";width:10px;height:10px;background:var(--gold);border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.7)}
+  .v6 .v6-headline{position:absolute;left:60px;top:50%;transform:translateY(-50%);z-index:2;text-shadow:0 2px 14px rgba(0,0,0,.55);max-width:620px}
+  .v6 .v6-headline .row{font-family:'Playfair Display',serif;font-weight:900;font-size:96px;line-height:.95;letter-spacing:-.03em;color:var(--off-white);display:block}
+  .v6 .v6-headline .row em{font-style:italic;font-weight:900;color:var(--gold)}
+  .v6 .v6-headline .row.small{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:48px;letter-spacing:-.01em;margin:14px 0;opacity:.95}
+  .v6 .v6-foot{position:absolute;bottom:48px;left:60px;z-index:2;display:flex;flex-direction:column;gap:6px;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+  .v6 .v6-foot .with{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--off-white);opacity:.95}
+  .v6 .v6-foot .name{font-family:'Dancing Script',cursive;font-weight:700;font-size:42px;color:var(--gold);line-height:1}
+
+  /* how-to */
+  .howto{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;counter-reset:step}
+  @media(max-width:880px){.howto{grid-template-columns:1fr}}
+  .step{padding:32px;border-radius:10px;background:var(--off-white);border:1px solid rgba(26,26,26,.1);counter-increment:step;position:relative}
+  .step::before{content:"0" counter(step);position:absolute;top:18px;right:24px;font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:48px;color:rgba(125,139,127,.25);line-height:1}
+  .step h4{font-family:'Playfair Display',serif;font-weight:700;font-size:22px;color:var(--ink);margin-bottom:10px;letter-spacing:-.01em}
+  .step p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--ink);opacity:.75;line-height:1.5}
+
+  footer{padding:72px 0;text-align:center;background:var(--ink);color:var(--off-white)}
+  footer .wordmark{font-family:'Playfair Display',serif;font-weight:900;font-size:36px;letter-spacing:-.02em}
+  footer .script{font-family:'Dancing Script',cursive;font-weight:700;font-size:24px;color:var(--gold);margin-top:4px}
+  footer .meta{opacity:.55;font-size:12px;margin-top:20px;letter-spacing:.1em}
+</style>
+</head>
+<body>
+
+<a href="episode-01-assets.html" class="ws-back" aria-label="Back to production hub"><span class="arrow">←</span> Production Hub</a>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>Episode 01 · A/B Test Lab</div>
+    <h1 class="display">Six thumbnails.<br><em>One launch.</em></h1>
+    <span class="script-tag">pick the top three</span>
+    <p class="lede">YouTube Test &amp; Compare rotates up to three thumbnails per video and tells you which one wins. Round one is built from the strongest hypothesis. The other three sit on the bench for round two.</p>
+  </div>
+</section>
+
+<section class="block cream">
+  <div class="wrap">
+    <div class="eyebrow">01 · The patterns we're echoing</div>
+    <h2 class="section-title">Top creators, <em>her brand.</em></h2>
+    <p class="sub">Every variant maps to a thumbnail pattern that's working on YouTube right now, then runs it through Ashleigh's sage / rose / cream palette and the Playfair + Dancing Script type stack.</p>
+
+    <div class="ref-grid">
+      <div class="ref">
+        <div class="creator">Diary of a CEO · Steven Bartlett</div>
+        <h4>Face + one bold word.</h4>
+        <p>Extreme expressive crop, single emotional anchor. Used in V2 and V6.</p>
+      </div>
+      <div class="ref">
+        <div class="creator">Jay Shetty · On Purpose</div>
+        <h4>Clean editorial brand.</h4>
+        <p>Centered wordmark, premium type, set as the visual proof. Used in V4.</p>
+      </div>
+      <div class="ref">
+        <div class="creator">Mel Robbins</div>
+        <h4>Warm + signature line.</h4>
+        <p>Optimism, real face, brand catchphrase. Used in V1.</p>
+      </div>
+      <div class="ref">
+        <div class="creator">Almost 30 · Lindsay &amp; Krista</div>
+        <h4>Pastel + script signature.</h4>
+        <p>Muted palette, hand-script in the corner. Threaded through every variant.</p>
+      </div>
+      <div class="ref">
+        <div class="creator">We Can Do Hard Things · Glennon Doyle</div>
+        <h4>Editorial portrait + statement.</h4>
+        <p>Quiet, vulnerable, single thought. Used in V5.</p>
+      </div>
+      <div class="ref">
+        <div class="creator">Mr Beast / Modern Wisdom</div>
+        <h4>Clear payoff or curiosity gap.</h4>
+        <p>Tells you exactly what the watch will give you. Used in V3 and V6.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow">02 · Round one (test these first)</div>
+    <h2 class="section-title">Three strongest <em>hypotheses.</em></h2>
+    <p class="sub">Upload these three to YouTube Test &amp; Compare on Jun 1. Let it run for at least 7 days before reading results.</p>
+
+    <div class="variants">
+
+      <article>
+        <div class="variant-meta">
+          <div>
+            <div class="ml-tags"><span class="chip hypo">Hypothesis · Warmth</span><span class="chip pattern">Mel Robbins · Almost 30</span></div>
+            <h3><span class="num">V1.</span> <em>But God.</em></h3>
+            <div class="note">Both women mid-laugh. The brand's signature line as the whole headline. Tests whether warmth + a known catchphrase pulls the niche audience.</div>
+          </div>
+          <button class="download-btn" data-download="v1" data-filename="BGT-Ep01-V1-ButGod.png">Download PNG</button>
+        </div>
+        <div class="photo-swap" data-target="v1">
+          <span class="lbl">Background</span>
+          <button class="active" data-img="frames/thumb-listening.jpg">Listening</button>
+          <button data-img="frames/frame_20s.jpg">Studio wide</button>
+          <button data-img="frames/thumb-laughing.jpg">Big laugh</button>
+          <button data-img="frames/frame_1560s.jpg">Treasa solo</button>
+          <button data-img="frames/frame_2990s.jpg">Closing smile</button>
+          <button data-img="frames/frame_620s.jpg">Storytelling</button>
+        </div>
+        <div class="variant-stage">
+          <div class="thumb-frame">
+            <div class="thumb-inner thumb-scaler">
+              <div class="thumb v1" id="v1">
+                <div class="v1-ebr">Episode 01 · Big Girl Thoughts</div>
+                <div class="v1-title">
+                  <div class="from">From brokenness,</div>
+                  <div class="but">but <span class="gold">God.</span></div>
+                </div>
+                <div class="v1-right">
+                  <div class="with">with Treasa McGinnis · Mama T</div>
+                  <div class="brand">xo, Ash</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="thumb-mobile">
+            <div class="mc-label">Mobile · 220px</div>
+            <div class="thumb-mobile-frame">
+              <div class="thumb-inner">
+                <div class="thumb v1">
+                  <div class="v1-ebr">Episode 01 · Big Girl Thoughts</div>
+                  <div class="v1-title">
+                    <div class="from">From brokenness,</div>
+                    <div class="but">but <span class="gold">God.</span></div>
+                  </div>
+                  <div class="v1-right">
+                    <div class="with">with Treasa McGinnis · Mama T</div>
+                    <div class="brand">xo, Ash</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <div class="variant-meta">
+          <div>
+            <div class="ml-tags"><span class="chip hypo">Hypothesis · The line</span><span class="chip pattern">Diary of a CEO</span></div>
+            <h3><span class="num">V2.</span> <em>Throne before phone.</em></h3>
+            <div class="note">The most repeatable quote in the conversation, sage panel for the words, Mama T mid-sentence on the right. Tests whether the line itself is the hook.</div>
+          </div>
+          <button class="download-btn" data-download="v2" data-filename="BGT-Ep01-V2-Throne.png">Download PNG</button>
+        </div>
+        <div class="variant-stage">
+          <div class="thumb-frame">
+            <div class="thumb-inner thumb-scaler">
+              <div class="thumb v2" id="v2">
+                <div class="v2-photo"></div>
+                <div class="v2-left">
+                  <div class="v2-ebr">Episode 01</div>
+                  <div class="v2-q">"Go to the throne, <span class="gold">before the phone.</span>"</div>
+                  <div class="v2-attrib">
+                    <div class="name">Mama T</div>
+                    <div class="ep">Big Girl Thoughts</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="thumb-mobile">
+            <div class="mc-label">Mobile · 220px</div>
+            <div class="thumb-mobile-frame">
+              <div class="thumb-inner">
+                <div class="thumb v2">
+                  <div class="v2-photo"></div>
+                  <div class="v2-left">
+                    <div class="v2-ebr">Episode 01</div>
+                    <div class="v2-q">"Go to the throne, <span class="gold">before the phone.</span>"</div>
+                    <div class="v2-attrib">
+                      <div class="name">Mama T</div>
+                      <div class="ep">Big Girl Thoughts</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <div class="variant-meta">
+          <div>
+            <div class="ml-tags"><span class="chip hypo">Hypothesis · Curiosity</span><span class="chip pattern">Diary of a CEO · Modern Wisdom</span></div>
+            <h3><span class="num">V3.</span> <em>She lost everything at 17.</em></h3>
+            <div class="note">Solo portrait of Mama T smiling now, paired with the heaviest line in the episode. Tests the contrast between her face today and the story underneath.</div>
+          </div>
+          <button class="download-btn" data-download="v3" data-filename="BGT-Ep01-V3-At17.png">Download PNG</button>
+        </div>
+        <div class="variant-stage">
+          <div class="thumb-frame">
+            <div class="thumb-inner thumb-scaler">
+              <div class="thumb v3" id="v3">
+                <div class="v3-ebr">Episode 01 · Big Girl Thoughts</div>
+                <div class="v3-headline">
+                  <div class="small">Two weeks before her graduation</div>
+                  <div class="big">She lost <em>everything</em><br>at 17.</div>
+                </div>
+                <div class="v3-foot">
+                  <div class="ep">with</div>
+                  <div class="name">Mama T</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="thumb-mobile">
+            <div class="mc-label">Mobile · 220px</div>
+            <div class="thumb-mobile-frame">
+              <div class="thumb-inner">
+                <div class="thumb v3">
+                  <div class="v3-ebr">Episode 01 · Big Girl Thoughts</div>
+                  <div class="v3-headline">
+                    <div class="small">Two weeks before her graduation</div>
+                    <div class="big">She lost <em>everything</em><br>at 17.</div>
+                  </div>
+                  <div class="v3-foot">
+                    <div class="ep">with</div>
+                    <div class="name">Mama T</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="block sage">
+  <div class="wrap">
+    <div class="eyebrow">03 · Round two (the bench)</div>
+    <h2 class="section-title">If round one stalls, <em>swap in these.</em></h2>
+    <p class="sub" style="color:rgba(254,253,251,.85)">Each tests a different angle. After 7 days on round one, swap the weakest variant for whichever of these maps to the audience that didn't bite the first time.</p>
+
+    <div class="variants">
+
+      <article>
+        <div class="variant-meta">
+          <div>
+            <div class="ml-tags"><span class="chip hypo">Hypothesis · Brand-led</span><span class="chip pattern">Jay Shetty · On Purpose</span></div>
+            <h3><span class="num">V4.</span> <em>Welcome.</em></h3>
+            <div class="note">For episode 01, the brand is the hook. Studio wide shot fading into the wordmark. Tests whether show recognition alone moves first-time viewers.</div>
+          </div>
+          <button class="download-btn" data-download="v4" data-filename="BGT-Ep01-V4-Welcome.png">Download PNG</button>
+        </div>
+        <div class="variant-stage">
+          <div class="thumb-frame">
+            <div class="thumb-inner thumb-scaler">
+              <div class="thumb v4" id="v4">
+                <div class="v4-ebr">Episode 01 · Premieres Jun 1</div>
+                <div class="v4-center">
+                  <div class="word">Big Girl</div>
+                  <div class="script">Thoughts</div>
+                </div>
+                <div class="v4-bot"><strong>WITH MAMA T</strong> · Treasa McGinnis tells the whole story.</div>
+              </div>
+            </div>
+          </div>
+          <div class="thumb-mobile">
+            <div class="mc-label">Mobile · 220px</div>
+            <div class="thumb-mobile-frame">
+              <div class="thumb-inner">
+                <div class="thumb v4">
+                  <div class="v4-ebr">Episode 01 · Premieres Jun 1</div>
+                  <div class="v4-center">
+                    <div class="word">Big Girl</div>
+                    <div class="script">Thoughts</div>
+                  </div>
+                  <div class="v4-bot"><strong>WITH MAMA T</strong> · Treasa McGinnis tells the whole story.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <div class="variant-meta">
+          <div>
+            <div class="ml-tags"><span class="chip hypo">Hypothesis · Vulnerability</span><span class="chip pattern">We Can Do Hard Things</span></div>
+            <h3><span class="num">V5.</span> <em>Tell the truth.</em></h3>
+            <div class="note">Intimate listening shot under a cream organic blob. Mirrors the existing post-template language exactly. Tests whether vulnerability reads as &quot;real conversation.&quot;</div>
+          </div>
+          <button class="download-btn" data-download="v5" data-filename="BGT-Ep01-V5-TellTheTruth.png">Download PNG</button>
+        </div>
+        <div class="variant-stage">
+          <div class="thumb-frame">
+            <div class="thumb-inner thumb-scaler">
+              <div class="thumb v5" id="v5">
+                <div class="v5-ebr">Episode 01</div>
+                <div class="v5-blob">
+                  <div class="v5-q">"She came on to <span class="accent">tell the truth.</span>"</div>
+                  <div class="v5-meta">
+                    <div class="ep">with Treasa McGinnis</div>
+                    <div class="name">Mama T</div>
+                  </div>
+                </div>
+                <div class="v5-brand">Big Girl Thoughts</div>
+              </div>
+            </div>
+          </div>
+          <div class="thumb-mobile">
+            <div class="mc-label">Mobile · 220px</div>
+            <div class="thumb-mobile-frame">
+              <div class="thumb-inner">
+                <div class="thumb v5">
+                  <div class="v5-ebr">Episode 01</div>
+                  <div class="v5-blob">
+                    <div class="v5-q">"She came on to <span class="accent">tell the truth.</span>"</div>
+                    <div class="v5-meta">
+                      <div class="ep">with Treasa McGinnis</div>
+                      <div class="name">Mama T</div>
+                    </div>
+                  </div>
+                  <div class="v5-brand">Big Girl Thoughts</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <div class="variant-meta">
+          <div>
+            <div class="ml-tags"><span class="chip hypo">Hypothesis · Story payoff</span><span class="chip pattern">Mr Beast · Modern Wisdom</span></div>
+            <h3><span class="num">V6.</span> <em>From foster care to pastor.</em></h3>
+            <div class="note">The full arc as the headline. No mystery, just the transformation. Tests whether clear stake + clear payoff pulls story-driven viewers.</div>
+          </div>
+          <button class="download-btn" data-download="v6" data-filename="BGT-Ep01-V6-FosterToPastor.png">Download PNG</button>
+        </div>
+        <div class="variant-stage">
+          <div class="thumb-frame">
+            <div class="thumb-inner thumb-scaler">
+              <div class="thumb v6" id="v6">
+                <div class="v6-ebr">Episode 01 · Big Girl Thoughts</div>
+                <div class="v6-headline">
+                  <span class="row">From <em>foster</em></span>
+                  <span class="row">care to</span>
+                  <span class="row small">→</span>
+                  <span class="row"><em>pastor.</em></span>
+                </div>
+                <div class="v6-foot">
+                  <div class="with">Treasa McGinnis tells the whole story.</div>
+                  <div class="name">Mama T</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="thumb-mobile">
+            <div class="mc-label">Mobile · 220px</div>
+            <div class="thumb-mobile-frame">
+              <div class="thumb-inner">
+                <div class="thumb v6">
+                  <div class="v6-ebr">Episode 01 · Big Girl Thoughts</div>
+                  <div class="v6-headline">
+                    <span class="row">From <em>foster</em></span>
+                    <span class="row">care to</span>
+                    <span class="row small">→</span>
+                    <span class="row"><em>pastor.</em></span>
+                  </div>
+                  <div class="v6-foot">
+                    <div class="with">Treasa McGinnis tells the whole story.</div>
+                    <div class="name">Mama T</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="block cream">
+  <div class="wrap">
+    <div class="eyebrow">04 · How to run it</div>
+    <h2 class="section-title">Test &amp; Compare, <em>in four steps.</em></h2>
+    <p class="sub">YouTube Studio has a built-in tool. It rotates the three thumbnails across impressions, measures click-through rate plus watch-time signal, and tells you the winner.</p>
+
+    <div class="howto">
+      <div class="step">
+        <h4>Upload all three.</h4>
+        <p>In Studio, open the Ep 01 video. In Thumbnail, click Test &amp; Compare and add V1, V2, V3 as PNGs from the buttons above.</p>
+      </div>
+      <div class="step">
+        <h4>Let it run 7+ days.</h4>
+        <p>YouTube needs enough impressions to call a winner with confidence. Don't peek at day three.</p>
+      </div>
+      <div class="step">
+        <h4>Read the verdict.</h4>
+        <p>The winning thumbnail becomes the new default. The other two get archived to the variants library for round two.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="wordmark">Big Girl Thoughts</div>
+    <div class="script">xo, Ash</div>
+    <div class="meta">biggirlthoughts.com · @ashleighleege · ep 01 a/b lab</div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  // Photo chooser — live-swap background on every element matching the target class
+  document.querySelectorAll('.photo-swap').forEach(swap => {
+    const target = swap.dataset.target;
+    swap.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const img = btn.dataset.img;
+        document.querySelectorAll('.' + target).forEach(el => {
+          el.style.backgroundImage = "url('" + img + "')";
+        });
+        swap.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  });
+
+  function rescaleThumbs() {
+    document.querySelectorAll('.thumb-frame').forEach(frame => {
+      const scaler = frame.querySelector('.thumb-scaler');
+      if (!scaler) return;
+      const scale = frame.clientWidth / 1280;
+      scaler.style.transform = 'scale(' + scale + ')';
+    });
+  }
+  window.addEventListener('resize', rescaleThumbs);
+  document.fonts.ready.then(rescaleThumbs);
+  rescaleThumbs();
+
+  document.querySelectorAll('.download-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.download;
+      const filename = btn.dataset.filename;
+      const original = btn.textContent;
+      btn.textContent = 'Rendering…';
+      btn.classList.add('loading');
+      try {
+        await document.fonts.ready;
+        await new Promise(r => setTimeout(r, 200));
+        const source = document.getElementById(id);
+        const clone = source.cloneNode(true);
+        clone.style.position = 'fixed';
+        clone.style.top = '-9999px';
+        clone.style.left = '0';
+        clone.style.zIndex = '-1';
+        clone.style.transform = 'none';
+        document.body.appendChild(clone);
+        const canvas = await html2canvas(clone, {
+          width: 1280,
+          height: 720,
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: null,
+          logging: false,
+        });
+        clone.remove();
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        btn.textContent = 'Downloaded ✓';
+        setTimeout(() => { btn.textContent = original; btn.classList.remove('loading'); }, 1800);
+      } catch (err) {
+        console.error(err);
+        btn.textContent = 'Error · try again';
+        btn.classList.remove('loading');
+        setTimeout(() => { btn.textContent = original; }, 2000);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

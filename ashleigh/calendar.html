@@ -80,13 +80,24 @@
   /* episode list */
   .eps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
   @media(max-width:900px){.eps{grid-template-columns:1fr}}
-  .ep-card{background:#fff;border:1px solid rgba(26,26,26,.08);border-radius:10px;padding:22px;position:relative}
+  .ep-card{background:#fff;border:1px solid rgba(26,26,26,.08);border-radius:10px;padding:22px;position:relative;display:block;text-decoration:none;color:inherit;transition:all .2s ease}
+  a.ep-card{cursor:pointer}
+  a.ep-card:hover{border-color:var(--sage);box-shadow:0 16px 36px -16px rgba(125,139,127,.4);transform:translateY(-2px)}
+  .ep-card.locked{border-color:var(--sage-deep);background:linear-gradient(180deg,#fff 0%,rgba(125,139,127,.04) 100%)}
   .ep-card .num{font-family:'Playfair Display',serif;font-weight:900;font-size:36px;color:rgba(125,139,127,.25);position:absolute;top:14px;right:18px}
+  .ep-card.locked .num{color:rgba(107,125,115,.4)}
   .ep-card .when{font-family:'Playfair Display',serif;font-weight:700;color:var(--sage-deep);font-size:14px;letter-spacing:.06em}
   .ep-card .title{font-family:'Playfair Display',serif;font-weight:700;font-size:20px;margin:8px 0 10px;line-height:1.2}
+  .ep-card.locked .title em{font-style:italic;color:var(--sage-deep);font-weight:700}
   .ep-card .status{display:inline-block;padding:3px 10px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;border-radius:3px;background:var(--sage);color:#fff;font-weight:600}
   .ep-card .status.pending{background:var(--gold);color:var(--ink)}
+  .ep-card .status.locked{background:var(--sage-deep)}
   .ep-card .note{font-family:'Cormorant Garamond',serif;font-style:italic;color:#666;font-size:14px;margin-top:10px}
+  .ep-card .view{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--sage-deep)}
+  .ep-card .view::after{content:"→";transition:transform .2s ease}
+  a.ep-card:hover .view::after{transform:translateX(4px)}
+  .cal a.ep-link{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--sage-deep);transition:color .2s}
+  .cal a.ep-link:hover{color:var(--sage-deep)}
 
   /* decisions */
   .decisions{background:#fff;border-left:4px solid var(--lime);padding:28px 32px;border-radius:6px;box-shadow:0 2px 0 rgba(26,26,26,.04)}
@@ -195,7 +206,7 @@
       </thead>
       <tbody>
         <tr class="pre"><td><span class="wknum">Pre</span></td><td class="ep">Trailer<span class="date">May 25</span></td><td>BTS<span class="date">May 26</span></td><td>"Coming Jun 1"<span class="date">May 27</span></td><td>Host intro<span class="date">May 28</span></td><td>Trailer Reel<span class="date">May 29</span></td></tr>
-        <tr class="launch"><td><span class="wknum">01</span></td><td class="ep">Episode 1<span class="date">Jun 1</span></td><td>Quote<span class="date">Jun 2</span></td><td>Clip B<span class="date">Jun 3</span></td><td>BTS<span class="date">Jun 4</span></td><td>CTA<span class="date">Jun 5</span></td></tr>
+        <tr class="launch"><td><span class="wknum">01</span></td><td class="ep"><a class="ep-link" href="episode-01.html">Episode 1 · Mama T</a><span class="date">Jun 1</span></td><td>Quote<span class="date">Jun 2</span></td><td>Clip B<span class="date">Jun 3</span></td><td>BTS<span class="date">Jun 4</span></td><td>CTA<span class="date">Jun 5</span></td></tr>
         <tr><td><span class="wknum">02</span></td><td class="ep">Episode 2<span class="date">Jun 8</span></td><td>Quote<span class="date">Jun 9</span></td><td>Clip B<span class="date">Jun 10</span></td><td>BTS<span class="date">Jun 11</span></td><td>CTA<span class="date">Jun 12</span></td></tr>
         <tr><td><span class="wknum">03</span></td><td class="ep">Episode 3<span class="date">Jun 15</span></td><td>Quote<span class="date">Jun 16</span></td><td>Clip B<span class="date">Jun 17</span></td><td>BTS<span class="date">Jun 18</span></td><td>CTA<span class="date">Jun 19</span></td></tr>
         <tr><td><span class="wknum">04</span></td><td class="ep">Episode 4<span class="date">Jun 22</span></td><td>Quote<span class="date">Jun 23</span></td><td>Clip B<span class="date">Jun 24</span></td><td>BTS<span class="date">Jun 25</span></td><td>CTA<span class="date">Jun 26</span></td></tr>
@@ -214,7 +225,7 @@
     <h2>Episode Slots</h2>
     <p class="sub">Each slot is a placeholder — fill in titles after the meeting. Episode 1 gets the strongest hook; Episode 2 carries the most retention weight.</p>
     <div class="eps">
-      <div class="ep-card"><div class="num">01</div><div class="when">Mon · Jun 1</div><div class="title">Episode 1 — TBD</div><span class="status">Ready</span><div class="note">Strongest hook · most shareable</div></div>
+      <a class="ep-card locked" href="episode-01.html"><div class="num">01</div><div class="when">Mon · Jun 1</div><div class="title">From <em>brokenness,</em> but God.</div><span class="status locked">Locked in</span><div class="note">with Treasa McGinnis (Mama T) · 51 min · 9 chapters</div><div class="view">View episode page</div></a>
       <div class="ep-card"><div class="num">02</div><div class="when">Mon · Jun 8</div><div class="title">Episode 2 — TBD</div><span class="status">Ready</span><div class="note">Second-strongest · retention anchor</div></div>
       <div class="ep-card"><div class="num">03</div><div class="when">Mon · Jun 15</div><div class="title">Episode 3 — TBD</div><span class="status">Ready</span></div>
       <div class="ep-card"><div class="num">04</div><div class="when">Mon · Jun 22</div><div class="title">Episode 4 — TBD</div><span class="status">Ready</span></div>
@@ -249,7 +260,7 @@
     <div class="decisions">
       <h3>Open items</h3>
       <ol>
-        <li><strong>Episode order.</strong> Rank the 9 ready episodes by "would a stranger send this to a friend?" — top two slot into Jun 1 and Jun 8.</li>
+        <li><strong>Episode 1 locked.</strong> Treasa McGinnis ("From brokenness, but God.") drops Jun 1. <a href="episode-01.html">View episode page →</a> Ep 2 still needs to be picked from the remaining 8.</li>
         <li><strong>Episodes 10 &amp; 11.</strong> What's blocking finish? Confirm both can be locked by Jul 15.</li>
         <li><strong>Recording calendar.</strong> Confirm Jun 17 for the first buffer session — three episodes back-to-back.</li>
       </ol>
