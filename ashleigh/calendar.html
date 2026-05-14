@@ -99,6 +99,24 @@
   .cal a.ep-link{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--sage-deep);transition:color .2s}
   .cal a.ep-link:hover{color:var(--sage-deep)}
 
+  /* ep1 clip schedule */
+  .clip-week{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  @media(max-width:900px){.clip-week{grid-template-columns:1fr 1fr}}
+  @media(max-width:600px){.clip-week{grid-template-columns:1fr}}
+  .day-col{background:#fff;border:1px solid rgba(26,26,26,.08);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+  .day-col header{padding:14px 16px;background:var(--cream);border-bottom:1px solid rgba(26,26,26,.08);display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .day-col .day-name{font-family:'Playfair Display',serif;font-weight:900;font-size:18px;letter-spacing:-.01em;color:var(--ink)}
+  .day-col .day-date{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-deep);font-weight:600}
+  .day-col .day-tag{font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:var(--sage);color:#fff;font-weight:600}
+  .day-col .day-tag.launch{background:var(--gold);color:var(--ink)}
+  .day-col .slot{padding:14px 16px;border-top:1px dashed rgba(26,26,26,.1)}
+  .day-col .slot:first-of-type{border-top:0}
+  .day-col .slot.ep{background:rgba(214,175,55,.08)}
+  .day-col .slot-time{font-family:ui-monospace,SFMono-Regular,monospace;font-size:10px;letter-spacing:.12em;color:var(--sage-deep);font-weight:600;text-transform:uppercase}
+  .day-col .slot-title{font-family:'Playfair Display',serif;font-weight:700;font-size:14px;margin-top:4px;line-height:1.3;color:var(--ink)}
+  .day-col .slot-meta{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:#777;display:block;margin-top:4px}
+  .day-col .slot-tag{display:inline-block;margin-top:6px;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--taupe);font-weight:600}
+
   /* decisions */
   .decisions{background:#fff;border-left:4px solid var(--lime);padding:28px 32px;border-radius:6px;box-shadow:0 2px 0 rgba(26,26,26,.04)}
   .decisions h3{font-family:'Playfair Display',serif;font-size:20px;margin-bottom:14px}
@@ -143,6 +161,7 @@
     <a href="#prelaunch">Pre-Launch</a>
     <a href="#rhythm">Weekly Rhythm</a>
     <a href="#calendar">Release Calendar</a>
+    <a href="#ep1-clips">Ep 1 Clips</a>
     <a href="#episodes">Episodes</a>
     <a href="#beyond">Beyond Aug 10</a>
     <a href="#decisions">Decisions</a>
@@ -217,6 +236,104 @@
         <tr><td><span class="wknum">09</span></td><td class="ep">Episode 9<span class="date">Jul 27</span></td><td>Quote<span class="date">Jul 28</span></td><td>Clip B<span class="date">Jul 29</span></td><td>BTS<span class="date">Jul 30</span></td><td>CTA<span class="date">Jul 31</span></td></tr>
       </tbody>
     </table>
+  </div>
+</section>
+
+<section class="block" id="ep1-clips">
+  <div class="wrap">
+    <h2>Episode 01 · Clip Schedule</h2>
+    <p class="sub">Seven shorts in five days. Monday launches with the biggest hook. Wednesday and Thursday double-stack to carry the middle of the week. Times in America/Chicago.</p>
+    <div class="clip-week">
+
+      <div class="day-col">
+        <header>
+          <span class="day-name">Mon</span>
+          <span class="day-date">Jun 1</span>
+          <span class="day-tag launch">Launch</span>
+        </header>
+        <div class="slot ep">
+          <span class="slot-time">6:00 AM</span>
+          <div class="slot-title">Episode 1 drops</div>
+          <span class="slot-meta">Full video · 51 min</span>
+          <span class="slot-tag">YouTube · Spotify · Apple</span>
+        </div>
+        <div class="slot">
+          <span class="slot-time">5:00 PM</span>
+          <div class="slot-title">From Drug Dealer to Pastor</div>
+          <span class="slot-meta">Short · 0:59</span>
+          <span class="slot-tag">Reels · TikTok · Shorts</span>
+        </div>
+      </div>
+
+      <div class="day-col">
+        <header>
+          <span class="day-name">Tue</span>
+          <span class="day-date">Jun 2</span>
+          <span class="day-tag">Quote</span>
+        </header>
+        <div class="slot">
+          <span class="slot-time">8:00 AM</span>
+          <div class="slot-title">Transform Your Struggles: What Happened TO You or FOR You</div>
+          <span class="slot-meta">Short · 0:35</span>
+          <span class="slot-tag">Reels · TikTok · Shorts</span>
+        </div>
+      </div>
+
+      <div class="day-col">
+        <header>
+          <span class="day-name">Wed</span>
+          <span class="day-date">Jun 3</span>
+          <span class="day-tag">Clip B</span>
+        </header>
+        <div class="slot">
+          <span class="slot-time">8:00 AM</span>
+          <div class="slot-title">From Drugs to Deliverance: My Pivotal Journey</div>
+          <span class="slot-meta">Short · 0:54</span>
+          <span class="slot-tag">Reels · TikTok · Shorts</span>
+        </div>
+        <div class="slot">
+          <span class="slot-time">5:00 PM</span>
+          <div class="slot-title">Championing Faith: A Powerful Conversation with Treasa</div>
+          <span class="slot-meta">Short · 0:40</span>
+          <span class="slot-tag">Reels · TikTok · Shorts</span>
+        </div>
+      </div>
+
+      <div class="day-col">
+        <header>
+          <span class="day-name">Thu</span>
+          <span class="day-date">Jun 4</span>
+          <span class="day-tag">BTS</span>
+        </header>
+        <div class="slot">
+          <span class="slot-time">8:00 AM</span>
+          <div class="slot-title">From Divorce to Drugs: My Journey of Despair</div>
+          <span class="slot-meta">Short · 0:55</span>
+          <span class="slot-tag">Reels · TikTok · Shorts</span>
+        </div>
+        <div class="slot">
+          <span class="slot-time">5:00 PM</span>
+          <div class="slot-title">Finding Strength Through Faith and Knowledge</div>
+          <span class="slot-meta">Short · 0:36</span>
+          <span class="slot-tag">Reels · TikTok · Shorts</span>
+        </div>
+      </div>
+
+      <div class="day-col">
+        <header>
+          <span class="day-name">Fri</span>
+          <span class="day-date">Jun 5</span>
+          <span class="day-tag">CTA</span>
+        </header>
+        <div class="slot">
+          <span class="slot-time">8:00 AM</span>
+          <div class="slot-title">Don't Let Feelings Lead You: Change Your Perspective</div>
+          <span class="slot-meta">Short · 0:32</span>
+          <span class="slot-tag">Reels · TikTok · Shorts</span>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
