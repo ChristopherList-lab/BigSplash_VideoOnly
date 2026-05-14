@@ -124,9 +124,11 @@
   .thumb-b .b-sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:44px;color:var(--sage);line-height:1}
   .thumb-b .b-brand{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);font-weight:600;opacity:.55}
 
-  /* Concept C: Rose split, "The door he opened" */
+  /* Concept C: Leah portrait left + cream right, "The door he opened" */
   .thumb-c{background:var(--cream)}
-  .thumb-c .c-left{position:absolute;left:0;top:0;width:48%;height:100%;background:var(--rose);display:flex;flex-direction:column;justify-content:space-between;padding:60px 60px 60px 80px;color:var(--off-white)}
+  .thumb-c .c-left{position:absolute;left:0;top:0;width:48%;height:100%;background-image:url('frames/ep02-leah-portrait.jpg');background-size:cover;background-position:55% center;display:flex;flex-direction:column;justify-content:space-between;padding:60px 60px 60px 80px;color:var(--off-white);overflow:hidden}
+  .thumb-c .c-left::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,26,26,.55) 0%,rgba(26,26,26,.35) 50%,rgba(181,146,159,.7) 100%);pointer-events:none;z-index:0}
+  .thumb-c .c-left > *{position:relative;z-index:1}
   .thumb-c .c-eyebrow{font-family:'Inter',sans-serif;font-size:14px;letter-spacing:.32em;text-transform:uppercase;font-weight:600;opacity:.9}
   .thumb-c .c-leadword{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:108px;line-height:.95;letter-spacing:-.015em}
   .thumb-c .c-num{position:absolute;left:60px;bottom:60px;font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:120px;line-height:1;color:rgba(254,253,251,.85);letter-spacing:-.03em}
