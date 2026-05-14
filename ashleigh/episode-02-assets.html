@@ -97,9 +97,9 @@
   /* THUMBNAIL ARTWORK — typography-only (video frames pending) */
   .thumb{width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Inter',sans-serif;color:var(--off-white)}
 
-  /* Concept A: Sage solid, "Are you done?" */
-  .thumb-a{background:var(--sage)}
-  .thumb-a::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(212,175,55,.18),transparent 55%);pointer-events:none}
+  /* Concept A: Solo Leah portrait, "Are you done?" */
+  .thumb-a{background-image:url('frames/ep02-leah-portrait.jpg');background-size:cover;background-position:65% center}
+  .thumb-a::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(26,26,26,.78) 0%,rgba(26,26,26,.45) 40%,rgba(26,26,26,.05) 70%,transparent 90%);pointer-events:none}
   .thumb-a .a-eyebrow{position:absolute;top:54px;left:80px;font-family:'Inter',sans-serif;font-size:18px;letter-spacing:.32em;text-transform:uppercase;color:var(--off-white);font-weight:600;display:flex;align-items:center;gap:14px;z-index:2}
   .thumb-a .a-eyebrow::before{content:"";width:10px;height:10px;background:var(--gold);border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.7)}
   .thumb-a .a-q{position:absolute;left:80px;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:220px;line-height:.9;letter-spacing:-.03em;color:var(--off-white);z-index:2;text-shadow:0 4px 24px rgba(26,26,26,.25)}
@@ -109,18 +109,20 @@
   .thumb-a .a-foot .name{font-family:'Dancing Script',cursive;font-weight:700;font-size:54px;color:var(--gold);line-height:1}
   .thumb-a .a-brand{position:absolute;bottom:60px;right:80px;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--off-white);font-weight:600;opacity:.7}
 
-  /* Concept B: Cream "You've never gone too far" editorial */
+  /* Concept B: Split — cream left + wide shot photo right */
   .thumb-b{background:var(--cream);color:var(--ink)}
-  .thumb-b::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 70%,rgba(125,139,127,.08),transparent 55%);pointer-events:none}
-  .thumb-b .b-eyebrow{position:absolute;top:64px;left:80px;font-family:'Inter',sans-serif;font-size:14px;letter-spacing:.32em;text-transform:uppercase;color:var(--sage-deep);font-weight:600;display:flex;align-items:center;gap:14px}
+  .thumb-b .b-left{position:absolute;left:0;top:0;width:46%;height:100%;background:var(--cream);padding:60px 56px;display:flex;flex-direction:column;justify-content:space-between;z-index:2}
+  .thumb-b .b-left::after{content:"";position:absolute;right:-20px;top:0;width:40px;height:100%;background:linear-gradient(to right,var(--cream),transparent);z-index:1}
+  .thumb-b .b-photo{position:absolute;right:0;top:0;width:58%;height:100%;background-image:url('frames/ep02-wide.jpg');background-size:cover;background-position:60% center}
+  .thumb-b .b-eyebrow{font-family:'Inter',sans-serif;font-size:15px;letter-spacing:.32em;text-transform:uppercase;color:var(--sage-deep);font-weight:600;display:flex;align-items:center;gap:14px}
   .thumb-b .b-eyebrow::before{content:"";width:36px;height:1px;background:var(--sage)}
-  .thumb-b .b-line1{position:absolute;top:170px;left:80px;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:88px;color:var(--ink);line-height:.95;letter-spacing:-.01em;opacity:.85}
-  .thumb-b .b-line2{position:absolute;top:260px;left:80px;font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:172px;color:var(--sage-deep);line-height:.9;letter-spacing:-.03em;max-width:1100px}
-  .thumb-b .b-attrib{position:absolute;bottom:130px;left:80px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;color:var(--ink);opacity:.7}
-  .thumb-b .b-sig{position:absolute;bottom:54px;left:80px;font-family:'Dancing Script',cursive;font-weight:700;font-size:48px;color:var(--sage)}
-  .thumb-b .b-brand{position:absolute;bottom:60px;right:80px;font-family:'Dancing Script',cursive;font-weight:700;font-size:32px;color:var(--sage-deep);opacity:.9}
-  .thumb-b .b-gold{position:absolute;top:88px;right:80px;display:flex;align-items:center;gap:12px;font-family:'Inter',sans-serif;font-size:14px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);font-weight:600;opacity:.7}
-  .thumb-b .b-gold .dot{width:10px;height:10px;background:var(--gold);border-radius:50%}
+  .thumb-b .b-line1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:64px;color:var(--ink);line-height:.95;letter-spacing:-.01em;opacity:.85}
+  .thumb-b .b-line2{font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:128px;color:var(--sage-deep);line-height:.85;letter-spacing:-.03em;margin-top:8px}
+  .thumb-b .b-mid{display:flex;flex-direction:column;justify-content:center;flex:1;gap:0}
+  .thumb-b .b-attrib{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--ink);opacity:.7;margin-top:14px;line-height:1.3}
+  .thumb-b .b-bottom{display:flex;justify-content:space-between;align-items:baseline}
+  .thumb-b .b-sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:44px;color:var(--sage);line-height:1}
+  .thumb-b .b-brand{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);font-weight:600;opacity:.55}
 
   /* Concept C: Rose split, "The door he opened" */
   .thumb-c{background:var(--cream)}
@@ -286,12 +288,7 @@ xo, Ash
   <div class="wrap">
     <div class="eyebrow">02 · Thumbnail Studio</div>
     <h2 class="section-title">Three concepts, <em>on-brand.</em></h2>
-    <p class="sub" style="color:rgba(254,253,251,.85)">Typography-only for now. Once the YouTube video is up, send the link and I'll pull real frames to swap in as backgrounds, same way Ep 01 worked.</p>
-
-    <div class="photo-pending" style="background:rgba(254,253,251,.08);border-color:var(--gold);color:var(--off-white);opacity:1">
-      <strong style="color:var(--gold)">Pending YouTube upload</strong>
-      Backgrounds will swap to studio frames of Leah once the video is published. The typography is locked.
-    </div>
+    <p class="sub" style="color:rgba(254,253,251,.85)">Concept A uses the solo Leah portrait. Concept B uses the wide two-shot. Concept C stays typography-only as the series-anchor variant.</p>
 
     <div class="thumb-grid">
 
@@ -348,13 +345,19 @@ xo, Ash
           <div class="thumb-frame">
             <div class="thumb-inner thumb-scaler">
               <div class="thumb thumb-b" id="thumb-b">
-                <div class="b-eyebrow">Episode 02 · with Leah</div>
-                <div class="b-gold"><span class="dot"></span>Big Girl Thoughts</div>
-                <div class="b-line1">You've never gone</div>
-                <div class="b-line2">too far.</div>
-                <div class="b-attrib">Twelve. Twenty. Homeless. Sober. Saved.</div>
-                <div class="b-sig">xo, Ash</div>
-                <div class="b-brand">Big Girl Thoughts…</div>
+                <div class="b-photo"></div>
+                <div class="b-left">
+                  <div class="b-eyebrow">Episode 02 · with Leah</div>
+                  <div class="b-mid">
+                    <div class="b-line1">You've never gone</div>
+                    <div class="b-line2">too far.</div>
+                    <div class="b-attrib">Twelve. Twenty. Homeless.<br>Sober. Saved.</div>
+                  </div>
+                  <div class="b-bottom">
+                    <div class="b-sig">xo, Ash</div>
+                    <div class="b-brand">Big Girl Thoughts</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -363,13 +366,19 @@ xo, Ash
             <div class="thumb-mobile-frame">
               <div class="thumb-inner">
                 <div class="thumb thumb-b">
-                  <div class="b-eyebrow">Episode 02 · with Leah</div>
-                  <div class="b-gold"><span class="dot"></span>Big Girl Thoughts</div>
-                  <div class="b-line1">You've never gone</div>
-                  <div class="b-line2">too far.</div>
-                  <div class="b-attrib">Twelve. Twenty. Homeless. Sober. Saved.</div>
-                  <div class="b-sig">xo, Ash</div>
-                  <div class="b-brand">Big Girl Thoughts…</div>
+                  <div class="b-photo"></div>
+                  <div class="b-left">
+                    <div class="b-eyebrow">Episode 02 · with Leah</div>
+                    <div class="b-mid">
+                      <div class="b-line1">You've never gone</div>
+                      <div class="b-line2">too far.</div>
+                      <div class="b-attrib">Twelve. Twenty. Homeless.<br>Sober. Saved.</div>
+                    </div>
+                    <div class="b-bottom">
+                      <div class="b-sig">xo, Ash</div>
+                      <div class="b-brand">Big Girl Thoughts</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
