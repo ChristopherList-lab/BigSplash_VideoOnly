@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Episode 03 · Production Assets · Big Girl Thoughts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+<meta name="theme-color" content="#FEFDFB">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sage:#7D8B7F; --sage-deep:#6B7D73;
+    --rose:#B5929F; --taupe:#9B8F89; --tan:#B8A69F;
+    --cream:#F5F3F0; --off-white:#FEFDFB;
+    --ink:#1A1A1A; --gold:#D4AF37;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  html,body{background:var(--off-white);color:var(--ink);font-family:'Inter',-apple-system,sans-serif;line-height:1.55}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  a{color:var(--sage-deep);text-decoration:none;transition:opacity .2s}
+  a:hover{opacity:.7}
+
+  .ws-back{position:fixed;top:20px;left:20px;z-index:100;padding:12px 22px;border-radius:999px;background:var(--ink);color:var(--off-white);text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;border:2px solid var(--gold);box-shadow:0 6px 20px -6px rgba(26,26,26,.45),0 0 0 4px rgba(212,175,55,.15);display:inline-flex;align-items:center;gap:8px;transition:all .2s ease}
+  .ws-back .arrow{transition:transform .2s ease}
+  .ws-back:hover{background:var(--gold);color:var(--ink);border-color:var(--ink);box-shadow:0 8px 24px -6px rgba(212,175,55,.5);opacity:1}
+  .ws-back:hover .arrow{transform:translateX(-3px)}
+
+  .hero{padding:140px 0 80px;border-bottom:1px solid rgba(26,26,26,.08)}
+  .eyebrow{text-transform:uppercase;letter-spacing:.22em;font-size:12px;font-weight:600;opacity:.65;margin-bottom:24px}
+  h1.display{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(48px,7vw,96px);line-height:1.02;letter-spacing:-.02em;color:var(--ink)}
+  h1.display em{font-style:italic;color:var(--sage-deep);font-weight:700}
+  .script-tag{font-family:'Dancing Script',cursive;font-weight:700;font-size:clamp(36px,4.4vw,56px);color:var(--sage);display:block;margin-top:-4px}
+  .lede{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,2.2vw,26px);opacity:.85;margin-top:28px;max-width:680px}
+
+  section.block{padding:96px 0;border-bottom:1px solid rgba(26,26,26,.06)}
+  section.block.cream{background:var(--cream)}
+  section.block.sage{background:var(--sage);color:var(--off-white)}
+  section.block.sage h2,section.block.sage .eyebrow,section.block.sage .sub{color:var(--off-white)}
+  section.block.sage .eyebrow{opacity:.8}
+  h2.section-title{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(32px,4vw,52px);letter-spacing:-.01em;margin-bottom:10px;line-height:1.05}
+  h2.section-title em{font-style:italic;color:var(--sage-deep);font-weight:700}
+  section.block.sage h2.section-title em{color:var(--gold)}
+  .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;opacity:.7;max-width:600px;margin-bottom:48px}
+
+  .field{margin-bottom:20px;background:var(--off-white);border:1px solid rgba(26,26,26,.1);border-radius:10px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+  .field:hover{border-color:var(--sage);box-shadow:0 12px 32px -16px rgba(125,139,127,.3)}
+  .field-head{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid rgba(26,26,26,.06);gap:16px}
+  .field-meta{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .field-label{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);font-weight:600;opacity:.75}
+  .field-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(26,26,26,.45);letter-spacing:.04em}
+  .field-count.warn{color:var(--gold)}
+  .field-count.error{color:#B05A3C}
+  .copy-btn{background:var(--ink);color:var(--off-white);border:0;padding:9px 22px;border-radius:999px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap}
+  .copy-btn:hover{background:var(--sage-deep);transform:translateY(-1px)}
+  .copy-btn.copied{background:var(--sage);color:var(--off-white)}
+  .field-body{padding:24px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;color:var(--ink);white-space:pre-wrap;word-wrap:break-word;max-height:360px;overflow-y:auto;background:var(--cream)}
+  .field-body::-webkit-scrollbar{width:6px}
+  .field-body::-webkit-scrollbar-track{background:transparent}
+  .field-body::-webkit-scrollbar-thumb{background:rgba(125,139,127,.35);border-radius:3px}
+  .field-body.short{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;line-height:1.3;background:var(--off-white)}
+  .field-body.short.italic{font-style:italic;font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500}
+
+  .meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+  @media(max-width:720px){.meta-grid{grid-template-columns:1fr}}
+  .meta-tile{padding:24px 26px;border-radius:10px;background:var(--cream);border-left:4px solid var(--sage)}
+  .meta-tile.rose{border-left-color:var(--rose)}
+  .meta-tile.taupe{border-left-color:var(--taupe)}
+  .meta-tile .ml{font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.55;font-weight:600;margin-bottom:8px}
+  .meta-tile .mv{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+  .meta-tile .mn{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;opacity:.7;margin-top:4px}
+
+  /* thumbnails */
+  .thumb-grid{display:grid;grid-template-columns:1fr;gap:72px}
+  .thumb-meta{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:24px;flex-wrap:wrap}
+  .thumb-meta h3{font-family:'Playfair Display',serif;font-weight:700;font-size:28px;letter-spacing:-.01em;color:var(--off-white)}
+  .thumb-meta h3 em{font-style:italic;color:var(--gold);font-weight:700}
+  .thumb-meta .note{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:rgba(254,253,251,.75);margin-top:4px}
+  .download-btn{background:var(--off-white);color:var(--ink);border:0;padding:12px 24px;border-radius:999px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;border:2px solid var(--gold)}
+  .download-btn:hover{background:var(--gold);color:var(--ink);transform:translateY(-1px);opacity:1}
+  .download-btn.loading{background:var(--sage-deep);color:var(--off-white);border-color:var(--sage-deep);cursor:wait}
+
+  .thumb-stage{display:grid;grid-template-columns:1fr 220px;gap:32px;align-items:flex-start}
+  @media(max-width:720px){.thumb-stage{grid-template-columns:1fr}}
+  .thumb-frame{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;border-radius:10px;box-shadow:0 32px 64px -28px rgba(26,26,26,.5)}
+  .thumb-frame .thumb-inner{position:absolute;top:0;left:0;width:1280px;height:720px;transform-origin:top left}
+  .thumb-mobile{width:220px}
+  .thumb-mobile .mc-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(254,253,251,.65);font-weight:600;margin-bottom:10px;display:block;text-align:center}
+  .thumb-mobile-frame{width:220px;aspect-ratio:16/9;position:relative;overflow:hidden;border-radius:6px;box-shadow:0 12px 24px -10px rgba(0,0,0,.4)}
+  .thumb-mobile-frame .thumb-inner{position:absolute;top:0;left:0;width:1280px;height:720px;transform:scale(.171875);transform-origin:top left}
+
+  /* Photo-pending banner (kept for future episodes) */
+  .photo-pending{padding:20px 28px;background:rgba(212,175,55,.12);border:1px dashed var(--gold);border-radius:10px;margin-bottom:32px;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--ink);opacity:.85;font-size:17px}
+  .photo-pending strong{font-style:normal;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);font-weight:600;display:block;margin-bottom:4px}
+
+  /* THUMBNAIL ARTWORK */
+  .thumb{width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Inter',sans-serif;color:var(--off-white)}
+
+  /* Concept A: Solo Janessa portrait, "Setback / setup" */
+  .thumb-a{background-image:url('frames/ep03-janessa-portrait.jpg');background-size:cover;background-position:60% center}
+  .thumb-a::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(26,26,26,.78) 0%,rgba(26,26,26,.45) 40%,rgba(26,26,26,.05) 70%,transparent 90%);pointer-events:none}
+  .thumb-a .a-eyebrow{position:absolute;top:54px;left:80px;font-family:'Inter',sans-serif;font-size:18px;letter-spacing:.32em;text-transform:uppercase;color:var(--off-white);font-weight:600;display:flex;align-items:center;gap:14px;z-index:2}
+  .thumb-a .a-eyebrow::before{content:"";width:10px;height:10px;background:var(--gold);border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.7)}
+  .thumb-a .a-title{position:absolute;left:80px;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:148px;line-height:.92;letter-spacing:-.03em;color:var(--off-white);z-index:2;text-shadow:0 4px 24px rgba(26,26,26,.25);max-width:780px}
+  .thumb-a .a-title .gold{color:var(--gold)}
+  .thumb-a .a-foot{position:absolute;bottom:54px;left:80px;display:flex;align-items:baseline;gap:24px;z-index:2}
+  .thumb-a .a-foot .ep{font-family:'Inter',sans-serif;font-size:14px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--off-white);opacity:.85}
+  .thumb-a .a-foot .name{font-family:'Dancing Script',cursive;font-weight:700;font-size:54px;color:var(--gold);line-height:1}
+  .thumb-a .a-brand{position:absolute;bottom:60px;right:80px;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--off-white);font-weight:600;opacity:.7}
+
+  /* Concept B: Split — cream left + wide two-shot right */
+  .thumb-b{background:var(--cream);color:var(--ink)}
+  .thumb-b .b-left{position:absolute;left:0;top:0;width:46%;height:100%;background:var(--cream);padding:60px 56px;display:flex;flex-direction:column;justify-content:space-between;z-index:2}
+  .thumb-b .b-left::after{content:"";position:absolute;right:-20px;top:0;width:40px;height:100%;background:linear-gradient(to right,var(--cream),transparent);z-index:1}
+  .thumb-b .b-photo{position:absolute;right:0;top:0;width:58%;height:100%;background-image:url('frames/ep03-wide.jpg');background-size:cover;background-position:55% center}
+  .thumb-b .b-eyebrow{font-family:'Inter',sans-serif;font-size:15px;letter-spacing:.32em;text-transform:uppercase;color:var(--sage-deep);font-weight:600;display:flex;align-items:center;gap:14px}
+  .thumb-b .b-eyebrow::before{content:"";width:36px;height:1px;background:var(--sage)}
+  .thumb-b .b-line1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:60px;color:var(--ink);line-height:.95;letter-spacing:-.01em;opacity:.85}
+  .thumb-b .b-line2{font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:124px;color:var(--sage-deep);line-height:.85;letter-spacing:-.03em;margin-top:8px}
+  .thumb-b .b-mid{display:flex;flex-direction:column;justify-content:center;flex:1;gap:0}
+  .thumb-b .b-attrib{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--ink);opacity:.7;margin-top:14px;line-height:1.3}
+  .thumb-b .b-bottom{display:flex;justify-content:space-between;align-items:baseline}
+  .thumb-b .b-sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:44px;color:var(--sage);line-height:1}
+  .thumb-b .b-brand{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);font-weight:600;opacity:.55}
+
+  /* Concept C: Janessa portrait left + cream right, "Fear is not your boss" */
+  .thumb-c{background:var(--cream)}
+  .thumb-c .c-left{position:absolute;left:0;top:0;width:48%;height:100%;background-image:url('frames/ep03-janessa-portrait-flipped.jpg');background-size:cover;background-position:45% center;display:flex;flex-direction:column;justify-content:space-between;padding:60px 60px 60px 80px;color:var(--off-white);overflow:hidden}
+  .thumb-c .c-left::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,26,26,.55) 0%,rgba(26,26,26,.35) 50%,rgba(125,139,127,.7) 100%);pointer-events:none;z-index:0}
+  .thumb-c .c-left > *{position:relative;z-index:1}
+  .thumb-c .c-eyebrow{font-family:'Inter',sans-serif;font-size:14px;letter-spacing:.32em;text-transform:uppercase;font-weight:600;opacity:.9}
+  .thumb-c .c-leadword{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:102px;line-height:.95;letter-spacing:-.015em}
+  .thumb-c .c-num{position:absolute;left:60px;bottom:60px;font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:120px;line-height:1;color:rgba(254,253,251,.85);letter-spacing:-.03em}
+  .thumb-c .c-bottom-left{font-family:'Inter',sans-serif;font-size:14px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;opacity:.85;text-align:right}
+  .thumb-c .c-right{position:absolute;right:0;top:0;width:52%;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:60px 80px 60px 60px;color:var(--ink)}
+  .thumb-c .c-but{font-family:'Playfair Display',serif;font-weight:900;font-size:136px;line-height:.9;letter-spacing:-.03em;color:var(--ink)}
+  .thumb-c .c-but em{font-style:italic;color:var(--sage-deep);font-weight:900}
+  .thumb-c .c-mid{display:flex;flex-direction:column;gap:24px;justify-content:center;flex:1}
+  .thumb-c .c-with{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;opacity:.78;line-height:1.3}
+  .thumb-c .c-with strong{font-family:'Inter',sans-serif;font-style:normal;font-weight:600;font-size:22px;letter-spacing:.04em;color:var(--ink)}
+  .thumb-c .c-sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:56px;color:var(--sage);line-height:1}
+  .thumb-c .c-sig-row{display:flex;align-items:center;gap:18px;justify-content:flex-end;margin-top:14px}
+  .thumb-c .c-avatar{width:84px;height:84px;border-radius:50%;background:url('frames/ash-avatar.jpg') center/cover no-repeat;border:3px solid var(--gold);box-shadow:0 8px 20px -8px rgba(26,26,26,.4);flex-shrink:0;display:block}
+  .thumb-c .c-brandfoot{font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);font-weight:600;opacity:.7}
+
+  .help-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px}
+  @media(max-width:720px){.help-grid{grid-template-columns:1fr}}
+  .help-card{padding:32px;border-radius:10px;background:var(--off-white);border:1px solid rgba(26,26,26,.1)}
+  .help-card h3{font-family:'Playfair Display',serif;font-weight:700;font-size:22px;color:var(--ink);margin-bottom:14px;letter-spacing:-.01em}
+  .help-card ul{list-style:none;padding:0}
+  .help-card li{padding:10px 0;border-bottom:1px dotted rgba(26,26,26,.12);font-size:14px;color:var(--ink);display:flex;justify-content:space-between;gap:14px;opacity:.85}
+  .help-card li:last-child{border-bottom:0}
+  .help-card li b{color:var(--sage-deep);font-weight:600;font-family:'JetBrains Mono',monospace;font-size:12px;text-align:right;opacity:1}
+
+  footer{padding:72px 0;text-align:center;background:var(--ink);color:var(--off-white)}
+  footer .wordmark{font-family:'Playfair Display',serif;font-weight:900;font-size:36px;letter-spacing:-.02em}
+  footer .script{font-family:'Dancing Script',cursive;font-weight:700;font-size:24px;color:var(--gold);margin-top:4px}
+  footer .meta{opacity:.55;font-size:12px;margin-top:20px;letter-spacing:.1em}
+</style>
+</head>
+<body>
+
+<a href="calendar.html" class="ws-back" aria-label="Back to launch calendar"><span class="arrow">←</span> Launch Calendar</a>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Production Assets · Episode 03 · Premieres Jun 15, 2026</div>
+    <h1 class="display">The setback was the <em>setup.</em></h1>
+    <span class="script-tag">a conversation with Janessa Waite</span>
+    <p class="lede">Click copy on any field to drop it straight into YouTube Studio. Thumbnails use real frames from the cut — pick one, download the PNG, ship it.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow">01 · YouTube Studio</div>
+    <h2 class="section-title">Every field, <em>copy-ready.</em></h2>
+    <p class="sub">Timestamps verified against the Whisper transcript of the 54:41 cut. Re-check against the final cut before publish.</p>
+
+    <div class="field" data-target="title">
+      <div class="field-head">
+        <div class="field-meta">
+          <span class="field-label">Title</span>
+          <span class="field-count" data-limit="100">…</span>
+        </div>
+        <button class="copy-btn" data-copy="title">Copy</button>
+      </div>
+      <div class="field-body short" id="f-title">"The setback was the setup." | Janessa Waite, BGT 03</div>
+    </div>
+
+    <div class="field" data-target="hashtags">
+      <div class="field-head">
+        <div class="field-meta">
+          <span class="field-label">Hashtags Above Title</span>
+          <span class="field-count" data-limit="60">…</span>
+        </div>
+        <button class="copy-btn" data-copy="hashtags">Copy</button>
+      </div>
+      <div class="field-body short" id="f-hashtags">#BigGirlThoughts #KickFearInTheFace #ButGod</div>
+    </div>
+
+    <div class="field" data-target="description">
+      <div class="field-head">
+        <div class="field-meta">
+          <span class="field-label">Description</span>
+          <span class="field-count" data-limit="5000">…</span>
+        </div>
+        <button class="copy-btn" data-copy="description">Copy</button>
+      </div>
+      <div class="field-body" id="f-description">Hey babe. Welcome back to Big Girl Thoughts.
+
+For episode 03, I sat down with Janessa Waite. You probably know her shop — the posters, the trucker hats, the "He still does miracles" line. What you may not know is that the whole thing started with a Canadian girl waiting on a green card, a friend's iPhone, and a still small voice that said "you could do this too." She picked up a ballpoint pen. Eleven years later, there's a seven-figure company, a warehouse, seven employees, and a book she wrote for postpartum mamas called A Heart So Full.
+
+If you have ever felt the nudge and let fear talk you out of it, this one is for you. Janessa came on to tell you not to bow to it.
+
+WHAT WE GET INTO
+0:00  Hi, hi, hi. Meet Janessa.
+4:35  The coffee, the DM, and the still small voice.
+10:55 Fear is exhausting. Faith is fear in reverse.
+21:45 Loaves, fishes, and finger-painting in the office.
+25:12 Wood signs to Austin. The parking-lot flop.
+30:09 The setback was the setup.
+32:06 Two words from God: do prints.
+37:18 What I would tell the woman who is scared.
+47:44 Rapid fire with Janessa.
+
+ABOUT JANESSA
+Janessa Waite is the founder of shop.janessawait.com, the Christian home-goods and apparel company behind the "He still does miracles" hat and a whole lot of posters that end up in nurseries. Canadian by birth, Austin by call, wife to Sean, mama to two with one on the way, and a former young-adult pastor who still pastors anyone who buys a hat.
+Instagram: @janessawait
+Shop: https://shop.janessawait.com
+
+LISTEN ON
+Spotify: [SPOTIFY_LINK]
+Apple Podcasts: [APPLE_LINK]
+
+FOLLOW BIG GIRL THOUGHTS
+Web: https://biggirlthoughts.com
+Instagram: https://www.instagram.com/ashleighleege/
+
+
+FOLLOW ASHLEIGH
+Instagram: https://www.instagram.com/ashleighleege/
+
+xo, Ash
+
+#BigGirlThoughts #KickFearInTheFace #ButGod #JanessaWaite #FaithOverFear #ChristianWomen #FaithAndHumor #TestimonyPodcast #ChristianEntrepreneur</div>
+    </div>
+
+    <div class="field" data-target="tags">
+      <div class="field-head">
+        <div class="field-meta">
+          <span class="field-label">Tags</span>
+          <span class="field-count" data-limit="500">…</span>
+        </div>
+        <button class="copy-btn" data-copy="tags">Copy</button>
+      </div>
+      <div class="field-body" id="f-tags">big girl thoughts, big girl thoughts podcast, biggirlthoughts, bgt podcast, ashleigh leege, ashleigh leege podcast, janessa waite, janessawait, kick fear in the face, faith over fear, hand lettering, christian entrepreneur, he still does miracles, austin christian, postpartum book, a heart so full, christian women podcast, faith podcast, women podcast, lifestyle podcast, austin podcast</div>
+    </div>
+
+    <div class="field" data-target="pinned">
+      <div class="field-head">
+        <div class="field-meta">
+          <span class="field-label">Pinned Comment</span>
+          <span class="field-count" data-limit="10000">…</span>
+        </div>
+        <button class="copy-btn" data-copy="pinned">Copy</button>
+      </div>
+      <div class="field-body short italic" id="f-pinned">"The setback was the setup." Janessa said this and I felt it in my chest. What setback in your story do you think God was actually using as a setup? Tell me. xo, Ash</div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-tile">
+        <div class="ml">Schedule</div>
+        <div class="mv">Jun 15, 2026</div>
+        <div class="mn">6:00 AM America/Chicago</div>
+      </div>
+      <div class="meta-tile rose">
+        <div class="ml">Category</div>
+        <div class="mv">People & Blogs</div>
+        <div class="mn">Default for conversation podcasts</div>
+      </div>
+      <div class="meta-tile taupe">
+        <div class="ml">Audience</div>
+        <div class="mv">Adults</div>
+        <div class="mn">Not made for kids</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block sage">
+  <div class="wrap">
+    <div class="eyebrow">02 · Thumbnail Studio</div>
+    <h2 class="section-title">Three concepts, <em>on-brand.</em></h2>
+    <p class="sub" style="color:rgba(254,253,251,.85)">Concept A uses the solo Janessa portrait. Concept B uses the wide two-shot with the BGT neon. Concept C runs the series-anchor "But God" treatment.</p>
+
+    <div class="thumb-grid">
+
+      <article>
+        <div class="thumb-meta">
+          <div>
+            <h3>Concept A · <em>Setback / setup.</em></h3>
+            <div class="note">The line Ashleigh and Janessa both land on. Sage hero with a gold accent and Janessa mid-sentence.</div>
+          </div>
+          <button class="download-btn" data-download="thumb-a" data-filename="BGT-Ep03-Thumbnail-A.png">Download PNG</button>
+        </div>
+        <div class="thumb-stage">
+          <div class="thumb-frame">
+            <div class="thumb-inner thumb-scaler">
+              <div class="thumb thumb-a" id="thumb-a">
+                <div class="a-eyebrow">Episode 03 · Big Girl Thoughts</div>
+                <div class="a-title">The <span class="gold">setback</span><br>was the setup.</div>
+                <div class="a-foot">
+                  <span class="ep">with</span>
+                  <span class="name">Janessa</span>
+                </div>
+                <div class="a-brand">xo, Ash</div>
+              </div>
+            </div>
+          </div>
+          <div class="thumb-mobile">
+            <div class="mc-label" style="color:rgba(254,253,251,.7)">Mobile · 220px</div>
+            <div class="thumb-mobile-frame">
+              <div class="thumb-inner">
+                <div class="thumb thumb-a">
+                  <div class="a-eyebrow">Episode 03 · Big Girl Thoughts</div>
+                  <div class="a-title">The <span class="gold">setback</span><br>was the setup.</div>
+                  <div class="a-foot">
+                    <span class="ep">with</span>
+                    <span class="name">Janessa</span>
+                  </div>
+                  <div class="a-brand">xo, Ash</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <div class="thumb-meta">
+          <div>
+            <h3>Concept B · <em>Do prints.</em></h3>
+            <div class="note">The two-word word-from-God that built the company. Cream editorial, sage italic punch, wide two-shot of Ash and Janessa.</div>
+          </div>
+          <button class="download-btn" data-download="thumb-b" data-filename="BGT-Ep03-Thumbnail-B.png">Download PNG</button>
+        </div>
+        <div class="thumb-stage">
+          <div class="thumb-frame">
+            <div class="thumb-inner thumb-scaler">
+              <div class="thumb thumb-b" id="thumb-b">
+                <div class="b-photo"></div>
+                <div class="b-left">
+                  <div class="b-eyebrow">Episode 03 · with Janessa</div>
+                  <div class="b-mid">
+                    <div class="b-line1">Two words from God:</div>
+                    <div class="b-line2">do prints.</div>
+                    <div class="b-attrib">Ballpoint pen. Printer paper.<br>Seven-figure company.</div>
+                  </div>
+                  <div class="b-bottom">
+                    <div class="b-sig">xo, Ash</div>
+                    <div class="b-brand">Big Girl Thoughts</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="thumb-mobile">
+            <div class="mc-label" style="color:rgba(254,253,251,.7)">Mobile · 220px</div>
+            <div class="thumb-mobile-frame">
+              <div class="thumb-inner">
+                <div class="thumb thumb-b">
+                  <div class="b-photo"></div>
+                  <div class="b-left">
+                    <div class="b-eyebrow">Episode 03 · with Janessa</div>
+                    <div class="b-mid">
+                      <div class="b-line1">Two words from God:</div>
+                      <div class="b-line2">do prints.</div>
+                      <div class="b-attrib">Ballpoint pen. Printer paper.<br>Seven-figure company.</div>
+                    </div>
+                    <div class="b-bottom">
+                      <div class="b-sig">xo, Ash</div>
+                      <div class="b-brand">Big Girl Thoughts</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <div class="thumb-meta">
+          <div>
+            <h3>Concept C · <em>But God.</em></h3>
+            <div class="note">Two-tone sage and cream. The "03" anchor keeps the series identity locked with Ep 01 and 02.</div>
+          </div>
+          <button class="download-btn" data-download="thumb-c" data-filename="BGT-Ep03-Thumbnail-C.png">Download PNG</button>
+        </div>
+        <div class="thumb-stage">
+          <div class="thumb-frame">
+            <div class="thumb-inner thumb-scaler">
+              <div class="thumb thumb-c" id="thumb-c">
+                <div class="c-left">
+                  <div class="c-eyebrow">Big Girl Thoughts</div>
+                  <div class="c-leadword">Fear is not<br>your boss.</div>
+                  <div class="c-bottom-left">Premieres Jun 15, 2026</div>
+                </div>
+                <div class="c-num">03</div>
+                <div class="c-right">
+                  <div></div>
+                  <div class="c-mid">
+                    <div class="c-but"><em>But</em><br>God.</div>
+                  </div>
+                  <div>
+                    <div class="c-with"><strong>WITH JANESSA WAITE</strong><br>From a flop to seven figures.</div>
+                    <div class="c-sig-row">
+                      <span class="c-sig">xo, Ash</span>
+                      <span class="c-avatar"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="thumb-mobile">
+            <div class="mc-label" style="color:rgba(254,253,251,.7)">Mobile · 220px</div>
+            <div class="thumb-mobile-frame">
+              <div class="thumb-inner">
+                <div class="thumb thumb-c">
+                  <div class="c-left">
+                    <div class="c-eyebrow">Big Girl Thoughts</div>
+                    <div class="c-leadword">Fear is not<br>your boss.</div>
+                    <div class="c-bottom-left">Premieres Jun 15, 2026</div>
+                  </div>
+                  <div class="c-num">03</div>
+                  <div class="c-right">
+                    <div></div>
+                    <div class="c-mid">
+                      <div class="c-but"><em>But</em><br>God.</div>
+                    </div>
+                    <div>
+                      <div class="c-with"><strong>WITH JANESSA WAITE</strong><br>From a flop to seven figures.</div>
+                      <div class="c-sig-row">
+                        <span class="c-sig">xo, Ash</span>
+                        <span class="c-avatar"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="block cream">
+  <div class="wrap">
+    <div class="eyebrow">03 · Reference</div>
+    <h2 class="section-title">The rest of the form.</h2>
+    <p class="sub">Quick-look on the parts of YouTube Studio that aren't copy-paste.</p>
+
+    <div class="help-grid">
+      <div class="help-card">
+        <h3>End screen (last 20 sec)</h3>
+        <ul>
+          <li>Subscribe element <b>channel watermark</b></li>
+          <li>Next video <b>Episode 04</b></li>
+          <li>Best for viewer <b>auto</b></li>
+        </ul>
+      </div>
+      <div class="help-card">
+        <h3>Mid-roll cards</h3>
+        <ul>
+          <li>Card 1 <b>~14:00 → channel home</b></li>
+          <li>Card 2 <b>~38:00 → Ep 02 (Leah, 55:14)</b></li>
+        </ul>
+      </div>
+      <div class="help-card">
+        <h3>Playlists</h3>
+        <ul>
+          <li>Big Girl Thoughts: All Episodes <b>add</b></li>
+          <li>Season 1 <b>add</b></li>
+          <li>Kick Fear In The Face pillar <b>optional</b></li>
+        </ul>
+      </div>
+      <div class="help-card">
+        <h3>Pre-publish checks</h3>
+        <ul>
+          <li>Channel set as podcast <b>still on</b></li>
+          <li>Chapters badge visible <b>after paste</b></li>
+          <li>Captions uploaded <b>EP03_transcript.srt</b></li>
+          <li>Timestamps verified <b>vs final cut</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="wordmark">Big Girl Thoughts</div>
+    <div class="script">xo, Ash</div>
+    <div class="meta">biggirlthoughts.com · @ashleighleege · episode 03 production hub</div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  document.querySelectorAll('.field').forEach(field => {
+    const body = field.querySelector('.field-body');
+    const counter = field.querySelector('.field-count');
+    const limit = parseInt(counter.dataset.limit, 10);
+    const len = body.textContent.length;
+    counter.textContent = len + ' / ' + limit + ' chars';
+    if (len > limit) counter.classList.add('error');
+    else if (len > limit * 0.9) counter.classList.add('warn');
+  });
+
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const key = btn.dataset.copy;
+      const body = document.getElementById('f-' + key);
+      try {
+        await navigator.clipboard.writeText(body.textContent);
+        const original = btn.textContent;
+        btn.textContent = 'Copied ✓';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1800);
+      } catch (err) {
+        btn.textContent = 'Press ⌘C';
+        const range = document.createRange();
+        range.selectNode(body);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+      }
+    });
+  });
+
+  function rescaleThumbs() {
+    document.querySelectorAll('.thumb-frame').forEach(frame => {
+      const scaler = frame.querySelector('.thumb-scaler');
+      if (!scaler) return;
+      const scale = frame.clientWidth / 1280;
+      scaler.style.transform = 'scale(' + scale + ')';
+    });
+  }
+  window.addEventListener('resize', rescaleThumbs);
+  document.fonts.ready.then(rescaleThumbs);
+  rescaleThumbs();
+
+  document.querySelectorAll('.download-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.download;
+      const filename = btn.dataset.filename;
+      const original = btn.textContent;
+      btn.textContent = 'Rendering…';
+      btn.classList.add('loading');
+      try {
+        await document.fonts.ready;
+        await new Promise(r => setTimeout(r, 200));
+        const source = document.getElementById(id);
+        const clone = source.cloneNode(true);
+        clone.style.position = 'fixed';
+        clone.style.top = '-9999px';
+        clone.style.left = '0';
+        clone.style.zIndex = '-1';
+        clone.style.transform = 'none';
+        document.body.appendChild(clone);
+        const canvas = await html2canvas(clone, {
+          width: 1280,
+          height: 720,
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: null,
+          logging: false,
+        });
+        clone.remove();
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        btn.textContent = 'Downloaded ✓';
+        setTimeout(() => { btn.textContent = original; btn.classList.remove('loading'); }, 1800);
+      } catch (err) {
+        console.error(err);
+        btn.textContent = 'Error · try again';
+        btn.classList.remove('loading');
+        setTimeout(() => { btn.textContent = original; }, 2000);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
