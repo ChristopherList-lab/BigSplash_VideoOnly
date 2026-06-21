@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Episode 03 · Production Assets · Big Girl Thoughts</title>
+<title>Episode 04 · Production Assets · Big Girl Thoughts</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
@@ -90,50 +90,51 @@
   .thumb-mobile-frame{width:220px;aspect-ratio:16/9;position:relative;overflow:hidden;border-radius:6px;box-shadow:0 12px 24px -10px rgba(0,0,0,.4)}
   .thumb-mobile-frame .thumb-inner{position:absolute;top:0;left:0;width:1280px;height:720px;transform:scale(.171875);transform-origin:top left}
 
-  /* THUMBNAIL ARTWORK — Episode 03 (Shawn) */
+  /* Photo-pending banner (kept for future episodes) */
+  .photo-pending{padding:20px 28px;background:rgba(212,175,55,.12);border:1px dashed var(--gold);border-radius:10px;margin-bottom:32px;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--ink);opacity:.85;font-size:17px}
+  .photo-pending strong{font-style:normal;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);font-weight:600;display:block;margin-bottom:4px}
+
+  /* THUMBNAIL ARTWORK */
   .thumb{width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Inter',sans-serif;color:var(--off-white)}
 
-  /* Concept A: Full-bleed solo Shawn, "I won't lose you / to liquid." */
-  .thumb-a{background-image:url('frames/ep03-shawn-portrait.jpg');background-size:cover;background-position:55% 30%}
-  .thumb-a::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(26,26,26,.82) 0%,rgba(26,26,26,.5) 40%,rgba(26,26,26,.08) 70%,transparent 92%);pointer-events:none}
-  .thumb-a .a-eyebrow{position:absolute;top:48px;left:60px;font-family:'Inter',sans-serif;font-size:18px;letter-spacing:.32em;text-transform:uppercase;color:var(--off-white);font-weight:600;text-shadow:0 2px 8px rgba(0,0,0,.5);display:flex;align-items:center;gap:14px;z-index:2}
+  /* Concept A: Solo Janessa portrait, "Setback / setup" */
+  .thumb-a{background-image:url('frames/ep04-janessa-portrait.jpg');background-size:cover;background-position:60% center}
+  .thumb-a::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(26,26,26,.78) 0%,rgba(26,26,26,.45) 40%,rgba(26,26,26,.05) 70%,transparent 90%);pointer-events:none}
+  .thumb-a .a-eyebrow{position:absolute;top:54px;left:80px;font-family:'Inter',sans-serif;font-size:18px;letter-spacing:.32em;text-transform:uppercase;color:var(--off-white);font-weight:600;display:flex;align-items:center;gap:14px;z-index:2}
   .thumb-a .a-eyebrow::before{content:"";width:10px;height:10px;background:var(--gold);border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.7)}
-  .thumb-a .a-title-stack{position:absolute;left:60px;bottom:80px;z-index:2;text-shadow:0 2px 12px rgba(0,0,0,.55)}
-  .thumb-a .a-from{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:64px;color:var(--off-white);line-height:.95;letter-spacing:-.01em;margin-bottom:6px}
-  .thumb-a .a-but{font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:168px;color:var(--off-white);line-height:.88;letter-spacing:-.03em}
-  .thumb-a .a-but .gold{color:var(--gold)}
-  .thumb-a .a-name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:34px;color:var(--off-white);opacity:.95;margin-top:18px;text-shadow:0 2px 8px rgba(0,0,0,.55)}
-  .thumb-a .a-right{position:absolute;right:60px;bottom:60px;z-index:2;text-align:right;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
-  .thumb-a .a-brand{font-family:'Dancing Script',cursive;font-weight:700;font-size:38px;color:var(--gold);line-height:1;text-shadow:0 2px 8px rgba(0,0,0,.5)}
-  .thumb-a .a-sig-row{display:flex;align-items:center;gap:14px;justify-content:flex-end}
-  .thumb-a .a-avatar{width:72px;height:72px;border-radius:50%;background:url('frames/ash-avatar.jpg') center/cover no-repeat;border:3px solid var(--gold);box-shadow:0 6px 18px -4px rgba(0,0,0,.5);flex-shrink:0;display:block}
+  .thumb-a .a-title{position:absolute;left:80px;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:148px;line-height:.92;letter-spacing:-.03em;color:var(--off-white);z-index:2;text-shadow:0 4px 24px rgba(26,26,26,.25);max-width:780px}
+  .thumb-a .a-title .gold{color:var(--gold)}
+  .thumb-a .a-foot{position:absolute;bottom:54px;left:80px;display:flex;align-items:baseline;gap:24px;z-index:2}
+  .thumb-a .a-foot .ep{font-family:'Inter',sans-serif;font-size:14px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--off-white);opacity:.85}
+  .thumb-a .a-foot .name{font-family:'Dancing Script',cursive;font-weight:700;font-size:54px;color:var(--gold);line-height:1}
+  .thumb-a .a-brand{position:absolute;bottom:60px;right:80px;font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--off-white);font-weight:600;opacity:.7}
 
-  /* Concept B: Split — cream left + wide two-shot right, "It's not a matter / of if." */
+  /* Concept B: Split — cream left + wide two-shot right */
   .thumb-b{background:var(--cream);color:var(--ink)}
   .thumb-b .b-left{position:absolute;left:0;top:0;width:46%;height:100%;background:var(--cream);padding:60px 56px;display:flex;flex-direction:column;justify-content:space-between;z-index:2}
   .thumb-b .b-left::after{content:"";position:absolute;right:-20px;top:0;width:40px;height:100%;background:linear-gradient(to right,var(--cream),transparent);z-index:1}
-  .thumb-b .b-photo{position:absolute;right:0;top:0;width:58%;height:100%;background-image:url('frames/ep03-wide.jpg');background-size:cover;background-position:65% center}
+  .thumb-b .b-photo{position:absolute;right:0;top:0;width:58%;height:100%;background-image:url('frames/ep04-janessa-smile.jpg');background-size:cover;background-position:55% center}
   .thumb-b .b-eyebrow{font-family:'Inter',sans-serif;font-size:15px;letter-spacing:.32em;text-transform:uppercase;color:var(--sage-deep);font-weight:600;display:flex;align-items:center;gap:14px}
   .thumb-b .b-eyebrow::before{content:"";width:36px;height:1px;background:var(--sage)}
-  .thumb-b .b-line1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:64px;color:var(--ink);line-height:.95;letter-spacing:-.01em;opacity:.85}
-  .thumb-b .b-line2{font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:148px;color:var(--sage-deep);line-height:.85;letter-spacing:-.03em;margin-top:8px}
+  .thumb-b .b-line1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:60px;color:var(--ink);line-height:.95;letter-spacing:-.01em;opacity:.85}
+  .thumb-b .b-line2{font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:124px;color:var(--sage-deep);line-height:.85;letter-spacing:-.03em;margin-top:8px}
   .thumb-b .b-mid{display:flex;flex-direction:column;justify-content:center;flex:1;gap:0}
-  .thumb-b .b-attrib{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--ink);opacity:.7;margin-top:18px;line-height:1.3}
+  .thumb-b .b-attrib{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--ink);opacity:.7;margin-top:14px;line-height:1.3}
   .thumb-b .b-bottom{display:flex;justify-content:space-between;align-items:baseline}
   .thumb-b .b-sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:44px;color:var(--sage);line-height:1}
   .thumb-b .b-brand{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);font-weight:600;opacity:.55}
 
-  /* Concept C: Solo Shawn portrait left (rose-tinted) + cream "But God." right + Ashleigh avatar */
+  /* Concept C: Janessa portrait left + cream right, "Fear is not your boss" */
   .thumb-c{background:var(--cream)}
-  .thumb-c .c-left{position:absolute;left:0;top:0;width:48%;height:100%;background-image:url('frames/ep03-shawn-portrait.jpg');background-size:cover;background-position:55% center;display:flex;flex-direction:column;justify-content:space-between;padding:60px 60px 60px 80px;color:var(--off-white);overflow:hidden}
-  .thumb-c .c-left::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,26,26,.55) 0%,rgba(26,26,26,.35) 50%,rgba(181,146,159,.7) 100%);pointer-events:none;z-index:0}
+  .thumb-c .c-left{position:absolute;left:0;top:0;width:48%;height:100%;background-image:url('frames/ep04-janessa-portrait-flipped.jpg');background-size:cover;background-position:45% center;display:flex;flex-direction:column;justify-content:space-between;padding:60px 60px 60px 80px;color:var(--off-white);overflow:hidden}
+  .thumb-c .c-left::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,26,26,.55) 0%,rgba(26,26,26,.35) 50%,rgba(125,139,127,.7) 100%);pointer-events:none;z-index:0}
   .thumb-c .c-left > *{position:relative;z-index:1}
   .thumb-c .c-eyebrow{font-family:'Inter',sans-serif;font-size:14px;letter-spacing:.32em;text-transform:uppercase;font-weight:600;opacity:.9}
-  .thumb-c .c-leadword{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:96px;line-height:.95;letter-spacing:-.015em}
-  .thumb-c .c-num{position:absolute;left:60px;bottom:60px;font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:120px;line-height:1;color:rgba(254,253,251,.85);letter-spacing:-.03em;z-index:2}
+  .thumb-c .c-leadword{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:102px;line-height:.95;letter-spacing:-.015em}
+  .thumb-c .c-num{position:absolute;left:60px;bottom:60px;font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:120px;line-height:1;color:rgba(254,253,251,.85);letter-spacing:-.03em}
   .thumb-c .c-bottom-left{font-family:'Inter',sans-serif;font-size:14px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;opacity:.85;text-align:right}
   .thumb-c .c-right{position:absolute;right:0;top:0;width:52%;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:60px 80px 60px 60px;color:var(--ink)}
-  .thumb-c .c-but{font-family:'Playfair Display',serif;font-weight:900;font-size:148px;line-height:.9;letter-spacing:-.03em;color:var(--ink)}
+  .thumb-c .c-but{font-family:'Playfair Display',serif;font-weight:900;font-size:136px;line-height:.9;letter-spacing:-.03em;color:var(--ink)}
   .thumb-c .c-but em{font-style:italic;color:var(--sage-deep);font-weight:900}
   .thumb-c .c-mid{display:flex;flex-direction:column;gap:24px;justify-content:center;flex:1}
   .thumb-c .c-with{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;opacity:.78;line-height:1.3}
@@ -141,6 +142,7 @@
   .thumb-c .c-sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:56px;color:var(--sage);line-height:1}
   .thumb-c .c-sig-row{display:flex;align-items:center;gap:18px;justify-content:flex-end;margin-top:14px}
   .thumb-c .c-avatar{width:84px;height:84px;border-radius:50%;background:url('frames/ash-avatar.jpg') center/cover no-repeat;border:3px solid var(--gold);box-shadow:0 8px 20px -8px rgba(26,26,26,.4);flex-shrink:0;display:block}
+  .thumb-c .c-brandfoot{font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);font-weight:600;opacity:.7}
 
   .help-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px}
   @media(max-width:720px){.help-grid{grid-template-columns:1fr}}
@@ -163,10 +165,10 @@
 
 <section class="hero">
   <div class="wrap">
-    <div class="eyebrow">Production Assets · Episode 03 · Premieres Jun 15, 2026</div>
-    <h1 class="display"><em>I won't lose</em> you to liquid.</h1>
-    <span class="script-tag">a conversation with Shawn</span>
-    <p class="lede">My husband, 24 years sober, sat down to tell the truth. Copy any field below straight into YouTube Studio or Podbean. Pick a thumbnail, download the PNG, you're done.</p>
+    <div class="eyebrow">Production Assets · Episode 04 · Premieres Jun 22, 2026</div>
+    <h1 class="display">The setback was the <em>setup.</em></h1>
+    <span class="script-tag">a conversation with Janessa Waite</span>
+    <p class="lede">Click copy on any field to drop it straight into YouTube Studio. Thumbnails use real frames from the cut — pick one, download the PNG, ship it.</p>
   </div>
 </section>
 
@@ -174,7 +176,7 @@
   <div class="wrap">
     <div class="eyebrow">01 · YouTube Studio</div>
     <h2 class="section-title">Every field, <em>copy-ready.</em></h2>
-    <p class="sub">Chapters verified against the 42:25 audio mix. Adjust if the final cut differs.</p>
+    <p class="sub">Timestamps verified against the Whisper transcript of the 54:41 cut. Re-check against the final cut before publish.</p>
 
     <div class="field" data-target="title">
       <div class="field-head">
@@ -184,7 +186,7 @@
         </div>
         <button class="copy-btn" data-copy="title">Copy</button>
       </div>
-      <div class="field-body short" id="f-title">"I won't lose you to liquid." | Shawn, BGT 03</div>
+      <div class="field-body short" id="f-title">"The setback was the setup." | Janessa Waite, BGT 04</div>
     </div>
 
     <div class="field" data-target="hashtags">
@@ -195,7 +197,7 @@
         </div>
         <button class="copy-btn" data-copy="hashtags">Copy</button>
       </div>
-      <div class="field-body short" id="f-hashtags">#BigGirlThoughts #ButGod #MyRebel</div>
+      <div class="field-body short" id="f-hashtags">#BigGirlThoughts #KickFearInTheFace #ButGod</div>
     </div>
 
     <div class="field" data-target="description">
@@ -207,37 +209,42 @@
         <button class="copy-btn" data-copy="description">Copy</button>
       </div>
       <div class="field-body" id="f-description">Hey babe. Welcome back to Big Girl Thoughts.
-For episode 03, I sat down with my husband Shawn. You probably know him a little, the rebel in my posts. What you may not know is that he started drinking at 15 and went 13 years full tilt. By 28, working LA actor, one hand on a fifth of Jack Daniels and a Bible in the other, asking God to take it. Then he met me. Then he made one vow, "I won't lose you to liquid," and white-knuckled the first year of sobriety in Santa Monica AA rooms alongside Matt Perry and Anthony Hopkins. His sponsor was a diamond dealer who made my wedding ring. He's coming up on 24 years sober. If you have ever loved an addict, or are praying for one, this one is for you. Shawn came on to tell you it's not a matter of if, it's a matter of when. And to burn your boats.
+
+For episode 04, I sat down with Janessa Waite. You probably know her shop — the posters, the trucker hats, the "He still does miracles" line. What you may not know is that the whole thing started with a Canadian girl waiting on a green card, a friend's iPhone, and a still small voice that said "you could do this too." She picked up a ballpoint pen. Eleven years later, there's a seven-figure company, a warehouse, seven employees, and a book she wrote for postpartum mamas called A Heart So Full.
+
+If you have ever felt the nudge and let fear talk you out of it, this one is for you. Janessa came on to tell you not to bow to it.
 
 WHAT WE GET INTO
-0:00 Meet Shawn.
-3:20 From Iowa to Hollywood.
-4:20 "I love acting more than you."
-12:37 Jack Daniels in one hand, Bible in the other.
-16:35 Then he met me.
-21:40 "I won't lose you to liquid."
-29:01 His AA sponsor made my wedding ring.
-36:00 Done to you, or done for you?
-37:28 Burn your boats.
+0:00  Hi, hi, hi. Meet Janessa.
+4:35  The coffee, the DM, and the still small voice.
+10:55 Fear is exhausting. Faith is fear in reverse.
+21:45 Loaves, fishes, and finger-painting in the office.
+25:12 Wood signs to Austin. The parking-lot flop.
+30:09 The setback was the setup.
+32:06 Two words from God: do prints.
+37:18 What I would tell the woman who is scared.
+47:44 Rapid fire with Janessa.
 
-ABOUT SHAWN:
-Shawn is my husband. Going on 24 years sober, he runs three companies and leads a men's freedom group at our church. Iowa kid who grew up without a dad in the home, chased the actor dream to LA, and found his way out of the bottle a few years later. If you know him, you know him. If you don't, you'd love him.
+ABOUT JANESSA
+Janessa Waite is the founder of shop.janessawait.com, the Christian home-goods and apparel company behind the "He still does miracles" hat and a whole lot of posters that end up in nurseries. Canadian by birth, Austin by call, wife to Sean, mama to two with one on the way, and a former young-adult pastor who still pastors anyone who buys a hat.
+Instagram: @janessawait
+Shop: https://shop.janessawait.com
 
 LISTEN ON
-Spotify: https://open.spotify.com/show/033ntRmennSoOEIObPs1gc
-Apple Podcasts: https://podcasts.apple.com/us/podcast/big-girl-thoughts-real-women-real-talk-real-faith/id1896816739
-
-WATCH ON
-YouTube:
-
+Spotify: [SPOTIFY_LINK]
+Apple Podcasts: [APPLE_LINK]
 
 FOLLOW BIG GIRL THOUGHTS
 Web: https://biggirlthoughts.com
-
 Instagram: https://www.instagram.com/ashleighleege/
 
 
-#BigGirlThoughts #ButGod #MyRebel #SobrietyStory #ChristianMarriage #FaithJourney #ChristianMen #TestimonyPodcast #FaithAndHumor</div>
+FOLLOW ASHLEIGH
+Instagram: https://www.instagram.com/ashleighleege/
+
+xo, Ash
+
+#BigGirlThoughts #KickFearInTheFace #ButGod #JanessaWaite #FaithOverFear #ChristianWomen #FaithAndHumor #TestimonyPodcast #ChristianEntrepreneur</div>
     </div>
 
     <div class="field" data-target="tags">
@@ -248,7 +255,7 @@ Instagram: https://www.instagram.com/ashleighleege/
         </div>
         <button class="copy-btn" data-copy="tags">Copy</button>
       </div>
-      <div class="field-body" id="f-tags">big girl thoughts, big girl thoughts podcast, biggirlthoughts, bgt podcast, ashleigh leege, ashleigh leege podcast, shawn, sobriety, recovery story, alcoholism, christian marriage, my rebel, but god, addiction recovery, christian men, faith journey, testimony, real talk faith, women podcast, faith podcast</div>
+      <div class="field-body" id="f-tags">big girl thoughts, big girl thoughts podcast, biggirlthoughts, bgt podcast, ashleigh leege, ashleigh leege podcast, janessa waite, janessawait, kick fear in the face, faith over fear, hand lettering, christian entrepreneur, he still does miracles, austin christian, postpartum book, a heart so full, christian women podcast, faith podcast, women podcast, lifestyle podcast, austin podcast</div>
     </div>
 
     <div class="field" data-target="pinned">
@@ -259,13 +266,13 @@ Instagram: https://www.instagram.com/ashleighleege/
         </div>
         <button class="copy-btn" data-copy="pinned">Copy</button>
       </div>
-      <div class="field-body short italic" id="f-pinned">"I won't lose you to liquid." That's the vow Shawn made me 24 years ago, and he kept it. If you're loving someone through addiction, or you're the one trying to break free, drop the timestamp that hit you hardest. xo, Ash</div>
+      <div class="field-body short italic" id="f-pinned">"The setback was the setup." Janessa said this and I felt it in my chest. What setback in your story do you think God was actually using as a setup? Tell me. xo, Ash</div>
     </div>
 
     <div class="meta-grid">
       <div class="meta-tile">
         <div class="ml">Schedule</div>
-        <div class="mv">Jun 15, 2026</div>
+        <div class="mv">Jun 22, 2026</div>
         <div class="mn">6:00 AM America/Chicago</div>
       </div>
       <div class="meta-tile rose">
@@ -286,54 +293,44 @@ Instagram: https://www.instagram.com/ashleighleege/
   <div class="wrap">
     <div class="eyebrow">02 · Thumbnail Studio</div>
     <h2 class="section-title">Three concepts, <em>on-brand.</em></h2>
-    <p class="sub" style="color:rgba(254,253,251,.85)">Concept A uses Shawn's solo portrait, Concept B uses the wide two-shot with the BGT sign, Concept C echoes the post-template language with rose tint and the "But God." treatment.</p>
+    <p class="sub" style="color:rgba(254,253,251,.85)">Concept A uses the solo Janessa portrait. Concept B uses the wide two-shot with the BGT neon. Concept C runs the series-anchor "But God" treatment.</p>
 
     <div class="thumb-grid">
 
       <article>
         <div class="thumb-meta">
           <div>
-            <h3>Concept A · <em>I won't lose you to liquid.</em></h3>
-            <div class="note">Full-bleed solo Shawn. The vow he made me 24 years ago, as the headline.</div>
+            <h3>Concept A · <em>Setback / setup.</em></h3>
+            <div class="note">The line Ashleigh and Janessa both land on. Sage hero with a gold accent and Janessa mid-sentence.</div>
           </div>
-          <button class="download-btn" data-download="thumb-a" data-filename="BGT-Ep03-Thumbnail-A.png">Download PNG</button>
+          <button class="download-btn" data-download="thumb-a" data-filename="BGT-Ep04-Thumbnail-A.png">Download PNG</button>
         </div>
         <div class="thumb-stage">
           <div class="thumb-frame">
             <div class="thumb-inner thumb-scaler">
               <div class="thumb thumb-a" id="thumb-a">
-                <div class="a-eyebrow">Episode 03 · Big Girl Thoughts</div>
-                <div class="a-title-stack">
-                  <div class="a-from">I won't lose you</div>
-                  <div class="a-but">to <span class="gold">liquid.</span></div>
-                  <div class="a-name">with Shawn · 24 years sober</div>
+                <div class="a-eyebrow">Episode 04 · Big Girl Thoughts</div>
+                <div class="a-title">The <span class="gold">setback</span><br>was the setup.</div>
+                <div class="a-foot">
+                  <span class="ep">with</span>
+                  <span class="name">Janessa</span>
                 </div>
-                <div class="a-right">
-                  <div class="a-sig-row">
-                    <div class="a-brand">xo, Ash</div>
-                    <div class="a-avatar"></div>
-                  </div>
-                </div>
+                <div class="a-brand">xo, Ash</div>
               </div>
             </div>
           </div>
           <div class="thumb-mobile">
-            <div class="mc-label">Mobile · 220px</div>
+            <div class="mc-label" style="color:rgba(254,253,251,.7)">Mobile · 220px</div>
             <div class="thumb-mobile-frame">
               <div class="thumb-inner">
                 <div class="thumb thumb-a">
-                  <div class="a-eyebrow">Episode 03 · Big Girl Thoughts</div>
-                  <div class="a-title-stack">
-                    <div class="a-from">I won't lose you</div>
-                    <div class="a-but">to <span class="gold">liquid.</span></div>
-                    <div class="a-name">with Shawn · 24 years sober</div>
+                  <div class="a-eyebrow">Episode 04 · Big Girl Thoughts</div>
+                  <div class="a-title">The <span class="gold">setback</span><br>was the setup.</div>
+                  <div class="a-foot">
+                    <span class="ep">with</span>
+                    <span class="name">Janessa</span>
                   </div>
-                  <div class="a-right">
-                    <div class="a-sig-row">
-                      <div class="a-brand">xo, Ash</div>
-                      <div class="a-avatar"></div>
-                    </div>
-                  </div>
+                  <div class="a-brand">xo, Ash</div>
                 </div>
               </div>
             </div>
@@ -344,10 +341,10 @@ Instagram: https://www.instagram.com/ashleighleege/
       <article>
         <div class="thumb-meta">
           <div>
-            <h3>Concept B · <em>Not a matter of if.</em></h3>
-            <div class="note">Cream-left editorial + wide two-shot right. Shawn's addict truth, with the BGT studio behind us.</div>
+            <h3>Concept B · <em>Do prints.</em></h3>
+            <div class="note">The two-word word-from-God that built the company. Cream editorial, sage italic punch, wide two-shot of Ash and Janessa.</div>
           </div>
-          <button class="download-btn" data-download="thumb-b" data-filename="BGT-Ep03-Thumbnail-B.png">Download PNG</button>
+          <button class="download-btn" data-download="thumb-b" data-filename="BGT-Ep04-Thumbnail-B.png">Download PNG</button>
         </div>
         <div class="thumb-stage">
           <div class="thumb-frame">
@@ -355,11 +352,11 @@ Instagram: https://www.instagram.com/ashleighleege/
               <div class="thumb thumb-b" id="thumb-b">
                 <div class="b-photo"></div>
                 <div class="b-left">
-                  <div class="b-eyebrow">Episode 03 · with Shawn</div>
+                  <div class="b-eyebrow">Episode 04 · with Janessa</div>
                   <div class="b-mid">
-                    <div class="b-line1">It's not a matter</div>
-                    <div class="b-line2">of if.</div>
-                    <div class="b-attrib">15. 28. Sober at 28.<br>24 years and counting.</div>
+                    <div class="b-line1">Two words from God:</div>
+                    <div class="b-line2">do prints.</div>
+                    <div class="b-attrib">Ballpoint pen. Printer paper.<br>Seven-figure company.</div>
                   </div>
                   <div class="b-bottom">
                     <div class="b-sig">xo, Ash</div>
@@ -370,17 +367,17 @@ Instagram: https://www.instagram.com/ashleighleege/
             </div>
           </div>
           <div class="thumb-mobile">
-            <div class="mc-label">Mobile · 220px</div>
+            <div class="mc-label" style="color:rgba(254,253,251,.7)">Mobile · 220px</div>
             <div class="thumb-mobile-frame">
               <div class="thumb-inner">
                 <div class="thumb thumb-b">
                   <div class="b-photo"></div>
                   <div class="b-left">
-                    <div class="b-eyebrow">Episode 03 · with Shawn</div>
+                    <div class="b-eyebrow">Episode 04 · with Janessa</div>
                     <div class="b-mid">
-                      <div class="b-line1">It's not a matter</div>
-                      <div class="b-line2">of if.</div>
-                      <div class="b-attrib">15. 28. Sober at 28.<br>24 years and counting.</div>
+                      <div class="b-line1">Two words from God:</div>
+                      <div class="b-line2">do prints.</div>
+                      <div class="b-attrib">Ballpoint pen. Printer paper.<br>Seven-figure company.</div>
                     </div>
                     <div class="b-bottom">
                       <div class="b-sig">xo, Ash</div>
@@ -398,9 +395,9 @@ Instagram: https://www.instagram.com/ashleighleege/
         <div class="thumb-meta">
           <div>
             <h3>Concept C · <em>But God.</em></h3>
-            <div class="note">Rose-tinted Shawn portrait left, cream "But God." right, Ashleigh avatar bottom-right. Series-anchor variant.</div>
+            <div class="note">Two-tone sage and cream. The "04" anchor keeps the series identity locked with Ep 01 and 02.</div>
           </div>
-          <button class="download-btn" data-download="thumb-c" data-filename="BGT-Ep03-Thumbnail-C.png">Download PNG</button>
+          <button class="download-btn" data-download="thumb-c" data-filename="BGT-Ep04-Thumbnail-C.png">Download PNG</button>
         </div>
         <div class="thumb-stage">
           <div class="thumb-frame">
@@ -408,17 +405,17 @@ Instagram: https://www.instagram.com/ashleighleege/
               <div class="thumb thumb-c" id="thumb-c">
                 <div class="c-left">
                   <div class="c-eyebrow">Big Girl Thoughts</div>
-                  <div class="c-leadword">From the<br>bottle.</div>
-                  <div class="c-bottom-left">Premieres Jun 15, 2026</div>
+                  <div class="c-leadword">Fear is not<br>your boss.</div>
+                  <div class="c-bottom-left">Premieres Jun 22, 2026</div>
                 </div>
-                <div class="c-num">03</div>
+                <div class="c-num">04</div>
                 <div class="c-right">
                   <div></div>
                   <div class="c-mid">
                     <div class="c-but"><em>But</em><br>God.</div>
                   </div>
                   <div>
-                    <div class="c-with"><strong>WITH SHAWN</strong><br>24 years sober.</div>
+                    <div class="c-with"><strong>WITH JANESSA WAITE</strong><br>From a flop to seven figures.</div>
                     <div class="c-sig-row">
                       <span class="c-sig">xo, Ash</span>
                       <span class="c-avatar"></span>
@@ -429,23 +426,23 @@ Instagram: https://www.instagram.com/ashleighleege/
             </div>
           </div>
           <div class="thumb-mobile">
-            <div class="mc-label">Mobile · 220px</div>
+            <div class="mc-label" style="color:rgba(254,253,251,.7)">Mobile · 220px</div>
             <div class="thumb-mobile-frame">
               <div class="thumb-inner">
                 <div class="thumb thumb-c">
                   <div class="c-left">
                     <div class="c-eyebrow">Big Girl Thoughts</div>
-                    <div class="c-leadword">From the<br>bottle.</div>
-                    <div class="c-bottom-left">Premieres Jun 15, 2026</div>
+                    <div class="c-leadword">Fear is not<br>your boss.</div>
+                    <div class="c-bottom-left">Premieres Jun 22, 2026</div>
                   </div>
-                  <div class="c-num">03</div>
+                  <div class="c-num">04</div>
                   <div class="c-right">
                     <div></div>
                     <div class="c-mid">
                       <div class="c-but"><em>But</em><br>God.</div>
                     </div>
                     <div>
-                      <div class="c-with"><strong>WITH SHAWN</strong><br>24 years sober.</div>
+                      <div class="c-with"><strong>WITH JANESSA WAITE</strong><br>From a flop to seven figures.</div>
                       <div class="c-sig-row">
                         <span class="c-sig">xo, Ash</span>
                         <span class="c-avatar"></span>
@@ -474,15 +471,15 @@ Instagram: https://www.instagram.com/ashleighleege/
         <h3>End screen (last 20 sec)</h3>
         <ul>
           <li>Subscribe element <b>channel watermark</b></li>
-          <li>Next video <b>Episode 03</b></li>
+          <li>Next video <b>Episode 05</b></li>
           <li>Best for viewer <b>auto</b></li>
         </ul>
       </div>
       <div class="help-card">
         <h3>Mid-roll cards</h3>
         <ul>
-          <li>Card 1 <b>~10:30 → channel home</b></li>
-          <li>Card 2 <b>~28:00 → Ep 01 (Mama T)</b></li>
+          <li>Card 1 <b>~14:00 → channel home</b></li>
+          <li>Card 2 <b>~38:00 → Ep 02 (Leah, 55:14)</b></li>
         </ul>
       </div>
       <div class="help-card">
@@ -490,7 +487,7 @@ Instagram: https://www.instagram.com/ashleighleege/
         <ul>
           <li>Big Girl Thoughts: All Episodes <b>add</b></li>
           <li>Season 1 <b>add</b></li>
-          <li>Recovery / But God pillar <b>optional</b></li>
+          <li>Kick Fear In The Face pillar <b>optional</b></li>
         </ul>
       </div>
       <div class="help-card">
@@ -498,7 +495,7 @@ Instagram: https://www.instagram.com/ashleighleege/
         <ul>
           <li>Channel set as podcast <b>still on</b></li>
           <li>Chapters badge visible <b>after paste</b></li>
-          <li>Captions uploaded <b>EP_Shawn_transcript.srt</b></li>
+          <li>Captions uploaded <b>EP04_transcript.srt</b></li>
           <li>Timestamps verified <b>vs final cut</b></li>
         </ul>
       </div>
@@ -510,7 +507,7 @@ Instagram: https://www.instagram.com/ashleighleege/
   <div class="wrap">
     <div class="wordmark">Big Girl Thoughts</div>
     <div class="script">xo, Ash</div>
-    <div class="meta">biggirlthoughts.com · @ashleighleege · episode 03 production hub</div>
+    <div class="meta">biggirlthoughts.com · @ashleighleege · episode 04 production hub</div>
   </div>
 </footer>
 
