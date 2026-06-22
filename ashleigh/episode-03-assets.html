@@ -151,6 +151,22 @@
   .help-card li:last-child{border-bottom:0}
   .help-card li b{color:var(--sage-deep);font-weight:600;font-family:'JetBrains Mono',monospace;font-size:12px;text-align:right;opacity:1}
 
+  /* Reels cover — vertical 9:16 (1080×1920) */
+  .reel-frame{width:100%;max-width:540px;aspect-ratio:9/16;position:relative;overflow:hidden;border-radius:14px;box-shadow:0 32px 64px -28px rgba(26,26,26,.5);margin:0 auto}
+  .reel-frame .reel-inner{position:absolute;top:0;left:0;width:1080px;height:1920px;transform-origin:top left}
+  .reel{width:1080px;height:1920px;position:relative;overflow:hidden;font-family:'Inter',sans-serif;color:var(--off-white);background-image:url('frames/ep03-shawn-portrait.jpg');background-size:cover;background-position:center 28%}
+  .reel::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,26,.92) 0%,rgba(26,26,26,.6) 38%,rgba(26,26,26,.15) 58%,transparent 72%);pointer-events:none}
+  .reel-eyebrow{position:absolute;top:80px;left:60px;font-family:'Inter',sans-serif;font-size:26px;letter-spacing:.32em;text-transform:uppercase;color:var(--off-white);font-weight:600;text-shadow:0 2px 12px rgba(0,0,0,.55);display:flex;align-items:center;gap:18px;z-index:2}
+  .reel-eyebrow::before{content:"";width:14px;height:14px;background:var(--gold);border-radius:50%;box-shadow:0 0 24px rgba(212,175,55,.7)}
+  .reel-title{position:absolute;left:60px;right:60px;bottom:260px;z-index:2;text-shadow:0 2px 18px rgba(0,0,0,.6)}
+  .reel-title .from{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:104px;color:var(--off-white);line-height:.92;letter-spacing:-.01em;margin-bottom:12px}
+  .reel-title .but{font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:248px;color:var(--off-white);line-height:.88;letter-spacing:-.03em}
+  .reel-title .but .gold{color:var(--gold)}
+  .reel-title .name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:48px;color:var(--off-white);opacity:.95;margin-top:30px}
+  .reel-bottom{position:absolute;left:60px;right:60px;bottom:70px;z-index:2;display:flex;justify-content:space-between;align-items:center}
+  .reel-bottom .brand{font-family:'Dancing Script',cursive;font-weight:700;font-size:72px;color:var(--gold);line-height:1;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+  .reel-bottom .avatar{width:108px;height:108px;border-radius:50%;background:url('frames/ash-avatar.jpg') center/cover no-repeat;border:4px solid var(--gold);box-shadow:0 8px 24px -6px rgba(0,0,0,.55);flex-shrink:0}
+
   footer{padding:72px 0;text-align:center;background:var(--ink);color:var(--off-white)}
   footer .wordmark{font-family:'Playfair Display',serif;font-weight:900;font-size:36px;letter-spacing:-.02em}
   footer .script{font-family:'Dancing Script',cursive;font-weight:700;font-size:24px;color:var(--gold);margin-top:4px}
@@ -346,9 +362,43 @@ Instagram: https://www.instagram.com/ashleighleege/
   </div>
 </section>
 
+<section class="block sage">
+  <div class="wrap">
+    <div class="eyebrow">03 · Reels Cover</div>
+    <h2 class="section-title">Same design, <em>vertical.</em></h2>
+    <p class="sub" style="color:rgba(254,253,251,.85)">1080×1920 native — drop it into Instagram Reels, YouTube Shorts, or TikTok as the cover image. Same headline, same portrait, same gold accent, repositioned for 9:16.</p>
+
+    <article>
+      <div class="thumb-meta">
+        <div>
+          <h3><em>I won't lose you to liquid.</em> · Reels cover</h3>
+          <div class="note">Vertical 9:16. Renders at 1080×1920 (PNG downloads at 2160×3840 for crispness).</div>
+        </div>
+        <button class="download-btn" data-download="reel-a" data-filename="BGT-Ep03-Reel-A.png" data-width="1080" data-height="1920">Download PNG</button>
+      </div>
+      <div class="reel-frame">
+        <div class="reel-inner reel-scaler">
+          <div class="reel" id="reel-a">
+            <div class="reel-eyebrow">Episode 03 · Big Girl Thoughts</div>
+            <div class="reel-title">
+              <div class="from">I won't lose you</div>
+              <div class="but">to <span class="gold">liquid.</span></div>
+              <div class="name">with Shawn · 24 years sober</div>
+            </div>
+            <div class="reel-bottom">
+              <div class="brand">xo, Ash</div>
+              <div class="avatar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
 <section class="block cream">
   <div class="wrap">
-    <div class="eyebrow">03 · Reference</div>
+    <div class="eyebrow">04 · Reference</div>
     <h2 class="section-title">The rest of the form.</h2>
     <p class="sub">Quick-look on the parts of YouTube Studio that aren't copy-paste.</p>
 
@@ -430,11 +480,12 @@ Instagram: https://www.instagram.com/ashleighleege/
   });
 
   function rescaleThumbs() {
-    document.querySelectorAll('.thumb-frame').forEach(frame => {
-      const scaler = frame.querySelector('.thumb-scaler');
+    document.querySelectorAll('.thumb-frame, .reel-frame').forEach(frame => {
+      const isReel = frame.classList.contains('reel-frame');
+      const scaler = frame.querySelector(isReel ? '.reel-scaler' : '.thumb-scaler');
       if (!scaler) return;
-      const scale = frame.clientWidth / 1280;
-      scaler.style.transform = 'scale(' + scale + ')';
+      const nativeWidth = isReel ? 1080 : 1280;
+      scaler.style.transform = 'scale(' + (frame.clientWidth / nativeWidth) + ')';
     });
   }
   window.addEventListener('resize', rescaleThumbs);
@@ -460,8 +511,8 @@ Instagram: https://www.instagram.com/ashleighleege/
         clone.style.transform = 'none';
         document.body.appendChild(clone);
         const canvas = await html2canvas(clone, {
-          width: 1280,
-          height: 720,
+          width: parseInt(btn.dataset.width || '1280', 10),
+          height: parseInt(btn.dataset.height || '720', 10),
           scale: 2,
           useCORS: true,
           allowTaint: true,
