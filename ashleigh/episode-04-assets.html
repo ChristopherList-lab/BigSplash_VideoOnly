@@ -14,6 +14,8 @@
     --rose:#B5929F; --taupe:#9B8F89; --tan:#B8A69F;
     --cream:#F5F3F0; --off-white:#FEFDFB;
     --ink:#1A1A1A; --gold:#D4AF37;
+    /* Jenessa Wait brand accents (jenessawait.com) — peach, warm olive, deep slate */
+    --jenessa-peach:#e3c7b9; --jenessa-olive:#a6a487; --jenessa-slate:#283645;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -97,13 +99,13 @@
   /* THUMBNAIL ARTWORK */
   .thumb{width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Inter',sans-serif;color:var(--off-white)}
 
-  /* Concept A: Solo Janessa portrait, "Setback / setup" */
-  .thumb-a{background-image:url('frames/ep04-janessa-portrait.jpg');background-size:cover;background-position:60% center}
+  /* Concept A: Solo Jenessa portrait, "Setback / setup" */
+  .thumb-a{background-image:url('frames/ep04-jenessa-portrait.jpg');background-size:cover;background-position:60% center}
   .thumb-a::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(26,26,26,.78) 0%,rgba(26,26,26,.45) 40%,rgba(26,26,26,.05) 70%,transparent 90%);pointer-events:none}
   .thumb-a .a-eyebrow{position:absolute;top:54px;left:80px;font-family:'Inter',sans-serif;font-size:18px;letter-spacing:.32em;text-transform:uppercase;color:var(--off-white);font-weight:600;display:flex;align-items:center;gap:14px;z-index:2}
   .thumb-a .a-eyebrow::before{content:"";width:10px;height:10px;background:var(--gold);border-radius:50%;box-shadow:0 0 18px rgba(212,175,55,.7)}
   .thumb-a .a-title{position:absolute;left:80px;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:148px;line-height:.92;letter-spacing:-.03em;color:var(--off-white);z-index:2;text-shadow:0 4px 24px rgba(26,26,26,.25);max-width:780px}
-  .thumb-a .a-title .gold{color:var(--gold)}
+  .thumb-a .a-title .gold{color:var(--jenessa-peach)}
   .thumb-a .a-foot{position:absolute;bottom:54px;left:80px;display:flex;align-items:baseline;gap:24px;z-index:2}
   .thumb-a .a-foot .ep{font-family:'Inter',sans-serif;font-size:14px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--off-white);opacity:.85}
   .thumb-a .a-foot .name{font-family:'Dancing Script',cursive;font-weight:700;font-size:54px;color:var(--gold);line-height:1}
@@ -113,7 +115,7 @@
   .thumb-b{background:var(--cream);color:var(--ink)}
   .thumb-b .b-left{position:absolute;left:0;top:0;width:46%;height:100%;background:var(--cream);padding:60px 56px;display:flex;flex-direction:column;justify-content:space-between;z-index:2}
   .thumb-b .b-left::after{content:"";position:absolute;right:-20px;top:0;width:40px;height:100%;background:linear-gradient(to right,var(--cream),transparent);z-index:1}
-  .thumb-b .b-photo{position:absolute;right:0;top:0;width:58%;height:100%;background-image:url('frames/ep04-janessa-smile.jpg');background-size:cover;background-position:55% center}
+  .thumb-b .b-photo{position:absolute;right:0;top:0;width:58%;height:100%;background-image:url('frames/ep04-jenessa-smile.jpg');background-size:cover;background-position:55% center}
   .thumb-b .b-eyebrow{font-family:'Inter',sans-serif;font-size:15px;letter-spacing:.32em;text-transform:uppercase;color:var(--sage-deep);font-weight:600;display:flex;align-items:center;gap:14px}
   .thumb-b .b-eyebrow::before{content:"";width:36px;height:1px;background:var(--sage)}
   .thumb-b .b-line1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:60px;color:var(--ink);line-height:.95;letter-spacing:-.01em;opacity:.85}
@@ -124,9 +126,9 @@
   .thumb-b .b-sig{font-family:'Dancing Script',cursive;font-weight:700;font-size:44px;color:var(--sage);line-height:1}
   .thumb-b .b-brand{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);font-weight:600;opacity:.55}
 
-  /* Concept C: Janessa portrait left + cream right, "Fear is not your boss" */
+  /* Concept C: Jenessa portrait left + cream right, "Fear is not your boss" */
   .thumb-c{background:var(--cream)}
-  .thumb-c .c-left{position:absolute;left:0;top:0;width:48%;height:100%;background-image:url('frames/ep04-janessa-portrait-flipped.jpg');background-size:cover;background-position:45% center;display:flex;flex-direction:column;justify-content:space-between;padding:60px 60px 60px 80px;color:var(--off-white);overflow:hidden}
+  .thumb-c .c-left{position:absolute;left:0;top:0;width:48%;height:100%;background-image:url('frames/ep04-jenessa-portrait-flipped.jpg');background-size:cover;background-position:45% center;display:flex;flex-direction:column;justify-content:space-between;padding:60px 60px 60px 80px;color:var(--off-white);overflow:hidden}
   .thumb-c .c-left::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,26,26,.55) 0%,rgba(26,26,26,.35) 50%,rgba(125,139,127,.7) 100%);pointer-events:none;z-index:0}
   .thumb-c .c-left > *{position:relative;z-index:1}
   .thumb-c .c-eyebrow{font-family:'Inter',sans-serif;font-size:14px;letter-spacing:.32em;text-transform:uppercase;font-weight:600;opacity:.9}
@@ -153,6 +155,22 @@
   .help-card li:last-child{border-bottom:0}
   .help-card li b{color:var(--sage-deep);font-weight:600;font-family:'JetBrains Mono',monospace;font-size:12px;text-align:right;opacity:1}
 
+  /* Reels cover — vertical 9:16 (1080×1920), peach accent for Jenessa's brand */
+  .reel-frame{width:100%;max-width:540px;aspect-ratio:9/16;position:relative;overflow:hidden;border-radius:14px;box-shadow:0 32px 64px -28px rgba(26,26,26,.5);margin:0 auto}
+  .reel-frame .reel-inner{position:absolute;top:0;left:0;width:1080px;height:1920px;transform-origin:top left}
+  .reel{width:1080px;height:1920px;position:relative;overflow:hidden;font-family:'Inter',sans-serif;color:var(--off-white);background-image:url('frames/ep04-jenessa-portrait.jpg');background-size:cover;background-position:center 30%}
+  .reel::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,26,.92) 0%,rgba(26,26,26,.6) 38%,rgba(26,26,26,.15) 58%,transparent 72%);pointer-events:none}
+  .reel-eyebrow{position:absolute;top:80px;left:60px;font-family:'Inter',sans-serif;font-size:26px;letter-spacing:.32em;text-transform:uppercase;color:var(--off-white);font-weight:600;text-shadow:0 2px 12px rgba(0,0,0,.55);display:flex;align-items:center;gap:18px;z-index:2}
+  .reel-eyebrow::before{content:"";width:14px;height:14px;background:var(--jenessa-peach);border-radius:50%;box-shadow:0 0 24px rgba(227,199,185,.7)}
+  .reel-title{position:absolute;left:60px;right:60px;bottom:260px;z-index:2;text-shadow:0 2px 18px rgba(0,0,0,.6)}
+  .reel-title .from{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:88px;color:var(--off-white);line-height:.95;letter-spacing:-.01em;margin-bottom:14px}
+  .reel-title .but{font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:204px;color:var(--off-white);line-height:.88;letter-spacing:-.03em}
+  .reel-title .but .peach{color:var(--jenessa-peach)}
+  .reel-title .name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:48px;color:var(--off-white);opacity:.95;margin-top:30px}
+  .reel-bottom{position:absolute;left:60px;right:60px;bottom:70px;z-index:2;display:flex;justify-content:space-between;align-items:center}
+  .reel-bottom .brand{font-family:'Dancing Script',cursive;font-weight:700;font-size:72px;color:var(--jenessa-peach);line-height:1;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+  .reel-bottom .avatar{width:108px;height:108px;border-radius:50%;background:url('frames/ash-avatar.jpg') center/cover no-repeat;border:4px solid var(--jenessa-peach);box-shadow:0 8px 24px -6px rgba(0,0,0,.55);flex-shrink:0}
+
   footer{padding:72px 0;text-align:center;background:var(--ink);color:var(--off-white)}
   footer .wordmark{font-family:'Playfair Display',serif;font-weight:900;font-size:36px;letter-spacing:-.02em}
   footer .script{font-family:'Dancing Script',cursive;font-weight:700;font-size:24px;color:var(--gold);margin-top:4px}
@@ -167,7 +185,7 @@
   <div class="wrap">
     <div class="eyebrow">Production Assets · Episode 04 · Premieres Jun 22, 2026</div>
     <h1 class="display">The setback was the <em>setup.</em></h1>
-    <span class="script-tag">a conversation with Janessa Waite</span>
+    <span class="script-tag">a conversation with Jenessa Wait</span>
     <p class="lede">Click copy on any field to drop it straight into YouTube Studio. Thumbnails use real frames from the cut — pick one, download the PNG, ship it.</p>
   </div>
 </section>
@@ -186,7 +204,7 @@
         </div>
         <button class="copy-btn" data-copy="title">Copy</button>
       </div>
-      <div class="field-body short" id="f-title">"The setback was the setup." | Janessa Waite, BGT 04</div>
+      <div class="field-body short" id="f-title">"The setback was the setup." | Jenessa Wait, BGT 04</div>
     </div>
 
     <div class="field" data-target="hashtags">
@@ -210,12 +228,12 @@
       </div>
       <div class="field-body" id="f-description">Hey babe. Welcome back to Big Girl Thoughts.
 
-For episode 04, I sat down with Janessa Waite. You probably know her shop — the posters, the trucker hats, the "He still does miracles" line. What you may not know is that the whole thing started with a Canadian girl waiting on a green card, a friend's iPhone, and a still small voice that said "you could do this too." She picked up a ballpoint pen. Eleven years later, there's a seven-figure company, a warehouse, seven employees, and a book she wrote for postpartum mamas called A Heart So Full.
+For episode 04, I sat down with Jenessa Wait. You probably know her shop — the posters, the trucker hats, the "He still does miracles" line. What you may not know is that the whole thing started with a Canadian girl waiting on a green card, a friend's iPhone, and a still small voice that said "you could do this too." She picked up a ballpoint pen. Eleven years later, there's a seven-figure company, a warehouse, seven employees, and a book she wrote for postpartum mamas called A Heart So Full.
 
-If you have ever felt the nudge and let fear talk you out of it, this one is for you. Janessa came on to tell you not to bow to it.
+If you have ever felt the nudge and let fear talk you out of it, this one is for you. Jenessa came on to tell you not to bow to it.
 
 WHAT WE GET INTO
-0:00  Hi, hi, hi. Meet Janessa.
+0:00  Hi, hi, hi. Meet Jenessa.
 4:35  The coffee, the DM, and the still small voice.
 10:55 Fear is exhausting. Faith is fear in reverse.
 21:45 Loaves, fishes, and finger-painting in the office.
@@ -223,12 +241,12 @@ WHAT WE GET INTO
 30:09 The setback was the setup.
 32:06 Two words from God: do prints.
 37:18 What I would tell the woman who is scared.
-47:44 Rapid fire with Janessa.
+47:44 Rapid fire with Jenessa.
 
-ABOUT JANESSA
-Janessa Waite is the founder of shop.janessawait.com, the Christian home-goods and apparel company behind the "He still does miracles" hat and a whole lot of posters that end up in nurseries. Canadian by birth, Austin by call, wife to Sean, mama to two with one on the way, and a former young-adult pastor who still pastors anyone who buys a hat.
-Instagram: @janessawait
-Shop: https://shop.janessawait.com
+ABOUT JENESSA
+Jenessa Wait is the founder of shop.jenessawait.com, the Christian home-goods and apparel company behind the "He still does miracles" hat and a whole lot of posters that end up in nurseries. Canadian by birth, Austin by call, wife to Sean, mama to two with one on the way, and a former young-adult pastor who still pastors anyone who buys a hat.
+Instagram: @jenessawait
+Shop: https://shop.jenessawait.com
 
 LISTEN ON
 Spotify: [SPOTIFY_LINK]
@@ -244,7 +262,7 @@ Instagram: https://www.instagram.com/ashleighleege/
 
 xo, Ash
 
-#BigGirlThoughts #KickFearInTheFace #ButGod #JanessaWaite #FaithOverFear #ChristianWomen #FaithAndHumor #TestimonyPodcast #ChristianEntrepreneur</div>
+#BigGirlThoughts #KickFearInTheFace #ButGod #JenessaWait #FaithOverFear #ChristianWomen #FaithAndHumor #TestimonyPodcast #ChristianEntrepreneur</div>
     </div>
 
     <div class="field" data-target="tags">
@@ -255,7 +273,7 @@ xo, Ash
         </div>
         <button class="copy-btn" data-copy="tags">Copy</button>
       </div>
-      <div class="field-body" id="f-tags">big girl thoughts, big girl thoughts podcast, biggirlthoughts, bgt podcast, ashleigh leege, ashleigh leege podcast, janessa waite, janessawait, kick fear in the face, faith over fear, hand lettering, christian entrepreneur, he still does miracles, austin christian, postpartum book, a heart so full, christian women podcast, faith podcast, women podcast, lifestyle podcast, austin podcast</div>
+      <div class="field-body" id="f-tags">big girl thoughts, big girl thoughts podcast, biggirlthoughts, bgt podcast, ashleigh leege, ashleigh leege podcast, jenessa wait, jenessawait, kick fear in the face, faith over fear, hand lettering, christian entrepreneur, he still does miracles, austin christian, postpartum book, a heart so full, christian women podcast, faith podcast, women podcast, lifestyle podcast, austin podcast</div>
     </div>
 
     <div class="field" data-target="pinned">
@@ -266,7 +284,7 @@ xo, Ash
         </div>
         <button class="copy-btn" data-copy="pinned">Copy</button>
       </div>
-      <div class="field-body short italic" id="f-pinned">"The setback was the setup." Janessa said this and I felt it in my chest. What setback in your story do you think God was actually using as a setup? Tell me. xo, Ash</div>
+      <div class="field-body short italic" id="f-pinned">"The setback was the setup." Jenessa said this and I felt it in my chest. What setback in your story do you think God was actually using as a setup? Tell me. xo, Ash</div>
     </div>
 
     <div class="meta-grid">
@@ -293,7 +311,7 @@ xo, Ash
   <div class="wrap">
     <div class="eyebrow">02 · Thumbnail Studio</div>
     <h2 class="section-title">Three concepts, <em>on-brand.</em></h2>
-    <p class="sub" style="color:rgba(254,253,251,.85)">Concept A uses the solo Janessa portrait. Concept B uses the wide two-shot with the BGT neon. Concept C runs the series-anchor "But God" treatment.</p>
+    <p class="sub" style="color:rgba(254,253,251,.85)">Concept A uses the solo Jenessa portrait. Concept B uses the wide two-shot with the BGT neon. Concept C runs the series-anchor "But God" treatment.</p>
 
     <div class="thumb-grid">
 
@@ -301,7 +319,7 @@ xo, Ash
         <div class="thumb-meta">
           <div>
             <h3>Concept A · <em>Setback / setup.</em></h3>
-            <div class="note">The line Ashleigh and Janessa both land on. Sage hero with a gold accent and Janessa mid-sentence.</div>
+            <div class="note">The line Ashleigh and Jenessa both land on. Sage hero with a gold accent and Jenessa mid-sentence.</div>
           </div>
           <button class="download-btn" data-download="thumb-a" data-filename="BGT-Ep04-Thumbnail-A.png">Download PNG</button>
         </div>
@@ -313,7 +331,7 @@ xo, Ash
                 <div class="a-title">The <span class="gold">setback</span><br>was the setup.</div>
                 <div class="a-foot">
                   <span class="ep">with</span>
-                  <span class="name">Janessa</span>
+                  <span class="name">Jenessa</span>
                 </div>
                 <div class="a-brand">xo, Ash</div>
               </div>
@@ -328,7 +346,7 @@ xo, Ash
                   <div class="a-title">The <span class="gold">setback</span><br>was the setup.</div>
                   <div class="a-foot">
                     <span class="ep">with</span>
-                    <span class="name">Janessa</span>
+                    <span class="name">Jenessa</span>
                   </div>
                   <div class="a-brand">xo, Ash</div>
                 </div>
@@ -342,7 +360,7 @@ xo, Ash
         <div class="thumb-meta">
           <div>
             <h3>Concept B · <em>Do prints.</em></h3>
-            <div class="note">The two-word word-from-God that built the company. Cream editorial, sage italic punch, wide two-shot of Ash and Janessa.</div>
+            <div class="note">The two-word word-from-God that built the company. Cream editorial, sage italic punch, wide two-shot of Ash and Jenessa.</div>
           </div>
           <button class="download-btn" data-download="thumb-b" data-filename="BGT-Ep04-Thumbnail-B.png">Download PNG</button>
         </div>
@@ -352,7 +370,7 @@ xo, Ash
               <div class="thumb thumb-b" id="thumb-b">
                 <div class="b-photo"></div>
                 <div class="b-left">
-                  <div class="b-eyebrow">Episode 04 · with Janessa</div>
+                  <div class="b-eyebrow">Episode 04 · with Jenessa</div>
                   <div class="b-mid">
                     <div class="b-line1">Two words from God:</div>
                     <div class="b-line2">do prints.</div>
@@ -373,7 +391,7 @@ xo, Ash
                 <div class="thumb thumb-b">
                   <div class="b-photo"></div>
                   <div class="b-left">
-                    <div class="b-eyebrow">Episode 04 · with Janessa</div>
+                    <div class="b-eyebrow">Episode 04 · with Jenessa</div>
                     <div class="b-mid">
                       <div class="b-line1">Two words from God:</div>
                       <div class="b-line2">do prints.</div>
@@ -415,7 +433,7 @@ xo, Ash
                     <div class="c-but"><em>But</em><br>God.</div>
                   </div>
                   <div>
-                    <div class="c-with"><strong>WITH JANESSA WAITE</strong><br>From a flop to seven figures.</div>
+                    <div class="c-with"><strong>WITH JENESSA WAIT</strong><br>From a flop to seven figures.</div>
                     <div class="c-sig-row">
                       <span class="c-sig">xo, Ash</span>
                       <span class="c-avatar"></span>
@@ -442,7 +460,7 @@ xo, Ash
                       <div class="c-but"><em>But</em><br>God.</div>
                     </div>
                     <div>
-                      <div class="c-with"><strong>WITH JANESSA WAITE</strong><br>From a flop to seven figures.</div>
+                      <div class="c-with"><strong>WITH JENESSA WAIT</strong><br>From a flop to seven figures.</div>
                       <div class="c-sig-row">
                         <span class="c-sig">xo, Ash</span>
                         <span class="c-avatar"></span>
@@ -460,9 +478,43 @@ xo, Ash
   </div>
 </section>
 
+<section class="block sage">
+  <div class="wrap">
+    <div class="eyebrow">03 · Reels Cover</div>
+    <h2 class="section-title">Same design, <em>vertical.</em></h2>
+    <p class="sub" style="color:rgba(254,253,251,.85)">1080×1920 native for Instagram Reels, YouTube Shorts, and TikTok. Peach accent (Jenessa's brand color from jenessawait.com) carries through. Click Download PNG.</p>
+
+    <article>
+      <div class="thumb-meta">
+        <div>
+          <h3><em>The setback was the setup.</em> · Reels cover</h3>
+          <div class="note">Vertical 9:16. Renders at 1080×1920 (PNG downloads at 2160×3840 for crispness).</div>
+        </div>
+        <button class="download-btn" data-download="reel-a" data-filename="BGT-Ep04-Reel-A.png" data-width="1080" data-height="1920">Download PNG</button>
+      </div>
+      <div class="reel-frame">
+        <div class="reel-inner reel-scaler">
+          <div class="reel" id="reel-a">
+            <div class="reel-eyebrow">Episode 04 · with Jenessa Wait</div>
+            <div class="reel-title">
+              <div class="from">The setback was the</div>
+              <div class="but"><span class="peach">setup.</span></div>
+              <div class="name">with Jenessa Wait · jenessawait.com</div>
+            </div>
+            <div class="reel-bottom">
+              <div class="brand">xo, Ash</div>
+              <div class="avatar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
 <section class="block cream">
   <div class="wrap">
-    <div class="eyebrow">03 · Reference</div>
+    <div class="eyebrow">04 · Reference</div>
     <h2 class="section-title">The rest of the form.</h2>
     <p class="sub">Quick-look on the parts of YouTube Studio that aren't copy-paste.</p>
 
@@ -544,11 +596,12 @@ xo, Ash
   });
 
   function rescaleThumbs() {
-    document.querySelectorAll('.thumb-frame').forEach(frame => {
-      const scaler = frame.querySelector('.thumb-scaler');
+    document.querySelectorAll('.thumb-frame, .reel-frame').forEach(frame => {
+      const isReel = frame.classList.contains('reel-frame');
+      const scaler = frame.querySelector(isReel ? '.reel-scaler' : '.thumb-scaler');
       if (!scaler) return;
-      const scale = frame.clientWidth / 1280;
-      scaler.style.transform = 'scale(' + scale + ')';
+      const nativeWidth = isReel ? 1080 : 1280;
+      scaler.style.transform = 'scale(' + (frame.clientWidth / nativeWidth) + ')';
     });
   }
   window.addEventListener('resize', rescaleThumbs);
@@ -574,8 +627,8 @@ xo, Ash
         clone.style.transform = 'none';
         document.body.appendChild(clone);
         const canvas = await html2canvas(clone, {
-          width: 1280,
-          height: 720,
+          width: parseInt(btn.dataset.width || '1280', 10),
+          height: parseInt(btn.dataset.height || '720', 10),
           scale: 2,
           useCORS: true,
           allowTaint: true,
