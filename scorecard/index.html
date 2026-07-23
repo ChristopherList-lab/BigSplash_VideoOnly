@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Your 100-Point Scorecard · Big Splash</title>
+<meta name="description" content="The free 100-point online presence scorecard. Score your business in ten minutes, then book a free 15-minute walkthrough of your number." />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #131318;
+    --bg-2: #1a1a20;
+    --surface: #1e1e25;
+    --lime: #eff88b;
+    --ink-on-lime: #131318;
+    --cream: #ddd8ce;
+    --cream-dim: #9a958c;
+    --line: rgba(221, 216, 206, 0.12);
+    --line-lime: rgba(239, 248, 139, 0.3);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--cream);
+    font-family: Inter, system-ui, sans-serif; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+  .nav { border-bottom: 1px solid var(--line); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { font-family: Anton, sans-serif; font-size: 22px; letter-spacing: .5px; text-transform: uppercase; color: #fff; }
+  .logo span { color: var(--lime); }
+  .nav .kicker { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--cream-dim); }
+
+  .hero { padding: 56px 0 36px; text-align: center; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .28em; text-transform: uppercase; color: var(--lime); margin-bottom: 16px; }
+  h1 { font-family: Anton, sans-serif; font-weight: 400; text-transform: uppercase; font-size: clamp(36px, 7vw, 62px); line-height: 0.96; color: #fff; }
+  h1 .lime { color: var(--lime); }
+  .hero p { font-size: clamp(16px, 2.2vw, 19px); color: var(--cream-dim); max-width: 560px; margin: 18px auto 0; }
+
+  .btn {
+    display: inline-block; padding: 16px 30px; border-radius: 10px; font-weight: 600;
+    font-size: 16px; text-decoration: none; transition: transform .12s ease;
+    background: var(--lime); color: var(--ink-on-lime); margin-top: 28px;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .hint { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cream-dim); margin-top: 12px; }
+
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 40px 0 0; text-align: left; }
+  .step { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+  .step .n { font-family: Anton, sans-serif; font-size: 26px; color: var(--lime); }
+  .step p { font-size: 13.5px; color: var(--cream-dim); margin-top: 6px; }
+  .step p b { color: var(--cream); font-weight: 600; }
+
+  #book { background: var(--bg-2); border-top: 1px solid var(--line); margin-top: 56px; padding: 56px 0 64px; }
+  .book-head { text-align: center; max-width: 620px; margin: 0 auto; }
+  h2 { font-family: Anton, sans-serif; font-weight: 400; text-transform: uppercase; font-size: clamp(26px, 4.5vw, 40px); line-height: 1.0; color: #fff; }
+  h2 .lime { color: var(--lime); }
+  .book-head p { color: var(--cream-dim); margin-top: 12px; }
+  .cal-wrap { margin-top: 28px; border: 1px solid var(--line-lime); border-radius: 14px; overflow: hidden; background: #fff; }
+  .calendly-inline-widget { min-width: 320px; height: 700px; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: center; }
+  footer .contact { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .1em; color: var(--cream-dim); }
+  footer .contact .sep { color: var(--lime); margin: 0 .6em; }
+
+  @media (max-width: 680px) {
+    .steps { grid-template-columns: 1fr; }
+    .hero { padding: 40px 0 28px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="logo">Big<span>Splash</span></div>
+    <div class="kicker">The free scorecard</div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">You commented SCORE — here it is</div>
+    <h1>Score your business<br /><span class="lime">in ten minutes.</span></h1>
+    <p>
+      Five pillars, 100 points, every check something you can verify with nothing but
+      your phone. Most owners guess they'd score 80. The average business I audit lands
+      in the 50s.
+    </p>
+    <a class="btn" href="./Big-Splash-100-Point-Scorecard.pdf" download>Download the scorecard (PDF)</a>
+    <div class="hint">Free. No email wall. Three pages.</div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="n">1</div>
+        <p><b>Download it.</b> Three pages: the system, the checklist, and what your number means.</p>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <p><b>Check the boxes.</b> Grab your phone, be honest, add the points. Ten minutes.</p>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <p><b>Read your band.</b> 80+ you're tuned. 55–79 you're leaking. Under 55, we should talk.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="book">
+  <div class="wrap">
+    <div class="book-head">
+      <h2>Got your number?<br /><span class="lime">Let's look at it together.</span></h2>
+      <p>Fifteen minutes, free. I'll pull your real data, show you which points are cheapest to claim, and which gap is quietly costing you the most. No charge, no pitch you didn't ask for.</p>
+    </div>
+    <div class="cal-wrap">
+      <!-- Calendly inline widget begin -->
+      <div class="calendly-inline-widget" data-url="https://calendly.com/bigsplash/websitebuilding" style="min-width:320px;height:700px;"></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      <!-- Calendly inline widget end -->
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo">Big<span>Splash</span></div>
+    <div class="contact">chris@bigsplash.agency<span class="sep">·</span>bigsplash.video</div>
+  </div>
+</footer>
+
+</body>
+</html>
