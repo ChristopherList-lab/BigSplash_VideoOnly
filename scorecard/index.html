@@ -45,10 +45,49 @@
   .btn {
     display: inline-block; padding: 16px 30px; border-radius: 10px; font-weight: 600;
     font-size: 16px; text-decoration: none; transition: transform .12s ease;
-    background: var(--lime); color: var(--ink-on-lime); margin-top: 28px;
+    background: var(--lime); color: var(--ink-on-lime); margin-top: 28px; border: 0; cursor: pointer;
+    font-family: Inter, system-ui, sans-serif;
   }
   .btn:hover { transform: translateY(-2px); }
   .hint { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cream-dim); margin-top: 12px; }
+  .hint a { color: var(--lime); }
+
+  /* Quiz */
+  .quiz { margin-top: 56px; border-top: 1px solid var(--line); padding-top: 48px; }
+  .quiz-head { text-align: center; max-width: 620px; margin: 0 auto 24px; }
+  .q-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin-top: 14px; }
+  .q-card .q-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .25em; text-transform: uppercase; color: var(--lime); }
+  .q-card .q-text { font-size: 17px; font-weight: 600; color: #fff; margin: 8px 0 14px; }
+  .q-opts { display: grid; gap: 9px; }
+  .q-opt {
+    display: flex; align-items: center; gap: 12px; padding: 13px 15px;
+    border: 1px solid var(--line); border-radius: 10px; cursor: pointer;
+    font-size: 14.5px; color: var(--cream); transition: border-color .1s ease, background .1s ease;
+  }
+  .q-opt:hover { border-color: var(--line-lime); }
+  .q-opt.sel { border-color: var(--lime); background: rgba(239, 248, 139, 0.06); }
+  .q-opt .dotr { width: 15px; height: 15px; border-radius: 50%; border: 2px solid var(--cream-dim); flex: 0 0 auto; }
+  .q-opt.sel .dotr { border-color: var(--lime); background: var(--lime); }
+  .q-name input {
+    width: 100%; padding: 14px 15px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--bg); color: var(--cream); font-size: 15.5px; font-family: Inter, sans-serif;
+  }
+  .q-name input:focus { outline: 2px solid var(--lime); outline-offset: -1px; }
+  .quiz-actions { text-align: center; }
+  .q-missing { color: #c96a5a; font-size: 13px; margin-top: 10px; display: none; }
+
+  /* Quiz result */
+  #result { display: none; margin-top: 26px; }
+  .r-card { background: var(--surface); border: 1px solid var(--line-lime); border-radius: 16px; padding: 32px 28px; text-align: center; }
+  .r-score { font-family: Anton, sans-serif; font-size: 76px; line-height: 1; color: var(--lime); }
+  .r-of { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--cream-dim); letter-spacing: .2em; }
+  .r-band { font-family: Anton, sans-serif; font-size: 26px; text-transform: uppercase; color: #fff; margin-top: 14px; }
+  .r-read { font-size: 14.5px; color: var(--cream-dim); max-width: 520px; margin: 10px auto 0; }
+  .r-bars { max-width: 460px; margin: 22px auto 0; text-align: left; display: grid; gap: 9px; }
+  .r-bar-row { display: grid; grid-template-columns: 150px 1fr 46px; gap: 10px; align-items: center; font-size: 12.5px; color: var(--cream-dim); }
+  .r-track { height: 8px; border-radius: 99px; background: var(--bg); overflow: hidden; }
+  .r-fill { height: 100%; border-radius: 99px; background: var(--lime); }
+  .r-bar-row .r-val { font-family: 'JetBrains Mono', monospace; text-align: right; color: var(--cream); }
 
   .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 40px 0 0; text-align: left; }
   .step { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
@@ -122,25 +161,111 @@
       your phone. Most owners guess they'd score 80. The average business I audit lands
       in the 50s.
     </p>
-    <a class="btn" href="./Big-Splash-100-Point-Scorecard.pdf" download>Download the scorecard (PDF)</a>
-    <div class="hint">Free. No email wall. Three pages.</div>
+    <a class="btn" href="#quiz">Get my custom scorecard →</a>
+    <div class="hint">Five questions, 60 seconds. Free, no email wall.<br />Prefer to score by hand? <a href="./Big-Splash-100-Point-Scorecard.pdf" download>Download the DIY checklist</a>.</div>
 
     <div class="steps">
       <div class="step">
         <div class="n">1</div>
-        <p><b>Download it.</b> Three pages: the system, the checklist, and what your number means.</p>
+        <p><b>Answer five questions.</b> One per pillar. Be honest, nobody grades this but you.</p>
       </div>
       <div class="step">
         <div class="n">2</div>
-        <p><b>Check the boxes.</b> Grab your phone, be honest, add the points. Ten minutes.</p>
+        <p><b>Get your number instantly.</b> 80+ you're tuned. 55–79 you're leaking. Under 55, we should talk.</p>
       </div>
       <div class="step">
         <div class="n">3</div>
-        <p><b>Read your band.</b> 80+ you're tuned. 55–79 you're leaking. Under 55, we should talk.</p>
+        <p><b>Download your scorecard.</b> A custom PDF with your name, your score, and what to fix first.</p>
       </div>
     </div>
   </div>
 </header>
+
+<section class="quiz" id="quiz">
+  <div class="wrap">
+    <div class="quiz-head">
+      <h2>Five questions.<br /><span class="lime">Your number.</span></h2>
+      <p style="color:var(--cream-dim);margin-top:12px;">Answer honestly. The PDF at the end carries your business name, your score, and the two fixes that move it most.</p>
+    </div>
+
+    <div class="q-card q-name">
+      <div class="q-num">First things first</div>
+      <div class="q-text">What's your business called?</div>
+      <input type="text" id="bizname" placeholder="e.g. Compean Painting Services" maxlength="60" autocomplete="organization" />
+    </div>
+
+    <div class="q-card" data-pillar="Reviews &amp; Reputation" data-max="30">
+      <div class="q-num">1 of 5 · Reviews — 30 pts</div>
+      <div class="q-text">How are your Google reviews?</div>
+      <div class="q-opts">
+        <div class="q-opt" data-pts="6"><span class="dotr"></span>Under 50 reviews</div>
+        <div class="q-opt" data-pts="15"><span class="dotr"></span>50 to 150, solid rating</div>
+        <div class="q-opt" data-pts="24"><span class="dotr"></span>150+, averaging 4.5 stars or better</div>
+        <div class="q-opt" data-pts="30"><span class="dotr"></span>150+ at 4.5+, new ones land monthly, and I reply</div>
+      </div>
+    </div>
+
+    <div class="q-card" data-pillar="Website" data-max="25">
+      <div class="q-num">2 of 5 · Website — 25 pts</div>
+      <div class="q-text">Open your website on your phone. What happens?</div>
+      <div class="q-opts">
+        <div class="q-opt" data-pts="0"><span class="dotr"></span>I don't have one, or it's a Facebook page</div>
+        <div class="q-opt" data-pts="8"><span class="dotr"></span>It loads, but it's slow or hard to use</div>
+        <div class="q-opt" data-pts="16"><span class="dotr"></span>Loads fast and looks right on a phone</div>
+        <div class="q-opt" data-pts="25"><span class="dotr"></span>Fast, secure padlock, tap-to-call, book button up top</div>
+      </div>
+    </div>
+
+    <div class="q-card" data-pillar="Social Reach" data-max="20">
+      <div class="q-num">3 of 5 · Social — 20 pts</div>
+      <div class="q-text">How's your Instagram or Facebook?</div>
+      <div class="q-opts">
+        <div class="q-opt" data-pts="4"><span class="dotr"></span>Account exists, rarely post</div>
+        <div class="q-opt" data-pts="9"><span class="dotr"></span>Post now and then, small following</div>
+        <div class="q-opt" data-pts="14"><span class="dotr"></span>Post weekly, following is growing</div>
+        <div class="q-opt" data-pts="20"><span class="dotr"></span>My followers outnumber my Google reviews</div>
+      </div>
+    </div>
+
+    <div class="q-card" data-pillar="Google Business Profile" data-max="15">
+      <div class="q-num">4 of 5 · Google listing — 15 pts</div>
+      <div class="q-text">Your Google Business Profile, the listing in the map?</div>
+      <div class="q-opts">
+        <div class="q-opt" data-pts="4"><span class="dotr"></span>Claimed it, that's about it</div>
+        <div class="q-opt" data-pts="8"><span class="dotr"></span>Hours and services filled in</div>
+        <div class="q-opt" data-pts="12"><span class="dotr"></span>Filled in, plus ten or more photos</div>
+        <div class="q-opt" data-pts="15"><span class="dotr"></span>Complete, fresh photos, active posts or Q&amp;A</div>
+      </div>
+    </div>
+
+    <div class="q-card" data-pillar="Search Visibility" data-max="10">
+      <div class="q-num">5 of 5 · Search — 10 pts</div>
+      <div class="q-text">Search "your service + your city" in a private window. Where are you?</div>
+      <div class="q-opts">
+        <div class="q-opt" data-pts="2"><span class="dotr"></span>Never checked, or nowhere in sight</div>
+        <div class="q-opt" data-pts="6"><span class="dotr"></span>Somewhere on page one</div>
+        <div class="q-opt" data-pts="10"><span class="dotr"></span>Page one AND the map's top three</div>
+      </div>
+    </div>
+
+    <div class="quiz-actions">
+      <button class="btn" id="scoreBtn" type="button">Show my score</button>
+      <div class="q-missing" id="qMissing">Answer every question first — there's one you skipped.</div>
+    </div>
+
+    <div id="result">
+      <div class="r-card">
+        <div class="r-score" id="rScore">0</div>
+        <div class="r-of">OUT OF 100</div>
+        <div class="r-band" id="rBand"></div>
+        <p class="r-read" id="rRead"></p>
+        <div class="r-bars" id="rBars"></div>
+        <button class="btn" id="pdfBtn" type="button">Download my custom scorecard (PDF)</button>
+        <p class="hint">Made just now, just for you. Then <a href="#book">book a free walkthrough of your number</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="proof">
   <div class="wrap">
@@ -228,6 +353,177 @@
     <div class="contact">chris@bigsplash.agency<span class="sep">·</span>bigsplash.video</div>
   </div>
 </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(function () {
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.q-card[data-pillar]'));
+
+  // Option selection
+  cards.forEach(function (card) {
+    card.querySelectorAll('.q-opt').forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        card.querySelectorAll('.q-opt').forEach(function (o) { o.classList.remove('sel'); });
+        opt.classList.add('sel');
+        document.getElementById('qMissing').style.display = 'none';
+      });
+    });
+  });
+
+  var BANDS = [
+    { min: 80, name: 'Tuned', read: 'Your presence works. Keep doing what you’re doing and re-check each quarter. The gap most strong businesses still have: more reviews than followers.' },
+    { min: 55, name: 'Leaking', read: 'The most common band and the most expensive one. Your reputation is ahead of your reach, so trust you already earned goes to whoever shows up next in the search.' },
+    { min: 0,  name: 'Bleeding', read: 'You’re invisible where customers decide. The work is real, and none of it reaches the phone screen where the next customer picks a business at 9pm. Scores here climb fast.' }
+  ];
+
+  var FIXES = {
+    'Reviews & Reputation': 'Ask your last five happy customers for a review this week, and reply to every one that lands.',
+    'Website': 'A fast mobile site with a booking button visible before any scrolling is the single biggest jump on this card.',
+    'Social Reach': 'Post the before-and-after of every job. One photo per job builds a feed that outruns your reviews.',
+    'Google Business Profile': 'Fill every field and add ten fresh job photos. An hour of work that moves your map ranking.',
+    'Search Visibility': 'Give every service its own page that names your city. Google ranks pages, not intentions.'
+  };
+
+  var state = null;
+
+  function collect() {
+    var pillars = [];
+    var total = 0;
+    var missing = false;
+    cards.forEach(function (card) {
+      var sel = card.querySelector('.q-opt.sel');
+      if (!sel) { missing = true; return; }
+      var pts = Number(sel.getAttribute('data-pts'));
+      pillars.push({ name: card.getAttribute('data-pillar').replace('&amp;', '&'), pts: pts, max: Number(card.getAttribute('data-max')) });
+      total += pts;
+    });
+    return missing ? null : { total: total, pillars: pillars };
+  }
+
+  document.getElementById('scoreBtn').addEventListener('click', function () {
+    var data = collect();
+    if (!data) { document.getElementById('qMissing').style.display = 'block'; return; }
+    state = data;
+    var band = BANDS.filter(function (b) { return data.total >= b.min; })[0];
+    state.band = band;
+
+    document.getElementById('rScore').textContent = data.total;
+    document.getElementById('rBand').textContent = band.name;
+    document.getElementById('rRead').textContent = band.read;
+    document.getElementById('rBars').innerHTML = data.pillars.map(function (p) {
+      var pct = Math.round((p.pts / p.max) * 100);
+      return '<div class="r-bar-row"><span>' + p.name + '</span>' +
+        '<span class="r-track"><span class="r-fill" style="width:' + pct + '%"></span></span>' +
+        '<span class="r-val">' + p.pts + '/' + p.max + '</span></div>';
+    }).join('');
+
+    var result = document.getElementById('result');
+    result.style.display = 'block';
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // --- Custom PDF ---------------------------------------------------------
+
+  var C = {
+    bg: [19, 19, 24], surface: [30, 30, 37], lime: [239, 248, 139],
+    cream: [221, 216, 206], dim: [154, 149, 140], white: [255, 255, 255]
+  };
+
+  function buildPdf() {
+    var doc = new window.jspdf.jsPDF({ unit: 'pt', format: 'letter' });
+    var W = 612, M = 52;
+    var name = (document.getElementById('bizname').value || 'Your Business').trim().slice(0, 60);
+
+    doc.setFillColor(C.bg[0], C.bg[1], C.bg[2]);
+    doc.rect(0, 0, W, 792, 'F');
+
+    // Header
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(15);
+    doc.setTextColor(C.lime[0], C.lime[1], C.lime[2]);
+    doc.text('BIG SPLASH', M, 58);
+    doc.setFontSize(8); doc.setTextColor(C.dim[0], C.dim[1], C.dim[2]);
+    doc.text('O N L I N E   P R E S E N C E   S C O R E C A R D', W - M, 58, { align: 'right' });
+    doc.setDrawColor(C.lime[0], C.lime[1], C.lime[2]); doc.setLineWidth(0.75);
+    doc.line(M, 72, W - M, 72);
+
+    // Prepared for
+    doc.setFontSize(8.5); doc.setTextColor(C.dim[0], C.dim[1], C.dim[2]);
+    doc.text('PREPARED FOR', M, 104);
+    doc.setFontSize(24); doc.setTextColor(C.white[0], C.white[1], C.white[2]);
+    doc.text(name.toUpperCase(), M, 130, { maxWidth: W - 2 * M });
+    doc.setFontSize(8.5); doc.setTextColor(C.dim[0], C.dim[1], C.dim[2]);
+    doc.text(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }), M, 148);
+
+    // Score
+    doc.setFontSize(110); doc.setTextColor(C.lime[0], C.lime[1], C.lime[2]);
+    doc.text(String(state.total), M, 262);
+    doc.setFontSize(13); doc.setTextColor(C.dim[0], C.dim[1], C.dim[2]);
+    doc.text('/ 100', M + doc.getTextWidth(String(state.total)) * 8.2, 262);
+    doc.setFontSize(26); doc.setTextColor(C.white[0], C.white[1], C.white[2]);
+    doc.text(state.band.name.toUpperCase(), M, 296);
+    doc.setFontSize(10); doc.setTextColor(C.cream[0], C.cream[1], C.cream[2]);
+    doc.text(doc.splitTextToSize(state.band.read, W - 2 * M), M, 316);
+
+    // Pillar bars
+    var y = 386;
+    doc.setFontSize(8.5); doc.setTextColor(C.lime[0], C.lime[1], C.lime[2]);
+    doc.text('Y O U R   F I V E   P I L L A R S', M, y); y += 16;
+    state.pillars.forEach(function (p) {
+      doc.setFontSize(10); doc.setTextColor(C.cream[0], C.cream[1], C.cream[2]);
+      doc.text(p.name, M, y + 7);
+      var bx = M + 190, bw = W - M - bx - 58;
+      doc.setFillColor(C.surface[0], C.surface[1], C.surface[2]);
+      doc.roundedRect(bx, y, bw, 9, 4.5, 4.5, 'F');
+      var fw = Math.max(9, bw * (p.pts / p.max));
+      doc.setFillColor(C.lime[0], C.lime[1], C.lime[2]);
+      doc.roundedRect(bx, y, fw, 9, 4.5, 4.5, 'F');
+      doc.setFontSize(9.5); doc.setTextColor(C.white[0], C.white[1], C.white[2]);
+      doc.text(p.pts + '/' + p.max, W - M, y + 8, { align: 'right' });
+      y += 27;
+    });
+
+    // Fix first — two weakest pillars by percentage
+    var weakest = state.pillars.slice().sort(function (a, b) { return (a.pts / a.max) - (b.pts / b.max); }).slice(0, 2);
+    y += 18;
+    doc.setFontSize(8.5); doc.setTextColor(C.lime[0], C.lime[1], C.lime[2]);
+    doc.text('F I X   T H E S E   F I R S T', M, y); y += 8;
+    weakest.forEach(function (p) {
+      doc.setFillColor(C.surface[0], C.surface[1], C.surface[2]);
+      doc.roundedRect(M, y, W - 2 * M, 52, 6, 6, 'F');
+      doc.setFillColor(C.lime[0], C.lime[1], C.lime[2]);
+      doc.rect(M, y + 6, 2.5, 40, 'F');
+      doc.setFontSize(11); doc.setTextColor(C.white[0], C.white[1], C.white[2]);
+      doc.text(p.name, M + 16, y + 20);
+      doc.setFontSize(9.5); doc.setTextColor(C.dim[0], C.dim[1], C.dim[2]);
+      doc.text(doc.splitTextToSize(FIXES[p.name] || '', W - 2 * M - 30), M + 16, y + 35);
+      y += 62;
+    });
+
+    // Footer
+    doc.setDrawColor(C.lime[0], C.lime[1], C.lime[2]);
+    doc.line(M, 726, W - M, 726);
+    doc.setFontSize(9.5); doc.setTextColor(C.lime[0], C.lime[1], C.lime[2]);
+    doc.textWithLink('Book a free 15-minute walkthrough of your number  →  bigsplash.video/scorecard', M, 744, { url: 'https://bigsplash.video/scorecard/' });
+    doc.setFontSize(8.5); doc.setTextColor(C.dim[0], C.dim[1], C.dim[2]);
+    doc.text('Big Splash · Georgetown, TX', W - M, 744, { align: 'right' });
+
+    return doc;
+  }
+
+  document.getElementById('pdfBtn').addEventListener('click', function () {
+    if (!state) return;
+    var name = (document.getElementById('bizname').value || 'My-Business').trim()
+      .replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '-').slice(0, 40) || 'My-Business';
+    buildPdf().save(name + '-Online-Presence-Scorecard.pdf');
+  });
+
+  // Verification hook: returns the generated PDF's byte size without saving.
+  window.__pdfBlobSize = function () {
+    if (!state) return -1;
+    return buildPdf().output('arraybuffer').byteLength;
+  };
+})();
+</script>
 
 </body>
 </html>
