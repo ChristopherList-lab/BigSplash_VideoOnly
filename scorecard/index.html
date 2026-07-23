@@ -36,11 +36,20 @@
   .logo span { color: var(--lime); }
   .nav .kicker { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--cream-dim); }
 
-  .hero { padding: 56px 0 36px; text-align: center; }
+  .hero { padding: 56px 0 36px; }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 44px; align-items: center; }
   .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .28em; text-transform: uppercase; color: var(--lime); margin-bottom: 16px; }
   h1 { font-family: Anton, sans-serif; font-weight: 400; text-transform: uppercase; font-size: clamp(36px, 7vw, 62px); line-height: 0.96; color: #fff; }
   h1 .lime { color: var(--lime); }
-  .hero p { font-size: clamp(16px, 2.2vw, 19px); color: var(--cream-dim); max-width: 560px; margin: 18px auto 0; }
+  .hero p { font-size: clamp(16px, 2.2vw, 19px); color: var(--cream-dim); max-width: 560px; margin: 18px 0 0; }
+  .preview-img {
+    width: 100%; max-width: 380px; display: block; margin: 0 auto;
+    border: 1px solid var(--line-lime); border-radius: 10px;
+    transform: rotate(2.5deg); box-shadow: 0 24px 60px rgba(0,0,0,.55);
+  }
+  .q-ico { font-size: 15px; margin-right: 7px; }
+  .mc-img { width: calc(100% + 52px); margin: -26px -26px 18px; height: 172px; object-fit: cover; border-radius: 13px 13px 0 0; display: block; }
+  .book-face { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; border: 2px solid var(--lime); margin: 0 auto 16px; display: block; }
 
   .btn {
     display: inline-block; padding: 16px 30px; border-radius: 10px; font-weight: 600;
@@ -85,8 +94,8 @@
   .r-read { font-size: 14.5px; color: var(--cream-dim); max-width: 520px; margin: 10px auto 0; }
   .r-bars { max-width: 460px; margin: 22px auto 0; text-align: left; display: grid; gap: 9px; }
   .r-bar-row { display: grid; grid-template-columns: 150px 1fr 46px; gap: 10px; align-items: center; font-size: 12.5px; color: var(--cream-dim); }
-  .r-track { height: 8px; border-radius: 99px; background: var(--bg); overflow: hidden; }
-  .r-fill { height: 100%; border-radius: 99px; background: var(--lime); }
+  .r-track { display: block; height: 8px; border-radius: 99px; background: var(--bg); overflow: hidden; }
+  .r-fill { display: block; height: 100%; border-radius: 99px; background: var(--lime); }
   .r-bar-row .r-val { font-family: 'JetBrains Mono', monospace; text-align: right; color: var(--cream); }
 
   .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 40px 0 0; text-align: left; }
@@ -134,6 +143,11 @@
   footer .contact { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .1em; color: var(--cream-dim); }
   footer .contact .sep { color: var(--lime); margin: 0 .6em; }
 
+  @media (max-width: 780px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 8px; text-align: center; }
+    .hero p { margin: 18px auto 0; }
+    .preview-img { max-width: 280px; margin-top: 30px; transform: rotate(1.5deg); }
+  }
   @media (max-width: 680px) {
     .steps { grid-template-columns: 1fr; }
     .hero { padding: 40px 0 28px; }
@@ -154,15 +168,22 @@
 
 <header class="hero">
   <div class="wrap">
-    <div class="eyebrow">You commented SCORE — here it is</div>
-    <h1>Score your business<br /><span class="lime">in ten minutes.</span></h1>
-    <p>
-      Five pillars, 100 points, every check something you can verify with nothing but
-      your phone. Most owners guess they'd score 80. The average business I audit lands
-      in the 50s.
-    </p>
-    <a class="btn" href="#quiz">Get my custom scorecard →</a>
-    <div class="hint">Five questions, 60 seconds. Free, no email wall.<br />Prefer to score by hand? <a href="./Big-Splash-100-Point-Scorecard.pdf" download>Download the DIY checklist</a>.</div>
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">You commented SCORE — here it is</div>
+        <h1>Score your business<br /><span class="lime">in 60 seconds.</span></h1>
+        <p>
+          Five questions, 100 points, every answer something you already know about your
+          own business. Most owners guess they'd score 80. The average I audit lands in
+          the 50s.
+        </p>
+        <a class="btn" href="#quiz">Get my custom scorecard →</a>
+        <div class="hint">Free, no email wall.<br />Prefer to score by hand? <a href="./Big-Splash-100-Point-Scorecard.pdf" download>Download the DIY checklist</a>.</div>
+      </div>
+      <div>
+        <img class="preview-img" src="./img/scorecard-preview.png" alt="The 100-point scorecard checklist" loading="eager" />
+      </div>
+    </div>
 
     <div class="steps">
       <div class="step">
@@ -195,7 +216,7 @@
     </div>
 
     <div class="q-card" data-pillar="Reviews &amp; Reputation" data-max="30">
-      <div class="q-num">1 of 5 · Reviews — 30 pts</div>
+      <div class="q-num"><span class="q-ico">⭐</span> 1 of 5 · Reviews — 30 pts</div>
       <div class="q-text">How are your Google reviews?</div>
       <div class="q-opts">
         <div class="q-opt" data-pts="6"><span class="dotr"></span>Under 50 reviews</div>
@@ -206,7 +227,7 @@
     </div>
 
     <div class="q-card" data-pillar="Website" data-max="25">
-      <div class="q-num">2 of 5 · Website — 25 pts</div>
+      <div class="q-num"><span class="q-ico">📱</span> 2 of 5 · Website — 25 pts</div>
       <div class="q-text">Open your website on your phone. What happens?</div>
       <div class="q-opts">
         <div class="q-opt" data-pts="0"><span class="dotr"></span>I don't have one, or it's a Facebook page</div>
@@ -217,7 +238,7 @@
     </div>
 
     <div class="q-card" data-pillar="Social Reach" data-max="20">
-      <div class="q-num">3 of 5 · Social — 20 pts</div>
+      <div class="q-num"><span class="q-ico">📣</span> 3 of 5 · Social — 20 pts</div>
       <div class="q-text">How's your Instagram or Facebook?</div>
       <div class="q-opts">
         <div class="q-opt" data-pts="4"><span class="dotr"></span>Account exists, rarely post</div>
@@ -228,7 +249,7 @@
     </div>
 
     <div class="q-card" data-pillar="Google Business Profile" data-max="15">
-      <div class="q-num">4 of 5 · Google listing — 15 pts</div>
+      <div class="q-num"><span class="q-ico">📍</span> 4 of 5 · Google listing — 15 pts</div>
       <div class="q-text">Your Google Business Profile, the listing in the map?</div>
       <div class="q-opts">
         <div class="q-opt" data-pts="4"><span class="dotr"></span>Claimed it, that's about it</div>
@@ -239,7 +260,7 @@
     </div>
 
     <div class="q-card" data-pillar="Search Visibility" data-max="10">
-      <div class="q-num">5 of 5 · Search — 10 pts</div>
+      <div class="q-num"><span class="q-ico">🔍</span> 5 of 5 · Search — 10 pts</div>
       <div class="q-text">Search "your service + your city" in a private window. Where are you?</div>
       <div class="q-opts">
         <div class="q-opt" data-pts="2"><span class="dotr"></span>Never checked, or nowhere in sight</div>
@@ -318,11 +339,13 @@
     </div>
     <div class="more-grid">
       <div class="more-card">
+        <img class="mc-img" src="./img/video-still.jpg" alt="Big Splash commercial shoot" loading="lazy" />
         <div class="tag">Video Content</div>
         <h3>We film. You work.</h3>
         <p>Reels, job-site shoots, before-and-afters, customer stories. <b>One shoot day turns into a month of content</b>, cut and captioned, ready to post. Your reviews prove the work. Video shows it.</p>
       </div>
       <div class="more-card">
+        <img class="mc-img" src="./img/ads-still.jpg" alt="Ad campaign spot filmed by Big Splash" loading="lazy" />
         <div class="tag">Paid Ads</div>
         <h3>Ads that point somewhere.</h3>
         <p>Meta campaigns aimed at your service area, landing on a site built to book. <b>Tracking from impression to booked job</b>, and a monthly report that reads like English instead of a spreadsheet.</p>
@@ -335,6 +358,7 @@
 <section id="book">
   <div class="wrap">
     <div class="book-head">
+      <img class="book-face" src="./img/chris.jpg" alt="Chris List, Big Splash" loading="lazy" />
       <h2>Got your number?<br /><span class="lime">Let's look at it together.</span></h2>
       <p>Fifteen minutes, free. I'll pull your real data, show you which points are cheapest to claim, and which gap is quietly costing you the most. No charge, no pitch you didn't ask for.</p>
     </div>
