@@ -42,35 +42,33 @@
   h1 { font-family: Anton, sans-serif; font-weight: 400; text-transform: uppercase; font-size: clamp(36px, 7vw, 62px); line-height: 0.96; color: #fff; }
   h1 .lime { color: var(--lime); }
   .hero p { font-size: clamp(16px, 2.2vw, 19px); color: var(--cream-dim); max-width: 560px; margin: 18px 0 0; }
-  .preview-img {
-    width: 100%; max-width: 380px; display: block; margin: 0 auto;
-    border: 1px solid rgba(224, 48, 30, .45); border-radius: 10px;
-    transform: rotate(2.5deg);
+  /* Cinematic scorecard: a camera flies across the paper, pauses on the good
+     lines, then pulls back to reveal the full page. */
+  .cine {
+    position: relative; width: 100%; max-width: 380px; margin: 0 auto;
+    aspect-ratio: 380 / 470; overflow: hidden; border-radius: 10px;
+    border: 1px solid rgba(224, 48, 30, .45); background: #fbf9f3;
     box-shadow: 0 0 70px rgba(224, 48, 30, .28), 0 24px 60px rgba(0, 0, 0, .55);
+    cursor: pointer;
   }
-  /* Dramatic entrance: the graded test slams down onto the desk. */
-  .preview-wrap { perspective: 900px; }
-  .preview-img.pre { opacity: 0; }
-  .preview-img.slam {
-    animation: slam .95s cubic-bezier(.16, .9, .28, 1.15) both;
+  .cine-img {
+    position: absolute; top: 0; left: 0; width: 100%; height: auto;
+    transform-origin: 0 0; will-change: transform; display: block;
   }
-  @keyframes slam {
-    0%   { opacity: 0; transform: scale(2.1) rotate(9deg) translateY(-46px); filter: blur(10px); }
-    45%  { opacity: 1; filter: blur(2px); }
-    68%  { transform: scale(.965) rotate(1.6deg) translateY(4px); filter: blur(0); }
-    84%  { transform: scale(1.035) rotate(2.9deg) translateY(-2px); }
-    100% { transform: scale(1) rotate(2.5deg) translateY(0);
-           box-shadow: 0 0 70px rgba(224, 48, 30, .28), 0 24px 60px rgba(0, 0, 0, .55); }
-  }
-  .preview-img.slam { --glow: 1; }
-  .preview-wrap.settled .preview-img { animation: floaty 7s ease-in-out 1.2s infinite alternate; }
+  .cine.settled { animation: floaty 7s ease-in-out 1s infinite alternate; }
   @keyframes floaty {
-    from { transform: rotate(2.5deg) translateY(0); }
-    to   { transform: rotate(1.7deg) translateY(-7px); }
+    from { transform: rotate(2deg) translateY(0); }
+    to   { transform: rotate(1.2deg) translateY(-7px); }
   }
+  .cine .replay {
+    position: absolute; right: 10px; bottom: 10px; z-index: 2;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .12em;
+    color: #fbf9f3; background: rgba(19, 19, 24, .78); border-radius: 999px;
+    padding: 6px 12px; opacity: 0; transition: opacity .3s ease; pointer-events: none;
+  }
+  .cine.settled .replay { opacity: 1; }
   @media (prefers-reduced-motion: reduce) {
-    .preview-img.pre { opacity: 1; }
-    .preview-img.slam, .preview-wrap.settled .preview-img { animation: none !important; }
+    .cine.settled { animation: none !important; }
   }
   .q-ico { font-size: 15px; margin-right: 7px; }
   .mc-img { width: calc(100% + 52px); margin: -26px -26px 18px; height: 172px; object-fit: cover; border-radius: 13px 13px 0 0; display: block; }
@@ -205,8 +203,9 @@
         <a class="btn" href="#quiz">Get my custom scorecard →</a>
         <div class="hint">Free, no email wall.<br />Prefer to score by hand? <a href="./Big-Splash-100-Point-Scorecard.pdf" download>Download the DIY checklist</a>.</div>
       </div>
-      <div class="preview-wrap">
-        <img class="preview-img" id="previewImg" src="./img/scorecard-preview.png?v=3" alt="The 100-point scorecard checklist" loading="eager" />
+      <div class="cine" id="cineBox" title="Replay the tour">
+        <img class="cine-img" id="previewImg" src="./img/scorecard-full.png?v=1" alt="The 100-point scorecard checklist" loading="eager" />
+        <span class="replay">↻ replay</span>
       </div>
     </div>
 
@@ -582,41 +581,77 @@
     return buildPdf().output('arraybuffer').byteLength;
   };
 
-  // Dramatic entrance: slam the scorecard onto the desk when it scrolls into
-  // view. Plain rect checks instead of IntersectionObserver — IG's in-app
-  // browser (where most visitors arrive) doesn't reliably deliver IO
-  // callbacks, and a hidden image with no fallback would just never appear.
+  // Cinematic tour: the camera opens tight on the paper, glides across three
+  // highlights, then pulls back to reveal the whole scorecard. Rect-check
+  // trigger (no IntersectionObserver — IG's in-app browser drops IO callbacks)
+  // plus a failsafe so the image is never left in a weird state.
   (function () {
+    var box = document.getElementById('cineBox');
     var img = document.getElementById('previewImg');
-    if (!img) return;
-    img.classList.add('pre'); // hide only once JS is confirmed running
-    var fired = false;
+    if (!box || !img) return;
 
-    function fire() {
-      if (fired) return;
-      fired = true;
-      window.removeEventListener('scroll', check);
-      img.classList.remove('pre');
-      img.classList.add('slam');
-      img.addEventListener('animationend', function onEnd() {
-        img.removeEventListener('animationend', onEnd);
-        img.classList.remove('slam');
-        img.closest('.preview-wrap').classList.add('settled');
-      });
+    var ASPECT = 2112 / 1632; // full-page render
+    // Camera stops measured from the real render: x/y are fractions of the
+    // page, s is zoom. Header → reviews → the social gap line → the /100.
+    var A = { x: 0.30, y: 0.062, s: 2.5 };
+    var B = { x: 0.30, y: 0.160, s: 2.3 };
+    var C = { x: 0.34, y: 0.535, s: 2.4 };
+    var D = { x: 0.70, y: 0.885, s: 2.2 };
+
+    function tf(p) {
+      var w = box.clientWidth, h = box.clientHeight;
+      return 'translate(' + (w / 2 - p.x * w * p.s) + 'px,' + (h / 2 - p.y * w * ASPECT * p.s) + 'px) scale(' + p.s + ')';
+    }
+    function fullFit() {
+      var w = box.clientWidth, h = box.clientHeight;
+      var s = h / (w * ASPECT);
+      return 'translate(' + ((w - w * s) / 2) + 'px,' + ((h - w * ASPECT * s) / 2) + 'px) scale(' + s + ')';
+    }
+    function settle() {
+      img.style.transform = fullFit();
+      box.classList.add('settled');
     }
 
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var playing = false, played = false;
+
+    function play() {
+      if (playing) return;
+      if (reduced || !img.animate) { settle(); played = true; return; }
+      playing = true; played = true;
+      box.classList.remove('settled');
+      var anim = img.animate([
+        { transform: tf(A), opacity: 0, offset: 0 },
+        { transform: tf(A), opacity: 1, offset: 0.07, easing: 'ease-in-out' },
+        { transform: tf(A), opacity: 1, offset: 0.15, easing: 'ease-in-out' },
+        { transform: tf(B), opacity: 1, offset: 0.24, easing: 'ease-in-out' },
+        { transform: tf(B), opacity: 1, offset: 0.33, easing: 'ease-in-out' },
+        { transform: tf(C), opacity: 1, offset: 0.44, easing: 'ease-in-out' },
+        { transform: tf(C), opacity: 1, offset: 0.53, easing: 'ease-in-out' },
+        { transform: tf(D), opacity: 1, offset: 0.63, easing: 'ease-in-out' },
+        { transform: tf(D), opacity: 1, offset: 0.74, easing: 'cubic-bezier(.4,0,.2,1)' },
+        { transform: fullFit(), opacity: 1, offset: 1 }
+      ], { duration: 9500, fill: 'forwards' });
+      anim.onfinish = function () { playing = false; settle(); };
+      anim.oncancel = function () { playing = false; settle(); };
+    }
+
+    // Opening frame while waiting: tight on the header, film-still style.
+    img.style.transform = tf(A);
+    img.style.opacity = played ? 1 : '';
+
     function inView() {
-      var r = img.getBoundingClientRect();
+      var r = box.getBoundingClientRect();
       var vh = window.innerHeight || document.documentElement.clientHeight;
       return r.top < vh * 0.85 && r.bottom > vh * 0.1;
     }
-
-    function check() { if (inView()) fire(); }
+    function check() { if (!played && inView()) { window.removeEventListener('scroll', check); play(); } }
 
     window.addEventListener('scroll', check, { passive: true });
-    check();                    // already visible on load (desktop hero)
-    setTimeout(check, 400);     // after fonts/layout settle
-    setTimeout(fire, 5000);     // failsafe: never leave it hidden
+    check();
+    setTimeout(check, 400);
+    setTimeout(function () { if (!played) settle(); }, 6000); // failsafe
+    box.addEventListener('click', function () { if (!playing) play(); });
   })();
 })();
 </script>
