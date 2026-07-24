@@ -48,6 +48,30 @@
     transform: rotate(2.5deg);
     box-shadow: 0 0 70px rgba(224, 48, 30, .28), 0 24px 60px rgba(0, 0, 0, .55);
   }
+  /* Dramatic entrance: the graded test slams down onto the desk. */
+  .preview-wrap { perspective: 900px; }
+  .preview-img.pre { opacity: 0; }
+  .preview-img.slam {
+    animation: slam .95s cubic-bezier(.16, .9, .28, 1.15) both;
+  }
+  @keyframes slam {
+    0%   { opacity: 0; transform: scale(2.1) rotate(9deg) translateY(-46px); filter: blur(10px); }
+    45%  { opacity: 1; filter: blur(2px); }
+    68%  { transform: scale(.965) rotate(1.6deg) translateY(4px); filter: blur(0); }
+    84%  { transform: scale(1.035) rotate(2.9deg) translateY(-2px); }
+    100% { transform: scale(1) rotate(2.5deg) translateY(0);
+           box-shadow: 0 0 70px rgba(224, 48, 30, .28), 0 24px 60px rgba(0, 0, 0, .55); }
+  }
+  .preview-img.slam { --glow: 1; }
+  .preview-wrap.settled .preview-img { animation: floaty 7s ease-in-out 1.2s infinite alternate; }
+  @keyframes floaty {
+    from { transform: rotate(2.5deg) translateY(0); }
+    to   { transform: rotate(1.7deg) translateY(-7px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .preview-img.pre { opacity: 1; }
+    .preview-img.slam, .preview-wrap.settled .preview-img { animation: none !important; }
+  }
   .q-ico { font-size: 15px; margin-right: 7px; }
   .mc-img { width: calc(100% + 52px); margin: -26px -26px 18px; height: 172px; object-fit: cover; border-radius: 13px 13px 0 0; display: block; }
   .book-face { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; border: 2px solid var(--lime); margin: 0 auto 16px; display: block; }
@@ -181,8 +205,8 @@
         <a class="btn" href="#quiz">Get my custom scorecard →</a>
         <div class="hint">Free, no email wall.<br />Prefer to score by hand? <a href="./Big-Splash-100-Point-Scorecard.pdf" download>Download the DIY checklist</a>.</div>
       </div>
-      <div>
-        <img class="preview-img" src="./img/scorecard-preview.png?v=3" alt="The 100-point scorecard checklist" loading="eager" />
+      <div class="preview-wrap">
+        <img class="preview-img pre" id="previewImg" src="./img/scorecard-preview.png?v=3" alt="The 100-point scorecard checklist" loading="eager" />
       </div>
     </div>
 
@@ -557,6 +581,27 @@
     if (!state) return -1;
     return buildPdf().output('arraybuffer').byteLength;
   };
+
+  // Dramatic entrance: slam the scorecard onto the desk when it scrolls into view.
+  var img = document.getElementById('previewImg');
+  if (img && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        img.classList.remove('pre');
+        img.classList.add('slam');
+        img.addEventListener('animationend', function onEnd() {
+          img.removeEventListener('animationend', onEnd);
+          img.classList.remove('slam');
+          img.closest('.preview-wrap').classList.add('settled');
+        });
+      });
+    }, { threshold: 0.35 });
+    io.observe(img);
+  } else if (img) {
+    img.classList.remove('pre');
+  }
 })();
 </script>
 
