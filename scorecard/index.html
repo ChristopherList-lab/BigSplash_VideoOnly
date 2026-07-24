@@ -36,7 +36,13 @@
   .logo span { color: var(--lime); }
   .nav .kicker { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--cream-dim); }
 
-  .hero { padding: 56px 0 36px; }
+  .hero {
+    padding: 56px 0 36px; position: relative;
+    background:
+      linear-gradient(to bottom, rgba(19, 19, 24, .78) 0%, rgba(19, 19, 24, .55) 45%, rgba(19, 19, 24, .97) 100%),
+      url('./img/bg-desk.jpg') center 38% / cover no-repeat;
+  }
+  .hero > .wrap { position: relative; z-index: 1; }
   .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 44px; align-items: center; }
   .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .28em; text-transform: uppercase; color: var(--lime); margin-bottom: 16px; }
   h1 { font-family: Anton, sans-serif; font-weight: 400; text-transform: uppercase; font-size: clamp(36px, 7vw, 62px); line-height: 0.96; color: #fff; }
