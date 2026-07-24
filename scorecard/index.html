@@ -153,6 +153,7 @@
   .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .vid-wrap { position: relative; width: calc(100% + 52px); margin: -26px -26px 18px; border-radius: 13px 13px 0 0; overflow: hidden; background: #0e0e13; cursor: pointer; }
   .vid-wrap video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+  .vid-wrap.vert video { aspect-ratio: 9 / 16; max-height: 480px; }
   .vid-wrap .vplay {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
     font-size: 15px; color: #fff; background: rgba(19, 19, 24, .35); transition: opacity .25s ease;
@@ -391,13 +392,13 @@
     </div>
     <div class="more-grid">
       <div class="more-card">
-        <div class="vid-wrap">
-          <video src="./img/ad-preview.mp4" poster="./img/ad-poster.jpg" preload="none" playsinline loop></video>
+        <div class="vid-wrap vert">
+          <video src="./img/ad-preview.mp4?v=2" poster="./img/ad-poster.jpg?v=2" preload="none" playsinline loop></video>
           <div class="vplay"><span>▶ WATCH</span></div>
         </div>
         <div class="tag">Short-Form Ads</div>
         <h3>Built to stop the scroll.</h3>
-        <p>Fifteen to sixty second spots cut for Reels, TikTok, and paid placement. <b>Shot in a day, sized for every feed.</b> This one is a Friday-night football spot for a local auto shop.</p>
+        <p>Fifteen to sixty second spots cut for Reels, TikTok, and paid placement. <b>Shot in a day, sized for every feed.</b> This one is a follow ad for an Austin cleaning company.</p>
       </div>
       <div class="more-card">
         <div class="vid-wrap">
