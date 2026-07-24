@@ -243,6 +243,7 @@
       <div class="q-num"><span class="q-ico">⭐</span> 1 of 5 · Reviews — 30 pts</div>
       <div class="q-text">How are your Google reviews?</div>
       <div class="q-opts">
+        <div class="q-opt" data-pts="2"><span class="dotr"></span>Hardly any — I've never really asked</div>
         <div class="q-opt" data-pts="6"><span class="dotr"></span>Under 50 reviews</div>
         <div class="q-opt" data-pts="15"><span class="dotr"></span>50 to 150, solid rating</div>
         <div class="q-opt" data-pts="24"><span class="dotr"></span>150+, averaging 4.5 stars or better</div>
@@ -265,6 +266,7 @@
       <div class="q-num"><span class="q-ico">📣</span> 3 of 5 · Social — 20 pts</div>
       <div class="q-text">How's your Instagram or Facebook?</div>
       <div class="q-opts">
+        <div class="q-opt" data-pts="0"><span class="dotr"></span>No business account yet</div>
         <div class="q-opt" data-pts="4"><span class="dotr"></span>Account exists, rarely post</div>
         <div class="q-opt" data-pts="9"><span class="dotr"></span>Post now and then, small following</div>
         <div class="q-opt" data-pts="14"><span class="dotr"></span>Post weekly, following is growing</div>
@@ -276,6 +278,7 @@
       <div class="q-num"><span class="q-ico">📍</span> 4 of 5 · Google listing — 15 pts</div>
       <div class="q-text">Your Google Business Profile, the listing in the map?</div>
       <div class="q-opts">
+        <div class="q-opt" data-pts="0"><span class="dotr"></span>Haven't claimed it (or didn't know about it)</div>
         <div class="q-opt" data-pts="4"><span class="dotr"></span>Claimed it, that's about it</div>
         <div class="q-opt" data-pts="8"><span class="dotr"></span>Hours and services filled in</div>
         <div class="q-opt" data-pts="12"><span class="dotr"></span>Filled in, plus ten or more photos</div>
@@ -442,6 +445,56 @@
     'Search Visibility': 'Give every service its own page that names your city. Google ranks pages, not intentions.'
   };
 
+  // The playbook: concrete steps + a real tutorial link per pillar. The PDF's
+  // second page renders these for the reader's two weakest pillars.
+  var PLAYBOOK = {
+    'Reviews & Reputation': {
+      steps: [
+        'Open your Google Business Profile and hit "Ask for reviews" — it gives you a short link made for sharing.',
+        'Text that link to your last five happy customers today. A plain ask works: "Would you mind leaving us a quick review?"',
+        'Reply to every review, including the rough ones. Replies are public, and Google reads the activity.'
+      ],
+      linkLabel: 'Google\'s guide: getting more reviews',
+      url: 'https://support.google.com/business/answer/3474122'
+    },
+    'Website': {
+      steps: [
+        'Run your site through Google PageSpeed (free) and write down the mobile score. Under 50 is costing you calls.',
+        'Put one button where a phone shows it without scrolling: Call or Get a Quote. One tap, zero hunting.',
+        'Make your phone number a tap-to-call link, not just text someone has to memorize.'
+      ],
+      linkLabel: 'Test your site: pagespeed.web.dev',
+      url: 'https://pagespeed.web.dev'
+    },
+    'Social Reach': {
+      steps: [
+        'Switch to a free business account so you can see what actually reaches people.',
+        'Post the before-and-after of every job you finish. One photo per job is a system, not a chore.',
+        'Point your bio link at your website or your Google review link — never leave it empty.'
+      ],
+      linkLabel: 'Instagram\'s free business setup guide',
+      url: 'https://business.instagram.com/getting-started'
+    },
+    'Google Business Profile': {
+      steps: [
+        'Claim your free profile at google.com/business — it takes ten minutes and most competitors never finish it.',
+        'Fill every field: hours, services, service area, description. Complete profiles rank above bare ones.',
+        'Add ten real job photos now, then one new photo a week. Photos are the most-viewed part of your listing.'
+      ],
+      linkLabel: 'Google\'s guide: complete your profile',
+      url: 'https://support.google.com/business/answer/2911778'
+    },
+    'Search Visibility': {
+      steps: [
+        'Search "[your service] [your city]" in a private window and study who beats you. That\'s the bar.',
+        'Give each service its own page with the city in the page title. Google ranks pages, not homepages.',
+        'Keep your Google profile category exact — it quietly drives the map ranking more than anything.'
+      ],
+      linkLabel: 'Google\'s free SEO starter guide',
+      url: 'https://developers.google.com/search/docs/fundamentals/seo-starter-guide'
+    }
+  };
+
   var state = null;
 
   function collect() {
@@ -564,6 +617,67 @@
     doc.textWithLink('Book a free 15-minute walkthrough of your number  →  bigsplash.video/scorecard', M, 744, { url: 'https://bigsplash.video/scorecard/' });
     doc.setFontSize(8.5); doc.setTextColor(C.dim[0], C.dim[1], C.dim[2]);
     doc.text('Big Splash · Georgetown, TX', W - M, 744, { align: 'right' });
+
+    // --- Page 2: the playbook — real steps for the two weakest pillars ----
+    doc.addPage();
+    doc.setFillColor(C.bg[0], C.bg[1], C.bg[2]);
+    doc.rect(0, 0, W, 792, 'F');
+
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(15);
+    doc.setTextColor(C.lime[0], C.lime[1], C.lime[2]);
+    doc.text('BIG SPLASH', M, 58);
+    doc.setFontSize(8); doc.setTextColor(C.dim[0], C.dim[1], C.dim[2]);
+    doc.text('Y O U R   P L A Y B O O K', W - M, 58, { align: 'right' });
+    doc.setDrawColor(C.lime[0], C.lime[1], C.lime[2]); doc.setLineWidth(0.75);
+    doc.line(M, 72, W - M, 72);
+
+    doc.setFontSize(24); doc.setTextColor(C.white[0], C.white[1], C.white[2]);
+    doc.text('START WHERE YOU LOSE', M, 112);
+    doc.text('THE MOST POINTS.', M, 140);
+    doc.setFontSize(10); doc.setTextColor(C.dim[0], C.dim[1], C.dim[2]);
+    doc.text(doc.splitTextToSize('Your two weakest pillars, with the exact moves to fix them. Everything below is free and doable this week — no agency required. The links are tappable.', W - 2 * M), M, 162);
+
+    var py = 210;
+    weakest.forEach(function (p) {
+      var pb = PLAYBOOK[p.name];
+      if (!pb) return;
+      doc.setFillColor(C.surface[0], C.surface[1], C.surface[2]);
+      doc.roundedRect(M, py, W - 2 * M, 178, 8, 8, 'F');
+      doc.setFillColor(C.lime[0], C.lime[1], C.lime[2]);
+      doc.rect(M, py + 10, 3, 158, 'F');
+
+      doc.setFontSize(14); doc.setTextColor(C.white[0], C.white[1], C.white[2]);
+      doc.text(p.name.toUpperCase(), M + 20, py + 30);
+      doc.setFontSize(9.5); doc.setTextColor(C.lime[0], C.lime[1], C.lime[2]);
+      doc.text('You scored ' + p.pts + ' of ' + p.max, M + 20, py + 46);
+
+      var sy = py + 68;
+      pb.steps.forEach(function (step, i) {
+        doc.setFontSize(11); doc.setTextColor(C.lime[0], C.lime[1], C.lime[2]);
+        doc.text(String(i + 1) + '.', M + 20, sy);
+        doc.setFontSize(9.5); doc.setTextColor(C.cream[0], C.cream[1], C.cream[2]);
+        var lines = doc.splitTextToSize(step, W - 2 * M - 58);
+        doc.text(lines, M + 36, sy);
+        sy += lines.length * 12 + 8;
+      });
+
+      doc.setFontSize(9.5); doc.setTextColor(C.lime[0], C.lime[1], C.lime[2]);
+      doc.textWithLink('→  ' + pb.linkLabel, M + 20, py + 166, { url: pb.url });
+      py += 196;
+    });
+
+    // Close: the walkthrough offer
+    doc.setDrawColor(C.lime[0], C.lime[1], C.lime[2]);
+    doc.line(M, py + 8, W - M, py + 8);
+    doc.setFontSize(12); doc.setTextColor(C.white[0], C.white[1], C.white[2]);
+    doc.text('Want a second set of eyes on your number?', M, py + 34);
+    doc.setFontSize(9.5); doc.setTextColor(C.dim[0], C.dim[1], C.dim[2]);
+    doc.text(doc.splitTextToSize('Fifteen minutes, free. I\'ll pull your real data — your live Google listing, your site, your actual search ranking — and show you which points are cheapest to claim.', W - 2 * M), M, py + 52);
+    doc.setFontSize(10); doc.setTextColor(C.lime[0], C.lime[1], C.lime[2]);
+    doc.textWithLink('Book it  →  bigsplash.video/scorecard', M, py + 92, { url: 'https://bigsplash.video/scorecard/' });
+
+    doc.setFontSize(8.5); doc.setTextColor(C.dim[0], C.dim[1], C.dim[2]);
+    doc.text('Big Splash · Georgetown, TX · chris@bigsplash.agency', M, 744);
 
     return doc;
   }
