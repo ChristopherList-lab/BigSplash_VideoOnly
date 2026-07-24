@@ -206,7 +206,7 @@
         <div class="hint">Free, no email wall.<br />Prefer to score by hand? <a href="./Big-Splash-100-Point-Scorecard.pdf" download>Download the DIY checklist</a>.</div>
       </div>
       <div class="preview-wrap">
-        <img class="preview-img pre" id="previewImg" src="./img/scorecard-preview.png?v=3" alt="The 100-point scorecard checklist" loading="eager" />
+        <img class="preview-img" id="previewImg" src="./img/scorecard-preview.png?v=3" alt="The 100-point scorecard checklist" loading="eager" />
       </div>
     </div>
 
@@ -582,26 +582,42 @@
     return buildPdf().output('arraybuffer').byteLength;
   };
 
-  // Dramatic entrance: slam the scorecard onto the desk when it scrolls into view.
-  var img = document.getElementById('previewImg');
-  if (img && 'IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        io.disconnect();
-        img.classList.remove('pre');
-        img.classList.add('slam');
-        img.addEventListener('animationend', function onEnd() {
-          img.removeEventListener('animationend', onEnd);
-          img.classList.remove('slam');
-          img.closest('.preview-wrap').classList.add('settled');
-        });
+  // Dramatic entrance: slam the scorecard onto the desk when it scrolls into
+  // view. Plain rect checks instead of IntersectionObserver — IG's in-app
+  // browser (where most visitors arrive) doesn't reliably deliver IO
+  // callbacks, and a hidden image with no fallback would just never appear.
+  (function () {
+    var img = document.getElementById('previewImg');
+    if (!img) return;
+    img.classList.add('pre'); // hide only once JS is confirmed running
+    var fired = false;
+
+    function fire() {
+      if (fired) return;
+      fired = true;
+      window.removeEventListener('scroll', check);
+      img.classList.remove('pre');
+      img.classList.add('slam');
+      img.addEventListener('animationend', function onEnd() {
+        img.removeEventListener('animationend', onEnd);
+        img.classList.remove('slam');
+        img.closest('.preview-wrap').classList.add('settled');
       });
-    }, { threshold: 0.35 });
-    io.observe(img);
-  } else if (img) {
-    img.classList.remove('pre');
-  }
+    }
+
+    function inView() {
+      var r = img.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      return r.top < vh * 0.85 && r.bottom > vh * 0.1;
+    }
+
+    function check() { if (inView()) fire(); }
+
+    window.addEventListener('scroll', check, { passive: true });
+    check();                    // already visible on load (desktop hero)
+    setTimeout(check, 400);     // after fonts/layout settle
+    setTimeout(fire, 5000);     // failsafe: never leave it hidden
+  })();
 })();
 </script>
 
