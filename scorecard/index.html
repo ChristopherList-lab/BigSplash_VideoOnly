@@ -150,7 +150,16 @@
   /* Beyond the website */
   .more { margin-top: 56px; border-top: 1px solid var(--line); padding-top: 48px; }
   .more-head { text-align: center; max-width: 640px; margin: 0 auto 26px; }
-  .more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .vid-wrap { position: relative; width: calc(100% + 52px); margin: -26px -26px 18px; border-radius: 13px 13px 0 0; overflow: hidden; background: #0e0e13; cursor: pointer; }
+  .vid-wrap video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+  .vid-wrap .vplay {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 15px; color: #fff; background: rgba(19, 19, 24, .35); transition: opacity .25s ease;
+    font-family: 'JetBrains Mono', monospace; letter-spacing: .15em;
+  }
+  .vid-wrap .vplay span { background: rgba(19, 19, 24, .75); border: 1px solid var(--line-lime); border-radius: 999px; padding: 9px 16px; }
+  .vid-wrap.playing .vplay { opacity: 0; pointer-events: none; }
   .more-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 26px; }
   .more-card .tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .25em; text-transform: uppercase; color: var(--lime); }
   .more-card h3 { font-family: Anton, sans-serif; font-weight: 400; text-transform: uppercase; font-size: 24px; color: #fff; margin: 8px 0 10px; letter-spacing: .3px; }
@@ -382,16 +391,28 @@
     </div>
     <div class="more-grid">
       <div class="more-card">
-        <img class="mc-img" src="./img/video-still.jpg" alt="Big Splash commercial shoot" loading="lazy" />
-        <div class="tag">Video Content</div>
-        <h3>We film. You work.</h3>
-        <p>Reels, job-site shoots, before-and-afters, customer stories. <b>One shoot day turns into a month of content</b>, cut and captioned, ready to post. Your reviews prove the work. Video shows it.</p>
+        <div class="vid-wrap">
+          <video src="./img/ad-preview.mp4" poster="./img/ad-poster.jpg" preload="none" playsinline loop></video>
+          <div class="vplay"><span>▶ WATCH</span></div>
+        </div>
+        <div class="tag">Short-Form Ads</div>
+        <h3>Built to stop the scroll.</h3>
+        <p>Fifteen to sixty second spots cut for Reels, TikTok, and paid placement. <b>Shot in a day, sized for every feed.</b> This one is a Friday-night football spot for a local auto shop.</p>
       </div>
       <div class="more-card">
-        <img class="mc-img" src="./img/ads-still.jpg" alt="Ad campaign spot filmed by Big Splash" loading="lazy" />
+        <div class="vid-wrap">
+          <video src="./img/interview-preview.mp4" poster="./img/interview-poster.jpg" preload="none" playsinline loop></video>
+          <div class="vplay"><span>▶ WATCH</span></div>
+        </div>
+        <div class="tag">Sit-Down Interviews</div>
+        <h3>Your story, told straight.</h3>
+        <p>Owner interviews and customer stories, lit and cut like a documentary. <b>One sit-down becomes a month of clips</b> that build trust before the first call.</p>
+      </div>
+      <div class="more-card">
+        <img class="mc-img" src="./img/video-still.jpg" alt="Ad campaign spot filmed by Big Splash" loading="lazy" />
         <div class="tag">Paid Ads</div>
         <h3>Ads that point somewhere.</h3>
-        <p>Meta campaigns aimed at your service area, landing on a site built to book. <b>Tracking from impression to booked job</b>, and a monthly report that reads like English instead of a spreadsheet.</p>
+        <p>Meta campaigns aimed at your service area, landing on a site built to book. <b>Tracking from impression to booked job</b>, and a monthly report that reads like English.</p>
       </div>
     </div>
     <p class="more-line">The same 15-minute call covers all of it. <a href="#book">Grab a time below.</a></p>
@@ -700,6 +721,25 @@
     if (!state) return -1;
     return buildPdf().output('arraybuffer').byteLength;
   };
+
+  // Sample videos: tap to play with sound, tap again to pause. Only one plays
+  // at a time, and nothing loads until the first tap (preload="none").
+  document.querySelectorAll('.vid-wrap').forEach(function (wrap) {
+    var vid = wrap.querySelector('video');
+    wrap.addEventListener('click', function () {
+      if (vid.paused) {
+        document.querySelectorAll('.vid-wrap video').forEach(function (v) {
+          if (v !== vid) { v.pause(); v.closest('.vid-wrap').classList.remove('playing'); }
+        });
+        vid.play();
+        wrap.classList.add('playing');
+      } else {
+        vid.pause();
+        wrap.classList.remove('playing');
+      }
+    });
+    vid.addEventListener('ended', function () { wrap.classList.remove('playing'); });
+  });
 
   // Cinematic tour: the camera opens tight on the paper, glides across three
   // highlights, then pulls back to reveal the whole scorecard. Rect-check
