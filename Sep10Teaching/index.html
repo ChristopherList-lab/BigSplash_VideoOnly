@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Sound · Crossroads Audio Team Night · Big Splash AVL</title>
+<meta name="description" content="Crossroads audio team night, September 10, 2026. A short teaching from 2 Chronicles 5, then drum processing and the drum group on the Yamaha DM7.">
+<meta name="robots" content="noindex,nofollow">
+<meta property="og:title" content="One Sound to Be Heard · Crossroads Audio Team Night">
+<meta property="og:description" content="2 Chronicles 5, then drums on the DM7: the channel, the group, and building the kit.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://bigsplash.video/Sep10Teaching/assets/training.jpg">
+<meta name="theme-color" content="#131318">
+<link rel="icon" type="image/png" href="../Bigsplash_FAVcon.png">
+<link rel="apple-touch-icon" href="../Bigsplash_FAVcon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #131318;
+    --surface: #1f1f25;
+    --surface-high: #2a292f;
+    --ink: #ddd8ce;
+    --text: #e4e1e9;
+    --muted: #8f8a82;
+    --lime: #eff88b;
+    --on-lime: #2f3300;
+    --outline: #474838;
+    --line: rgba(71,72,56,0.8);
+    --pad: clamp(20px, 5vw, 64px);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+
+  .anton { font-family: 'Anton', Impact, sans-serif; text-transform: uppercase; letter-spacing: -0.015em; line-height: 0.96; font-weight: 400; color: var(--text); }
+  .lime { color: var(--lime); }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(239,248,139,0.8); margin-bottom: 18px; }
+  .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--lime); }
+  .body-copy { color: var(--ink); line-height: 1.65; }
+  .body-copy strong, .points strong { color: var(--text); font-weight: 600; }
+  h2.head { font-size: clamp(44px, 7.4vw, 84px); }
+
+  .dotgrid { background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 40px 40px; }
+  .card { background: var(--surface); border: 1px solid var(--outline); border-radius: 4px; padding: 24px; }
+  .card.hot { border-color: rgba(239,248,139,0.45); }
+  .tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--lime); border: 1px solid rgba(239,248,139,0.35); border-radius: 999px; padding: 6px 13px; }
+  .tag.solid { background: var(--lime); color: var(--on-lime); border-color: var(--lime); font-weight: 700; }
+
+  section { position: relative; padding: clamp(64px, 10vw, 112px) var(--pad); }
+  .wrap { max-width: 1180px; margin: 0 auto; position: relative; z-index: 2; }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 12px var(--pad);
+    background: rgba(19,19,24,0.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(71,72,56,0.6);
+  }
+  .lockup { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .lockup img { height: 26px; width: auto; }
+  .lockup .avl { font-family: 'Anton', Impact, sans-serif; font-size: 20px; letter-spacing: 0.04em; line-height: 1; padding-left: 12px; border-left: 1px solid var(--outline); color: var(--text); }
+  .nav { display: flex; align-items: center; gap: 22px; }
+  .nav a.jump { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+  .nav a.jump:hover { color: var(--lime); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700;
+    background: var(--lime); color: var(--on-lime); text-decoration: none;
+    padding: 11px 16px; border-radius: 999px; white-space: nowrap;
+  }
+  .btn.ghost { background: transparent; color: var(--lime); border: 1px solid rgba(239,248,139,0.45); font-weight: 400; }
+  @media (max-width: 760px) { .nav a.jump { display: none; } .lockup img { height: 22px; } .lockup .avl { font-size: 17px; } }
+
+  /* Hero */
+  .hero { min-height: calc(100svh - 55px); display: flex; align-items: flex-end; padding-top: 120px; }
+  .bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+  .bg img { width: 100%; height: 100%; object-fit: cover; }
+  .hero .bg img { object-position: 70% center; }
+  .hero .shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(75deg, rgba(19,19,24,0.97) 0%, rgba(19,19,24,0.85) 38%, rgba(19,19,24,0.35) 72%, rgba(19,19,24,0.5) 100%), linear-gradient(to top, rgba(19,19,24,1) 0%, transparent 45%); }
+  .hero .crx { position: absolute; top: 28px; right: var(--pad); height: 30px; width: auto; opacity: 0.9; z-index: 2; }
+  .hero h1 { font-size: clamp(58px, 11vw, 120px); }
+  .hero .sub { font-size: clamp(16px, 2vw, 19px); max-width: 580px; margin-top: 24px; }
+  .hero .meta { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); margin-top: 28px; line-height: 1.9; }
+  .hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  @media (max-width: 760px) { .hero .bg img { object-position: 62% center; } .hero .shade { background: linear-gradient(to top, rgba(19,19,24,1) 0%, rgba(19,19,24,0.88) 50%, rgba(19,19,24,0.55) 100%); } }
+
+  /* Run of show */
+  .run { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 56px; position: relative; }
+  .run::before { content: ""; position: absolute; left: 0; right: 0; top: 5px; height: 1px; background: var(--outline); }
+  .stop { position: relative; padding-right: 22px; }
+  .stop::before { content: ""; display: block; width: 11px; height: 11px; border-radius: 50%; background: var(--lime); margin-bottom: 24px; position: relative; }
+  .stop.soft::before { background: var(--bg); border: 1.5px solid var(--lime); }
+  .stop .num { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.3em; color: var(--muted); }
+  .stop .name { font-family: 'Anton', Impact, sans-serif; text-transform: uppercase; font-size: 27px; line-height: 1.04; margin-top: 10px; }
+  .stop .min { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); margin-top: 12px; }
+  .stop p { font-size: 14px; line-height: 1.55; color: var(--ink); margin-top: 10px; }
+  @media (max-width: 900px) {
+    .run { grid-template-columns: 1fr; margin-top: 40px; }
+    .run::before { left: 5px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; }
+    .stop { padding: 0 0 28px 34px; }
+    .stop::before { position: absolute; left: 0; top: 4px; margin: 0; }
+  }
+
+  /* Scripture */
+  .word .bg img { object-position: center 40%; }
+  .word .shade { position: absolute; inset: 0; z-index: 1; background: rgba(19,19,24,0.86); }
+  .verse { font-weight: 300; font-size: clamp(20px, 2.6vw, 28px); line-height: 1.55; color: var(--text); max-width: 1060px; }
+  .verse .hl { font-family: 'Anton', Impact, sans-serif; text-transform: uppercase; color: var(--lime); font-size: 1.22em; line-height: 1.2; }
+  .scene { display: grid; grid-template-columns: 180px 1fr; gap: 28px; margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--outline); max-width: 1060px; }
+  .scene p { font-size: 16px; }
+  @media (max-width: 760px) { .scene { grid-template-columns: 1fr; gap: 10px; } }
+
+  /* Teaching split */
+  .split { padding: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 720px; }
+  .split .text { padding: clamp(64px, 8vw, 100px) var(--pad); display: flex; flex-direction: column; justify-content: center; max-width: 700px; margin-left: auto; width: 100%; }
+  .split .photo { position: relative; overflow: hidden; }
+  .split .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .split .photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(19,19,24,1) 0%, rgba(19,19,24,0.35) 30%, rgba(19,19,24,0.15) 100%); }
+  .split h2 { font-size: clamp(44px, 5.6vw, 72px); }
+  @media (max-width: 900px) {
+    .split { grid-template-columns: 1fr; min-height: 0; }
+    .split .photo { order: -1; height: 300px; }
+    .split .photo::after { background: linear-gradient(to top, rgba(19,19,24,1) 0%, rgba(19,19,24,0.2) 60%); }
+    .split .text { padding-top: 8px; max-width: none; }
+  }
+  .verse-chip {
+    align-self: flex-start; margin-top: 22px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.04em; line-height: 1.5;
+    color: var(--lime); border: 1px solid rgba(239,248,139,0.35); border-radius: 4px; padding: 10px 14px;
+  }
+  .verse-chip b { font-weight: 400; color: var(--muted); margin-left: 8px; letter-spacing: 0.2em; white-space: nowrap; }
+  .points { list-style: none; margin-top: 22px; }
+  .points li { display: flex; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 16px; line-height: 1.6; color: var(--ink); }
+  .points li:last-child { border-bottom: none; }
+  .points li::before { content: ""; flex: 0 0 auto; width: 7px; height: 7px; margin-top: 10px; background: var(--lime); }
+  .ask { margin-top: 26px; padding: 16px 20px; border-left: 3px solid var(--lime); background: var(--surface); font-size: 16px; line-height: 1.55; color: var(--ink); }
+  .ask .label { display: block; margin-bottom: 6px; }
+  .rhythm { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+  .rhythm p { font-size: 15px; margin-top: 14px; }
+  @media (max-width: 560px) { .rhythm { grid-template-columns: 1fr; } }
+
+  /* Section divider */
+  .divider { padding-top: clamp(80px, 12vw, 140px); padding-bottom: clamp(40px, 6vw, 64px); }
+  .divider .bg img { object-position: center 60%; }
+  .divider .shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, rgba(19,19,24,0.7) 0%, rgba(19,19,24,0.94) 55%, rgba(19,19,24,1) 100%); }
+  .head-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
+  .head-row .body-copy { max-width: 440px; font-size: 16px; }
+
+  /* Chain */
+  .chain { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-top: 44px; }
+  .chain .card { padding: 20px 18px; position: relative; }
+  .chain .n { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.3em; color: var(--muted); }
+  .chain h3 { font-family: 'Anton', Impact, sans-serif; text-transform: uppercase; font-weight: 400; font-size: 30px; line-height: 1; margin-top: 12px; }
+  .chain .where { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); margin-top: 8px; }
+  .chain p { font-size: 14px; line-height: 1.55; color: var(--ink); margin-top: 14px; }
+  .chain .card:not(:last-child)::after { content: "→"; position: absolute; right: -13px; top: 22px; width: 12px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--lime); background: var(--bg); z-index: 3; }
+  @media (max-width: 1080px) { .chain { grid-template-columns: repeat(3, 1fr); } .chain .card::after { display: none; } }
+  @media (max-width: 600px) { .chain { grid-template-columns: 1fr 1fr; } .chain h3 { font-size: 26px; } }
+
+  /* Starting points table */
+  .tip { max-width: 420px; padding: 18px 20px; }
+  .tip p { font-size: 14px; margin-top: 8px; }
+  table.sp { width: 100%; border-collapse: collapse; margin-top: 40px; }
+  table.sp th { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--lime); font-weight: 400; text-align: left; padding: 0 16px 12px 0; border-bottom: 1px solid var(--lime); }
+  table.sp td { font-size: 14.5px; line-height: 1.45; color: var(--ink); padding: 14px 16px 14px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.sp td.drum { font-family: 'Anton', Impact, sans-serif; text-transform: uppercase; font-size: 21px; color: var(--text); line-height: 1.1; white-space: nowrap; }
+  table.sp td.num { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text); }
+  table.sp .soft { color: var(--muted); }
+  .footnote { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 16px; line-height: 1.8; }
+  @media (max-width: 820px) {
+    table.sp thead { display: none; }
+    table.sp, table.sp tbody, table.sp tr, table.sp td { display: block; width: 100%; }
+    table.sp tr { background: var(--surface); border: 1px solid var(--outline); border-radius: 4px; padding: 16px 18px 6px; margin-bottom: 12px; }
+    table.sp td { border: none; padding: 0 0 12px; display: grid; grid-template-columns: 110px 1fr; gap: 12px; }
+    table.sp td::before { content: attr(data-label); font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); padding-top: 3px; }
+    table.sp td.drum { display: block; font-size: 26px; padding-bottom: 14px; }
+    table.sp td.drum::before { display: none; }
+  }
+
+  /* Group */
+  .group-grid { display: grid; grid-template-columns: 1fr 1fr 1.15fr; gap: 18px; margin-top: 44px; }
+  .group-grid h3 { font-size: 30px; margin-top: 18px; }
+  .group-grid p { font-size: 15px; margin-top: 12px; }
+  .settings { width: 100%; border-collapse: collapse; margin-top: 14px; }
+  .settings td { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--ink); }
+  .settings td:first-child { font-family: 'Anton', Impact, sans-serif; text-transform: uppercase; font-size: 17px; color: var(--text); }
+  .settings td:last-child { font-family: 'JetBrains Mono', monospace; font-size: 13px; text-align: right; color: var(--text); }
+  .settings tr:last-child td { border-bottom: none; }
+  .routing { display: grid; grid-template-columns: 1.4fr 1fr; gap: 36px; margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--outline); }
+  .routing .flow { font-size: clamp(20px, 2.4vw, 26px); margin-top: 10px; letter-spacing: 0.01em; line-height: 1.2; }
+  .routing p.body-copy { font-size: 15px; margin-top: 10px; }
+  @media (max-width: 900px) { .group-grid, .routing { grid-template-columns: 1fr; } }
+
+  /* Build steps */
+  .steps { display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; margin-top: 40px; grid-auto-flow: column; grid-template-rows: repeat(4, auto); }
+  .step { display: grid; grid-template-columns: 46px 1fr; padding: 15px 0; border-bottom: 1px solid var(--line); }
+  .step .n { font-family: 'Anton', Impact, sans-serif; font-size: 23px; color: var(--lime); line-height: 1.1; }
+  .step p { font-size: 16px; line-height: 1.55; color: var(--ink); }
+  .step p strong { color: var(--text); font-weight: 600; }
+  .listen { display: grid; grid-template-columns: 150px 1fr 1fr; gap: 26px; margin-top: 40px; padding: 22px 26px; }
+  .listen p { font-size: 15px; }
+  @media (max-width: 820px) {
+    .steps { grid-template-columns: 1fr; grid-auto-flow: row; grid-template-rows: none; }
+    .listen { grid-template-columns: 1fr; gap: 12px; }
+  }
+
+  /* Questions */
+  .questions { min-height: 640px; display: flex; align-items: center; }
+  .questions .bg img { object-position: 70% center; }
+  .questions .shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(19,19,24,0.98) 0%, rgba(19,19,24,0.9) 45%, rgba(19,19,24,0.6) 100%); }
+  .q-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 48px; align-items: end; }
+  .questions h2 { font-size: clamp(56px, 9vw, 100px); }
+  .week p { font-size: 16px; margin-top: 10px; }
+  @media (max-width: 900px) { .q-grid { grid-template-columns: 1fr; } .questions .shade { background: rgba(19,19,24,0.9); } }
+
+  footer { padding: 40px var(--pad) 48px; border-top: 1px solid var(--outline); }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  footer .mono { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); }
+  footer .mono a { color: var(--lime); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="lockup" href="https://bigsplash.video/" aria-label="Big Splash home">
+    <img src="assets/logo-bigsplash.svg" alt="Big Splash">
+    <span class="avl">AVL</span>
+  </a>
+  <nav class="nav" aria-label="Sections">
+    <a class="jump" href="#word">The Word</a>
+    <a class="jump" href="#drums">Drums</a>
+    <a class="jump" href="#questions">Questions</a>
+    <a class="btn" href="Crossroads-Team-Night-Sep10.pdf" target="_blank" rel="noopener">PDF</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="bg"><img src="assets/training.jpg" alt="A trainer guiding a young volunteer at a mixing console"></div>
+  <div class="shade"></div>
+  <img class="crx" src="assets/crossroads-logo.png" alt="Crossroads Church Austin">
+  <div class="wrap" style="width:100%;">
+    <p class="eyebrow">Audio Team Night &middot; Crossroads Church &middot; Austin, TX</p>
+    <h1 class="anton">One sound<br>to be <span class="lime">heard.</span></h1>
+    <p class="body-copy sub">Worship from the booth, then hands on the DM7: how we process drums and glue them into one kit.</p>
+    <p class="meta">Led by Chris List &middot; Big Splash AVL &middot; September 10, 2026</p>
+    <div class="ctas">
+      <a class="btn" href="#word">Start with the Word</a>
+      <a class="btn ghost" href="#drums">Jump to drums</a>
+    </div>
+  </div>
+</section>
+
+<!-- TONIGHT -->
+<section class="dotgrid">
+  <div class="wrap">
+    <p class="eyebrow">Tonight &middot; 40 to 45 minutes</p>
+    <h2 class="anton head">Heart first.<br>Then <span class="lime">hands.</span></h2>
+    <div class="run">
+      <div class="stop"><div class="num">00</div><div class="name">Welcome<br>+ prayer</div><div class="min">3 min</div><p>Open the night by inviting God into the room.</p></div>
+      <div class="stop"><div class="num">01</div><div class="name">The Word:<br>One sound</div><div class="min">8 min</div><p>2 Chronicles 5. Craft as offering, the booth on the team, hearts ready first.</p></div>
+      <div class="stop"><div class="num">02</div><div class="name">Drums:<br>the channel</div><div class="min">15 min</div><p>Setup order and starting points for every drum on the DM7.</p></div>
+      <div class="stop"><div class="num">03</div><div class="name">Drums:<br>the group</div><div class="min">10 min</div><p>DCA versus group bus, routing, and glue. Build the kit on the multitrack.</p></div>
+      <div class="stop soft"><div class="num">04</div><div class="name">Your<br>questions</div><div class="min">10+ min</div><p>Open floor. Starter questions at the bottom of the page.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- THE WORD -->
+<section class="word" id="word">
+  <div class="bg"><img src="assets/wide.jpg" alt="" loading="lazy"></div>
+  <div class="shade"></div>
+  <div class="wrap">
+    <p class="eyebrow">The Word &middot; 2 Chronicles 5:13&ndash;14 &middot; KJV</p>
+    <p class="verse">
+      &ldquo;It came even to pass, as the trumpeters and singers were
+      <span class="hl">as one, to make one sound to be heard</span>
+      in praising and thanking the LORD; and when they lifted up their voice with the trumpets and cymbals and instruments of musick, and praised the LORD, saying, For he is good; for his mercy endureth for ever: that then the house was filled with a cloud, even the house of the LORD; so that the priests could not stand to minister by reason of the cloud: for the glory of the LORD had filled the house of God.&rdquo;
+    </p>
+    <div class="scene">
+      <div class="label" style="line-height:1.8;">Set the scene<br><span style="color:var(--muted);">&asymp; 1 min</span></div>
+      <p class="body-copy">Solomon dedicates the temple. Before a note is played, every priest has sanctified himself, and nobody waits for his shift (v.11). Levites in white linen hold cymbals, psalteries and harps, with 120 priests on trumpets (v.12). The sound goes up as one, and God fills the house so thick the priests can&rsquo;t stand.</p>
+    </div>
+  </div>
+</section>
+
+<!-- POINT 1 -->
+<section class="split">
+  <div class="text">
+    <p class="eyebrow">Point 01 &middot; &asymp; 3 min</p>
+    <h2 class="anton">Your craft is<br>an <span class="lime">offering.</span></h2>
+    <div class="verse-chip">&ldquo;with the trumpets and cymbals and instruments of musick&rdquo;<b>v.13</b></div>
+    <ul class="points">
+      <li><span>The Levites brought their best instruments and dressed for the moment. <strong>God received their skill as worship.</strong></span></li>
+      <li><span>Our instrument is the console. A fader move nobody notices is still an offering. God sees the hands on the desk.</span></li>
+      <li><span>Creativity counts. A reverb throw on the last chorus, or pulling the band back when the room starts to sing, is worship with your ears.</span></li>
+      <li><span>Excellence honors God. It isn&rsquo;t about impressing people. <strong>Practice nights like tonight are part of the offering.</strong></span></li>
+    </ul>
+    <div class="ask"><span class="label">Ask the room</span>Name one part of your role that feels invisible. God sees that part.</div>
+  </div>
+  <div class="photo"><img src="assets/cover.jpg" alt="Hands on a mixing console during a service" loading="lazy" style="object-position: 40% center;"></div>
+</section>
+
+<!-- POINT 2 -->
+<section class="split">
+  <div class="text">
+    <p class="eyebrow">Point 02 &middot; &asymp; 3 min</p>
+    <h2 class="anton">The booth is on<br>the <span class="lime">worship team.</span></h2>
+    <div class="verse-chip">&ldquo;as one, to make one sound to be heard&rdquo;<b>v.13</b></div>
+    <ul class="points">
+      <li><span>The singers couldn&rsquo;t make one sound alone. Voices and instruments had to arrive together. <strong>Making one sound heard is the booth&rsquo;s job description.</strong></span></li>
+      <li><span>You are as much a part of the worship team as the person holding the mic. The room hears the band through your hands.</span></li>
+      <li><span>Nobody waited for their shift (v.11). FOH, monitors, lyrics, lights and stream serve as one team.</span></li>
+      <li><span>Unity looks like early call times, serving the song over our taste, honoring the band in how we talk to them, and owning mistakes fast.</span></li>
+    </ul>
+    <div class="ask"><span class="label">Say it plainly</span>If the room worships, the booth worshiped too.</div>
+  </div>
+  <div class="photo"><img src="assets/handoff.jpg" alt="An engineer at front of house facing the stage" loading="lazy" style="object-position: 45% center;"></div>
+</section>
+
+<!-- RESPONSE -->
+<section class="split">
+  <div class="text">
+    <p class="eyebrow">The response &middot; &asymp; 2 min</p>
+    <h2 class="anton">Consecrated<br><span class="lime">first.</span></h2>
+    <div class="verse-chip">&ldquo;all the priests that were present were sanctified&rdquo;<b>v.11</b></div>
+    <p class="body-copy" style="font-size:17px; margin-top:22px;">The priests got their hearts ready before the music started. The glory came to a prepared people, not a perfect soundcheck. <strong>A line check matters. A heart check matters more.</strong></p>
+    <div class="rhythm">
+      <div class="card"><span class="tag solid">Together &middot; Weekly</span><p class="body-copy">The team prays together every week we serve. Sunday call time, before line check.</p></div>
+      <div class="card"><span class="tag">On your own &middot; All week</span><p class="body-copy">Time in the Word and in prayer. You can&rsquo;t give the room what you haven&rsquo;t received.</p></div>
+    </div>
+    <div class="ask"><span class="label">Close in prayer</span>Pray over the team: for one sound, and for hearts that stay close to Him. &ldquo;For he is good; for his mercy endureth for ever.&rdquo;</div>
+  </div>
+  <div class="photo"><img src="assets/stage.jpg" alt="An empty stage with a single microphone" loading="lazy" style="object-position: 40% center;"></div>
+</section>
+
+<!-- DRUMS: CHANNEL -->
+<section class="divider" id="drums">
+  <div class="bg"><img src="assets/detail.jpg" alt="" loading="lazy"></div>
+  <div class="shade"></div>
+  <div class="wrap">
+    <div class="head-row">
+      <div>
+        <p class="eyebrow">Hands on &middot; Drums on the DM7 &middot; &asymp; 15 min</p>
+        <h2 class="anton head">Every drum.<br><span class="lime">Same order.</span></h2>
+      </div>
+      <p class="body-copy">Build every drum channel in this order, every time. On the DM7 we run the gate in <strong>Dynamics 1</strong> and the compressor in <strong>Dynamics 2</strong>.</p>
+    </div>
+    <div class="chain">
+      <div class="card"><div class="n">01</div><h3>Gain</h3><div class="where">Head amp</div><p>Set it on the loudest song. Hits land with headroom to spare. Faders fix balance, not gain.</p></div>
+      <div class="card"><div class="n">02</div><h3>HPF</h3><div class="where">High-pass filter</div><p>Cut the low end the drum doesn&rsquo;t make. Clears mud and stage rumble before it stacks up.</p></div>
+      <div class="card"><div class="n">03</div><h3>Polarity</h3><div class="where">&Oslash; button</div><p>Flip snare bottom. Check kick in against kick out, and overheads against the snare. Keep the fatter one.</p></div>
+      <div class="card"><div class="n">04</div><h3>Gate</h3><div class="where">Dynamics 1</div><p>Toms first. Kick only if it&rsquo;s messy. Never on hi-hat or overheads.</p></div>
+      <div class="card"><div class="n">05</div><h3>EQ</h3><div class="where">4-band PEQ</div><p>Cut before you boost. Sweep a narrow boost to find the ugly frequency, then pull it down.</p></div>
+      <div class="card"><div class="n">06</div><h3>Comp</h3><div class="where">Dynamics 2</div><p>Control, not squash. A slower attack lets the stick through. Then route to the drum group.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- STARTING POINTS -->
+<section class="dotgrid">
+  <div class="wrap">
+    <div class="head-row">
+      <div>
+        <p class="eyebrow">Starting points &middot; Ears over numbers</p>
+        <h2 class="anton head">Get close. Let the<br>room <span class="lime">decide.</span></h2>
+      </div>
+      <div class="card hot tip">
+        <div class="label">Know the mic first</div>
+        <p class="body-copy">A scooped kick mic like the Audix D6 already cuts about 8 dB at 600 Hz. Cut it again and the kick goes hollow.</p>
+      </div>
+    </div>
+    <table class="sp">
+      <thead><tr><th>Drum</th><th>HPF</th><th>Gate &middot; Dyn 1</th><th>EQ moves</th><th>Comp &middot; Dyn 2</th></tr></thead>
+      <tbody>
+        <tr><td class="drum">Kick</td><td class="num" data-label="HPF">30&ndash;40 Hz</td><td data-label="Gate">Optional. Fast attack, decay 150&ndash;250 ms</td><td data-label="EQ">Weight 50&ndash;70 Hz &middot; cut box 300&ndash;600 Hz &middot; click 3&ndash;5 kHz</td><td class="num" data-label="Comp">4:1 &middot; 10&ndash;30 ms &middot; 3&ndash;6 dB</td></tr>
+        <tr><td class="drum">Snare top</td><td class="num" data-label="HPF">80&ndash;100 Hz</td><td data-label="Gate">Only if hi-hat bleed keeps opening it</td><td data-label="EQ">Body 150&ndash;250 Hz &middot; cut ring 400 Hz&ndash;1 kHz &middot; crack 4&ndash;6 kHz</td><td class="num" data-label="Comp">4:1 &middot; 5&ndash;15 ms &middot; 3&ndash;5 dB</td></tr>
+        <tr><td class="drum">Snare bottom</td><td class="num" data-label="HPF">150&ndash;200 Hz</td><td data-label="Gate">No</td><td data-label="EQ">Polarity flipped &middot; pull low mids &middot; blend in for rattle</td><td class="num" data-label="Comp">Light or off</td></tr>
+        <tr><td class="drum">Toms</td><td class="num" data-label="HPF"><span>60&ndash;80 Hz <span class="soft">(floor 50&ndash;60)</span></span></td><td data-label="Gate">Yes. Hold and decay follow the note</td><td data-label="EQ">Cut mud 300&ndash;500 Hz &middot; attack 3&ndash;5 kHz</td><td class="num" data-label="Comp">3:1 &middot; 2&ndash;4 dB</td></tr>
+        <tr><td class="drum">Hi-hat</td><td class="num" data-label="HPF">250&ndash;400 Hz</td><td data-label="Gate">No</td><td data-label="EQ">Tame clang near 1 kHz &middot; leave the top alone</td><td class="num" data-label="Comp">Off</td></tr>
+        <tr><td class="drum">Overheads</td><td class="num" data-label="HPF">150&ndash;300 Hz</td><td data-label="Gate">No</td><td data-label="EQ">Tame harsh 2&ndash;4 kHz &middot; air shelf above 10 kHz</td><td class="num" data-label="Comp">Light, if any</td></tr>
+      </tbody>
+    </table>
+    <p class="footnote">Comp: ratio &middot; attack &middot; gain reduction on the loudest hits</p>
+  </div>
+</section>
+
+<!-- DRUM GROUP -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Hands on &middot; The drum group &middot; &asymp; 10 min</p>
+    <h2 class="anton head">One kit. <span class="lime">One fader.</span></h2>
+    <div class="group-grid">
+      <div class="card">
+        <span class="tag">DCA &middot; Remote control</span>
+        <h3 class="anton">Rides the kit</h3>
+        <p class="body-copy">Moves the drum faders together. No audio passes through a DCA, so you can&rsquo;t compress it. Use it to ride the whole kit through a song.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Group bus &middot; The glue</span>
+        <h3 class="anton">Shapes the kit</h3>
+        <p class="body-copy">A mix bus every drum flows through. One place to compress and EQ the whole kit so it hits like one instrument.</p>
+      </div>
+      <div class="card hot">
+        <span class="tag solid">Glue settings</span>
+        <table class="settings">
+          <tr><td>Ratio</td><td>2:1 to 4:1</td></tr>
+          <tr><td>Attack</td><td>10&ndash;30 ms</td></tr>
+          <tr><td>Release</td><td>Fast or auto</td></tr>
+          <tr><td>Reduction</td><td>2&ndash;3 dB</td></tr>
+        </table>
+        <p class="body-copy" style="font-size:14px; margin-top:10px;">Group EQ stays gentle: a touch at 60&ndash;100 Hz, a touch of air near 10 kHz.</p>
+      </div>
+    </div>
+    <div class="routing">
+      <div>
+        <div class="label">Routing on the DM7</div>
+        <p class="anton flow">Drum channels <span class="lime">&rarr;</span> Drum group bus <span class="lime">&rarr;</span> Stereo</p>
+        <p class="body-copy">Turn the drum channels&rsquo; direct send to Stereo off. Send them both ways and the kit doubles up and jumps in level every time you touch the group.</p>
+      </div>
+      <div>
+        <div class="label" style="color:var(--muted);">Level up &middot; Parallel smash</div>
+        <p class="body-copy">Send the kit to a second bus and crush it: 8:1 or more, fast attack, 8&ndash;12 dB of reduction. Tuck it under the group for big choruses.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILD ORDER -->
+<section class="dotgrid">
+  <div class="wrap">
+    <p class="eyebrow">On the multitrack &middot; Build it together</p>
+    <h2 class="anton head">Build the kit from<br>the <span class="lime">ground up.</span></h2>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><p><strong>Faders down.</strong> Drum group fader at unity.</p></div>
+      <div class="step"><div class="n">02</div><p><strong>Kick alone.</strong> Gain, HPF, EQ, comp. Then take it out of solo.</p></div>
+      <div class="step"><div class="n">03</div><p><strong>Snare top and bottom.</strong> Flip the bottom and keep the fatter setting.</p></div>
+      <div class="step"><div class="n">04</div><p><strong>Overheads.</strong> The picture of the kit. Check them against the snare.</p></div>
+      <div class="step"><div class="n">05</div><p><strong>Toms.</strong> Gate them so fills sound full with no ring between hits.</p></div>
+      <div class="step"><div class="n">06</div><p><strong>Hi-hat.</strong> Bring it up until you hear the time, then stop.</p></div>
+      <div class="step"><div class="n">07</div><p><strong>Group.</strong> Two to three dB of glue, then ride the DCA against the band.</p></div>
+    </div>
+    <div class="card hot listen">
+      <div class="label" style="line-height:1.8;">Listen for</div>
+      <p class="body-copy"><strong>Kick and bass lock</strong> into one note. The snare cuts through without fighting the vocal.</p>
+      <p class="body-copy"><strong>Cymbals sit behind the vocal,</strong> never on top. Solo to fix, un-solo to judge.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUESTIONS -->
+<section class="questions" id="questions">
+  <div class="bg"><img src="assets/training.jpg" alt="" loading="lazy"></div>
+  <div class="shade"></div>
+  <div class="wrap" style="width:100%;">
+    <div class="q-grid">
+      <div>
+        <p class="eyebrow">Open floor &middot; 10 minutes or more</p>
+        <h2 class="anton">Your<br><span class="lime">questions.</span></h2>
+        <p class="label" style="color:var(--muted); margin-top:32px;">If the room goes quiet, start here</p>
+        <ul class="points" style="margin-top:8px;">
+          <li><span>Gate or no gate: which drums get one, and why?</span></li>
+          <li><span>My snare sounds great soloed and disappears in the mix. Fix?</span></li>
+          <li><span>Drums in a worship mix: how loud is right for our room?</span></li>
+          <li><span>The drummer swapped the snare Sunday morning. Now what?</span></li>
+        </ul>
+      </div>
+      <div class="card week" style="background: rgba(31,31,37,0.94);">
+        <div class="label">This week</div>
+        <p class="body-copy">Pray together at call time. Meet with God before you meet the console.</p>
+        <a class="btn ghost" style="margin-top:20px;" href="Crossroads-Team-Night-Sep10.pdf" target="_blank" rel="noopener">Download the PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="lockup" href="https://bigsplash.video/"><img src="assets/logo-bigsplash.svg" alt="Big Splash"><span class="avl">AVL</span></a>
+    <span class="mono">Big Splash AVL &times; Crossroads Church Austin &middot; <a href="mailto:chris@bigsplash.agency">chris@bigsplash.agency</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
