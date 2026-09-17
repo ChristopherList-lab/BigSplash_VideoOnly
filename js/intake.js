@@ -91,6 +91,21 @@
         { name: 'notes', label: 'Tell us more about the project', type: 'textarea', required: true, placeholder: 'What does your business do, and what are you trying to make happen?' },
       ],
     },
+    Church: {
+      variant: 'lime',
+      eyebrow: 'Churches',
+      headline: "Talk to<br/>Chris.",
+      sub: "Tell us about your church and what growth would look like this year. You'll hear back within one business day.",
+      submitText: 'Send It',
+      fields: [
+        { name: 'name', label: 'Name', type: 'text', required: true, placeholder: 'Your name' },
+        { name: 'church', label: 'Church', type: 'text', required: true, placeholder: 'Church name, city' },
+        { name: 'email', label: 'Email', type: 'email', required: true, placeholder: 'you@church.org' },
+        { name: 'phone', label: 'Cell (optional)', type: 'tel', required: false, placeholder: '512-555-0100' },
+        { name: 'interest', label: 'What are you looking at?', type: 'select', required: true, options: ['Free Growth Snapshot', 'Reach ($749/mo)', 'Growth ($1,497/mo)', 'Growth + custom series art ($1,997/mo)', 'Partner ($2,797/mo)', 'Christmas or Easter campaign ($997)', 'Google Ad Grant help', 'Not sure yet'] },
+        { name: 'notes', label: 'What would growth look like for you this year?', type: 'textarea', required: true, placeholder: 'Attendance, what you post now, what you wish was happening...' },
+      ],
+    },
   };
 
   // ========================================

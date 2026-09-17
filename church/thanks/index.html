@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Snapshot Is On the Way | Big Splash</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../../assets/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config = { theme: { extend: { colors: { primary: '#eff88b' } } } };</script>
+<style>
+  html, body { background: #131318; color: #e7e3da; font-family: 'Inter', sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
+  body { font-size: 17px; line-height: 1.6; }
+  .display { font-family: 'Anton', sans-serif; text-transform: uppercase; line-height: 1.02; }
+  .eyebrow { font-size: 0.875rem; font-weight: 600; color: #eff88b; }
+  .card { background: #17171c; border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; }
+  .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background: #eff88b; color: #1f2200; font-weight: 600; padding: 0.9rem 1.5rem; border-radius: 9999px; transition: background 0.2s; }
+  .btn-primary:hover { background: #f5fbb5; }
+  .btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.22); color: #f1eee8; font-weight: 600; padding: 0.9rem 1.5rem; border-radius: 9999px; transition: border-color 0.2s; }
+  .btn-ghost:hover { border-color: #eff88b; }
+  a:focus-visible, button:focus-visible { outline: 2px solid #eff88b; outline-offset: 3px; }
+</style>
+<script>
+  // Same tracking IDs as church/index.html
+  window.BS_TRACK = { META_PIXEL_ID: '', GA4_ID: '' };
+  (function(t){
+    if (t.META_PIXEL_ID) {
+      !function(f,b,e,v,n,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];s=b.createElement(e);s.async=!0;s.src=v;b.head.appendChild(s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', t.META_PIXEL_ID); fbq('track', 'PageView'); fbq('track', 'CompleteRegistration');
+    }
+    if (t.GA4_ID) {
+      var g=document.createElement('script'); g.async=true; g.src='https://www.googletagmanager.com/gtag/js?id='+t.GA4_ID; document.head.appendChild(g);
+      window.dataLayer=window.dataLayer||[]; window.gtag=function(){dataLayer.push(arguments)}; gtag('js', new Date()); gtag('config', t.GA4_ID); gtag('event','snapshot_thanks_view');
+    }
+  })(window.BS_TRACK);
+</script>
+</head>
+<body>
+  <nav class="px-5 md:px-8 py-5">
+    <div class="max-w-5xl mx-auto flex items-center justify-between">
+      <a href="../../index.html"><img src="../../assets/images/logo-bigsplash.svg" alt="Big Splash" class="h-8 w-auto"></a>
+      <a href="../" class="text-[15px] text-stone-300 hover:text-primary">Back to the church page</a>
+    </div>
+  </nav>
+
+  <main class="px-5 md:px-8 pt-10 pb-20">
+    <div class="max-w-5xl mx-auto">
+      <div class="max-w-2xl">
+        <span class="material-symbols-outlined text-primary text-5xl">check_circle</span>
+        <p class="eyebrow mt-4">Request received</p>
+        <h1 class="display text-5xl md:text-7xl text-white mt-2"><span id="church-name">Your church's</span> snapshot is on the way</h1>
+        <p class="mt-5 text-lg text-stone-300">We'll text you when it's ready, usually within 48 hours. Here's what happens next.</p>
+      </div>
+
+      <ol class="mt-10 grid md:grid-cols-3 gap-5">
+        <li class="card p-6">
+          <p class="text-sm font-semibold text-primary">Today</p>
+          <h2 class="mt-1 text-lg font-semibold text-white">We pull your reach number</h2>
+          <p class="mt-2 text-stone-300 text-[15px]">How many people live within a 10-minute drive, and whether your church has run a campaign to them.</p>
+        </li>
+        <li class="card p-6">
+          <p class="text-sm font-semibold text-primary">Within 48 hours</p>
+          <h2 class="mt-1 text-lg font-semibold text-white">Your clips and report arrive</h2>
+          <p class="mt-2 text-stone-300 text-[15px]">3 captioned clips, a thumbnail, a sample guest report and a 2-minute video from Chris.</p>
+        </li>
+        <li class="card p-6">
+          <p class="text-sm font-semibold text-primary">When you're ready</p>
+          <h2 class="mt-1 text-lg font-semibold text-white">A 20-minute walkthrough</h2>
+          <p class="mt-2 text-stone-300 text-[15px]">Optional. We go through your number and what a first campaign would look like for your town.</p>
+        </li>
+      </ol>
+
+      <section class="mt-14 grid lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-5">
+          <p class="eyebrow">Skip the wait</p>
+          <h2 class="display text-4xl md:text-5xl text-white mt-2">Book your walkthrough now</h2>
+          <p class="mt-4 text-stone-300">Pick a time for after your snapshot arrives. Bring your pastor or whoever handles communications.</p>
+          <ul class="mt-6 space-y-3 text-stone-300">
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">check</span>Your reach number and what it means</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">check</span>A campaign plan for Christmas or your next series</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">check</span>Straight pricing, no pressure</li>
+          </ul>
+          <div class="mt-8 card p-5">
+            <p class="text-white font-semibold">Christmas campaigns book by November 15</p>
+            <p class="mt-1 text-stone-300 text-[15px]">$997 for your Christmas page, campaign, follow-up texts and a guest report after the holidays.</p>
+          </div>
+        </div>
+        <div class="lg:col-span-7 card overflow-hidden">
+          <iframe src="https://api.leadconnectorhq.com/widget/booking/YcBm4L2c5a0DNBZyessz" title="Book a walkthrough with Chris" style="width:100%; height: 720px; border: 0;" loading="lazy"></iframe>
+        </div>
+      </section>
+
+      <section class="mt-14 card p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-5">
+        <div>
+          <h2 class="text-xl font-semibold text-white">Know another pastor who'd want this?</h2>
+          <p class="mt-1 text-stone-300">Send them the link. Snapshots are free for any church of 100 or more.</p>
+        </div>
+        <button type="button" id="share" class="btn-ghost shrink-0"><span class="material-symbols-outlined text-xl">share</span><span data-share-text>Copy the link</span></button>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const p = new URLSearchParams(location.search);
+    const church = (p.get('church') || '').trim().slice(0, 80);
+    if (church) document.getElementById('church-name').textContent = church + "'s";
+    document.getElementById('share').addEventListener('click', async () => {
+      const url = location.origin + location.pathname.replace(/thanks\/?$/, '');
+      const label = document.querySelector('[data-share-text]');
+      try {
+        if (navigator.share) { await navigator.share({ title: 'Free Church Growth Snapshot', url }); return; }
+        await navigator.clipboard.writeText(url); label.textContent = 'Link copied';
+      } catch (_) { label.textContent = url; }
+    });
+  </script>
+</body>
+</html>

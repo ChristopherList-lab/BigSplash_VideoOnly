@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Church Marketing That Counts New Guests | Big Splash</title>
+<meta name="description" content="The marketing agency for the local church. Sermon-built campaigns, plan-your-visit pages, and a monthly report that shows what each first-time guest cost. Start with a free Church Growth Snapshot.">
+<link rel="canonical" href="https://bigsplash.video/church/">
+<meta property="og:title" content="Big Splash for Churches: know what each new guest cost">
+<meta property="og:description" content="Free Church Growth Snapshot: your reach number, 3 sermon clips, a thumbnail and a sample guest report in 48 hours.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bigsplash.video/church/">
+<meta property="og:image" content="https://bigsplash.video/assets/images/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Church Growth Snapshot",
+  "provider": { "@type": "LocalBusiness", "name": "Big Splash", "url": "https://bigsplash.video", "email": "chris@bigsplash.agency", "address": { "@type": "PostalAddress", "addressLocality": "Georgetown", "addressRegion": "TX", "addressCountry": "US" } },
+  "areaServed": "Texas",
+  "description": "Free for churches: a local reach number, 3 captioned sermon clips, a YouTube thumbnail and a sample guest report within 48 hours.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<!-- ============================================================
+     TRACKING (fill in before launch)
+     bigsplash.video is the agency's domain, not a church domain,
+     so the Meta Pixel works here for retargeting pastors who visit.
+     1. Meta Pixel: paste your pixel ID into META_PIXEL_ID below.
+     2. GA4: paste your measurement ID into GA4_ID below.
+     Both stay off until an ID is present.
+     ============================================================ -->
+<script>
+  window.BS_TRACK = { META_PIXEL_ID: '', GA4_ID: '' };
+  (function(t){
+    if (t.META_PIXEL_ID) {
+      !function(f,b,e,v,n,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];s=b.createElement(e);s.async=!0;s.src=v;b.head.appendChild(s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', t.META_PIXEL_ID); fbq('track', 'PageView');
+    }
+    if (t.GA4_ID) {
+      var g=document.createElement('script'); g.async=true; g.src='https://www.googletagmanager.com/gtag/js?id='+t.GA4_ID; document.head.appendChild(g);
+      window.dataLayer=window.dataLayer||[]; window.gtag=function(){dataLayer.push(arguments)}; gtag('js', new Date()); gtag('config', t.GA4_ID);
+    }
+    window.bsTrack = function(name, data){
+      try { if (window.fbq) fbq('trackCustom', name, data||{}); } catch(e){}
+      try { if (window.gtag) gtag('event', name, data||{}); } catch(e){}
+    };
+  })(window.BS_TRACK);
+</script>
+
+<link rel="icon" type="image/png" href="../assets/images/favicon.png">
+<link rel="apple-touch-icon" href="../assets/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: { primary: '#eff88b', background: '#131318' },
+      fontFamily: { anton: ['Anton', 'sans-serif'], body: ['Inter', 'sans-serif'] },
+    } },
+  };
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  html, body { background: #131318; color: #e7e3da; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  body { font-size: 17px; line-height: 1.6; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+  .reveal.visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+  nav.scrolled { background: rgba(19, 19, 24, 0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .display { font-family: 'Anton', sans-serif; text-transform: uppercase; letter-spacing: 0.005em; line-height: 1.02; }
+  .eyebrow { font-size: 0.875rem; font-weight: 600; color: #eff88b; letter-spacing: 0.01em; }
+  .card { background: #17171c; border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; }
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  /* Photos: see church/IMAGE-SLOTS.md. Drop an <img class="slot-img"> where the
+     HTML comments mark a slot. Nothing renders as a visible placeholder. */
+  .icon-badge { width: 3rem; height: 3rem; border-radius: 0.85rem; display: grid; place-items: center; background: rgba(239,248,139,0.1); border: 1px solid rgba(239,248,139,0.25); color: #eff88b; }
+  .slot-img { width: 100%; max-width: 100%; height: auto; object-fit: cover; border-radius: 1rem; display: block; }
+
+  /* Form */
+  .cs-label { display: block; font-size: 0.9rem; font-weight: 500; color: #d6d2c8; margin-bottom: 0.4rem; }
+  .cs-input { width: 100%; background: #111116; border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; color: #f1eee8; padding: 0.8rem 0.95rem; font: inherit; font-size: 1rem; transition: border-color 0.2s, box-shadow 0.2s; }
+  .cs-input:focus { outline: none; border-color: #eff88b; box-shadow: 0 0 0 3px rgba(239,248,139,0.15); }
+  .cs-input::placeholder { color: #75716b; }
+  select.cs-input { appearance: none; -webkit-appearance: none; cursor: pointer; padding-right: 2.25rem; background-image: linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.55) 50%), linear-gradient(-45deg, transparent 50%, rgba(255,255,255,0.55) 50%); background-position: calc(100% - 18px) 55%, calc(100% - 12px) 55%; background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; }
+  select.cs-input option { background: #1a1a20; color: #f1eee8; }
+  textarea.cs-input { resize: vertical; min-height: 84px; }
+  .cs-radio { position: relative; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1rem; border: 1px solid rgba(255,255,255,0.18); border-radius: 9999px; cursor: pointer; font-size: 0.95rem; font-weight: 500; color: #e7e3da; transition: all 0.2s; }
+  .cs-radio:hover { border-color: rgba(239,248,139,0.6); }
+  .cs-radio:has(input:checked) { background: #eff88b; color: #1f2200; border-color: #eff88b; }
+  .cs-radio input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .cs-radio:has(input:focus-visible) { outline: 2px solid #eff88b; outline-offset: 3px; }
+  .step-dot { width: 1.75rem; height: 1.75rem; border-radius: 9999px; display: grid; place-items: center; font-size: 0.85rem; font-weight: 700; background: rgba(255,255,255,0.08); color: #a8a49b; }
+  .step-dot.on { background: #eff88b; color: #1f2200; }
+
+  .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background: #eff88b; color: #1f2200; font-weight: 600; font-size: 1rem; padding: 0.95rem 1.6rem; border-radius: 9999px; transition: background 0.2s, transform 0.2s; }
+  .btn-primary:hover { background: #f5fbb5; }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.22); color: #f1eee8; font-weight: 600; font-size: 1rem; padding: 0.95rem 1.6rem; border-radius: 9999px; transition: border-color 0.2s, background 0.2s; }
+  .btn-ghost:hover { border-color: #eff88b; background: rgba(239,248,139,0.06); }
+  a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid #eff88b; outline-offset: 3px; }
+  details summary::-webkit-details-marker { display: none; }
+
+  #mobile-cta { transform: translateY(120%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+  #mobile-cta.show { transform: none; }
+</style>
+</head>
+<body>
+
+  <!-- ========== NAV ========== -->
+  <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-5 md:px-8 py-4">
+      <a href="../index.html" class="flex items-center shrink-0" aria-label="Big Splash Home">
+        <img src="../assets/images/logo-bigsplash.svg" alt="Big Splash" class="h-8 md:h-9 w-auto">
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-[15px] text-stone-300">
+        <a class="hover:text-primary transition-colors" href="#how">How it works</a>
+        <a class="hover:text-primary transition-colors" href="#report">Guest report</a>
+        <a class="hover:text-primary transition-colors" href="#levels">Pricing</a>
+        <a class="hover:text-primary transition-colors" href="#faq">FAQ</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button type="button" data-open-intake data-intake-service="Church" class="hidden md:inline-flex text-[15px] font-medium text-stone-200 hover:text-primary transition-colors px-2">Talk to Chris</button>
+        <a href="#snapshot" data-cta="nav" class="btn-primary !py-2.5 !px-5 !text-[15px]">Free snapshot</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <header class="relative px-5 md:px-8 pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden" data-screen-label="01 Hero">
+    <div class="absolute inset-x-0 top-0 h-[600px] pointer-events-none" style="background: radial-gradient(ellipse 60% 70% at 75% 0%, rgba(239,248,139,0.08), transparent 70%);"></div>
+    <div class="relative max-w-6xl mx-auto grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+      <div class="lg:col-span-7">
+        <p class="eyebrow mb-5">The marketing agency for the local church</p>
+        <h1 class="display text-[12vw] sm:text-6xl lg:text-[4.6rem] text-white text-balance">
+          Fill Sunday with new guests. <span class="text-primary">Know every family who came.</span>
+        </h1>
+        <p class="mt-7 text-lg md:text-xl text-stone-200 leading-relaxed max-w-xl">
+          We turn your pastor's message into an invitation your neighbors actually see, give every guest a plan-your-visit page, follow up by text, and hand you a report with every name on it.
+        </p>
+        <div class="mt-9 flex flex-col sm:flex-row gap-3 sm:items-center">
+          <a href="#snapshot" data-cta="hero" class="btn-primary text-[17px]">Get my free Growth Snapshot <span class="material-symbols-outlined text-xl">arrow_downward</span></a>
+          <a href="#how" class="btn-ghost text-[17px]">See how it works</a>
+        </div>
+        <ul class="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[15px] text-stone-400">
+          <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">check</span>Free, and no sales call</li>
+          <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">check</span>In your inbox within 48 hours</li>
+          <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">check</span>Georgetown, Texas</li>
+        </ul>
+      </div>
+
+      <!-- IMAGE SLOT hero-sunday: to add a photo, put an <img class="slot-img" style="aspect-ratio:4/5"> above this card -->
+      <div class="lg:col-span-5">
+        <div class="card p-5 md:p-6 shadow-2xl shadow-black/50">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <p class="text-white font-semibold">Guest report</p>
+              <p class="text-sm text-stone-400">October · what your leadership sees</p>
+            </div>
+            <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-white/10 text-stone-300 shrink-0">Sample</span>
+          </div>
+          <div class="mt-5 grid grid-cols-2 gap-3">
+            <div class="rounded-xl bg-white/[0.04] p-4"><p class="text-sm text-stone-400">New families</p><p class="mt-1 text-3xl font-bold text-white tnum">11</p></div>
+            <div class="rounded-xl bg-primary/10 border border-primary/30 p-4"><p class="text-sm text-stone-300">Cost per guest</p><p class="mt-1 text-3xl font-bold text-primary tnum">$38</p></div>
+          </div>
+          <div class="mt-4 space-y-2 text-sm">
+            <div class="flex items-center justify-between gap-3 rounded-lg bg-white/[0.03] px-3 py-2"><span class="text-stone-300">Planned a visit</span><span class="tnum text-white">23</span></div>
+            <div class="flex items-center justify-between gap-3 rounded-lg bg-white/[0.03] px-3 py-2"><span class="text-stone-300">Walked in</span><span class="tnum text-white">11</span></div>
+            <div class="flex items-center justify-between gap-3 rounded-lg bg-white/[0.03] px-3 py-2"><span class="text-stone-300">Came back a second week</span><span class="tnum text-white">5</span></div>
+          </div>
+          <p class="mt-4 text-xs text-stone-500">Example report. Your numbers depend on your town, your budget and your welcome team.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== PROBLEM ========== -->
+  <section class="px-5 md:px-8 py-20 md:py-28" data-screen-label="03 Problem">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+      <div class="lg:col-span-5 reveal">
+        <p class="eyebrow mb-3">Sound familiar?</p>
+        <h2 class="display text-4xl md:text-6xl text-white">The message is good. Your zip code hasn't heard it.</h2>
+      </div>
+      <div class="lg:col-span-7 grid sm:grid-cols-2 gap-5">
+        <div class="card p-6 reveal">
+          <span class="material-symbols-outlined text-primary text-3xl">campaign</span>
+          <h3 class="mt-4 text-lg font-semibold text-white">"We tried Facebook ads and nobody came."</h3>
+          <p class="mt-2 text-stone-300">An ad alone rarely gets a family in the door. The page they land on and the text they get afterward do the real work.</p>
+        </div>
+        <div class="card p-6 reveal">
+          <span class="material-symbols-outlined text-primary text-3xl">schedule</span>
+          <h3 class="mt-4 text-lg font-semibold text-white">"Nobody on staff has time."</h3>
+          <p class="mt-2 text-stone-300">The harvest is plentiful and your comms person already wears five hats. We build it and run it, and you approve what goes out.</p>
+        </div>
+        <div class="card p-6 reveal">
+          <span class="material-symbols-outlined text-primary text-3xl">help</span>
+          <h3 class="mt-4 text-lg font-semibold text-white">"We can't tell if any of it works."</h3>
+          <p class="mt-2 text-stone-300">Likes don't show up on Sunday. We count who planned a visit, who walked in, and who came back.</p>
+        </div>
+        <div class="card p-6 reveal">
+          <span class="material-symbols-outlined text-primary text-3xl">location_on</span>
+          <h3 class="mt-4 text-lg font-semibold text-white">"Guests visit once and we never see them again."</h3>
+          <p class="mt-2 text-stone-300">The back door is quieter than the front. Our follow-up gives a first-time guest a reason to come back next week.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS ========== -->
+  <section id="how" class="px-5 md:px-8 py-20 md:py-28 bg-[#0f0f13] border-y border-white/5" data-screen-label="04 How it works">
+    <div class="max-w-6xl mx-auto">
+      <div class="max-w-2xl reveal">
+        <p class="eyebrow mb-3">How it works</p>
+        <h2 class="display text-4xl md:text-6xl text-white">From your sermon to their seat</h2>
+      </div>
+      <div class="mt-12 grid md:grid-cols-3 gap-6">
+        <div class="card p-7 reveal">
+          <!-- IMAGE SLOT step-1-sermon: add an <img class="slot-img" style="aspect-ratio:4/3"> above this badge -->
+          <div class="icon-badge"><span class="material-symbols-outlined">smartphone</span></div>
+          <p class="mt-6 text-sm font-semibold text-primary">Step 1</p>
+          <h3 class="mt-1 text-xl font-semibold text-white">Your message becomes the invitation</h3>
+          <p class="mt-2 text-stone-300">We cut your pastor's own words into short videos and put them in front of families who live a few minutes from your building.</p>
+        </div>
+        <div class="card p-7 reveal">
+          <!-- IMAGE SLOT step-2-visit-page: add an <img class="slot-img" style="aspect-ratio:4/3"> above this badge -->
+          <div class="icon-badge"><span class="material-symbols-outlined">event_available</span></div>
+          <p class="mt-6 text-sm font-semibold text-primary">Step 2</p>
+          <h3 class="mt-1 text-xl font-semibold text-white">Guests plan their visit</h3>
+          <p class="mt-2 text-stone-300">They pick a service time on your page. We text them where to park, what to wear and what happens with their kids.</p>
+        </div>
+        <div class="card p-7 reveal">
+          <!-- IMAGE SLOT step-3-welcome: add an <img class="slot-img" style="aspect-ratio:4/3"> above this badge -->
+          <div class="icon-badge"><span class="material-symbols-outlined">waving_hand</span></div>
+          <p class="mt-6 text-sm font-semibold text-primary">Step 3</p>
+          <h3 class="mt-1 text-xl font-semibold text-white">Your welcome team marks who came</h3>
+          <p class="mt-2 text-stone-300">A quick check-in at the welcome desk closes the loop. Each month you see the new families, the second visits and what each guest cost.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GUEST REPORT ========== -->
+  <section id="report" class="px-5 md:px-8 py-20 md:py-28" data-screen-label="05 Guest report">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+      <div class="lg:col-span-5 reveal">
+        <p class="eyebrow mb-3">The monthly guest report</p>
+        <h2 class="display text-4xl md:text-6xl text-white">Every number is a name</h2>
+        <p class="mt-5 text-lg text-stone-300 leading-relaxed">Most agencies report likes and reach. We report people. Every level includes this, so your elders and your finance team see exactly what the campaign did.</p>
+        <ul class="mt-7 space-y-3 text-stone-200">
+          <li class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">check</span>Who planned a visit, and where they came from</li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">check</span>Who walked in, and who came back a second week</li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">check</span>What each first-time guest cost, in plain dollars</li>
+        </ul>
+        <p class="mt-7 text-stone-400">Good stewardship means knowing what the budget produced. This is that page.</p>
+        <ul class="hidden">
+        </ul>
+      </div>
+
+      <div class="lg:col-span-7 reveal">
+        <div class="card p-5 md:p-7 shadow-2xl shadow-black/40">
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <p class="text-white font-semibold">Guest report</p>
+              <p class="text-sm text-stone-400">October · example church, 280 on a Sunday</p>
+            </div>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-white/10 text-stone-300 shrink-0">Sample data</span>
+          </div>
+          <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="rounded-xl bg-white/[0.04] p-4"><p class="text-sm text-stone-400">Campaign budget</p><p class="mt-1 text-2xl font-bold text-white tnum">$420</p></div>
+            <div class="rounded-xl bg-white/[0.04] p-4"><p class="text-sm text-stone-400">Planned a visit</p><p class="mt-1 text-2xl font-bold text-white tnum">23</p></div>
+            <div class="rounded-xl bg-white/[0.04] p-4"><p class="text-sm text-stone-400">Walked in</p><p class="mt-1 text-2xl font-bold text-white tnum">11</p></div>
+            <div class="rounded-xl bg-primary/10 border border-primary/30 p-4"><p class="text-sm text-stone-300">Cost per guest</p><p class="mt-1 text-2xl font-bold text-primary tnum">$38</p></div>
+          </div>
+          <div class="mt-6">
+            <p class="text-sm text-stone-400 mb-3">The guest journey</p>
+            <div class="space-y-2.5">
+              <div class="flex items-center gap-3 text-sm"><span class="w-24 shrink-0 text-stone-300">Planned</span><div class="flex-1 h-3 rounded-full bg-white/5 overflow-hidden"><div class="h-full rounded-full bg-primary/40" style="width:100%"></div></div><span class="w-8 text-right tnum text-stone-200">23</span></div>
+              <div class="flex items-center gap-3 text-sm"><span class="w-24 shrink-0 text-stone-300">Walked in</span><div class="flex-1 h-3 rounded-full bg-white/5 overflow-hidden"><div class="h-full rounded-full bg-primary/70" style="width:47.8%"></div></div><span class="w-8 text-right tnum text-stone-200">11</span></div>
+              <div class="flex items-center gap-3 text-sm"><span class="w-24 shrink-0 text-stone-300">Came back</span><div class="flex-1 h-3 rounded-full bg-white/5 overflow-hidden"><div class="h-full rounded-full bg-primary" style="width:21.7%"></div></div><span class="w-8 text-right tnum text-stone-200">5</span></div>
+            </div>
+          </div>
+          <div class="mt-6 grid sm:grid-cols-2 gap-3 text-sm">
+            <div class="rounded-xl border border-white/10 p-4"><p class="text-stone-400">Best clip</p><p class="mt-1 text-white">"You don't have to have it figured out" sermon clip</p></div>
+            <div class="rounded-xl border border-white/10 p-4"><p class="text-stone-400">Most chosen service</p><p class="mt-1 text-white">Sunday 10:30, 7 of 11 families had kids</p></div>
+          </div>
+          <p class="mt-5 text-xs text-stone-500">Illustrative example. Your numbers depend on your town, your spend and your welcome team marking arrivals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FREE SNAPSHOT ========== -->
+  <section class="px-5 md:px-8 py-20 md:py-28 bg-[#0f0f13] border-y border-white/5" data-screen-label="06 Snapshot">
+    <div class="max-w-6xl mx-auto">
+      <div class="max-w-2xl reveal">
+        <p class="eyebrow mb-3">Start free</p>
+        <h2 class="display text-4xl md:text-6xl text-white">Your Church Growth Snapshot</h2>
+        <p class="mt-5 text-lg text-stone-300">Send last Sunday's message. Within 48 hours you get four things, built from your own sermon and your own neighborhood. They're yours to keep whether we ever talk again or not.</p>
+      </div>
+      <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="card p-6 reveal">
+          <!-- IMAGE SLOT snapshot-reach-map -->
+          <div class="icon-badge"><span class="material-symbols-outlined">location_on</span></div>
+          <h3 class="mt-5 text-lg font-semibold text-white">Your reach number</h3>
+          <p class="mt-2 text-stone-300 text-[15px]">How many people live within a 10-minute drive of your building, and whether your church has ever run a campaign to them.</p>
+        </div>
+        <div class="card p-6 reveal">
+          <!-- IMAGE SLOT snapshot-clips -->
+          <div class="icon-badge"><span class="material-symbols-outlined">movie</span></div>
+          <h3 class="mt-5 text-lg font-semibold text-white">3 sermon clips</h3>
+          <p class="mt-2 text-stone-300 text-[15px]">Vertical, captioned and branded to your church. Ready for your team to post or your members to share.</p>
+        </div>
+        <div class="card p-6 reveal">
+          <!-- IMAGE SLOT snapshot-thumbnail -->
+          <div class="icon-badge"><span class="material-symbols-outlined">image</span></div>
+          <h3 class="mt-5 text-lg font-semibold text-white">A YouTube thumbnail</h3>
+          <p class="mt-2 text-stone-300 text-[15px]">With a title people actually click, so the full message gets watched instead of scrolled past.</p>
+        </div>
+        <div class="card p-6 reveal">
+          <!-- IMAGE SLOT snapshot-loom -->
+          <div class="icon-badge"><span class="material-symbols-outlined">play_circle</span></div>
+          <h3 class="mt-5 text-lg font-semibold text-white">Walkthrough + sample report</h3>
+          <p class="mt-2 text-stone-300 text-[15px]">Two minutes from Chris on what your number means, plus a sample of the monthly guest report.</p>
+        </div>
+      </div>
+      <div class="mt-10 text-center reveal">
+        <a href="#snapshot" data-cta="snapshot-section" class="btn-primary text-[17px]">Send us your sermon <span class="material-symbols-outlined text-xl">arrow_downward</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF SECTION: add back once the pilot church has real clips, a report and a quote.
+       See church/IMAGE-SLOTS.md for proof-video and testimonial-headshot. -->
+
+  <!-- ========== LEVELS ========== -->
+  <section id="levels" class="px-5 md:px-8 py-20 md:py-28 bg-[#0f0f13] border-y border-white/5" data-screen-label="08 Levels">
+    <div class="max-w-6xl mx-auto">
+      <div class="max-w-2xl reveal">
+        <p class="eyebrow mb-3">Pricing</p>
+        <h2 class="display text-4xl md:text-6xl text-white">Every level counts the people who walked in</h2>
+        <p class="mt-5 text-lg text-stone-300">Month to month, no setup fee. Your campaign budget is paid by the church straight to Meta, and we never mark it up.</p>
+      </div>
+
+      <div class="mt-12 grid md:grid-cols-3 gap-5 items-stretch">
+        <div class="card p-7 md:p-8 flex flex-col reveal">
+          <h3 class="text-xl font-semibold text-white">Reach</h3>
+          <p class="mt-1 text-stone-400">Get new families through the door</p>
+          <p class="mt-6"><span class="text-5xl font-bold text-white tracking-tight tnum">$749</span><span class="text-stone-400 ml-1">/month</span></p>
+          <ul class="mt-7 space-y-3 text-stone-200">
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>A guest campaign on Facebook and Instagram, built from your sermons</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>Your own plan-your-visit page</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>Text and email follow-up for every guest</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>The monthly guest report</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>4 captioned clips a week for your team to post</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>Your full message on YouTube with a thumbnail and chapters</li>
+          </ul>
+          <div class="mt-auto pt-8">
+            <a href="#snapshot" data-cta="level-reach" class="btn-ghost w-full">Start with a free snapshot</a>
+            <p class="mt-4 text-sm text-stone-400">Campaign budget from $300/month</p>
+          </div>
+        </div>
+
+        <div class="relative bg-[#1c1d17] border-2 border-primary rounded-2xl p-7 md:p-8 flex flex-col reveal">
+          <span class="absolute -top-3.5 left-7 bg-primary text-[#1f2200] text-sm font-semibold px-3 py-1 rounded-full">Most churches start here</span>
+          <h3 class="text-xl font-semibold text-white">Growth</h3>
+          <p class="mt-1 text-stone-400">We run the whole thing for you</p>
+          <p class="mt-6"><span class="text-5xl font-bold text-white tracking-tight tnum">$1,497</span><span class="text-stone-400 ml-1">/month</span></p>
+          <ul class="mt-7 space-y-3 text-stone-200">
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>Everything in Reach</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>5 clips a week, posted for you on Facebook, Instagram and YouTube</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>Google Ad Grant set up and managed, free search ads for your church</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>Christmas, Easter, fall launch and new-series campaigns</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>Second-visit follow-up so guests come back</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>A series title graphic and 4 event graphics a month</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>A 30-minute planning call each month</li>
+          </ul>
+          <div class="mt-auto pt-8">
+            <a href="#snapshot" data-cta="level-growth" class="btn-primary w-full">Start with a free snapshot</a>
+            <p class="mt-4 text-sm text-stone-400"><span class="text-primary font-semibold">+$500/month</span> custom series art · Campaign budget from $500/month</p>
+          </div>
+        </div>
+
+        <div class="card p-7 md:p-8 flex flex-col reveal">
+          <h3 class="text-xl font-semibold text-white">Partner</h3>
+          <p class="mt-1 text-stone-400">Our team on your campus every season</p>
+          <p class="mt-6"><span class="text-5xl font-bold text-white tracking-tight tnum">$2,797</span><span class="text-stone-400 ml-1">/month</span></p>
+          <ul class="mt-7 space-y-3 text-stone-200">
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>Everything in Growth, with custom series art included</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>A filming day at your church every quarter</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>Each visit gives you a series trailer, an invite video and testimonies</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>Your Google listing and website kept current</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined text-primary text-xl shrink-0">check</span>A quarterly planning session with your leadership</li>
+          </ul>
+          <div class="mt-auto pt-8">
+            <button type="button" data-open-intake data-intake-service="Church" class="btn-ghost w-full">Talk to Chris</button>
+            <p class="mt-4 text-sm text-stone-400">Sunday filming +$600 · Campaign budget from $1,000/month · Texas travel included</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-5 text-stone-300 reveal">
+        <p class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">verified</span>If your first month doesn't land, you don't pay for it.</p>
+        <p class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">event_available</span>Month to month. Cancel with 30 days notice.</p>
+        <p class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">autorenew</span>Stay a year on autopay and month 13 is free.</p>
+        <p class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">lock</span>The first 10 Texas churches keep their rate for 2 years.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CHRISTMAS ========== -->
+  <section id="christmas" class="px-5 md:px-8 py-16 md:py-20" data-screen-label="09 Christmas">
+    <div class="max-w-6xl mx-auto card overflow-hidden reveal" style="background-image: radial-gradient(ellipse 60% 90% at 100% 0%, rgba(239,248,139,0.08), transparent 70%);">
+      <div class="p-7 md:p-10">
+        <p class="eyebrow mb-3">Christmas campaign · book by November 15</p>
+        <h2 class="display text-4xl md:text-5xl text-white">Christmas Eve is the biggest invitation of the year</h2>
+        <p class="mt-5 text-lg text-stone-300">Not ready for a monthly plan? For $997 we build your Christmas page, the campaign, the follow-up texts and a guest report after the holidays. One season, no commitment.</p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <button type="button" data-open-intake data-intake-service="Church" data-cta="christmas" class="btn-primary">Reserve a Christmas campaign</button>
+          <a href="#snapshot" class="btn-ghost">Get the free snapshot first</a>
+        </div>
+      </div>
+      <!-- IMAGE SLOT christmas-candlelight: add a photo column here later -->
+    </div>
+  </section>
+
+  <!-- ========== FOUNDER ========== -->
+  <section class="px-5 md:px-8 py-20 md:py-28 bg-[#0f0f13] border-y border-white/5" data-screen-label="10 Founder">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-12 gap-10 items-center">
+      <div class="md:col-span-5 reveal">
+        <img src="../assets/images/chris-list-headshot.jpg" alt="Chris List, founder of Big Splash" class="slot-img" style="aspect-ratio: 4/5;" loading="lazy" width="800" height="1000">
+      </div>
+      <div class="md:col-span-7 reveal">
+        <p class="eyebrow mb-3">Who you'll work with</p>
+        <h2 class="display text-4xl md:text-5xl text-white">A Texas team that already serves churches</h2>
+        <p class="mt-5 text-lg text-stone-300 leading-relaxed">I'm Chris List. Big Splash is a video and marketing studio in Georgetown, and we already serve Texas churches with production, sound and video. This offer exists because pastors kept asking the same question: how do we reach the families moving in around us?</p>
+        <p class="mt-4 text-lg text-stone-300 leading-relaxed">Here's how the work gets made. AI builds the rough cut, our editing team picks the moments and polishes them, and a Big Splash lead here in Texas approves every clip before it reaches you. Anything that speaks to what your church believes goes to you first.</p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <a href="#snapshot" data-cta="founder" class="btn-primary">Get my free snapshot</a>
+          <button type="button" data-open-intake data-intake-service="Church" class="btn-ghost">Message Chris</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SNAPSHOT FORM ========== -->
+  <section id="snapshot" class="px-5 md:px-8 py-20 md:py-28" data-screen-label="11 Form">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-14">
+      <div class="lg:col-span-5 lg:sticky lg:top-28 self-start reveal">
+        <p class="eyebrow mb-3">Free Growth Snapshot</p>
+        <h2 class="display text-4xl md:text-6xl text-white">Send us your sermon</h2>
+        <p class="mt-5 text-lg text-stone-300 leading-relaxed">Two quick steps. Your reach number, 3 clips, a thumbnail and a sample guest report land within 48 hours. We'll text you when they're ready.</p>
+        <ul class="mt-8 space-y-4 text-stone-300">
+          <li class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">link</span>Paste a YouTube, Facebook or Vimeo link. Unlisted works fine.</li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">folder_shared</span>Or share a Google Drive file set to "anyone with the link."</li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">upload</span>Or upload the video to our Dropbox. No account needed.</li>
+        </ul>
+        <p class="mt-8 text-[15px] text-stone-400">Snapshots are built for churches running about 100 or more on a Sunday. Smaller church? Message Chris and we'll point you to something that fits.</p>
+      </div>
+
+      <div class="lg:col-span-7 card p-6 md:p-10 reveal">
+        <div class="flex items-center gap-3 mb-8" aria-hidden="true">
+          <span class="step-dot on" data-dot="1">1</span><span class="text-sm text-stone-300">Your sermon</span>
+          <span class="flex-1 h-px bg-white/10"></span>
+          <span class="step-dot" data-dot="2">2</span><span class="text-sm text-stone-400">Where to send it</span>
+        </div>
+
+        <form id="snapshot-form" novalidate>
+          <div data-step="1" class="flex flex-col gap-5">
+            <div>
+              <label class="cs-label" for="cs-church">Church name</label>
+              <input id="cs-church" name="church" type="text" class="cs-input" placeholder="First Baptist Georgetown" autocomplete="organization" required>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label class="cs-label" for="cs-city">City</label>
+                <input id="cs-city" name="city" type="text" class="cs-input" placeholder="Georgetown, TX" required>
+              </div>
+              <div>
+                <label class="cs-label" for="cs-attendance">Sunday attendance</label>
+                <select id="cs-attendance" name="attendance" class="cs-input" required>
+                  <option value="" disabled selected>Choose one</option>
+                  <option>Under 100</option>
+                  <option>100 to 249</option>
+                  <option>250 to 499</option>
+                  <option>500 to 999</option>
+                  <option>1,000+</option>
+                </select>
+              </div>
+            </div>
+            <fieldset>
+              <legend class="cs-label">How will you send the sermon?</legend>
+              <div class="flex flex-wrap gap-2 mt-1">
+                <label class="cs-radio"><input type="radio" name="source" value="YouTube link" checked><span>YouTube link</span></label>
+                <label class="cs-radio"><input type="radio" name="source" value="Google Drive link"><span>Google Drive link</span></label>
+                <label class="cs-radio"><input type="radio" name="source" value="Upload"><span>Upload a file</span></label>
+              </div>
+            </fieldset>
+            <div id="cs-link-row">
+              <label class="cs-label" for="cs-link">Sermon link</label>
+              <input id="cs-link" name="sermon_link" type="url" class="cs-input" placeholder="https://youtube.com/watch?v=..." required>
+            </div>
+            <div id="cs-upload-row" class="hidden rounded-xl border border-dashed border-white/20 p-5">
+              <p class="text-white font-medium">Upload your sermon</p>
+              <p class="text-stone-400 text-[15px] mt-1">Opens our Dropbox upload page in a new tab. Put your church name in the file name, then come back and continue.</p>
+              <a id="cs-upload-link" href="https://www.dropbox.com/request/REPLACE_WITH_FILE_REQUEST" target="_blank" rel="noopener" class="btn-ghost mt-4 !py-3"><span class="material-symbols-outlined text-xl">upload</span>Open the upload page</a>
+              <input type="hidden" name="upload_confirmed" value="">
+            </div>
+            <div id="cs-error-1" class="hidden text-[15px] text-red-300 bg-red-500/10 border border-red-500/30 rounded-lg px-4 py-3"></div>
+            <button type="button" id="cs-next" class="btn-primary w-full text-[17px] !py-4 mt-1">Continue <span class="material-symbols-outlined text-xl">arrow_forward</span></button>
+          </div>
+
+          <div data-step="2" class="hidden flex-col gap-5">
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label class="cs-label" for="cs-name">Your name</label>
+                <input id="cs-name" name="name" type="text" class="cs-input" placeholder="Mike Johnson" autocomplete="name" required>
+              </div>
+              <div>
+                <label class="cs-label" for="cs-role">Your role</label>
+                <select id="cs-role" name="role" class="cs-input" required>
+                  <option value="" disabled selected>Choose one</option>
+                  <option>Senior Pastor</option>
+                  <option>Executive Pastor</option>
+                  <option>Communications / Media</option>
+                  <option>Church Admin</option>
+                  <option>Other staff or volunteer</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label class="cs-label" for="cs-email">Email</label>
+                <input id="cs-email" name="email" type="email" class="cs-input" placeholder="you@church.org" autocomplete="email" required>
+              </div>
+              <div>
+                <label class="cs-label" for="cs-phone">Cell phone</label>
+                <input id="cs-phone" name="phone" type="tel" class="cs-input" placeholder="512-555-0100" autocomplete="tel" required>
+              </div>
+            </div>
+            <div>
+              <label class="cs-label" for="cs-cc">Should we copy your pastor or comms director? <span class="text-stone-500 font-normal">(optional)</span></label>
+              <input id="cs-cc" name="cc_email" type="email" class="cs-input" placeholder="pastor@church.org">
+            </div>
+            <div>
+              <label class="cs-label" for="cs-goal">What would a good year look like? <span class="text-stone-500 font-normal">(optional)</span></label>
+              <textarea id="cs-goal" name="notes" rows="2" class="cs-input" placeholder="More young families, a strong Christmas, launching a second campus..."></textarea>
+            </div>
+            <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+            <input type="hidden" name="page_url" value="">
+            <input type="hidden" name="utm" value="">
+            <div id="cs-error" class="hidden text-[15px] text-red-300 bg-red-500/10 border border-red-500/30 rounded-lg px-4 py-3"></div>
+            <div class="flex flex-col-reverse sm:flex-row gap-3 mt-1">
+              <button type="button" id="cs-back" class="btn-ghost sm:w-auto">Back</button>
+              <button type="submit" id="cs-submit" class="btn-primary flex-1 text-[17px] !py-4 disabled:opacity-60 disabled:cursor-not-allowed"><span data-cs-btn-text>Send my free snapshot</span></button>
+            </div>
+          </div>
+          <p class="mt-5 text-sm text-stone-400 text-center">Free for churches. No card, no sales call. We only use your sermon to build your snapshot.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FAQ ========== -->
+  <section id="faq" class="px-5 md:px-8 py-20 md:py-28 bg-[#0f0f13] border-t border-white/5" data-screen-label="12 FAQ">
+    <div class="max-w-3xl mx-auto">
+      <div class="reveal">
+        <p class="eyebrow mb-3">FAQ</p>
+        <h2 class="display text-4xl md:text-6xl text-white">Questions pastors ask</h2>
+      </div>
+      <div class="mt-10 divide-y divide-white/10 border-y border-white/10 reveal">
+        <details class="group py-6"><summary class="flex justify-between items-center gap-6 cursor-pointer list-none"><span class="text-lg md:text-xl font-semibold text-white">How do you know who actually showed up?</span><span class="material-symbols-outlined text-stone-400 transition-transform duration-300 group-open:rotate-45 shrink-0">add</span></summary>
+          <p class="mt-4 text-stone-300 leading-relaxed pr-10">Everyone who plans a visit lands on your page and gets a text and an email from us. On Sunday your welcome team marks who arrived with a simple check-in link, or through Planning Center Check-Ins if you already use it. That's how the report shows real guests and what each one cost.</p></details>
+        <details class="group py-6"><summary class="flex justify-between items-center gap-6 cursor-pointer list-none"><span class="text-lg md:text-xl font-semibold text-white">Isn't marketing a church a little strange?</span><span class="material-symbols-outlined text-stone-400 transition-transform duration-300 group-open:rotate-45 shrink-0">add</span></summary>
+          <p class="mt-4 text-stone-300 leading-relaxed pr-10">We think of it as an invitation. Most people come because someone invited them, and that hasn't changed. Our job is to put your pastor's own words in front of neighbors and make the first visit easy. Your members' invitations still matter most, and the clips give them something worth sharing.</p></details>
+        <details class="group py-6"><summary class="flex justify-between items-center gap-6 cursor-pointer list-none"><span class="text-lg md:text-xl font-semibold text-white">Who edits our pastor's message? Do you use AI?</span><span class="material-symbols-outlined text-stone-400 transition-transform duration-300 group-open:rotate-45 shrink-0">add</span></summary>
+          <p class="mt-4 text-stone-300 leading-relaxed pr-10">AI builds the rough cut and pulls the transcript. Our editing team chooses the moments and polishes every clip, and a Big Splash lead in Texas approves each one before it reaches you. Nothing that speaks to what your church believes goes out without your approval.</p></details>
+        <details class="group py-6"><summary class="flex justify-between items-center gap-6 cursor-pointer list-none"><span class="text-lg md:text-xl font-semibold text-white">What is the campaign budget?</span><span class="material-symbols-outlined text-stone-400 transition-transform duration-300 group-open:rotate-45 shrink-0">add</span></summary>
+          <p class="mt-4 text-stone-300 leading-relaxed pr-10">It's what Meta charges to show your invitation to families near your church. The church pays it from its own ad account, straight to Meta. It's separate from our fee and we never mark it up.</p></details>
+        <details class="group py-6"><summary class="flex justify-between items-center gap-6 cursor-pointer list-none"><span class="text-lg md:text-xl font-semibold text-white">Do you post the clips for us?</span><span class="material-symbols-outlined text-stone-400 transition-transform duration-300 group-open:rotate-45 shrink-0">add</span></summary>
+          <p class="mt-4 text-stone-300 leading-relaxed pr-10">Snapshot clips are yours to post. On Reach we send 4 clips a week and your team posts them. From Growth up we post and manage your Facebook, Instagram and YouTube for you.</p></details>
+        <details class="group py-6"><summary class="flex justify-between items-center gap-6 cursor-pointer list-none"><span class="text-lg md:text-xl font-semibold text-white">What is the Google Ad Grant?</span><span class="material-symbols-outlined text-stone-400 transition-transform duration-300 group-open:rotate-45 shrink-0">add</span></summary>
+          <p class="mt-4 text-stone-300 leading-relaxed pr-10">Google gives qualifying nonprofits, including many churches, up to $10,000 a month in free search ads. Your church applies through Google for Nonprofits, and on Growth and Partner we set up the account and keep it healthy so it stays active.</p></details>
+        <details class="group py-6"><summary class="flex justify-between items-center gap-6 cursor-pointer list-none"><span class="text-lg md:text-xl font-semibold text-white">Why does filming on a Sunday cost more?</span><span class="material-symbols-outlined text-stone-400 transition-transform duration-300 group-open:rotate-45 shrink-0">add</span></summary>
+          <p class="mt-4 text-stone-300 leading-relaxed pr-10">A Sunday covers every service, plus worship, the lobby and baptisms, with a highlight video the same week. It's the longest day for our crew and the day every church wants. Moving a Partner filming day to a Sunday adds $600. A single Sunday for other churches is $1,200. Christmas and Easter book 60 days out.</p></details>
+        <details class="group py-6"><summary class="flex justify-between items-center gap-6 cursor-pointer list-none"><span class="text-lg md:text-xl font-semibold text-white">We're not in Texas. Can we still work together?</span><span class="material-symbols-outlined text-stone-400 transition-transform duration-300 group-open:rotate-45 shrink-0">add</span></summary>
+          <p class="mt-4 text-stone-300 leading-relaxed pr-10">Yes. Reach and Growth are fully remote and work anywhere. Partner works anywhere the church covers travel, at cost plus a $350 travel day.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FINAL CTA ========== -->
+  <section class="px-5 md:px-8 py-20 md:py-28" data-screen-label="13 CTA">
+    <div class="max-w-6xl mx-auto rounded-3xl border border-white/10 bg-[#17171c] px-6 py-16 md:py-20 text-center reveal" style="background-image: radial-gradient(ellipse 50% 80% at 50% 0%, rgba(239,248,139,0.08), transparent 70%);">
+      <p class="eyebrow mb-4">Your pastor preached for 40 minutes on Sunday</p>
+      <h2 class="display text-4xl md:text-6xl text-white">How many new neighbors heard it?</h2>
+      <p class="mt-5 text-lg text-stone-300 max-w-xl mx-auto">Find out free. Send one sermon and see your reach number, your clips and a sample guest report within 48 hours.</p>
+      <div class="mt-9 flex flex-col sm:flex-row justify-center gap-3">
+        <a href="#snapshot" data-cta="final" class="btn-primary text-[17px]">Get my free snapshot</a>
+        <button type="button" data-open-intake data-intake-service="Church" class="btn-ghost text-[17px]">Message Chris</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-white/10 px-5 md:px-8 py-10 pb-28 md:pb-10">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-[15px] text-stone-400">
+      <a href="../index.html"><img src="../assets/images/logo-bigsplash.svg" alt="Big Splash" class="h-7 w-auto"></a>
+      <p>The marketing agency for the local church</p>
+      <p>&copy; 2026 Big Splash · Georgetown, TX · <a href="mailto:chris@bigsplash.agency" class="hover:text-primary">chris@bigsplash.agency</a></p>
+    </div>
+  </footer>
+
+  <div id="mobile-cta" class="md:hidden fixed bottom-0 inset-x-0 z-40 px-4 pb-4 pt-3 bg-gradient-to-t from-[#131318] via-[#131318]/95 to-transparent">
+    <a href="#snapshot" data-cta="mobile-sticky" class="btn-primary w-full text-[17px]">Get my free snapshot</a>
+  </div>
+
+  <script>
+  (() => {
+    // ========================================
+    // !! PASTE THE SNAPSHOT WORKER URL BELOW !!
+    // Deploy worker-churchsnapshot/ (see its wrangler.toml), then paste the
+    // https://...workers.dev URL here. While empty, the form opens a
+    // pre-filled email to Chris so no request is lost.
+    // ========================================
+    const SNAPSHOT_API_URL = '';
+    const FALLBACK_EMAIL = 'chris@bigsplash.agency';
+    const THANKS_URL = 'thanks/';
+
+    const nav = document.getElementById('navbar');
+    const mobileCta = document.getElementById('mobile-cta');
+    const formSection = document.getElementById('snapshot');
+    let formVisible = false;
+    function onScroll() {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+      mobileCta.classList.toggle('show', window.scrollY > 700 && !formVisible);
+    }
+    new IntersectionObserver((es) => { es.forEach(e => { formVisible = e.isIntersecting; onScroll(); }); }, { threshold: 0.1 }).observe(formSection);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.05 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+    document.addEventListener('click', (e) => {
+      const c = e.target.closest('[data-cta]');
+      if (c && window.bsTrack) bsTrack('cta_click', { location: c.dataset.cta });
+    });
+
+    const form = document.getElementById('snapshot-form');
+    const step1 = form.querySelector('[data-step="1"]');
+    const step2 = form.querySelector('[data-step="2"]');
+    const dots = document.querySelectorAll('[data-dot]');
+    const linkRow = document.getElementById('cs-link-row');
+    const uploadRow = document.getElementById('cs-upload-row');
+    const linkField = document.getElementById('cs-link');
+    const uploadConfirmed = form.querySelector('input[name="upload_confirmed"]');
+    const params = new URLSearchParams(location.search);
+    form.querySelector('input[name="page_url"]').value = location.href;
+    form.querySelector('input[name="utm"]').value = ['utm_source','utm_medium','utm_campaign','utm_content'].map(k => params.get(k) ? `${k}=${params.get(k)}` : '').filter(Boolean).join('&');
+
+    const syncSource = () => {
+      const val = form.querySelector('input[name="source"]:checked')?.value || 'YouTube link';
+      const upload = val === 'Upload';
+      uploadRow.classList.toggle('hidden', !upload);
+      linkRow.classList.toggle('hidden', upload);
+      linkField.required = !upload;
+      linkField.placeholder = val === 'Google Drive link' ? 'https://drive.google.com/file/d/...' : 'https://youtube.com/watch?v=...';
+    };
+    form.querySelectorAll('input[name="source"]').forEach((r) => r.addEventListener('change', syncSource));
+    syncSource();
+    document.getElementById('cs-upload-link').addEventListener('click', () => { uploadConfirmed.value = 'opened ' + new Date().toISOString(); });
+
+    const validStep = (stepEl) => {
+      const fields = [...stepEl.querySelectorAll('input, select, textarea')].filter(f => f.required && !f.closest('.hidden'));
+      for (const f of fields) { if (!f.checkValidity()) { f.reportValidity(); return false; } }
+      return true;
+    };
+    const showStep = (n) => {
+      step1.classList.toggle('hidden', n !== 1);
+      step2.classList.toggle('hidden', n !== 2); step2.classList.toggle('flex', n === 2);
+      dots.forEach(d => d.classList.toggle('on', Number(d.dataset.dot) <= n));
+      (n === 1 ? document.getElementById('cs-church') : document.getElementById('cs-name')).focus({ preventScroll: true });
+    };
+
+    document.getElementById('cs-next').addEventListener('click', () => {
+      if (!validStep(step1)) return;
+      const err1 = document.getElementById('cs-error-1');
+      const source = form.querySelector('input[name="source"]:checked')?.value;
+      if (source === 'Upload' && !uploadConfirmed.value) {
+        err1.textContent = 'Open the upload page and add your sermon first, then continue.';
+        err1.classList.remove('hidden'); return;
+      }
+      err1.classList.add('hidden');
+      if (window.bsTrack) bsTrack('snapshot_step1', { attendance: form.attendance.value });
+      showStep(2);
+    });
+    document.getElementById('cs-back').addEventListener('click', () => showStep(1));
+
+    const errorWrap = document.getElementById('cs-error');
+    const submitBtn = document.getElementById('cs-submit');
+    const btnText = submitBtn.querySelector('[data-cs-btn-text]');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorWrap.classList.add('hidden');
+      if (step2.classList.contains('hidden')) { document.getElementById('cs-next').click(); return; }
+      if (!validStep(step2)) return;
+
+      const payload = Object.fromEntries(new FormData(form).entries());
+      if (payload.website) return;
+      payload.form_type = 'church_snapshot';
+      payload.submitted_at = new Date().toISOString();
+
+      submitBtn.disabled = true;
+      btnText.textContent = 'Sending...';
+      const thanks = `${THANKS_URL}?church=${encodeURIComponent(payload.church)}`;
+
+      try {
+        if (window.bsTrack) bsTrack('snapshot_submit', { attendance: payload.attendance, role: payload.role });
+        try { if (window.fbq) fbq('track', 'Lead'); } catch (_) {}
+        if (!SNAPSHOT_API_URL) {
+          const body = Object.entries(payload).map(([k, v]) => `${k}: ${v}`).join('\n');
+          window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent('Snapshot request: ' + payload.church)}&body=${encodeURIComponent(body)}`;
+          setTimeout(() => { window.location.href = thanks; }, 1200);
+        } else {
+          const res = await fetch(SNAPSHOT_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          window.location.href = thanks;
+        }
+      } catch (err) {
+        console.error('[snapshot] submit failed:', err);
+        errorWrap.textContent = "That didn't go through. Email your sermon link to " + FALLBACK_EMAIL + " and we'll take it from there.";
+        errorWrap.classList.remove('hidden');
+        submitBtn.disabled = false;
+        btnText.textContent = 'Send my free snapshot';
+      }
+    });
+  })();
+  </script>
+  <script src="../js/intake.js"></script>
+</body>
+</html>

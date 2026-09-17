@@ -1,0 +1,21 @@
+# Big Splash Church Snapshot intake Worker
+#
+# Receives the /church/ snapshot form, creates a ClickUp task in the
+# "Church Growth Snapshots" list, and forwards the payload to GHL (optional).
+#
+# Deploy steps (run from this worker-churchsnapshot/ directory):
+#   npx wrangler login
+#   npx wrangler secret put CLICKUP_TOKEN      # ClickUp > Settings > Apps > API token (pk_...)
+#   npx wrangler secret put GHL_WEBHOOK_URL    # optional, GHL inbound webhook
+#   npx wrangler secret put ALLOWED_ORIGIN     # optional, e.g. https://bigsplash.video
+#   npx wrangler deploy
+#
+# Then paste the workers.dev URL into SNAPSHOT_API_URL in ../church/index.html.
+
+name = "bigsplash-church-snapshot"
+main = "index.js"
+compatibility_date = "2026-04-01"
+workers_dev = true
+
+[vars]
+CLICKUP_LIST_ID = "901421191181"
