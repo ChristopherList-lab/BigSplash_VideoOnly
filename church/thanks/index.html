@@ -1,28 +1,30 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Your Snapshot Is On the Way | Big Splash</title>
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#f8f5ee">
 <link rel="icon" type="image/png" href="../../assets/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<script>tailwind.config = { theme: { extend: { colors: { primary: '#eff88b' } } } };</script>
+<script>tailwind.config = { theme: { extend: { colors: { primary: '#eff88b', ink: '#131318', paper: '#f8f5ee', band: '#f1ece1', line: '#ddd8ce', copy: '#3f3f47', muted: '#5f5f68', olive: '#56610a' } } } };</script>
 <style>
-  html, body { background: #131318; color: #e7e3da; font-family: 'Inter', sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
-  body { font-size: 17px; line-height: 1.6; }
-  .display { font-family: 'Anton', sans-serif; text-transform: uppercase; line-height: 1.02; }
-  .eyebrow { font-size: 0.875rem; font-weight: 600; color: #eff88b; }
-  .card { background: #17171c; border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; }
-  .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background: #eff88b; color: #1f2200; font-weight: 600; padding: 0.9rem 1.5rem; border-radius: 9999px; transition: background 0.2s; }
-  .btn-primary:hover { background: #f5fbb5; }
-  .btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.22); color: #f1eee8; font-weight: 600; padding: 0.9rem 1.5rem; border-radius: 9999px; transition: border-color 0.2s; }
-  .btn-ghost:hover { border-color: #eff88b; }
-  a:focus-visible, button:focus-visible { outline: 2px solid #eff88b; outline-offset: 3px; }
+  html, body { background: #f8f5ee; color: #3f3f47; font-family: 'Inter', sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
+  body { font-size: 17px; line-height: 1.65; }
+  .display { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.028em; line-height: 1.08; color: #131318; text-wrap: balance; }
+  .eyebrow { font-size: 0.875rem; font-weight: 700; color: #56610a; }
+  .card { background: #ffffff; border: 1px solid #ddd8ce; border-radius: 1rem; box-shadow: 0 1px 2px rgba(19,19,24,0.04); }
+  .tick { flex-shrink: 0; width: 1.4rem; height: 1.4rem; margin-top: 0.2rem; border-radius: 9999px; display: grid; place-items: center; background: #eff88b; color: #131318; font-size: 1rem; font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 20; }
+  .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background: #131318; color: #ffffff; font-weight: 600; padding: 0.9rem 1.5rem; border-radius: 9999px; transition: background 0.2s; }
+  .btn-primary:hover { background: #2c2c35; }
+  .btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: 1.5px solid #131318; color: #131318; font-weight: 600; padding: 0.9rem 1.5rem; border-radius: 9999px; transition: background 0.2s; }
+  .btn-ghost:hover { background: rgba(19,19,24,0.07); }
+  a:focus-visible, button:focus-visible { outline: 2px solid #131318; outline-offset: 3px; }
 </style>
 <script>
   // Same tracking IDs as church/index.html
@@ -42,51 +44,51 @@
 <body>
   <nav class="px-5 md:px-8 py-5">
     <div class="max-w-5xl mx-auto flex items-center justify-between">
-      <a href="../../index.html"><img src="../../assets/images/logo-bigsplash.svg" alt="Big Splash" class="h-8 w-auto"></a>
-      <a href="../" class="text-[15px] text-stone-300 hover:text-primary">Back to the church page</a>
+      <a href="../" aria-label="Big Splash for churches, home"><img src="../../assets/images/logo-bigsplash-dark.svg" alt="Big Splash" class="h-8 w-auto"></a>
+      <a href="../" class="text-[15px] font-semibold text-ink underline underline-offset-4">Back to the church page</a>
     </div>
   </nav>
 
   <main class="px-5 md:px-8 pt-10 pb-20">
     <div class="max-w-5xl mx-auto">
       <div class="max-w-2xl">
-        <span class="material-symbols-outlined text-primary text-5xl">check_circle</span>
+        <span class="material-symbols-outlined text-5xl text-ink rounded-full bg-primary p-2">check</span>
         <p class="eyebrow mt-4">Request received</p>
-        <h1 class="display text-5xl md:text-7xl text-white mt-2"><span id="church-name">Your church's</span> snapshot is on the way</h1>
-        <p class="mt-5 text-lg text-stone-300">We'll text you when it's ready, usually within 48 hours. Here's what happens next.</p>
+        <h1 class="display text-[2.4rem] md:text-6xl mt-2"><span id="church-name">Your church's</span> snapshot is on the way</h1>
+        <p class="mt-5 text-lg text-copy">We'll text you when it's ready, usually within 48 hours. Here's what happens next.</p>
       </div>
 
       <ol class="mt-10 grid md:grid-cols-3 gap-5">
         <li class="card p-6">
-          <p class="text-sm font-semibold text-primary">Today</p>
-          <h2 class="mt-1 text-lg font-semibold text-white">We pull your reach number</h2>
-          <p class="mt-2 text-stone-300 text-[15px]">How many people live within a 10-minute drive, and whether your church has run a campaign to them.</p>
+          <p class="text-sm font-bold text-olive">Today</p>
+          <h2 class="mt-1 text-lg font-semibold text-ink">We pull your reach number</h2>
+          <p class="mt-2 text-copy text-[15px]">How many people live within a 10-minute drive, and whether your church has run a campaign to them.</p>
         </li>
         <li class="card p-6">
-          <p class="text-sm font-semibold text-primary">Within 48 hours</p>
-          <h2 class="mt-1 text-lg font-semibold text-white">Your clips and report arrive</h2>
-          <p class="mt-2 text-stone-300 text-[15px]">3 captioned clips, a thumbnail, a sample guest report and a 2-minute video from Chris.</p>
+          <p class="text-sm font-bold text-olive">Within 48 hours</p>
+          <h2 class="mt-1 text-lg font-semibold text-ink">Your clips and report arrive</h2>
+          <p class="mt-2 text-copy text-[15px]">3 captioned clips, a thumbnail, a sample guest report and a 2-minute video from Chris.</p>
         </li>
         <li class="card p-6">
-          <p class="text-sm font-semibold text-primary">When you're ready</p>
-          <h2 class="mt-1 text-lg font-semibold text-white">A 20-minute walkthrough</h2>
-          <p class="mt-2 text-stone-300 text-[15px]">Optional. We go through your number and what a first campaign would look like for your town.</p>
+          <p class="text-sm font-bold text-olive">When you're ready</p>
+          <h2 class="mt-1 text-lg font-semibold text-ink">A 20-minute walkthrough</h2>
+          <p class="mt-2 text-copy text-[15px]">Optional. We go through your number and what a first campaign would look like for your town.</p>
         </li>
       </ol>
 
       <section class="mt-14 grid lg:grid-cols-12 gap-8 items-start">
         <div class="lg:col-span-5">
           <p class="eyebrow">Skip the wait</p>
-          <h2 class="display text-4xl md:text-5xl text-white mt-2">Book your walkthrough now</h2>
-          <p class="mt-4 text-stone-300">Pick a time for after your snapshot arrives. Bring your pastor or whoever handles communications.</p>
-          <ul class="mt-6 space-y-3 text-stone-300">
-            <li class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">check</span>Your reach number and what it means</li>
-            <li class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">check</span>A campaign plan for Christmas or your next series</li>
-            <li class="flex gap-3"><span class="material-symbols-outlined text-primary shrink-0">check</span>Straight pricing, no pressure</li>
+          <h2 class="display text-[1.9rem] md:text-[2.75rem] mt-2">Book your walkthrough now</h2>
+          <p class="mt-4 text-copy">Pick a time for after your snapshot arrives. Bring your pastor or whoever handles communications.</p>
+          <ul class="mt-6 space-y-3 text-copy">
+            <li class="flex gap-3"><span class="material-symbols-outlined tick">check</span>Your reach number and what it means</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined tick">check</span>A campaign plan for Christmas or your next series</li>
+            <li class="flex gap-3"><span class="material-symbols-outlined tick">check</span>Straight pricing, no pressure</li>
           </ul>
-          <div class="mt-8 card p-5">
-            <p class="text-white font-semibold">Christmas campaigns book by November 15</p>
-            <p class="mt-1 text-stone-300 text-[15px]">$997 for your Christmas page, campaign, follow-up texts and a guest report after the holidays.</p>
+          <div class="mt-8 rounded-2xl border border-[#dde69a] bg-[#f3f8bf] p-5">
+            <p class="text-ink font-semibold">Christmas campaigns book by November 15</p>
+            <p class="mt-1 text-copy text-[15px]">$997 for your Christmas page, campaign, follow-up texts and a guest report after the holidays.</p>
           </div>
         </div>
         <div class="lg:col-span-7 card overflow-hidden">
@@ -96,8 +98,8 @@
 
       <section class="mt-14 card p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-5">
         <div>
-          <h2 class="text-xl font-semibold text-white">Know another pastor who'd want this?</h2>
-          <p class="mt-1 text-stone-300">Send them the link. Snapshots are free for any church of 100 or more.</p>
+          <h2 class="text-xl font-semibold text-ink">Know another pastor who'd want this?</h2>
+          <p class="mt-1 text-copy">Send them the link. Snapshots are free for any church of 100 or more.</p>
         </div>
         <button type="button" id="share" class="btn-ghost shrink-0"><span class="material-symbols-outlined text-xl">share</span><span data-share-text>Copy the link</span></button>
       </section>
