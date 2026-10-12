@@ -64,7 +64,7 @@
   tailwind.config = {
     theme: { extend: {
       colors: {
-        primary: '#eff88b', ink: '#131318', paper: '#f8f5ee', band: '#f1ece1', line: '#ddd8ce',
+        primary: '#eff88b', ocean: '#6a9686', ink: '#131318', paper: '#f8f5ee', band: '#f1ece1', line: '#ddd8ce',
         copy: '#3f3f47', muted: '#5f5f68', olive: '#56610a',
         // tokens the shared intake modal (js/intake.js) expects, set light for this page
         background: '#131318', 'on-surface': '#131318', 'surface-container-low': '#ffffff',
@@ -93,6 +93,9 @@
   .card { background: #ffffff; border: 1px solid #ddd8ce; border-radius: 1rem; box-shadow: 0 1px 2px rgba(19,19,24,0.04); }
   .sheet { background: #ffffff; border: 1px solid #ddd8ce; border-radius: 1.1rem; box-shadow: 0 30px 60px -28px rgba(19,19,24,0.28), 0 2px 6px rgba(19,19,24,0.05); }
   .tnum { font-variant-numeric: tabular-nums; }
+  /* The ocean starburst from the main brand makes one appearance, behind the hero report */
+  .ocean-burst { position: absolute; z-index: 0; width: 15rem; max-width: none; height: auto; top: -6.75rem; right: -3.25rem; pointer-events: none; user-select: none; }
+  @media (min-width: 1024px) { .ocean-burst { width: 21rem; top: -9.25rem; right: -5.5rem; } }
 
   /* Photos: see church/IMAGE-SLOTS.md. Drop an <img class="slot-img"> where the
      HTML comments mark a slot. Nothing renders as a visible placeholder. */
@@ -200,8 +203,9 @@
       </div>
 
       <!-- IMAGE SLOT hero-sunday: to add a photo, put an <img class="slot-img" style="aspect-ratio:4/5"> above this card -->
-      <div class="lg:col-span-5">
-        <div class="sheet p-5 md:p-6">
+      <div class="lg:col-span-5 relative">
+        <img src="../assets/images/ocean-starburst.webp" alt="" aria-hidden="true" class="ocean-burst" width="900" height="908">
+        <div class="sheet relative z-10 p-5 md:p-6">
           <div class="flex items-center justify-between gap-3">
             <div>
               <p class="text-ink font-semibold">Guest report</p>
@@ -631,7 +635,7 @@
 
   <!-- ========== FINAL CTA ========== -->
   <section class="px-5 md:px-8 py-20 md:py-28" data-screen-label="13 CTA">
-    <div class="on-dark max-w-6xl mx-auto rounded-3xl bg-ink px-6 py-16 md:py-20 text-center reveal" style="background-image: radial-gradient(ellipse 50% 80% at 50% 0%, rgba(239,248,139,0.13), transparent 70%);">
+    <div class="on-dark max-w-6xl mx-auto rounded-3xl bg-ink px-6 py-16 md:py-20 text-center reveal" style="background-image: radial-gradient(ellipse 75% 95% at 50% 50%, rgba(19,19,24,0.92) 35%, rgba(19,19,24,0.55) 100%), url('../assets/images/hero-ocean.webp'); background-size: cover; background-position: center;">
       <p class="text-sm font-semibold text-primary mb-4">Your pastor preached for 40 minutes on Sunday</p>
       <h2 class="display text-[2rem] md:text-5xl">How many new neighbors heard it?</h2>
       <p class="mt-5 text-lg text-stone-300 max-w-xl mx-auto">Find out free. Send one sermon and see your reach number and your clips within 48 hours, with a sample guest report.</p>
