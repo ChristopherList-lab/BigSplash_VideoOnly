@@ -90,7 +90,11 @@ async function createClickUpTask(b, env) {
 }
 
 function corsHeaders(env, request) {
-  const allowed = env.ALLOWED_ORIGIN || '*';
+  // ALLOWED_ORIGIN may hold several origins separated by commas, for example
+  // "https://bigsplash.church,https://bigsplash.video". Unset allows any origin.
+  const list = String(env.ALLOWED_ORIGIN || '*').split(',').map((o) => o.trim()).filter(Boolean);
+  const origin = request.headers.get('Origin') || '';
+  const allowed = list.includes('*') ? '*' : (list.includes(origin) ? origin : list[0]);
   return {
     'Access-Control-Allow-Origin': allowed,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
