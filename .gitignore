@@ -18,3 +18,7 @@ Ronnieheadshot01.jpeg
 *.crdownload
 
 worker/.wrangler/
+
+# Local worker secrets and build output, any worker folder
+**/.dev.vars
+**/.wrangler/

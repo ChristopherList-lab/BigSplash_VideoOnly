@@ -4,7 +4,7 @@ Live URL once pushed: https://bigsplash.video/church/ (this repo deploys to GitH
 
 ## What's here
 - `index.html`: the landing page. Same Tailwind CDN config, fonts and nav pattern as `faq.html`. Reuses `../js/intake.js` for the "Talk to Chris" modal (config key `Church`).
-- `../worker-churchsnapshot/`: Cloudflare Worker that takes the form POST, creates a ClickUp task in "Church Growth Snapshots" (list 901421191181) with a 48-hour due date, and forwards to GHL if a webhook is set.
+- `../worker-churchsnapshot/`: Cloudflare Worker that takes the form POST, creates a ClickUp task in "Church Growth Snapshots" (list 901421191181) with a 72-hour due date, and forwards to GHL if a webhook is set.
 - `../assets/videos/church/splash-light.mp4`: a light version of the main site's water drop video, playing behind the hero report card. `../assets/images/ocean-starburst.webp` stands in when a visitor asks for reduced motion.
 
 ## Go-live checklist (about 30 minutes)
@@ -26,7 +26,7 @@ Dropbox > File requests > New request, "Send Big Splash your sermon", folder `/B
 ### 3. ClickUp list (manual, list settings)
 Statuses: New, Sermon received, Editing, QC, Delivered, Call booked, Won, Lost.
 Custom fields: Source, Church, City, Attendance, Role, Sermon source, Sermon link, Reach number, Delivery folder, Loom link, Level closed, MRR.
-Automation: on task created, assign editor. The worker already sets due date = created + 48h and tags `snapshot`, `website-form`.
+Automation: on task created, assign editor. The worker already sets due date = created + 72h and tags `snapshot`, `website-form`.
 
 ### 4. Domain
 The live site is bigsplash.video (GitHub Pages, `CNAME` = bigsplash.video). No domain change needed. bigsplash.agency is the email domain only.

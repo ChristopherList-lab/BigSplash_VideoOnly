@@ -7,7 +7,7 @@
 <meta name="description" content="The marketing agency for the local church. We film your church's story and run the invitation on Facebook and Instagram. Each month you get a report of the families who came. Start with a free Church Growth Snapshot.">
 <link rel="canonical" href="https://bigsplash.video/church/">
 <meta property="og:title" content="Big Splash for Churches: fill Sunday with new guests">
-<meta property="og:description" content="Free Church Growth Snapshot: your reach number and 3 sermon clips in 48 hours, with a sample guest report.">
+<meta property="og:description" content="Free Church Growth Snapshot: your reach number and 3 sermon clips in 72 hours, with a sample guest report.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://bigsplash.video/church/">
 <meta property="og:image" content="https://bigsplash.video/assets/images/og-image.jpg">
@@ -21,7 +21,7 @@
   "name": "Church Growth Snapshot",
   "provider": { "@type": "LocalBusiness", "name": "Big Splash", "url": "https://bigsplash.video", "email": "chris@bigsplash.agency", "address": { "@type": "PostalAddress", "addressLocality": "Georgetown", "addressRegion": "TX", "addressCountry": "US" } },
   "areaServed": "Texas",
-  "description": "Free for churches: a local reach number and 3 captioned sermon clips within 48 hours, with a sample guest report.",
+  "description": "Free for churches: a local reach number and 3 captioned sermon clips within 72 hours, with a sample guest report.",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
 }
 </script>
@@ -206,7 +206,7 @@
         </div>
         <ul class="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[15px] text-copy">
           <li class="flex items-start gap-2"><span class="material-symbols-outlined tick">check</span>Free, and no sales call</li>
-          <li class="flex items-start gap-2"><span class="material-symbols-outlined tick">check</span>In your inbox within 48 hours</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined tick">check</span>In your inbox within 72 hours</li>
           <li class="flex items-start gap-2"><span class="material-symbols-outlined tick">check</span>Georgetown, Texas</li>
         </ul>
       </div>
@@ -385,7 +385,7 @@
       <div class="max-w-2xl reveal">
         <p class="eyebrow mb-3">Start free</p>
         <h2 class="display text-[2rem] md:text-5xl">Your Church Growth Snapshot</h2>
-        <p class="mt-5 text-lg text-copy">Send last Sunday's message. Within 48 hours you get three things, built from your own sermon and your own neighborhood. They're yours to keep whether we ever talk again or not.</p>
+        <p class="mt-5 text-lg text-copy">Send last Sunday's message. Our team gets to work, and within 72 hours you get three things, built from your own sermon and your own neighborhood. They're yours to keep whether we ever talk again or not.</p>
       </div>
       <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         <div class="card p-6 reveal">
@@ -531,7 +531,7 @@
       <div class="lg:col-span-5 lg:sticky lg:top-28 self-start reveal">
         <p class="eyebrow mb-3">Free Growth Snapshot</p>
         <h2 class="display text-[2rem] md:text-5xl">Send us your sermon</h2>
-        <p class="mt-5 text-lg text-copy leading-relaxed">Two quick steps. Your reach number and 3 clips land within 48 hours, with a sample guest report. We'll text you when they're ready.</p>
+        <p class="mt-5 text-lg text-copy leading-relaxed">Two quick steps. Our team gets to work, and your reach number and 3 clips land within 72 hours, with a sample guest report. We'll email you when they're ready.</p>
         <ul class="mt-8 space-y-4 text-copy">
           <li class="flex gap-3"><span class="material-symbols-outlined text-olive shrink-0">link</span>Paste a YouTube, Facebook or Vimeo link. Unlisted works fine.</li>
           <li class="flex gap-3"><span class="material-symbols-outlined text-olive shrink-0">folder_shared</span>Or share a Google Drive file set to "anyone with the link."</li>
@@ -676,7 +676,7 @@
     <div class="on-dark max-w-6xl mx-auto rounded-3xl bg-ink px-6 py-16 md:py-20 text-center reveal" style="background-image: radial-gradient(ellipse 75% 95% at 50% 50%, rgba(19,19,24,0.92) 35%, rgba(19,19,24,0.55) 100%), url('../assets/images/hero-ocean.webp'); background-size: cover; background-position: center;">
       <p class="text-sm font-semibold text-primary mb-4">Your pastor preached for 40 minutes on Sunday</p>
       <h2 class="display text-[2rem] md:text-5xl">How many new neighbors heard it?</h2>
-      <p class="mt-5 text-lg text-stone-300 max-w-xl mx-auto">Find out free. Send one sermon and see your reach number and your clips within 48 hours, with a sample guest report.</p>
+      <p class="mt-5 text-lg text-stone-300 max-w-xl mx-auto">Find out free. Send one sermon and see your reach number and your clips within 72 hours, with a sample guest report.</p>
       <div class="mt-9 flex flex-col sm:flex-row justify-center gap-3">
         <a href="#snapshot" data-cta="final" class="btn-primary text-[17px]">Get my free snapshot</a>
         <button type="button" data-open-intake data-intake-service="Church" class="btn-ghost text-[17px]">Message Chris</button>
@@ -706,8 +706,11 @@
     // pre-filled email to Chris so no request is lost.
     // ========================================
     const SNAPSHOT_API_URL = '';
+    // Local testing only: open http://localhost:8765/church/?api=http://localhost:8787 to post to a worker on this Mac.
+    const API_URL = (['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).get('api')) || SNAPSHOT_API_URL;
     const FALLBACK_EMAIL = 'chris@bigsplash.agency';
     const THANKS_URL = 'thanks/';
+    const TURNAROUND_HOURS = 72; // the promise on this page; the worker sends back the exact due time
 
     const nav = document.getElementById('navbar');
     const mobileCta = document.getElementById('mobile-cta');
@@ -803,19 +806,21 @@
 
       submitBtn.disabled = true;
       btnText.textContent = 'Sending...';
-      const thanks = `${THANKS_URL}?church=${encodeURIComponent(payload.church)}`;
+      const localDue = new Date(Date.now() + TURNAROUND_HOURS * 3600 * 1000).toISOString();
+      const thanksFor = (due) => `${THANKS_URL}?church=${encodeURIComponent(payload.church)}&due=${encodeURIComponent(due)}`;
 
       try {
         if (window.bsTrack) bsTrack('snapshot_submit', { attendance: payload.attendance, role: payload.role });
         try { if (window.fbq) fbq('track', 'Lead'); } catch (_) {}
-        if (!SNAPSHOT_API_URL) {
+        if (!API_URL) {
           const body = Object.entries(payload).map(([k, v]) => `${k}: ${v}`).join('\n');
           window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent('Snapshot request: ' + payload.church)}&body=${encodeURIComponent(body)}`;
-          setTimeout(() => { window.location.href = thanks; }, 1200);
+          setTimeout(() => { window.location.href = thanksFor(localDue); }, 1200);
         } else {
-          const res = await fetch(SNAPSHOT_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+          const res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
           if (!res.ok) throw new Error('HTTP ' + res.status);
-          window.location.href = thanks;
+          const data = await res.json().catch(() => ({}));
+          window.location.href = thanksFor(data.due_at || localDue);
         }
       } catch (err) {
         console.error('[snapshot] submit failed:', err);

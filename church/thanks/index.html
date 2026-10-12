@@ -55,7 +55,7 @@
         <span class="material-symbols-outlined text-5xl text-ink rounded-full bg-primary p-2">check</span>
         <p class="eyebrow mt-4">Request received</p>
         <h1 class="display text-[2.4rem] md:text-6xl mt-2"><span id="church-name">Your church's</span> snapshot is on the way</h1>
-        <p class="mt-5 text-lg text-copy">We'll text you when it's ready, within 48 hours. Here's what happens next.</p>
+        <p class="mt-5 text-lg text-copy">Our team is on it. Your snapshot arrives within 72 hours<span id="due-text"></span>, and we'll email you the moment it's ready. Here's what happens next.</p>
       </div>
 
       <ol class="mt-10 grid md:grid-cols-3 gap-5">
@@ -65,7 +65,7 @@
           <p class="mt-2 text-copy text-[15px]">How many people live within a 10-minute drive, and whether your church has run a campaign to them.</p>
         </li>
         <li class="card p-6">
-          <p class="text-sm font-bold text-olive">Within 48 hours</p>
+          <p class="text-sm font-bold text-olive">Within 72 hours</p>
           <h2 class="mt-1 text-lg font-semibold text-ink">Your clips and report arrive</h2>
           <p class="mt-2 text-copy text-[15px]">3 captioned clips and a sample guest report, with a 2-minute walkthrough from Chris.</p>
         </li>
@@ -110,6 +110,12 @@
     const p = new URLSearchParams(location.search);
     const church = (p.get('church') || '').trim().slice(0, 80);
     if (church) document.getElementById('church-name').textContent = church + "'s";
+    // The form passes the promised due time. Show it as a plain date when it is a real one in the next week.
+    const due = new Date(p.get('due') || '');
+    const ahead = due.getTime() - Date.now();
+    if (!isNaN(due) && ahead > 0 && ahead < 8 * 24 * 3600 * 1000) {
+      document.getElementById('due-text').textContent = ', by ' + due.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+    }
     document.getElementById('share').addEventListener('click', async () => {
       const url = location.origin + location.pathname.replace(/thanks\/?$/, '');
       const label = document.querySelector('[data-share-text]');
