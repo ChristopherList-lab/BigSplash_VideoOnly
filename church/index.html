@@ -93,9 +93,14 @@
   .card { background: #ffffff; border: 1px solid #ddd8ce; border-radius: 1rem; box-shadow: 0 1px 2px rgba(19,19,24,0.04); }
   .sheet { background: #ffffff; border: 1px solid #ddd8ce; border-radius: 1.1rem; box-shadow: 0 30px 60px -28px rgba(19,19,24,0.28), 0 2px 6px rgba(19,19,24,0.05); }
   .tnum { font-variant-numeric: tabular-nums; }
-  /* The ocean starburst from the main brand makes one appearance, behind the hero report */
-  .ocean-burst { position: absolute; z-index: 0; width: 17rem; max-width: none; height: auto; top: -9.5rem; right: -2.75rem; pointer-events: none; user-select: none; }
-  @media (min-width: 1024px) { .ocean-burst { width: 27rem; top: -14.5rem; right: -5rem; } }
+  /* The water drop from the main site, in a light version, plays behind the hero report.
+     It multiplies onto the paper so only the water shows. The still ocean starburst
+     stands in for it when a visitor has asked for reduced motion. */
+  .hero-splash { position: absolute; z-index: 0; left: 50%; top: 0; width: 170%; aspect-ratio: 16 / 9; transform: translate(-50%, -30%); pointer-events: none; mix-blend-mode: multiply; -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 52%, transparent 100%); mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 52%, transparent 100%); }
+  .hero-splash video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ocean-burst { display: none; position: absolute; z-index: 0; width: 17rem; max-width: none; height: auto; top: -9.5rem; right: -2.75rem; pointer-events: none; user-select: none; }
+  @media (min-width: 1024px) { .hero-splash { width: 200%; transform: translate(-50%, -60%); } .ocean-burst { width: 27rem; top: -14.5rem; right: -5rem; } }
+  @media (prefers-reduced-motion: reduce) { .hero-splash { display: none; } .ocean-burst { display: block; } }
 
   /* Photos: see church/IMAGE-SLOTS.md. Drop an <img class="slot-img"> where the
      HTML comments mark a slot. Nothing renders as a visible placeholder. */
@@ -185,7 +190,7 @@
 
   <!-- ========== HERO ========== -->
   <header class="relative px-5 md:px-8 pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden" data-screen-label="01 Hero">
-    <div class="absolute inset-x-0 top-0 h-[600px] pointer-events-none" style="background: radial-gradient(ellipse 60% 70% at 78% 0%, rgba(239,248,139,0.55), transparent 70%);"></div>
+    <div class="absolute inset-x-0 top-0 h-[600px] pointer-events-none" style="background: radial-gradient(ellipse 60% 70% at 78% 0%, rgba(239,248,139,0.28), transparent 70%);"></div>
     <div class="relative max-w-6xl mx-auto grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
       <div class="lg:col-span-7 relative z-10">
         <p class="mb-6"><span class="eyebrow-pill">The marketing agency for the local church</span></p>
@@ -207,7 +212,8 @@
       </div>
 
       <!-- IMAGE SLOT hero-sunday: to add a photo, put an <img class="slot-img" style="aspect-ratio:4/5"> above this card -->
-      <div class="lg:col-span-5 relative">
+      <div class="lg:col-span-5 relative pt-28 lg:pt-0">
+        <div class="hero-splash" aria-hidden="true"><video autoplay muted loop playsinline preload="metadata" poster="../assets/images/church-splash-poster.webp" tabindex="-1"><source src="../assets/videos/church/splash-light.mp4" type="video/mp4"></video></div>
         <img src="../assets/images/ocean-starburst.webp" alt="" aria-hidden="true" class="ocean-burst" width="900" height="908">
         <div class="sheet relative z-10 p-5 md:p-6">
           <div class="flex items-center justify-between gap-3">
@@ -320,6 +326,7 @@
           </figure>
         </div>
       </div>
+      <p class="mt-8 text-sm text-muted reveal">These show our filming. They are not guest results, and we make no claim about guest numbers from them.</p>
     </div>
   </section>
 
@@ -508,7 +515,7 @@
       <div class="md:col-span-7 reveal">
         <p class="eyebrow mb-3">Who you'll work with</p>
         <h2 class="display text-[1.9rem] md:text-[2.75rem]">A Texas studio that already serves churches</h2>
-        <p class="mt-5 text-lg text-copy leading-relaxed">I'm Chris List. Big Splash is a video and marketing studio in Georgetown, and we already serve Texas churches with production, sound and video. This offer exists because pastors kept asking the same question: how do we reach the families moving in around us?</p>
+        <p class="mt-5 text-lg text-copy leading-relaxed">I'm Chris List. Big Splash is a video and marketing studio in Georgetown. I filmed the City Reach Church pieces on this page, and each week I cut sermon clips and design graphics for a church in Austin. This offer exists because pastors kept asking the same question: how do we reach the families moving in around us?</p>
         <p class="mt-4 text-lg text-copy leading-relaxed">I film at your church and edit your videos myself. AI tools help me with transcripts and rough cuts, and nothing reaches you until I've watched it. Anything that speaks to what your church believes goes to you first.</p>
         <div class="mt-8 flex flex-col sm:flex-row gap-3">
           <a href="#snapshot" data-cta="founder" class="btn-primary">Get my free snapshot</a>
