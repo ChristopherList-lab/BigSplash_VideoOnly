@@ -4,13 +4,12 @@
 # "Church Growth Snapshots" list, and forwards the payload to GHL (optional).
 #
 # Deploy steps (run from this worker-churchsnapshot/ directory):
-#   npx wrangler login
-#   npx wrangler secret put CLICKUP_TOKEN      # ClickUp > Settings > Apps > API token (pk_...)
-#   npx wrangler secret put GHL_WEBHOOK_URL    # optional, GHL inbound webhook
-#   npx wrangler secret put ALLOWED_ORIGIN     # paste: https://bigsplash.church,https://bigsplash.video
-#   npx wrangler deploy
+#   npx wrangler login                        # opens a browser, click Allow
+#   npx wrangler deploy                       # prints the https://...workers.dev address
+#   npx wrangler secret put CLICKUP_TOKEN     # ClickUp > Settings > Apps > API token (pk_...). Paste it at the prompt.
+#   npx wrangler secret put GHL_WEBHOOK_URL   # optional, GHL inbound webhook
 #
-# Then paste the workers.dev URL into SNAPSHOT_API_URL in ../church/index.html.
+# Then paste the workers.dev address into SNAPSHOT_API_URL in ../church/index.html.
 
 name = "bigsplash-church-snapshot"
 main = "index.js"
@@ -19,3 +18,4 @@ workers_dev = true
 
 [vars]
 CLICKUP_LIST_ID = "901421191181"
+ALLOWED_ORIGIN = "https://bigsplash.church,https://www.bigsplash.church,https://bigsplash.video"
