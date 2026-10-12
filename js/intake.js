@@ -102,7 +102,7 @@
         { name: 'church', label: 'Church', type: 'text', required: true, placeholder: 'Church name, city' },
         { name: 'email', label: 'Email', type: 'email', required: true, placeholder: 'you@church.org' },
         { name: 'phone', label: 'Cell (optional)', type: 'tel', required: false, placeholder: '512-555-0100' },
-        { name: 'interest', label: 'What are you looking at?', type: 'select', required: true, options: ['Free Growth Snapshot', 'Reach ($749/mo)', 'Growth ($1,497/mo)', 'Growth + custom series art ($1,997/mo)', 'Partner ($2,797/mo)', 'Christmas or Easter campaign ($997)', 'Google Ad Grant help', 'Not sure yet'] },
+        { name: 'interest', label: 'What are you looking at?', type: 'select', required: true, options: ['Free Growth Snapshot', 'Reach ($749/mo)', 'Growth ($1,497/mo)', 'Growth + custom series art ($1,997/mo)', 'Partner ($2,797/mo)', 'Christmas or Easter campaign (custom quote)', 'Google Ad Grant help', 'Not sure yet'] },
         { name: 'notes', label: 'What would growth look like for you this year?', type: 'textarea', required: true, placeholder: 'Attendance, what you post now, what you wish was happening...' },
       ],
     },
