@@ -1,21 +1,45 @@
 # Big Splash Church Snapshot intake Worker
 #
 # Receives the /church/ snapshot form, creates a ClickUp task in the
-# "Church Growth Snapshots" list, and forwards the payload to GHL (optional).
+# "Church Growth Snapshots" list, alerts Slack, and forwards the request to
+# GoHighLevel (optional). A daily cron posts a Slack digest of open and
+# delivered snapshots.
 #
 # Deploy steps (run from this worker-churchsnapshot/ directory):
-#   npx wrangler login                        # opens a browser, click Allow
-#   npx wrangler deploy                       # prints the https://...workers.dev address
-#   npx wrangler secret put CLICKUP_TOKEN     # ClickUp > Settings > Apps > API token (pk_...). Paste it at the prompt.
-#   npx wrangler secret put GHL_WEBHOOK_URL   # optional, GHL inbound webhook
+#   npx wrangler login                          # opens a browser, click Allow
+#   npx wrangler deploy                         # prints the https://...workers.dev address
+#   npx wrangler secret put CLICKUP_TOKEN       # ClickUp > Settings > Apps > API token
+#   npx wrangler secret put SLACK_WEBHOOK_URL   # Slack incoming webhook for the channel that gets the alerts
+#   npx wrangler secret put GHL_WEBHOOK_URL     # optional, GoHighLevel inbound webhook
 #
-# Then paste the workers.dev address into SNAPSHOT_API_URL in ../church/index.html.
+# Each "secret put" command asks for the value. Paste it at that terminal
+# prompt. Never paste a secret into a chat or a file.
+#
+# Then open https://...workers.dev/health to confirm the destinations show
+# true, and paste the workers.dev address into SNAPSHOT_API_URL in
+# ../church/index.html.
 
 name = "bigsplash-church-snapshot"
 main = "index.js"
 compatibility_date = "2026-04-01"
 workers_dev = true
 
+# Morning digest. Cron runs on UTC: 13:00 UTC is 8 AM Central in summer and
+# 7 AM Central in winter.
+[triggers]
+crons = ["0 13 * * *"]
+
+# At most 5 form posts a minute from one address. A script cannot open
+# hundreds of tasks or make GoHighLevel message strangers at speed.
+[[ratelimits]]
+name = "INTAKE_LIMIT"
+namespace_id = "1001"
+simple = { limit = 5, period = 60 }
+
+# Keep ALLOWED_ORIGIN set. The worker refuses a browser post from any other
+# site, and an empty value would allow every site.
 [vars]
 CLICKUP_LIST_ID = "901421191181"
 ALLOWED_ORIGIN = "https://bigsplash.church,https://www.bigsplash.church,https://bigsplash.video"
+TURNAROUND_HOURS = "72"
+TIMEZONE = "America/Chicago"
