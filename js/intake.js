@@ -268,7 +268,19 @@ body.intake-locked { overflow: hidden; }
         payload.submitted_at = new Date().toISOString();
 
         try {
-          await submitToGHL(payload);
+          if (!GHL_WEBHOOK_URL) {
+            // No webhook pasted in yet. Open a pre-filled email so the message
+            // still reaches Chris, and say so plainly on the success screen.
+            const skip = ['form_type', 'service_tag', 'page_url', 'submitted_at'];
+            const lines = Object.entries(payload).filter(([k, v]) => !skip.includes(k) && String(v).trim()).map(([k, v]) => `${k}: ${v}`);
+            const who = payload.church || payload.business || payload.company || payload.name || 'website';
+            const mail = `mailto:chris@bigsplash.agency?subject=${encodeURIComponent(svc + ' inquiry: ' + who)}&body=${encodeURIComponent(lines.join('\n') + '\n\nSent from ' + (payload.page_url || window.location.href))}`;
+            window.open(mail, '_self');
+            successWrap.querySelector('h2').textContent = 'One more step.';
+            successWrap.querySelector('p').textContent = 'Your email app opened with your message filled in. Press send and Chris will reply within one business day. If nothing opened, email chris@bigsplash.agency.';
+          } else {
+            await submitToGHL(payload);
+          }
           formWrap.classList.add('hidden');
           successWrap.classList.remove('hidden');
         } catch (err) {

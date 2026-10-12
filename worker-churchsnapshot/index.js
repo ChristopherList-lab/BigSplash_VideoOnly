@@ -22,6 +22,12 @@ export default {
 
     const results = { clickup: null, ghl: null };
 
+    // With no destination configured the request would vanish while the page
+    // says "sent". Fail loudly so the form shows its email fallback.
+    if (!(env.CLICKUP_TOKEN && env.CLICKUP_LIST_ID) && !env.GHL_WEBHOOK_URL) {
+      return json({ ok: false, error: 'Intake has no destination configured' }, 500, cors);
+    }
+
     if (env.CLICKUP_TOKEN && env.CLICKUP_LIST_ID) {
       try { results.clickup = await createClickUpTask(body, env); }
       catch (err) { results.clickup = { error: err.message }; }
@@ -36,7 +42,10 @@ export default {
       } catch (err) { results.ghl = { error: err.message }; }
     }
 
-    const ok = !(results.clickup && results.clickup.error) || (results.ghl && !results.ghl.error);
+    // Success means at least one destination took the request.
+    const clickupOk = Boolean(results.clickup && !results.clickup.error);
+    const ghlOk = Boolean(results.ghl && !results.ghl.error && results.ghl.status < 400);
+    const ok = clickupOk || ghlOk;
     return json({ ok, results }, ok ? 200 : 502, cors);
   },
 };
@@ -47,14 +56,17 @@ async function createClickUpTask(b, env) {
   const description = [
     `**Church:** ${b.church}`,
     `**City:** ${b.city}`,
+    b.attendance ? `**Sunday attendance:** ${b.attendance}` : '',
     `**Contact:** ${b.name} (${b.role})`,
     `**Email:** ${b.email}`,
     `**Cell:** ${b.phone}`,
+    b.cc_email ? `**Also copy:** ${b.cc_email}` : '',
     `**Sermon source:** ${source}`,
     b.sermon_link ? `**Sermon link:** ${b.sermon_link}` : `**Upload portal opened:** ${b.upload_confirmed || 'not confirmed, check Dropbox _inbox'}`,
     b.notes ? `**Notes:** ${b.notes}` : '',
     `**Submitted:** ${b.submitted_at || new Date().toISOString()}`,
     `**Page:** ${b.page_url || ''}`,
+    b.utm ? `**Came from:** ${b.utm}` : '',
     '',
     '---',
     '**48-hour clock started.** Duplicate the TEMPLATE task checklist or follow church/README.md.',

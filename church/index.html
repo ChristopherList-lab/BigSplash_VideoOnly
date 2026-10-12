@@ -497,7 +497,7 @@
         <ul class="mt-8 space-y-4 text-copy">
           <li class="flex gap-3"><span class="material-symbols-outlined text-olive shrink-0">link</span>Paste a YouTube, Facebook or Vimeo link. Unlisted works fine.</li>
           <li class="flex gap-3"><span class="material-symbols-outlined text-olive shrink-0">folder_shared</span>Or share a Google Drive file set to "anyone with the link."</li>
-          <li class="flex gap-3"><span class="material-symbols-outlined text-olive shrink-0">upload</span>Or upload the video to our Dropbox. No account needed.</li>
+          <li class="flex gap-3" data-upload-note><span class="material-symbols-outlined text-olive shrink-0">upload</span>Or upload the video to our Dropbox. No account needed.</li>
         </ul>
         <p class="mt-8 text-[15px] text-muted">Snapshots are built for churches running about 100 or more on a Sunday. Smaller church? Message Chris and we'll point you to something that fits.</p>
       </div>
@@ -715,6 +715,11 @@
     };
     form.querySelectorAll('input[name="source"]').forEach((r) => r.addEventListener('change', syncSource));
     syncSource();
+    // The upload option stays hidden until a real Dropbox file request link is pasted into #cs-upload-link.
+    if (/REPLACE_WITH_FILE_REQUEST/.test(document.getElementById('cs-upload-link').href)) {
+      form.querySelector('input[name="source"][value="Upload"]').closest('label').style.display = 'none';
+      document.querySelectorAll('[data-upload-note]').forEach((el) => { el.style.display = 'none'; });
+    }
     document.getElementById('cs-upload-link').addEventListener('click', () => { uploadConfirmed.value = 'opened ' + new Date().toISOString(); });
 
     const validStep = (stepEl) => {
