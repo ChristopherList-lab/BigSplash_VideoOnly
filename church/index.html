@@ -705,7 +705,7 @@
     // https://...workers.dev URL here. While empty, the form opens a
     // pre-filled email to Chris so no request is lost.
     // ========================================
-    const SNAPSHOT_API_URL = '';
+    const SNAPSHOT_API_URL = 'https://bigsplash-church-snapshot.chris-bc4.workers.dev';
     // Local testing only: open http://localhost:8765/church/?api=http://localhost:8787 to post to a worker on this Mac.
     const API_URL = (['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).get('api')) || SNAPSHOT_API_URL;
     const FALLBACK_EMAIL = 'chris@bigsplash.agency';
