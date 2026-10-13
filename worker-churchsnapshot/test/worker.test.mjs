@@ -515,6 +515,15 @@ const bodyOf = (bytes) => JSON.stringify({ ...GOOD, notes: 'x'.repeat(bytes - JS
   check('task name is "<church>, <city>"', task.name === 'Grace Church, Austin', task.name);
   check('task is due 72 hours out', task.due_date === NOW + 72 * HOUR && task.due_date_time === true, task.due_date);
   equal('task priority and tags', [task.priority, task.tags], [2, ['snapshot', 'website-form']]);
+  check('task has no assignees when CLICKUP_ASSIGNEE_IDS is unset', !('assignees' in task));
+  {
+    const seen = [];
+    const real = globalThis.fetch;
+    globalThis.fetch = async (url, init) => { if (String(url).includes('/task')) seen.push(JSON.parse(init.body)); return real(url, init); };
+    await worker.fetch(new Request('https://w.example/', { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: 'https://bigsplash.church' }, body: JSON.stringify(GOOD) }), { ...ENV, CLICKUP_ASSIGNEE_IDS: '112365011, abc, -4' });
+    globalThis.fetch = real;
+    equal('CLICKUP_ASSIGNEE_IDS sets the task owner and drops junk ids', seen[0] && seen[0].assignees, [112365011]);
+  }
 
   equal('description, line by line', desc.split('\n'), [
     '**Church:** Grace Church',

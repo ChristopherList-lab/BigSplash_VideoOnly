@@ -40,6 +40,8 @@ simple = { limit = 5, period = 60 }
 # site, and an empty value would allow every site.
 [vars]
 CLICKUP_LIST_ID = "901421191181"
+# ClickUp user ids that own each new snapshot task (Chris). Comma-separated.
+CLICKUP_ASSIGNEE_IDS = "112365011"
 ALLOWED_ORIGIN = "https://bigsplash.church,https://www.bigsplash.church,https://bigsplash.video"
 TURNAROUND_HOURS = "72"
 TIMEZONE = "America/Chicago"

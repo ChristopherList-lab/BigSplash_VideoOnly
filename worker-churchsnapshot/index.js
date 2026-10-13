@@ -242,6 +242,12 @@ function validate(form, cut) {
 
 // ---------- ClickUp ----------
 
+// CLICKUP_ASSIGNEE_IDS holds ClickUp user ids separated by commas. Tasks with
+// no assignee stay out of "My Tasks" and the daily summary email.
+function assigneeIds(env) {
+  return String(env.CLICKUP_ASSIGNEE_IDS || '').split(',').map((id) => Number(id.trim())).filter((id) => Number.isInteger(id) && id > 0).slice(0, 5);
+}
+
 async function createClickUpTask(job, env) {
   const res = await fetch(`${clickUpBase(env)}/list/${encodeURIComponent(env.CLICKUP_LIST_ID)}/task`, {
     method: 'POST',
@@ -253,6 +259,7 @@ async function createClickUpTask(job, env) {
       due_date: job.due,
       due_date_time: true,
       tags: ['snapshot', 'website-form'],
+      ...(assigneeIds(env).length ? { assignees: assigneeIds(env) } : {}),
     }),
     signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });
