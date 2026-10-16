@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Front Door Audit · Big Splash</title>
+<link rel="icon" href="/assets/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<!--
+  Front Door Audit scorecard. Loads one audit from the front-door worker by id:
+  bigsplash.video/front-door/?id=<audit id>. A preview build can set window.FRONT_DOOR_DATA instead.
+-->
+<style>
+:root { --ink: #131318; --card: #1f1f25; --line: #35343a; --lime: #eff88b; --white: #fff; --text: #e4e1e9; --muted: #a3a3ad; --ocean: #6a9686; --bad: #ff8a7a; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--ink); }
+body { font-family: "Inter", system-ui, sans-serif; color: var(--text); -webkit-font-smoothing: antialiased; line-height: 1.55; }
+.wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+header.top { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
+header.top img { height: 30px; display: block; }
+header.top span { font: 700 12px/1 "Inter"; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.eyebrow { display: flex; align-items: center; gap: 10px; font: 700 13px/1 "Inter"; letter-spacing: .18em; text-transform: uppercase; color: var(--lime); }
+.eyebrow img { width: 20px; height: 20px; }
+.hero { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; padding: 34px 0 30px; border-bottom: 1px solid var(--line); }
+h1 { font: 800 clamp(34px, 6vw, 56px)/1.04 "Inter"; letter-spacing: -.035em; color: var(--white); margin: 16px 0 12px; }
+.lede { font-size: 18px; color: var(--text); max-width: 560px; }
+.grade { width: 150px; height: 150px; border-radius: 50%; border: 6px solid var(--lime); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.grade b { font: 800 76px/1 "Inter"; color: var(--white); letter-spacing: -.04em; }
+.grade small { font: 700 11px/1 "Inter"; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+.summary { font: 600 21px/1.5 "Inter"; color: var(--white); padding: 30px 0 8px; max-width: 760px; }
+.reach { margin: 26px 0 8px; background: var(--card); border-left: 5px solid var(--ocean); border-radius: 14px; padding: 22px 24px; display: flex; gap: 20px; align-items: baseline; flex-wrap: wrap; }
+.reach b { font: 800 40px/1 "Inter"; color: var(--white); letter-spacing: -.02em; }
+.reach p { flex: 1 1 280px; }
+.reach small { display: block; color: var(--muted); font-size: 13px; margin-top: 4px; }
+h2 { font: 800 28px/1.15 "Inter"; letter-spacing: -.02em; color: var(--white); margin: 44px 0 18px; }
+.areas { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.area { background: var(--card); border-radius: 16px; padding: 22px 24px; }
+.area .head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.area h3 { font: 800 19px/1.2 "Inter"; color: var(--white); }
+.badge { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font: 800 24px/1 "Inter"; background: var(--ink); color: var(--white); border: 2px solid var(--line); }
+.badge.A, .badge.B { border-color: var(--lime); color: var(--lime); }
+.badge.D, .badge.F { border-color: var(--bad); color: var(--bad); }
+.badge.none { font-size: 13px; color: var(--muted); }
+.area p.note { font-size: 15.5px; margin-bottom: 12px; }
+.facts { list-style: none; border-top: 1px solid var(--line); padding-top: 10px; }
+.facts li { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; padding: 5px 0; color: var(--muted); }
+.facts li b { color: var(--white); font-weight: 700; text-align: right; }
+.facts li b.no { color: var(--bad); }
+.facts li b.yes { color: var(--lime); }
+.fixes { list-style: none; counter-reset: fix; display: grid; gap: 12px; }
+.fixes li { counter-increment: fix; background: var(--card); border-radius: 14px; padding: 18px 22px 18px 70px; position: relative; }
+.fixes li::before { content: counter(fix); position: absolute; left: 22px; top: 16px; width: 32px; height: 32px; border-radius: 50%; background: var(--lime); color: var(--ink); font: 800 17px/32px "Inter"; text-align: center; }
+.fixes b { display: block; font: 800 18px/1.3 "Inter"; color: var(--white); margin-bottom: 4px; }
+.cta { margin: 44px 0 20px; background: var(--card); border-radius: 18px; padding: 30px; display: flex; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.cta h3 { font: 800 24px/1.2 "Inter"; color: var(--white); margin-bottom: 6px; }
+.btn { display: inline-block; background: var(--lime); color: var(--ink); font: 800 17px/1 "Inter"; padding: 17px 26px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+footer { color: var(--muted); font-size: 13px; padding: 26px 0 50px; border-top: 1px solid var(--line); margin-top: 30px; }
+.state { padding: 120px 0; text-align: center; font-size: 18px; }
+@media (max-width: 640px) {
+  .hero { grid-template-columns: 1fr; }
+  .grade { width: 120px; height: 120px; } .grade b { font-size: 60px; }
+  .areas { grid-template-columns: 1fr; }
+  .cta { padding: 24px; }
+}
+@media print { .cta .btn { border: 2px solid var(--ink); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><a href="/church/"><img src="/assets/images/logo-bigsplash-white-lime.svg" alt="Big Splash"></a><span>Front Door Audit</span></header>
+  <main id="app"><p class="state">Loading your audit…</p></main>
+</div>
+
+<script>
+const API = "https://bigsplash-front-door.chris-bc4.workers.dev"; // set to the deployed worker URL
+const BOOK = "https://api.leadconnectorhq.com/widget/booking/YcBm4L2c5a0DNBZyessz";
+
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const yes = (v, y = "Yes", n = "Missing") => v ? `<b class="yes">${y}</b>` : `<b class="no">${n}</b>`;
+const num = (n) => Number(n).toLocaleString("en-US");
+const days = (d) => d === 0 ? "today" : d === 1 ? "yesterday" : `${d} days ago`;
+
+function badge(g) { return g ? `<span class="badge ${g}">${g}</span>` : `<span class="badge none">n/a</span>`; }
+
+function area(title, grade, note, facts) {
+  return `<section class="area"><div class="head"><h3>${title}</h3>${badge(grade)}</div>
+    <p class="note">${esc(note)}</p>
+    ${facts.length ? `<ul class="facts">${facts.map(([k, v]) => `<li><span>${k}</span>${v}</li>`).join("")}</ul>` : ""}</section>`;
+}
+
+function render(a) {
+  const s = a.scores, n = a.notes || {}, w = a.website || {}, g = a.google, nm = a.nearMe;
+  const when = new Date(a.checkedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  document.title = `${a.church.name} · Front Door Audit`;
+
+  const googleFacts = [];
+  if (g?.found) {
+    googleFacts.push(["Search \"church\" from 4 miles away", nm?.best ? `<b class="${nm.best <= 3 ? "yes" : ""}">#${nm.best}</b>` : `<b class="no">Not in top 20</b>`]);
+    googleFacts.push(["Service times on Google", yes(g.hoursListed, "Listed")]);
+    if (g.photoCount !== null && g.photoCount !== undefined) googleFacts.push(["Photos on the listing", `<b>${g.photoCount >= 10 ? "10+" : g.photoCount}</b>`]);
+  }
+  const reviewFacts = g?.found ? [["Google rating", `<b>${g.rating ?? "None yet"}</b>`], ["Reviews", `<b>${num(g.reviewCount)}</b>`]] : [];
+  const webFacts = w.ok ? [
+    ["Service times on the home page", yes(w.serviceTimes?.found, "Found")],
+    ["Plan-your-visit link", yes(w.planVisit?.found, "Found")],
+    ["Kids ministry link", yes(w.kids?.found, "Found")],
+    ...(a.speed?.ok ? [["Speed on a phone", `<b class="${a.speed.score >= 70 ? "yes" : a.speed.score < 50 ? "no" : ""}">${a.speed.score} / 100</b>`]] : []),
+  ] : [];
+  const socials = Object.keys(w.socials || {});
+  const socialFacts = w.ok ? [
+    ["Accounts linked from the site", socials.length ? `<b>${socials.map((x) => ({ facebook: "Facebook", instagram: "Instagram", youtube: "YouTube", tiktok: "TikTok" }[x] || x)).join(", ")}</b>` : `<b class="no">None</b>`],
+    ...(w.youtube?.daysSinceLastUpload !== undefined ? [["Last YouTube upload", `<b class="${w.youtube.daysSinceLastUpload <= 14 ? "yes" : "no"}">${days(w.youtube.daysSinceLastUpload)}</b>`]] : []),
+    ...(a.instagram?.ok ? [["Instagram posts, last 30 days", `<b>${a.instagram.postsLast30Days}</b>`]] : []),
+  ] : [];
+
+  const fixes = (n.fixes || []).map((f) => `<li><b>${esc(f.title)}</b>${esc(f.why)}</li>`).join("");
+
+  document.getElementById("app").innerHTML = `
+    <section class="hero">
+      <div><p class="eyebrow"><img src="/assets/images/starburst-lime-solid.svg" alt="">Front Door Audit · ${esc(when)}</p>
+        <h1>${esc(a.church.name)}</h1>
+        <p class="lede">What a new family sees when they look you up from their phone.</p></div>
+      <div class="grade"><b>${esc(s.overall.grade ?? "–")}</b><small>Overall</small></div>
+    </section>
+    ${n.summary ? `<p class="summary">${esc(n.summary)}</p>` : ""}
+    ${a.reach ? `<div class="reach"><b>${num(a.reach.households)}</b><p>households live within about ${a.reach.miles} miles of ${esc(a.church.name)}, roughly a 10-minute drive.<small>Estimate from US Census data.</small></p></div>` : ""}
+    <h2>Your front door, area by area</h2>
+    <div class="areas">
+      ${area("Google search", s.areas.google.grade, n.areas?.google, googleFacts)}
+      ${area("Reviews", s.areas.reviews.grade, n.areas?.reviews, reviewFacts)}
+      ${area("Website on a phone", s.areas.website.grade, n.areas?.website, webFacts)}
+      ${area("Social and sermons", s.areas.social.grade, n.areas?.social, socialFacts)}
+    </div>
+    ${fixes ? `<h2>Start here</h2><ol class="fixes">${fixes}</ol>` : ""}
+    <div class="cta"><div><h3>Walk through it with us</h3><p>A free 20-minute call: every grade, and what we'd do first.</p></div>
+      <a class="btn" href="${BOOK}" target="_blank" rel="noopener">Book your walkthrough</a></div>
+    <footer>Big Splash checked ${esc(a.church.name)} on ${esc(when)} the way a neighbor would: from a phone, about 4 miles away. Numbers come from Google, Google PageSpeed, YouTube and the US Census. Big Splash · The marketing agency for the local church · bigsplash.video/church</footer>`;
+}
+
+(async () => {
+  try {
+    let data = window.FRONT_DOOR_DATA;
+    if (!data) {
+      const id = new URLSearchParams(location.search).get("id");
+      if (!id || !/^[a-z0-9-]{6,80}$/.test(id)) throw new Error("missing");
+      const res = await fetch(`${API}/result?id=${encodeURIComponent(id)}`);
+      if (!res.ok) throw new Error("not found");
+      data = await res.json();
+    }
+    render(data);
+  } catch {
+    document.getElementById("app").innerHTML = `<p class="state">We couldn't find that audit. Check the link in your email, or write to chris@bigsplash.agency.</p>`;
+  }
+})();
+</script>
+</body>
+</html>

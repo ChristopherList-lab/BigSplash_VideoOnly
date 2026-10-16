@@ -1,0 +1,43 @@
+# Big Splash Front Door Audit worker
+#
+# A pastor submits the form on bigsplash.video/frontdoor. This worker saves the request, then a Workflow
+# runs the audit (Google, website, social, reach), writes the notes, saves the scorecard and alerts Slack
+# and GoHighLevel. The scorecard lives at bigsplash.video/front-door/?id=<audit id>.
+#
+# One-time setup (run from this worker-frontdoor/ directory):
+#   npx wrangler login                                   # opens a browser, click Allow
+#   npx wrangler kv namespace create AUDITS              # paste the printed id into [[kv_namespaces]] below
+#   npx wrangler secret put GOOGLE_API_KEY < ~/.bigsplash-google-key
+#   npx wrangler secret put ANTHROPIC_API_KEY < ~/.bigsplash-anthropic-key
+#   npx wrangler secret put SLACK_WEBHOOK_URL            # optional: Slack alert for every audit
+#   npx wrangler secret put GHL_WEBHOOK_URL              # optional: GoHighLevel workflow that emails the pastor
+#   npx wrangler deploy
+#
+# Then open https://bigsplash-front-door.<account>.workers.dev/health to confirm each piece shows true.
+
+name = "bigsplash-front-door"
+main = "src/worker.js"
+compatibility_date = "2026-04-01"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+
+[[workflows]]
+name = "front-door-audit"
+binding = "AUDIT_FLOW"
+class_name = "FrontDoorAudit"
+
+[[kv_namespaces]]
+binding = "AUDITS"
+id = "2c469cb531614af8ba420e83eae788bb"
+
+# At most 5 form posts a minute from one address.
+[[ratelimits]]
+name = "INTAKE_LIMIT"
+namespace_id = "1002"
+simple = { limit = 5, period = 60 }
+
+[vars]
+ALLOWED_ORIGIN = "https://bigsplash.video,https://www.bigsplash.video,https://bigsplash.church,https://www.bigsplash.church"
+
+[observability]
+enabled = true
