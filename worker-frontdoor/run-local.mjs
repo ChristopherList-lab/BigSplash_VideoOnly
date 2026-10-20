@@ -1,7 +1,8 @@
 // Run one Front Door Audit from this Mac and print the result.
 // Usage: node run-local.mjs "City Reach Church" "2700 W Whitestone Blvd, Cedar Park, TX 78613" cityreachchurch.com
 // Reads the Google key from ~/.bigsplash-google-key when that file exists.
-import { readFileSync, existsSync, writeFileSync, mkdirSync } from "node:fs";
+// The church photo goes in a stand-in for KV and is written to out/<name>-photo.<ext> for preview.mjs.
+import { readFileSync, existsSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { runAudit } from "./src/audit.js";
@@ -18,10 +19,22 @@ const readKey = (name) => {
 };
 const env = { GOOGLE_API_KEY: readKey(".bigsplash-google-key"), ANTHROPIC_API_KEY: readKey(".bigsplash-anthropic-key") };
 const city = (address || "").split(",").slice(-2).join(",").trim();
+const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const kv = new Map();
+env.AUDITS = { put: async (key, value, opts) => { kv.set(key, { value, metadata: opts?.metadata || null }); } };
+const id = `local-${slug}`.slice(0, 80);
 
-const result = await runAudit({ name, address, city, website }, env);
+const result = await runAudit({ name, address, city, website }, env, { id });
+result.id = id;
 mkdirSync("out", { recursive: true });
-const file = join("out", name.toLowerCase().replace(/[^a-z0-9]+/g, "-") + ".json");
+const file = join("out", slug + ".json");
+for (const ext of ["jpg", "png", "webp", "avif"]) rmSync(join("out", `${slug}-photo.${ext}`), { force: true });
+const saved = kv.get(`photo:${id}`);
+if (saved) {
+  const ext = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/avif": "avif" }[saved.metadata.type];
+  writeFileSync(join("out", `${slug}-photo.${ext}`), saved.value);
+  result.localPhoto = { file: `out/${slug}-photo.${ext}`, ...saved.metadata };
+}
 writeFileSync(file, JSON.stringify(result, null, 2));
-console.log(JSON.stringify({ google: Boolean(env.GOOGLE_API_KEY), seconds: result.seconds, needsReview: result.needsReview, scores: result.scores, reach: result.reach, errors: result.errors }, null, 2));
+console.log(JSON.stringify({ google: Boolean(env.GOOGLE_API_KEY), seconds: result.seconds, needsReview: result.needsReview, scores: result.scores, reach: result.reach, photo: result.localPhoto || null, errors: result.errors }, null, 2));
 console.log("full result:", file);

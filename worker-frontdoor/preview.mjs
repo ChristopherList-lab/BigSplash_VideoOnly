@@ -1,7 +1,7 @@
 // Render the scorecard for a saved audit result, as a phone and a desktop screenshot.
 // Usage: node preview.mjs out/city-reach-church.json
 // Writes out/<name>-phone.png, out/<name>-desktop.png and out/<name>.html (open it in a browser).
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { resolve, basename } from "node:path";
 import { fileURLToPath } from "node:url";
 import puppeteer from "/Users/listmediagroup/Desktop/BigSplash_Design/node_modules/puppeteer/lib/esm/puppeteer/puppeteer.js";
@@ -17,6 +17,13 @@ const data = readFileSync(file, "utf8");
 let html = readFileSync(resolve(site, "front-door/index.html"), "utf8")
   .replaceAll('src="/assets/', `src="file://${site}/assets/`)
   .replace("<script>", `<script>window.FRONT_DOOR_DATA = ${data};</script>\n<script>`);
+// Local only: the photo run-local.mjs saved (out/<name>-photo.<ext>) stands in for the worker's /photo route.
+const photo = ["jpg", "png", "webp", "avif"].map((ext) => resolve(here, "out", `${name}-photo.${ext}`)).find(existsSync);
+const PHOTO_SRC = "`${API}/photo?id=${encodeURIComponent(id)}`";
+if (photo) {
+  if (html.includes(PHOTO_SRC)) html = html.replace(PHOTO_SRC, JSON.stringify(`file://${photo}`));
+  else console.warn("preview: the photo banner markup changed, so the local photo is not shown");
+}
 const out = resolve(here, "out", `${name}.html`);
 writeFileSync(out, html);
 

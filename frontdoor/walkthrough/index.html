@@ -73,6 +73,10 @@ h1 { font: 800 clamp(32px, 6vw, 54px)/1.06 "Inter"; letter-spacing: -.035em; col
 .grade b { font: 800 76px/1 "Inter"; color: var(--white); letter-spacing: -.04em; }
 .grade small { font: 700 11px/1 "Inter"; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
 .grade[hidden] { display: none; }
+/* The church's own photo above the headline, when the audit saved one (the worker's /photo route). */
+.church-photo { width: 100%; max-width: 360px; margin-bottom: 18px; }
+.church-photo img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 12px; background: var(--card); }
+.church-photo figcaption { font: 600 12px/1.3 "Inter"; color: var(--muted); margin-top: 6px; overflow-wrap: anywhere; }
 
 /* Video */
 .vsl { margin: 6px 0 0; }
@@ -128,6 +132,7 @@ footer a { color: inherit; }
 @media (max-width: 640px) {
   .wrap { padding: 0 16px; }
   .hero { grid-template-columns: 1fr; padding-top: 22px; gap: 18px; }
+  .church-photo { max-width: none; }
   .hero .grade { order: -1; width: 104px; height: 104px; border-width: 5px; }
   .grade b { font-size: 52px; }
   .lede { font-size: 17px; }
@@ -158,6 +163,7 @@ footer a { color: inherit; }
   <main>
     <section class="hero" id="hero">
       <div>
+        <div id="photo-slot"></div>
         <p class="eyebrow"><img src="/assets/images/starburst-lime-solid.svg" alt=""><span id="eyebrow">Free 30-minute call</span></p>
         <h1 id="headline">Go over your scorecard with our team.</h1>
         <p class="lede" id="lede">Book a free 30-minute call with our team. We go over every grade on your Front Door Audit and show you the first thing we would fix.</p>
@@ -319,6 +325,12 @@ function personalize(a) {
   $("lede").textContent = "Book a free 30-minute call with our team. We'll go through each grade with you and show you the first thing we would fix.";
   if (fix) $("fix-slot").innerHTML = `<p class="firstfix"><span>First fix on your list</span><b>${esc(fix.title)}</b></p>`;
   if (grade) { $("grade-letter").textContent = grade; $("grade").hidden = false; }
+  const id = auditQuery()?.get("id") || (/^[a-z0-9-]{6,80}$/.test(a?.id || "") ? a.id : "");
+  if (a?.photo?.stored && id) {
+    // The church's photo from its own website. If it fails to load it is removed and the top looks as it does without one.
+    const w = Number(a.photo.width) > 0 ? Math.round(a.photo.width) : 1600, h = Number(a.photo.height) > 0 ? Math.round(a.photo.height) : 900;
+    $("photo-slot").innerHTML = `<figure class="church-photo"><img src="${esc(`${API}/photo?id=${encodeURIComponent(id)}`)}" alt="Photo from ${esc(name)}'s website" width="${w}" height="${h}" loading="eager" decoding="async" onerror="this.parentNode.remove()"><figcaption>From ${esc(name)}'s website</figcaption></figure>`;
+  }
 }
 
 function auditQuery() {

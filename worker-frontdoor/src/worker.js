@@ -15,6 +15,7 @@ import { normalizeUrl, siteKey } from "./website.js";
 import { deliver, directStep, ghlContact, SCORECARD } from "./deliver.js";
 import { ghlReady } from "./ghl.js";
 import { foundingRoute } from "./founding.js";
+import { PHOTO_TYPES, sniffImage } from "./photo.js";
 export { FrontDoorNurture } from "./nurture.js";
 export { FoundingFlow } from "./founding.js";
 
@@ -60,6 +61,7 @@ async function route(request, env, cors, ctx) {
     if (res) return res;
   }
   if (path === "/result" && request.method === "GET") return result(url, env, cors);
+  if (path === "/photo" && request.method === "GET") return photo(url, env);
   if (path === "/approve" && request.method === "GET") return approveConfirm(url, env);
   if (path === "/approve" && request.method === "POST") return approve(request, env);
   if (path === "/nurture" && request.method === "GET") return nurtureLog(url, env, cors);
@@ -76,6 +78,19 @@ async function result(url, env, cors) {
     return json(record.result, 200, { ...cors, "Cache-Control": "no-store" });
   }
   return json({ error: "Not found", status: record?.status || null }, 404, { ...cors, "Cache-Control": "no-store" });
+}
+
+// The church photo saved with an audit (src/photo.js), for the scorecard and the walkthrough page. Audit ids
+// are unguessable, so it is served whatever the audit's status, but only bytes saved as a photo whose type
+// still matches what they are.
+async function photo(url, env) {
+  const id = url.searchParams.get("id") || "";
+  const missing = () => new Response("Not found", { status: 404, headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } });
+  if (!/^[a-z0-9-]{6,80}$/.test(id)) return missing();
+  const { value, metadata } = (await env.AUDITS.getWithMetadata(`photo:${id}`, "arrayBuffer")) || {};
+  const type = metadata?.type;
+  if (!value || !PHOTO_TYPES.includes(type) || sniffImage(new Uint8Array(value)) !== type) return missing();
+  return new Response(value, { status: 200, headers: { "Content-Type": type, "Cache-Control": "public, max-age=86400", "X-Content-Type-Options": "nosniff", "Content-Security-Policy": "default-src 'none'" } });
 }
 
 // The approve link from Slack or ClickUp. A GET changes nothing: mail scanners and link previews open links,
@@ -292,7 +307,7 @@ export class FrontDoorAudit extends WorkflowEntrypoint {
       church = record.church || paramChurch;
       if (!church) throw new Error("No church details in the record or the workflow params");
       result = await step.do("audit", { retries: { limit: 2, delay: "20 seconds", backoff: "linear" }, timeout: "5 minutes" },
-        async () => runAudit(church, this.env));
+        async () => runAudit(church, this.env, { id }));
       // With no email address nobody would get the scorecard, so Chris holds it.
       if (!contact?.email) {
         result.needsReview = true;

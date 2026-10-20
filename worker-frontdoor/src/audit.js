@@ -1,5 +1,6 @@
 // Runs every Front Door Audit check for one church and returns the full result.
-// church = { name, city, address, website, instagram? }   env = { GOOGLE_API_KEY?, ... }
+// church = { name, city, address, website, instagram? }   env = { GOOGLE_API_KEY?, AUDITS?, ... }
+// id = the audit id; with it and env.AUDITS, the church photo from the website is saved under photo:<id>.
 // Anything the audit could not check is marked in `checks` and graded as not checked, never as a failure,
 // and any doubt about whose data this is holds the audit for Chris (needsReview + reviewReasons).
 import { checkWebsite, sameSite, siteKey } from "./website.js";
@@ -9,6 +10,7 @@ import { geocode } from "./geocode.js";
 import { homesWithin, milesBetween } from "./reach.js";
 import { scoreAudit } from "./score.js";
 import { writeNotes, fallbackNotes } from "./write.js";
+import { savePhoto, PHOTO_TIMEOUT_MS } from "./photo.js";
 
 const FAR_MILES = 5;
 // The Workflow step times out at 5 minutes. PageSpeed gets until SPEED_BY, the write-up until NOTES_BY,
@@ -23,7 +25,7 @@ function within(ms, promise, late) {
   return Promise.race([promise, cutoff]).finally(() => clearTimeout(timer));
 }
 
-export async function runAudit(church, env = {}) {
+export async function runAudit(church, env = {}, { id = null } = {}) {
   const started = Date.now();
   const errors = [];
   const safe = async (label, fn) => {
@@ -56,6 +58,12 @@ export async function runAudit(church, env = {}) {
     }
   }
   checks.website = website?.checked ? "ok" : website ? "not-checked" : "error";
+
+  // The church photo runs beside the other checks. Once they are done it gets one more timeout at most,
+  // then it is dropped; it never feeds a grade.
+  const photoStop = new AbortController();
+  const photoP = id && env.AUDITS && website?.photoCandidates?.length
+    ? safe("photo", () => savePhoto(env, id, website.photoCandidates, { signal: photoStop.signal, referer: website.finalUrl })) : null;
 
   const typedGeo = await typedGeoP;
   // A ZIP-code center can sit miles from the church, so it never proves a listing is far away.
@@ -107,8 +115,14 @@ export async function runAudit(church, env = {}) {
   const graded = Object.values(scores.areas).filter((x) => x.checked).length;
   if (graded < 3) reasons.push(`Only ${graded} of 4 areas could be graded.`);
 
+  const shot = photoP ? await within(PHOTO_TIMEOUT_MS, photoP, "late") : null;
+  photoStop.abort();
+  if (shot === "late") errors.push("photo: ran out of time");
+  else if (shot && !shot.photo && shot.misses.length) errors.push(`photo: none usable (${shot.misses.join("; ")})`);
+
   return {
     ...result,
+    photo: shot?.photo || null,
     scores,
     notes,
     needsReview: reasons.length > 0,
