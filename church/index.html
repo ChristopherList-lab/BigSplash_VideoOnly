@@ -129,8 +129,6 @@
   .film figcaption { margin-top: 0.8rem; color: #3f3f47; font-size: 0.97rem; }
   .film-kind { display: block; font-size: 0.875rem; font-weight: 700; color: #56610a; }
 
-  .audit-sample { max-width: 20rem; aspect-ratio: 3 / 4; }
-  .audit-sample img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
 
   .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background: #131318; color: #ffffff; font-weight: 600; font-size: 1rem; padding: 0.95rem 1.6rem; border-radius: 9999px; transition: background 0.2s, transform 0.2s; }
   .btn-primary .material-symbols-outlined { color: #eff88b; }
@@ -288,6 +286,22 @@
   .sc-fix p strong { display: block; margin-bottom: 3px; font: 700 10.5px/1 "Inter", system-ui, sans-serif; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.72); }
 
   .sc-caption { margin-top: 12px; text-align: center; font-size: 12px; line-height: 1.4; color: rgba(255,255,255,.62); }
+
+  /* Audit section: one area in detail, on the same sample church as the hero card */
+  .sc-detail { max-width: 400px; }
+  .sc-detail .sc-card { border: 1px solid #ddd8ce; box-shadow: 0 30px 60px -28px rgba(19,19,24,0.28), 0 2px 6px rgba(19,19,24,0.05); }
+  .sc-area-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--sc-line); }
+  .sc-area-head h4 { font: 800 19px/1.2 "Inter", system-ui, sans-serif; letter-spacing: -.01em; color: var(--sc-ink); }
+  .sc-label { margin-top: 16px; font: 700 11px/1 "Inter", system-ui, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--sc-muted); }
+  .sc-facts { list-style: none; margin-top: 10px; display: grid; gap: 8px; }
+  .sc-facts li { position: relative; padding-left: 28px; font-size: 14px; line-height: 1.4; color: var(--sc-copy); }
+  .sc-facts li::before { position: absolute; left: 0; top: 0; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font: 800 12px/20px "Inter", system-ui, sans-serif; text-align: center; }
+  .sc-facts .sc-yes::before { content: "\2713"; background: var(--sc-brand-tint); color: var(--sc-brand); }
+  .sc-facts .sc-no::before { content: "\2715"; background: var(--sc-bad-tint); color: var(--sc-bad); }
+  .sc-fixes { list-style: none; margin-top: 10px; display: grid; gap: 8px; }
+  .sc-fixes li { display: flex; gap: 10px; align-items: flex-start; padding: 11px 13px; border-radius: 12px; background: var(--sc-brand); color: #fff; font-size: 14px; line-height: 1.4; font-weight: 600; }
+  .sc-fixes i { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--sc-lime); color: var(--sc-ink); font: 800 12px/22px "Inter", system-ui, sans-serif; font-style: normal; text-align: center; }
+  .sc-detail-cap { margin-top: 14px; text-align: center; font-size: 14px; line-height: 1.45; color: #5f5f68; text-wrap: balance; }
 
   @media (max-width: 480px) {
     .sc-wrap { max-width: none; }
@@ -605,11 +619,36 @@
           <p class="mt-4 text-[15px] text-muted">Most scorecards are ready in a few minutes. Free, no call needed.</p>
         </div>
       </div>
-      <figure class="lg:col-span-5 reveal">
-        <div class="audit-sample sheet overflow-hidden mx-auto">
-          <img src="/frontdoor/sample-scorecard.jpg" alt="A sample Front Door Audit scorecard with an overall grade and a grade for each area" width="560" height="1508" loading="lazy">
+      <figure class="lg:col-span-5 reveal sc-wrap sc-detail" aria-label="Sample scorecard detail for a fictional church">
+        <div class="sc-card">
+          <div class="sc-strip">
+            <span>Front Door Audit</span>
+            <img src="../assets/images/logo-bigsplash-white-lime.svg" alt="Big Splash" width="655" height="191" loading="lazy">
+          </div>
+          <div class="sc-body">
+            <div class="sc-church">
+              <img src="../assets/images/church/sample-church-logo.svg" alt="Cedar Bend Church" width="228" height="62" loading="lazy">
+              <span class="sc-pill">Sample</span>
+            </div>
+            <div class="sc-area-head">
+              <h4>Website on a phone</h4>
+              <span class="sc-grade sc-low" aria-label="Grade D">D</span>
+            </div>
+            <p class="sc-label">What we found</p>
+            <ul class="sc-facts">
+              <li class="sc-yes">The home page loads fast on a phone</li>
+              <li class="sc-no">Service times sit three taps deep</li>
+              <li class="sc-no">No plan-your-visit link up top</li>
+              <li class="sc-yes">Kids ministry page found</li>
+            </ul>
+            <p class="sc-label">Your first fixes</p>
+            <ol class="sc-fixes">
+              <li><i aria-hidden="true">1</i>Add a Plan Your Visit page and link it up top.</li>
+              <li><i aria-hidden="true">2</i>Put your service times on the first screen.</li>
+            </ol>
+          </div>
         </div>
-        <figcaption class="mt-4 text-center text-[15px] text-muted">A sample scorecard. Texas churches also see the households within a 10-minute drive.</figcaption>
+        <figcaption class="sc-detail-cap">A sample for a fictional church. Every grade on your scorecard shows what we found.</figcaption>
       </figure>
     </div>
   </section>

@@ -264,7 +264,10 @@ describe("church page", () => {
     assert.equal(sections.length, 1);
     const s = sections[0];
     for (const area of ["Google search", "Reviews", "Website on a phone", "Social and sermons"]) assert.ok(s.includes(area), area);
-    assert.match(s, /<img[^>]*src="\/frontdoor\/sample-scorecard\.jpg"/);
+    // The sample is built in the page (the fictional Cedar Bend Church, same as the hero card), not a cropped screenshot.
+    assert.match(s, /<figure class="[^"]*sc-detail"[^>]*aria-label="Sample scorecard detail for a fictional church">/);
+    assert.ok(s.includes("A sample for a fictional church."));
+    assert.equal(s.includes("sample-scorecard.jpg"), false);
     assert.ok(s.includes(`href="${AUDIT}"`));
     assert.ok(s.includes("Most scorecards are ready in a few minutes. Free, no call needed."));
   });
