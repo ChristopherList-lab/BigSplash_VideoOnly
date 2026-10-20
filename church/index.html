@@ -84,7 +84,22 @@
   .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
   .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
   .reveal.visible { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+  /* Text motion. Eyebrows slide in, section headings rise word by word (the script splits them),
+     and the hero lines rise on load before the neon block wipes in. */
+  .reveal .eyebrow { opacity: 0; transform: translateX(-14px); transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+  .reveal.visible .eyebrow { opacity: 1; transform: none; }
+  .split .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+  .split .w > span { display: inline-block; transform: translateY(110%); transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: calc(var(--i, 0) * 45ms + 120ms); }
+  .split.visible .w > span { transform: none; }
+  @keyframes hs-line { from { opacity: 0; transform: translateY(0.45em); } }
+  @keyframes hs-wipe { from { background-size: 0% 100%; color: #ffffff; } }
+  @media (prefers-reduced-motion: no-preference) {
+    .hs-h1 > .block { animation: hs-line 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .hs-h1 > .block:nth-child(2) { animation-delay: 0.12s; }
+    .hs-h1 > .block:nth-child(3) { animation-delay: 0.24s; }
+    .mark-neon { animation: hs-wipe 0.75s 0.8s cubic-bezier(0.65, 0, 0.35, 1) both; }
+  }
+  @media (prefers-reduced-motion: reduce) { .reveal, .reveal .eyebrow { opacity: 1; transform: none; transition: none; } .split .w > span { transform: none; transition: none; } html { scroll-behavior: auto; } }
 
   .display { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.028em; line-height: 1.08; color: #131318; text-wrap: balance; }
   .mark { background-image: linear-gradient(transparent 58%, #eff88b 58%, #eff88b 95%, transparent 95%); -webkit-box-decoration-break: clone; box-decoration-break: clone; padding: 0 0.06em; margin: 0 -0.06em; }
@@ -181,16 +196,14 @@
     background: linear-gradient(180deg, rgba(11,11,14,0.5) 0%, rgba(11,11,14,0.62) 30%, rgba(11,11,14,0.8) 62%, rgba(11,11,14,0.94) 86%, #0b0b0e 100%); }
   @media (min-width: 768px) { .hs-film { top: -9rem; left: -2rem; right: -2rem; } }
 
-  /* Water drop: lg only. A soft mask fades it in from the left and out at the bottom, so no box edge shows. */
-  .hs-water { display: none; }
-
   .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.2); background: rgba(11,11,14,0.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); color: rgba(255,255,255,0.88); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.01em; padding: 0.38rem 0.85rem 0.38rem 0.65rem; border-radius: 9999px; }
   .hero-eyebrow img { width: 14px; height: 14px; flex: none; }
   .hs-h1 { font-size: clamp(1.7rem, 8.2vw, 2.3rem); line-height: 1.06; text-shadow: 0 2px 24px rgba(0,0,0,0.4); }
   .hs-h1 > .block { white-space: nowrap; }
-  /* The highlight sits under the words like a marker stroke, so white text never lands on lime */
-  .mark-dark { background-image: linear-gradient(transparent 80%, #eff88b 80%, #eff88b 95%, transparent 95%); -webkit-box-decoration-break: clone; box-decoration-break: clone; padding: 0 0.04em; margin: 0 -0.04em; }
+  /* "welcome new families." sits in a solid neon block that wipes in after the lines land */
+  .mark-neon { color: #131318; text-shadow: none; background: linear-gradient(#eff88b, #eff88b) no-repeat 0 0 / 100% 100%; -webkit-box-decoration-break: clone; box-decoration-break: clone; padding: 0 0.12em 0.04em; border-radius: 0.1em; }
   .nowrap { white-space: nowrap; }
+  .hs-h1 > .block:last-child { margin-top: 0.08em; }
   .hero-split .tick { background: #eff88b; color: #131318; }
   .hs-card { position: relative; z-index: 1; }
   .hs-card .sc-card { box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 30px 80px -20px rgba(0,0,0,0.85), 0 0 60px -10px rgba(111,163,163,0.25); }
@@ -205,28 +218,20 @@
   @media (min-width: 768px) and (max-width: 1023px) { .hs-h1 { font-size: 3.5rem; } }
 
   @media (min-width: 1024px) {
-    /* The copy column stops being the positioning box, so the footage and the water
-       both measure against the full hero. */
+    /* The copy column stops being the positioning box, so the footage fills the full hero. */
     .hs-grid, .hs-copy { position: static; }
     .hs-copy { padding-top: 1.5rem; }
-    .hs-film { top: 0; bottom: 0; left: 0; right: auto; width: 62%;
-      -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 56%, transparent 100%); mask-image: linear-gradient(90deg, #000 0%, #000 56%, transparent 100%); }
-    .hs-film video { object-position: 42% 50%; }
+    .hs-film { top: 0; bottom: 0; left: 0; right: 0; }
     .hs-film-shade { background:
-      linear-gradient(180deg, rgba(11,11,14,0.55) 0%, rgba(11,11,14,0) 22%, rgba(11,11,14,0) 70%, rgba(11,11,14,0.85) 100%),
-      linear-gradient(90deg, rgba(11,11,14,0.84) 0%, rgba(11,11,14,0.64) 46%, rgba(11,11,14,0.4) 100%); }
+      linear-gradient(180deg, rgba(11,11,14,0.55) 0%, rgba(11,11,14,0) 22%, rgba(11,11,14,0) 70%, rgba(11,11,14,0.9) 100%),
+      linear-gradient(90deg, rgba(11,11,14,0.86) 0%, rgba(11,11,14,0.66) 48%, rgba(11,11,14,0.5) 100%); }
 
-    .hs-water { display: block; position: absolute; z-index: 0; top: -4rem; left: calc(50% + min(20rem, 28vw)); width: 62rem; aspect-ratio: 16 / 9; transform: translateX(-50%); pointer-events: none;
-      background: url('../assets/images/church-hero-splash-crown-poster.webp') 50% 50% / cover no-repeat;
-      -webkit-mask-image: linear-gradient(90deg, transparent 4%, #000 40%), linear-gradient(180deg, #000 58%, transparent 97%);
-      -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 4%, #000 40%), linear-gradient(180deg, #000 58%, transparent 97%); mask-composite: intersect; }
-    .hs-water video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     .hs-h1 { font-size: 3.1rem; }
     .hs-card { margin-top: 9rem; }
   }
   @media (min-width: 1280px) { .hs-h1 { font-size: 3.7rem; } }
-  @media (prefers-reduced-motion: reduce) { .hs-film video, .hs-water video, .film-toggle { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .hs-film video, .film-toggle { display: none; } }
 
   /* Clean edge into the light page */
   .hero-edge { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 28px; display: block; z-index: 2; pointer-events: none; }
@@ -314,17 +319,10 @@
     </div>
   </nav>
 
-  <!-- ========== HERO (Direction F, "Split": worship footage left, water drop right) ==========
+  <!-- ========== HERO (Direction F: worship footage behind the copy and the sample scorecard) ==========
        Footage: City Reach Church, Cedar Park, filmed by Big Splash. 8-second muted loop
-       cut from the full recap. Water: the main site's drop, re-encoded at 720p for this page
-       cut to the crown moment (assets/videos/church/hero-splash-crown.mp4, 7.6 s). The water only loads from lg up.
-       Posters show first and stand in for reduced motion. -->
+       cut from the full recap. The poster shows first and stands in for reduced motion. -->
   <header id="hero" class="hero-split on-dark relative overflow-hidden px-5 md:px-8 pt-28 pb-20 md:pt-36 md:pb-28 lg:pt-32 lg:pb-24" data-screen-label="01 Hero">
-    <div class="hs-water" aria-hidden="true">
-      <video id="hero-water" muted loop playsinline preload="none" poster="../assets/images/church-hero-splash-crown-poster.webp" tabindex="-1" disablepictureinpicture>
-        <source src="../assets/videos/church/hero-splash-crown.mp4" type="video/mp4">
-      </video>
-    </div>
 
     <div class="hs-grid w-full max-w-6xl mx-auto grid lg:grid-cols-12 gap-12 lg:gap-10 items-start">
       <div class="hs-copy lg:col-span-7">
@@ -339,7 +337,7 @@
         <h1 class="display hs-h1">
           <span class="block">We film your church.</span>
           <span class="block">Then we help you</span>
-          <span class="block"><span class="mark-dark">welcome <span class="nowrap">new families.</span></span></span>
+          <span class="block"><span class="mark-neon">welcome <span class="nowrap">new families.</span></span></span>
         </h1>
         <p class="mt-7 text-lg md:text-xl text-white/75 leading-relaxed max-w-xl">
           We show your pastor's invitation and your people's stories on Facebook and Instagram to families a few minutes from your building. Every family gets a plan-your-visit page and a follow-up text, and you see each family welcomed by name.
@@ -806,22 +804,15 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    // Hero video: the footage plays everywhere, the water only from lg up (so phones never download it).
-    // One button pauses both, and visitors who asked for less motion get the posters.
+    // Hero video: one button pauses the footage, and visitors who asked for less motion get the poster.
     const heroVideo = document.getElementById('hero-video');
-    const heroWater = document.getElementById('hero-water');
     const heroToggle = document.getElementById('hero-video-toggle');
     if (heroVideo) {
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-      const wide = window.matchMedia('(min-width: 1024px)');
       let paused = reduce.matches;
       const play = (v) => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
       const sync = () => {
         if (paused) { heroVideo.pause(); } else { play(heroVideo); }
-        if (heroWater) {
-          if (paused || !wide.matches) { heroWater.pause(); }
-          else { heroWater.preload = 'auto'; play(heroWater); }
-        }
         if (heroToggle) {
           heroToggle.setAttribute('aria-pressed', String(paused));
           heroToggle.setAttribute('aria-label', paused ? 'Play the background video' : 'Pause the background video');
@@ -831,7 +822,6 @@
       if (reduce.matches) { heroVideo.removeAttribute('autoplay'); heroVideo.preload = 'none'; }
       sync();
       reduce.addEventListener?.('change', (e) => { paused = e.matches; sync(); });
-      wide.addEventListener?.('change', sync);
       if (heroToggle) heroToggle.addEventListener('click', () => { paused = !paused; sync(); });
     }
 
@@ -839,6 +829,19 @@
       entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
     }, { threshold: 0.05 });
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+    // Section headings rise in word by word as they scroll into view.
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const words = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); words.unobserve(e.target); } });
+      }, { threshold: 0.3 });
+      document.querySelectorAll('main h2.display, section h2.display').forEach((h) => {
+        if (h.children.length || !h.textContent.trim()) return;
+        h.innerHTML = h.textContent.trim().split(/\s+/).map((w, i) => `<span class="w"><span style="--i:${i}">${w.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</span></span>`).join(' ');
+        h.classList.add('split');
+        words.observe(h);
+      });
+    }
 
     document.addEventListener('click', (e) => {
       const c = e.target.closest('[data-cta]');
