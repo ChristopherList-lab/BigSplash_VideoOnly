@@ -166,7 +166,7 @@ const audit = {
   speed: { ok: true, score: 60 }, reach: null,
 };
 // Until VIDEO_LIVE is true the button books the call; it never promises a video that is not there.
-const ctaHref = (html) => unescape((html.match(/<a class="btn" href="([^"]*)">Book my free walkthrough<\/a>/) || [])[1] ?? "");
+const ctaHref = (html) => unescape((html.match(/<a class="btn" href="([^"]*)">Book a call with our team<\/a>/) || [])[1] ?? "");
 
 describe("scorecard call to action", () => {
   const T = "b".repeat(32);
@@ -174,8 +174,8 @@ describe("scorecard call to action", () => {
   test("sends the pastor to the walkthrough page with the audit id and token", async () => {
     const html = await renderScorecard({ search: `?id=grace-bible-church-1a2b3c4d&t=${T}`, result: audit });
     assert.equal(ctaHref(html), `/frontdoor/walkthrough/?id=grace-bible-church-1a2b3c4d&t=${T}`);
-    assert.match(html, /Next: walk through it with Chris/);
-    assert.match(html, /A free 30-minute call\. Chris goes over every grade with you\./);
+    assert.match(html, /Next: go over it with our team/);
+    assert.match(html, /A free 30-minute call\. Our team goes over every grade with you\./);
     assert.equal(/short video|3-minute/.test(html), false);
   });
 
@@ -206,6 +206,21 @@ describe("walkthrough page", () => {
     }
     assert.equal(/\b20[- ]minute/.test(walkthrough), false);
   });
+
+  test("every booking label reads 'Book a call with our team' and the call is with the team", () => {
+    const text = visible(walkthrough);
+    assert.match(walkthrough, /<a class="btn" href="#book" id="top-cta">Book a call with our team<\/a>/);
+    assert.match(walkthrough, /<div class="sticky"[^>]*><a class="btn" href="#book" tabindex="-1">Book a call with our team<\/a><\/div>/);
+    assert.match(walkthrough, /<h1 id="headline">Go over your scorecard with our team\.<\/h1>/);
+    assert.match(walkthrough, /<title>Book a call with our team · Big Splash<\/title>/);
+    assert.match(walkthrough, /f\.title = "Book a call with our team";/);
+    assert.match(walkthrough, /document\.title = `\$\{name\} · Book a call with our team · Big Splash`;/);
+    assert.match(text, /Meet the Big Splash team/);
+    assert.match(text, /Chris List, a filmmaker, founded it and built the Front Door Audit\./);
+    assert.equal(/Book my|walkthrough|with Chris|Talk to Chris|You'll talk to/i.test(text.replace(/https?:\/\/\S+/g, "")), false, "no old booking wording on the page");
+    assert.equal(/with Chris|walkthrough/i.test(walkthrough.match(/<meta name="description"[^>]*>/)[0] + walkthrough.match(/<meta property="og:title"[^>]*>/)[0] + walkthrough.match(/<meta property="og:description"[^>]*>/)[0]), false);
+    assert.match(inlineScripts(walkthrough), /gtag\("event", "book_walkthrough"/, "analytics names stay");
+  });
 });
 
 // ---------- Church page ----------
@@ -233,6 +248,15 @@ describe("church page", () => {
     }
     const sticky = church.match(/<div id="mobile-cta"[\s\S]*?<\/div>/)[0];
     assert.ok(sticky.includes(`href="${AUDIT}"`), "the phone bar goes to the audit");
+  });
+
+  test("every button that opens the contact modal reads 'Book a call with our team'", () => {
+    const labels = [...church.matchAll(/<button\b[^>]*data-open-intake[^>]*>([^<]*)<\/button>/g)].map((m) => m[1].trim());
+    assert.ok(labels.length >= 5, String(labels.length));
+    for (const l of labels) assert.equal(l, "Book a call with our team");
+    const text = visible(church);
+    assert.equal(/Talk to Chris|Message Chris|call with Chris|message Chris/.test(text), false);
+    assert.match(text, /you can book a free 30-minute call with our team afterward\./);
   });
 
   test("one Front Door Audit section: the four areas, the sample scorecard, the button and the promise", () => {
@@ -283,6 +307,14 @@ describe("intake modal", () => {
   test("the church options offer the Front Door Audit", () => {
     assert.match(intake, /'Free Front Door Audit'/);
     assert.equal(/Growth Snapshot/.test(intake), false);
+  });
+
+  test("the church modal books a call with our team; other services keep their own wording", () => {
+    const churchCfg = intake.slice(intake.indexOf("Church: {"), intake.indexOf("fields:", intake.indexOf("Church: {")));
+    assert.match(churchCfg, /headline: "Book a call<br\/>with our team\."/);
+    assert.match(churchCfg, /calText: 'Book a call with our team'/);
+    assert.equal(/Talk to|Chris/.test(churchCfg), false);
+    assert.match(intake, /\$\{config\.calText \|\| 'Or book a discovery call instead'\}/);
   });
 });
 

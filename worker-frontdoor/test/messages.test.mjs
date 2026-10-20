@@ -44,7 +44,8 @@ describe("every email", () => {
   test("the call is 30 minutes wherever the copy names it", () => {
     for (const b of [scorecardEmail, approvedEmail, callEmail]) assert.match(`${b(full).subject}\n${b(full).text}`, /30-minute/);
     assert.match(callEmail(full).text, /first 15 minutes/);
-    assert.match(nudgeText(full).message, /30 min with me/);
+    for (const videoLive of [false, true]) assert.equal(/\d+ ?min/.test(nudgeText({ ...full, videoLive }).message), false, "the text names no other call length");
+    assert.match(fixEmail(full).text, /we offer a free 30-minute call\./);
   });
 });
 
@@ -54,7 +55,8 @@ describe("email 1 and the approved variant", () => {
     assert.equal(m.subject, "Front Door scorecard for City Reach Church");
     assert.ok(m.text.includes(`Your Front Door Audit for City Reach Church is done:\n${full.scorecardUrl}`));
     assert.ok(m.text.includes("Overall grade: B\nFirst fix on your list: Add Sunday service times to your Google listing"));
-    assert.ok(m.text.includes(`Pick a time here:\n${full.walkthroughUrl}`));
+    assert.ok(m.text.includes(`on a free 30-minute call and show you what we'd do first.\nBook a call with our team: ${full.walkthroughUrl}`));
+    assert.equal(/Pick a time|with me|walkthrough call|Chris will/.test(m.text), false);
     assert.ok(m.html.includes(`<a href="${full.scorecardUrl}">${full.scorecardUrl}</a>`));
   });
 
@@ -74,6 +76,7 @@ describe("email 1 and the approved variant", () => {
     assert.match(m.text, /Something in the audit for City Reach Church needed a human look/);
     assert.equal(/Google results/.test(m.text), false);
     assert.match(m.text, /Thanks for your patience\.\n\nChris List \/ Big Splash/);
+    assert.ok(m.text.includes(`our team will cover every grade with you on a free 30-minute call.\nBook a call with our team: ${full.walkthroughUrl}`));
   });
 });
 
@@ -90,19 +93,23 @@ describe("follow-up emails", () => {
     assert.equal(/(?<!\.)video/i.test(fixEmail(full).text), false);
     assert.equal(/(?<!\.)video/i.test(nudgeText(full).message), false);
     assert.match(fixEmail({ ...full, videoLive: true }).text, /3-minute video/);
-    assert.match(nudgeText({ ...full, videoLive: true }).message, /Video and my calendar/);
+    assert.match(fixEmail({ ...full, videoLive: true }).text, /It plays at the top of the booking page linked below\.\nBook a call with our team: /);
+    assert.equal(nudgeText({ ...full, videoLive: true }).message, nudgeText(full).message, "text 2 reads the same once the video is live");
   });
 
   test("email 3 and email 4", () => {
-    assert.equal(callEmail(full).subject, "Before you book: the 30-minute walkthrough");
+    assert.equal(callEmail(full).subject, "Before you book: the 30-minute call with our team");
+    assert.ok(callEmail(full).text.includes(`You keep the fix list either way.\n\nBook a call with our team: ${full.walkthroughUrl}`));
+    assert.match(callEmail(full).text, /Our team spends the first 15 minutes/);
     assert.match(callEmail(full).text, /We pull up your scorecard together/);
     assert.equal(/the The /.test(callEmail({ ...full, church: "The Bridge Church" }).text), false);
-    assert.match(callEmail(full).text, /If you want to know how an invitation campaign works and what it costs, ask and I'll show you\./);
+    assert.match(callEmail(full).text, /If you want to know how an invitation campaign works and what it costs, ask and we'll show you\./);
     assert.equal(/video of your church's story/.test(callEmail(full).text), false);
     const last = lastEmail(full);
     assert.equal(last.subject, "Last note on your scorecard");
     assert.ok(last.text.includes(`Your scorecard stays live here: ${full.scorecardUrl}`));
-    assert.ok(last.text.includes(`You can book the walkthrough anytime: ${full.walkthroughUrl}`));
+    assert.ok(last.text.includes(`Book a call with our team: ${full.walkthroughUrl}`));
+    for (const b of Object.values(EMAILS)) assert.equal(/walkthrough(?!\/)|with me\b|my calendar|Pick a time/i.test(b({ ...full, videoLive: true }).text.replaceAll(full.walkthroughUrl, "")), false, b.name);
     assert.match(callEmail({ ...full, church: "" }).text, /We pull up your scorecard together/);
   });
 });
@@ -116,8 +123,8 @@ describe("texts", () => {
   });
 
   test("text 2 names Big Splash, and email 2 claims no more than the fix's place on the list", () => {
-    assert.match(nudgeText(full).message, /^Pat, Chris at Big Splash\. Questions\? 30 min with me: /);
-    assert.match(nudgeText({ ...full, videoLive: true }).message, /^Pat, Chris at Big Splash\. Video and my calendar: /);
+    assert.equal(nudgeText(full).message, `Pat, Chris at Big Splash. Book a call with our team: ${full.walkthroughUrl}`);
+    assert.equal(nudgeText({ ...full, videoLive: true }).message, `Pat, Chris at Big Splash. Book a call with our team: ${full.walkthroughUrl}`);
     const fix = fixEmail(full).text;
     assert.match(fix, /It sits at the top of the fix list on your scorecard\. A staff member or a sharp volunteer can often handle it in-house\./);
     assert.equal(/pulled your grade down|Most churches/.test(fix), false);

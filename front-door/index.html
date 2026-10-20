@@ -114,7 +114,7 @@ function badge(g) { return g ? `<span class="badge ${esc(g)}">${esc(g)}</span>` 
 
 function area(title, grade, note, facts) {
   // A not-checked area always gets the same plain sentence, whatever the notes say.
-  const text = grade ? note : "We couldn't check this one this time. We can look at it together on a walkthrough call.";
+  const text = grade ? note : "We couldn't check this one this time. We can go over it together on a call with our team.";
   return `<section class="area"><div class="head"><h3>${esc(title)}</h3>${badge(grade)}</div>
     ${text ? `<p class="note">${esc(text)}</p>` : ""}
     ${grade && facts.length ? `<ul class="facts">${facts.map(([k, v]) => `<li><span>${esc(k)}</span>${v}</li>`).join("")}</ul>` : ""}</section>`;
@@ -184,7 +184,7 @@ function render(a) {
   const fixes = (n.fixes || []).map((f) => `<li><b>${esc(f.title)}</b>${esc(f.why)}</li>`).join("");
   const reach = a.reach
     ? `<div class="reach"><b>${esc(num(a.reach.households))}</b><p>households live within about ${esc(a.reach.miles)} miles of ${esc(a.church.name)}, roughly a 10-minute drive.<small>Estimate from US Census data.</small></p></div>`
-    : `<div class="reach none"><p>${esc(/\b(tx|texas)\b/i.test(a.church.address || g?.address || "") ? "We couldn't count the households near your church this time. We can bring that number to a walkthrough call." : "Household count is available for Texas churches.")}</p></div>`;
+    : `<div class="reach none"><p>${esc(/\b(tx|texas)\b/i.test(a.church.address || g?.address || "") ? "We couldn't count the households near your church this time. We can bring that number to a call with our team." : "Household count is available for Texas churches.")}</p></div>`;
 
   // The footer names only the checks that ran.
   const phone = w.checked ? " on a phone, the way a neighbor would" : "";
@@ -209,8 +209,8 @@ function render(a) {
       ${area("Social and sermons", s.areas.social.grade, n.areas?.social, socialFacts)}
     </div>
     ${fixes ? `<h2>Start here</h2><ol class="fixes">${fixes}</ol>` : ""}
-    <div class="cta"><div><h3>${VIDEO_LIVE ? "Next: a short video from Chris" : "Next: walk through it with Chris"}</h3><p>${VIDEO_LIVE ? "Then book a free 30-minute call with Chris." : "A free 30-minute call. Chris goes over every grade with you."}</p></div>
-      <a class="btn" href="${esc(walkthroughHref(a))}">${VIDEO_LIVE ? "Watch the 3-minute video" : "Book my free walkthrough"}</a></div>
+    <div class="cta"><div><h3>${VIDEO_LIVE ? "Next: a short video from Chris" : "Next: go over it with our team"}</h3><p>${VIDEO_LIVE ? "Watch it, then book a free 30-minute call with our team." : "A free 30-minute call. Our team goes over every grade with you."}</p></div>
+      <a class="btn" href="${esc(walkthroughHref(a))}">Book a call with our team</a></div>
     <footer>Big Splash checked ${esc(a.church.name)} on ${esc(when)}${esc(phone)}${phone && searched ? "," : ""}${esc(searched)}.${from ? ` Numbers come from ${esc(from)}.` : ""} Big Splash · The marketing agency for the local church · bigsplash.video/church · <a href="/privacy/" style="color:inherit">Privacy</a></footer>`;
 }
 

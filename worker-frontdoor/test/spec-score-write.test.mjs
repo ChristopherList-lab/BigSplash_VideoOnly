@@ -310,8 +310,8 @@ describe("fallback notes", () => {
     assert.match(aWith.areas.social, /Instagram/);
 
     const nc = notesFor(scenarios.notChecked);
-    assert.equal(nc.areas.google, "We couldn't check this one this time. We can look at it together on a walkthrough call.");
-    assert.equal(nc.areas.reviews, "We couldn't check this one this time. We can look at it together on a walkthrough call.");
+    assert.equal(nc.areas.google, "We couldn't check this one this time. We can go over it together on a call with our team.");
+    assert.equal(nc.areas.reviews, "We couldn't check this one this time. We can go over it together on a call with our team.");
   });
 
   test("Reviews at 4.5 from 40 (B or lower with a finding) never says 'healthy'", () => {

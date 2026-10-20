@@ -104,7 +104,7 @@ const OPENERS = {
   D: "A new family will have trouble finding what they need.",
   F: "A new family will have trouble finding what they need.",
 };
-const NOT_CHECKED = "We couldn't check this one this time. We can look at it together on a walkthrough call.";
+const NOT_CHECKED = "We couldn't check this one this time. We can go over it together on a call with our team.";
 // The kind first sentence for an A or B area that still has a gap to name.
 const LEADS = {
   google: "The Google listing has the basics.",
@@ -125,7 +125,7 @@ export function fallbackNotes(a) {
     if (grade === null) return NOT_CHECKED;
     const found = by(area);
     const good = grade === "A" || grade === "B";
-    if (!found.length) return good ? ok : "There's room to grow here. We can look at it together on a walkthrough call.";
+    if (!found.length) return good ? ok : "There's room to grow here. We can go over it together on a call with our team.";
     // An A or B names what works before the gap; a plain fact with no fix stands on its own.
     if (good) return found[0].fix ? `${LEADS[area]} ${found[0].fact}` : found[0].fact;
     return found.slice(0, 2).map((f) => f.fact).join(" ");

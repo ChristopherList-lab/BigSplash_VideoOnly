@@ -83,7 +83,7 @@ describe("scorecard page", () => {
     d.website = { ok: false, checked: false, reason: "HTTP 403" };
     const { html } = await renderScorecard({ data: d });
     assert.match(html, /Not checked/);
-    assert.match(html, /We couldn't check this one this time\. We can look at it together on a walkthrough call\./);
+    assert.match(html, /We couldn't check this one this time\. We can go over it together on a call with our team\./);
     assert.equal(/did not load|back online/i.test(html), false);
   });
 

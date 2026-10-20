@@ -54,7 +54,7 @@ test("a website the audit could not read is not graded, and social goes with it"
   assert.equal(s.findings.some((f) => /did not load|back online/.test(f.fact + f.fix)), false);
   assert.equal(s.overall.points, null);
   const n = notes({ church, google: google(), nearMe: nearMe(2), website: { checked: false } });
-  assert.equal(n.areas.website, "We couldn't check this one this time. We can look at it together on a walkthrough call.");
+  assert.equal(n.areas.website, "We couldn't check this one this time. We can go over it together on a call with our team.");
   assert.match(n.summary, /^We couldn't check everything this time\./);
 });
 

@@ -94,9 +94,10 @@
     Church: {
       variant: 'lime',
       eyebrow: 'Churches',
-      headline: "Talk to<br/>Chris.",
-      sub: "Tell us about your church and what growth would look like this year. You'll hear back within one business day.",
+      headline: "Book a call<br/>with our team.",
+      sub: "Tell us about your church and what growth would look like this year. You'll hear back within one business day about a free 30-minute call with our team.",
       submitText: 'Send It',
+      calText: 'Book a call with our team',
       fields: [
         { name: 'name', label: 'Name', type: 'text', required: true, placeholder: 'Your name' },
         { name: 'church', label: 'Church', type: 'text', required: true, placeholder: 'Church name, city' },
@@ -201,7 +202,7 @@ body.intake-locked { overflow: hidden; }
 
       <div class="mt-6 pt-6 border-t border-white/10 text-center">
         <button type="button" data-intake-toggle-cal class="font-label text-xs tracking-widest uppercase text-stone-500 hover:text-primary transition-colors cursor-pointer">
-          Or book a discovery call instead
+          ${config.calText || 'Or book a discovery call instead'}
         </button>
       </div>
 

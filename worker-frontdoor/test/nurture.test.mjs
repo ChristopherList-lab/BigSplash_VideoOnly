@@ -72,7 +72,7 @@ describe("the run", () => {
     stubFetch([g.route]);
     const e = env();
     const { step, log } = await run(e);
-    assert.deepEqual(g.emails.map((m) => m.subject), ["The fix I'd start with at City Reach Church", "Before you book: the 30-minute walkthrough", "Last note on your scorecard"]);
+    assert.deepEqual(g.emails.map((m) => m.subject), ["The fix I'd start with at City Reach Church", "Before you book: the 30-minute call with our team", "Last note on your scorecard"]);
     assert.equal(g.texts.length, 1);
     assert.match(g.texts[0].message, /^Pat, Chris at Big Splash\./);
     assert.ok(g.emails.every((m) => m.contactId === "ghl-contact-1" && m.type === "Email" && m.html && m.message));
@@ -114,7 +114,7 @@ describe("the run", () => {
     const g = fakeGhl();
     stubFetch([g.route]);
     const { log } = await run(env(), params({ topFix: "" }));
-    assert.deepEqual(g.emails.map((m) => m.subject), ["Before you book: the 30-minute walkthrough", "Last note on your scorecard"]);
+    assert.deepEqual(g.emails.map((m) => m.subject), ["Before you book: the 30-minute call with our team", "Last note on your scorecard"]);
     assert.ok(log.events.some((x) => x.skipped === "email 2" && x.reason === "no top fix"));
   });
 
@@ -159,7 +159,7 @@ describe("the run", () => {
     const e = env();
     await e.AUDITS.put(`sent:${params().id}:email2`, "2026-10-21T15:00:01.000Z");
     await run(e);
-    assert.deepEqual(g.emails.map((m) => m.subject), ["Before you book: the 30-minute walkthrough", "Last note on your scorecard"]);
+    assert.deepEqual(g.emails.map((m) => m.subject), ["Before you book: the 30-minute call with our team", "Last note on your scorecard"]);
     assert.ok(e.AUDITS.m.has(`sent:${params().id}:text2`) && e.AUDITS.m.has(`sent:${params().id}:email4`));
   });
 
@@ -172,7 +172,7 @@ describe("the run", () => {
     assert.deepEqual(step.sleeps.slice(0, 1).map((s) => [s.name, new Date(s.at).toISOString()]), [["wait for text 1", "2026-10-21T15:00:00.000Z"]]);
     assert.equal(g.texts.length, 2);
     assert.equal(g.texts[0].message, `Pat, Chris at Big Splash. Your scorecard: ${params().scorecardUrl} Reply STOP to opt out`);
-    assert.match(g.texts[1].message, /^Pat, Chris at Big Splash\. Questions\?/);
+    assert.match(g.texts[1].message, /^Pat, Chris at Big Splash\. Book a call with our team: /);
     assert.deepEqual(log.events.filter((x) => x.sent).map((x) => x.sent), ["text 1", "email 2", "text 2", "email 3", "email 4"]);
   });
 

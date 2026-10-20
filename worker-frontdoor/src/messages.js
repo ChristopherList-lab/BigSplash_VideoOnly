@@ -37,6 +37,8 @@ function render(subject, paragraphs, address) {
 
 const gradeLine = (v) => (v.grade ? `Overall grade: ${v.grade}` : "Your grades are ready, area by area.");
 const fixLine = (v) => (v.fix ? `First fix on your list: ${v.fix}` : "");
+// The one booking line every email ends its pitch with.
+const bookLine = (v) => ["Book a call with our team: ", link(v.walk)];
 
 // Email 1, right after the audit: the scorecard is ready.
 export function scorecardEmail(input) {
@@ -46,7 +48,7 @@ export function scorecardEmail(input) {
     [`Your Front Door Audit for ${v.church} is done:`, link(v.scorecard)],
     [gradeLine(v), fixLine(v)],
     ["The audit searched for you from about 4 miles out and opened your website on a phone, the way a family new to town would before their first Sunday. Every grade on the page shows the fact behind it, so you can check our work."],
-    ["If you'd like a second set of eyes, I'll go through every grade with you on a free 30-minute call and tell you what I'd do first. Pick a time here:", link(v.walk)],
+    ["If you'd like a second set of eyes, our team will go through every grade with you on a free 30-minute call and show you what we'd do first.", bookLine(v)],
   ], v.address);
 }
 
@@ -57,7 +59,7 @@ export function approvedEmail(input) {
     [`Hi ${v.first},`],
     [`Sorry for the wait on this one. Something in the audit for ${v.church} needed a human look, so I checked it myself before sending your scorecard. It's ready now:`, link(v.scorecard)],
     [gradeLine(v), fixLine(v)],
-    ["If you'd like to go through it together, I'll walk you through every grade on a free 30-minute call. Pick a time here:", link(v.walk)],
+    ["If you'd like to go through it together, our team will cover every grade with you on a free 30-minute call.", bookLine(v)],
     ["Thanks for your patience."],
   ], v.address);
 }
@@ -73,8 +75,8 @@ export function fixEmail(input) {
   const v = vars(input);
   if (!v.fix) return null;
   const close = v.video
-    ? ["I also recorded a 3-minute video on the two gaps I'd check first on any church scorecard, and what Big Splash does about them. It's on this page, with my calendar underneath if you want to talk it through:", link(v.walk)]
-    : ["If you want to talk it through, my calendar is here:", link(v.walk)];
+    ? ["I also recorded a 3-minute video on the two gaps I'd check first on any church scorecard, and what Big Splash does about them. It plays at the top of the booking page linked below.", bookLine(v)]
+    : ["If you want to talk it through, we offer a free 30-minute call.", bookLine(v)];
   return render(`The fix I'd start with at ${v.church}`, [
     [`Hi ${v.first},`],
     ["If I were on your staff, I'd start here:"],
@@ -85,20 +87,21 @@ export function fixEmail(input) {
 }
 
 // Text 2, +2 days, only with consent and only after text 1 (with its STOP line) went out. Names the business.
+// One wording with or without the video: the booking page carries the video once it is live.
 export function nudgeText(input) {
   const v = vars(input);
-  return { message: v.video ? `${v.first}, Chris at Big Splash. Video and my calendar: ${v.walk}` : `${v.first}, Chris at Big Splash. Questions? 30 min with me: ${v.walk}` };
+  return { message: `${v.first}, Chris at Big Splash. Book a call with our team: ${v.walk}` };
 }
 
 // Email 3, +4 days: how the 30-minute call goes.
 export function callEmail(input) {
   const v = vars(input);
-  return render("Before you book: the 30-minute walkthrough", [
+  return render("Before you book: the 30-minute call with our team", [
     [`Hi ${v.first},`],
     ["Before you book, here's how the 30 minutes go."],
-    ["We pull up your scorecard together. I spend the first 15 minutes going grade by grade and showing you the two fixes I'd make first, with enough detail that your team could do them this month."],
-    ["The second 15 minutes are yours. Ask anything. If you want to know how an invitation campaign works and what it costs, ask and I'll show you. You keep the fix list either way."],
-    ["Pick a time that works for you:", link(v.walk)],
+    ["We pull up your scorecard together. Our team spends the first 15 minutes going grade by grade and showing you the two fixes we'd make first, with enough detail that your staff could do them this month."],
+    ["The second 15 minutes are yours. Ask anything. If you want to know how an invitation campaign works and what it costs, ask and we'll show you. You keep the fix list either way."],
+    [bookLine(v)],
   ], v.address);
 }
 
@@ -109,7 +112,7 @@ export function lastEmail(input) {
     [`Hi ${v.first},`],
     ["I'll stop filling your inbox after this one."],
     [["Your scorecard stays live here: ", link(v.scorecard)]],
-    [["You can book the walkthrough anytime: ", link(v.walk)]],
+    [bookLine(v)],
     ["If this season is full, reply with the month that works better and I'll reach out then."],
     ["Glad to be in your corner either way."],
   ], v.address);

@@ -3,7 +3,7 @@
 Live URL once pushed: https://bigsplash.video/church/ (this repo deploys to GitHub Pages on push to main).
 
 ## What's here
-- `index.html`: the landing page. Same Tailwind CDN config, fonts and nav pattern as `faq.html`. Reuses `../js/intake.js` for the "Talk to Chris" modal (config key `Church`).
+- `index.html`: the landing page. Same Tailwind CDN config, fonts and nav pattern as `faq.html`. Reuses `../js/intake.js` for the "Book a call with our team" modal (config key `Church`).
 - `../worker-churchsnapshot/`: Cloudflare Worker that takes the form POST, creates a ClickUp task in "Church Growth Snapshots" (list 901421191181) with a 72-hour due date, and forwards to GHL if a webhook is set.
 - `../assets/videos/church/splash-light.mp4`: a light version of the main site's water drop video, playing behind the hero report card. `../assets/images/ocean-starburst.webp` stands in when a visitor asks for reduced motion.
 
