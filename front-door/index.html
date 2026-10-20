@@ -12,6 +12,29 @@
   Front Door Audit scorecard. Loads one audit from the front-door worker by id:
   bigsplash.video/front-door/?id=<audit id>. A preview build can set window.FRONT_DOOR_DATA instead.
 -->
+<!-- ============================================================
+     TRACKING (same block and IDs as /church/; fill in before launch)
+     1. Meta Pixel: paste your pixel ID into META_PIXEL_ID below.
+     2. GA4: paste your measurement ID into GA4_ID below.
+     Both stay off until an ID is present. This page sends PageView only.
+     ============================================================ -->
+<script>
+  window.BS_TRACK = { META_PIXEL_ID: '', GA4_ID: '' };
+  (function(t){
+    if (t.META_PIXEL_ID) {
+      !function(f,b,e,v,n,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];s=b.createElement(e);s.async=!0;s.src=v;b.head.appendChild(s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', t.META_PIXEL_ID); fbq('track', 'PageView');
+    }
+    if (t.GA4_ID) {
+      var g=document.createElement('script'); g.async=true; g.src='https://www.googletagmanager.com/gtag/js?id='+t.GA4_ID; document.head.appendChild(g);
+      window.dataLayer=window.dataLayer||[]; window.gtag=function(){dataLayer.push(arguments)}; gtag('js', new Date()); gtag('config', t.GA4_ID);
+    }
+    window.bsTrack = function(name, data){
+      try { if (window.fbq) fbq('trackCustom', name, data||{}); } catch(e){}
+      try { if (window.gtag) gtag('event', name, data||{}); } catch(e){}
+    };
+  })(window.BS_TRACK);
+</script>
 <style>
 :root { --ink: #131318; --card: #1f1f25; --line: #35343a; --lime: #eff88b; --white: #fff; --text: #e4e1e9; --muted: #a3a3ad; --ocean: #6a9686; --bad: #ff8a7a; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,16 +47,17 @@ header.top span { font: 700 12px/1 "Inter"; letter-spacing: .18em; text-transfor
 .eyebrow { display: flex; align-items: center; gap: 10px; font: 700 13px/1 "Inter"; letter-spacing: .18em; text-transform: uppercase; color: var(--lime); }
 .eyebrow img { width: 20px; height: 20px; }
 .hero { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; padding: 34px 0 30px; border-bottom: 1px solid var(--line); }
-h1 { font: 800 clamp(34px, 6vw, 56px)/1.04 "Inter"; letter-spacing: -.035em; color: var(--white); margin: 16px 0 12px; }
+h1 { font: 800 clamp(34px, 6vw, 56px)/1.04 "Inter"; letter-spacing: -.035em; color: var(--white); margin: 16px 0 12px; overflow-wrap: anywhere; }
 .lede { font-size: 18px; color: var(--text); max-width: 560px; }
 .grade { width: 150px; height: 150px; border-radius: 50%; border: 6px solid var(--lime); display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .grade b { font: 800 76px/1 "Inter"; color: var(--white); letter-spacing: -.04em; }
 .grade small { font: 700 11px/1 "Inter"; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
-.summary { font: 600 21px/1.5 "Inter"; color: var(--white); padding: 30px 0 8px; max-width: 760px; }
+.summary { font: 600 21px/1.5 "Inter"; color: var(--white); padding: 30px 0 8px; max-width: 760px; overflow-wrap: anywhere; }
 .reach { margin: 26px 0 8px; background: var(--card); border-left: 5px solid var(--ocean); border-radius: 14px; padding: 22px 24px; display: flex; gap: 20px; align-items: baseline; flex-wrap: wrap; }
 .reach b { font: 800 40px/1 "Inter"; color: var(--white); letter-spacing: -.02em; }
 .reach p { flex: 1 1 280px; }
 .reach small { display: block; color: var(--muted); font-size: 13px; margin-top: 4px; }
+.reach.none { border-left-color: var(--line); color: var(--muted); font-size: 15px; }
 h2 { font: 800 28px/1.15 "Inter"; letter-spacing: -.02em; color: var(--white); margin: 44px 0 18px; }
 .areas { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .area { background: var(--card); border-radius: 16px; padding: 22px 24px; }
@@ -42,11 +66,11 @@ h2 { font: 800 28px/1.15 "Inter"; letter-spacing: -.02em; color: var(--white); m
 .badge { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font: 800 24px/1 "Inter"; background: var(--ink); color: var(--white); border: 2px solid var(--line); }
 .badge.A, .badge.B { border-color: var(--lime); color: var(--lime); }
 .badge.D, .badge.F { border-color: var(--bad); color: var(--bad); }
-.badge.none { font-size: 13px; color: var(--muted); }
+.badge.none { width: auto; padding: 0 10px; font-size: 12px; font-weight: 700; letter-spacing: .04em; color: var(--muted); border-color: var(--line); white-space: nowrap; }
 .area p.note { font-size: 15.5px; margin-bottom: 12px; }
 .facts { list-style: none; border-top: 1px solid var(--line); padding-top: 10px; }
 .facts li { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; padding: 5px 0; color: var(--muted); }
-.facts li b { color: var(--white); font-weight: 700; text-align: right; }
+.facts li b { color: var(--white); font-weight: 700; text-align: right; overflow-wrap: break-word; flex: 0 1 auto; }
 .facts li b.no { color: var(--bad); }
 .facts li b.yes { color: var(--lime); }
 .fixes { list-style: none; counter-reset: fix; display: grid; gap: 12px; }
@@ -62,7 +86,9 @@ footer { color: var(--muted); font-size: 13px; padding: 26px 0 50px; border-top:
   .hero { grid-template-columns: 1fr; }
   .grade { width: 120px; height: 120px; } .grade b { font-size: 60px; }
   .areas { grid-template-columns: 1fr; }
-  .cta { padding: 24px; }
+  .cta { padding: 24px 20px; }
+  .cta > div, .cta .btn { width: 100%; }
+  .cta .btn { white-space: normal; text-align: center; line-height: 1.25; padding: 17px 12px; font-size: 16px; }
 }
 @media print { .cta .btn { border: 2px solid var(--ink); } }
 </style>
@@ -75,47 +101,96 @@ footer { color: var(--muted); font-size: 13px; padding: 26px 0 50px; border-top:
 
 <script>
 const API = "https://bigsplash-front-door.chris-bc4.workers.dev"; // set to the deployed worker URL
-const BOOK = "https://api.leadconnectorhq.com/widget/booking/YcBm4L2c5a0DNBZyessz";
+const VIDEO_LIVE = false; // set true once VSL_URL is set on /frontdoor/walkthrough/
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const yes = (v, y = "Yes", n = "Missing") => v ? `<b class="yes">${y}</b>` : `<b class="no">${n}</b>`;
+const yes = (v, y = "Yes", n = "Not found") => v ? `<b class="yes">${esc(y)}</b>` : `<b class="no">${esc(n)}</b>`;
+const plain = (v, cls = "") => `<b class="${esc(cls)}">${esc(v)}</b>`;
 const num = (n) => Number(n).toLocaleString("en-US");
-const days = (d) => d === 0 ? "today" : d === 1 ? "yesterday" : `${d} days ago`;
+const shortDate = (iso) => new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+const NET = { facebook: "Facebook", instagram: "Instagram", youtube: "YouTube", tiktok: "TikTok", vimeo: "Vimeo" };
 
-function badge(g) { return g ? `<span class="badge ${g}">${g}</span>` : `<span class="badge none">n/a</span>`; }
+function badge(g) { return g ? `<span class="badge ${esc(g)}">${esc(g)}</span>` : `<span class="badge none">Not checked</span>`; }
 
 function area(title, grade, note, facts) {
-  return `<section class="area"><div class="head"><h3>${title}</h3>${badge(grade)}</div>
-    <p class="note">${esc(note)}</p>
-    ${facts.length ? `<ul class="facts">${facts.map(([k, v]) => `<li><span>${k}</span>${v}</li>`).join("")}</ul>` : ""}</section>`;
+  // A not-checked area always gets the same plain sentence, whatever the notes say.
+  const text = grade ? note : "We couldn't check this one this time. We can look at it together on a walkthrough call.";
+  return `<section class="area"><div class="head"><h3>${esc(title)}</h3>${badge(grade)}</div>
+    ${text ? `<p class="note">${esc(text)}</p>` : ""}
+    ${grade && facts.length ? `<ul class="facts">${facts.map(([k, v]) => `<li><span>${esc(k)}</span>${v}</li>`).join("")}</ul>` : ""}</section>`;
+}
+
+// Older records have no "checked" flag on a search; a stored rank or count means it ran.
+const searchRan = (r) => r.checked ?? (typeof r.rank === "number" || typeof r.scanned === "number");
+
+function searchRow(r) {
+  // The distance sits in the label so the value stays short on a phone.
+  const where = `from ${Math.round(r.milesAway) || 4} miles ${r.from}`;
+  if (!searchRan(r)) return [`Search for "church" ${where}`, plain("Not checked")];
+  if (r.rank) return [`Search for "church" ${where}`, plain(`#${r.rank}`, r.rank <= 3 ? "yes" : "")];
+  return [`Search for "church" ${where}`, plain(`Not in the first ${r.scanned}`, "no")];
+}
+
+function uploadRow(label, v, asOf) {
+  if (!v || typeof v.daysSinceLastUpload !== "number" || !v.lastUpload) return [];
+  return [[`Last ${label} upload`, plain(`${shortDate(v.lastUpload)} (as of ${asOf})`, v.daysSinceLastUpload <= 14 ? "yes" : "no")]];
+}
+
+// The walkthrough (VSL) page, carrying the audit id and token when the page has them.
+function walkthroughHref(a) {
+  const params = new URLSearchParams(location.search);
+  const id = params.get("id") || a?.id, t = params.get("t");
+  if (!id || !/^[a-z0-9-]{6,80}$/.test(id)) return "/frontdoor/walkthrough/";
+  const qs = new URLSearchParams({ id });
+  if (t && /^[a-f0-9]{32}$/.test(t)) qs.set("t", t);
+  return `/frontdoor/walkthrough/?${qs}`;
 }
 
 function render(a) {
   const s = a.scores, n = a.notes || {}, w = a.website || {}, g = a.google, nm = a.nearMe;
   const when = new Date(a.checkedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  const asOf = shortDate(a.checkedAt);
   document.title = `${a.church.name} · Front Door Audit`;
+  const graded = (k) => Boolean(s.areas[k]?.grade);
 
   const googleFacts = [];
-  if (g?.found) {
-    googleFacts.push(["Search \"church\" from 4 miles away", nm?.best ? `<b class="${nm.best <= 3 ? "yes" : ""}">#${nm.best}</b>` : `<b class="no">Not in top 20</b>`]);
-    googleFacts.push(["Service times on Google", yes(g.hoursListed, "Listed")]);
-    if (g.photoCount !== null && g.photoCount !== undefined) googleFacts.push(["Photos on the listing", `<b>${g.photoCount >= 10 ? "10+" : g.photoCount}</b>`]);
+  if (graded("google") && g?.found) {
+    if (nm?.searches?.length) googleFacts.push(...nm.searches.map(searchRow));
+    else googleFacts.push([`Search for "church" from 4 miles away`, plain("Not checked")]);
+    googleFacts.push(["Service times on Google", yes(g.hoursListed, "Listed", "Not listed")]);
+    googleFacts.push(["Website on the listing", yes(g.website, "Listed", "Not listed")]);
   }
-  const reviewFacts = g?.found ? [["Google rating", `<b>${g.rating ?? "None yet"}</b>`], ["Reviews", `<b>${num(g.reviewCount)}</b>`]] : [];
-  const webFacts = w.ok ? [
-    ["Service times on the home page", yes(w.serviceTimes?.found, "Found")],
+  const reviewFacts = graded("reviews") && g?.found ? [["Google rating", plain(g.reviewCount ? g.rating : "None yet")], ["Reviews", plain(num(g.reviewCount))]] : [];
+
+  // Real visitors who wait 2.5 s or less make a low lab score nothing to worry about.
+  const fastVisitors = a.speed?.fieldLcpSeconds && a.speed.fieldLcpSeconds <= 2.5;
+  const webFacts = graded("website") ? [
+    w.serviceTimes?.found && w.serviceTimes.via === "link" ? ["Service times", plain("Linked from the home page", "yes")] : ["Service times on the home page", yes(w.serviceTimes?.found, "Found")],
     ["Plan-your-visit link", yes(w.planVisit?.found, "Found")],
     ["Kids ministry link", yes(w.kids?.found, "Found")],
-    ...(a.speed?.ok ? [["Speed on a phone", `<b class="${a.speed.score >= 70 ? "yes" : a.speed.score < 50 ? "no" : ""}">${a.speed.score} / 100</b>`]] : []),
+    ["Google phone test", a.speed?.ok ? plain(`${a.speed.score} / 100`, fastVisitors ? "" : a.speed.score >= 70 ? "yes" : a.speed.score < 50 ? "no" : "") : plain("Not checked")],
+    ...(a.speed?.ok && a.speed.fieldLcpSeconds ? [["Real visitors wait about", plain(`${a.speed.fieldLcpSeconds} s`)]] : []),
   ] : [];
+
   const socials = Object.keys(w.socials || {});
-  const socialFacts = w.ok ? [
-    ["Accounts linked from the site", socials.length ? `<b>${socials.map((x) => ({ facebook: "Facebook", instagram: "Instagram", youtube: "YouTube", tiktok: "TikTok" }[x] || x)).join(", ")}</b>` : `<b class="no">None</b>`],
-    ...(w.youtube?.daysSinceLastUpload !== undefined ? [["Last YouTube upload", `<b class="${w.youtube.daysSinceLastUpload <= 14 ? "yes" : "no"}">${days(w.youtube.daysSinceLastUpload)}</b>`]] : []),
-    ...(a.instagram?.ok ? [["Instagram posts, last 30 days", `<b>${a.instagram.postsLast30Days}</b>`]] : []),
+  const socialFacts = graded("social") ? [
+    ["Accounts linked from the site", socials.length ? plain(socials.map((x) => NET[x] || x).join(", ")) : plain("None found", "no")],
+    ...(w.sermons ? [["Sermons linked from the home page", w.sermons.found ? plain(`Found: ${w.sermons.sources.join(", ")}`, "yes") : plain("Not found", "no")]] : []),
+    ...uploadRow("YouTube", w.youtube, asOf),
+    ...uploadRow("Vimeo", w.vimeo, asOf),
+    ...(a.instagram?.ok ? [["Instagram posts, last 30 days", plain(a.instagram.postsLast30Days)]] : []),
   ] : [];
 
   const fixes = (n.fixes || []).map((f) => `<li><b>${esc(f.title)}</b>${esc(f.why)}</li>`).join("");
+  const reach = a.reach
+    ? `<div class="reach"><b>${esc(num(a.reach.households))}</b><p>households live within about ${esc(a.reach.miles)} miles of ${esc(a.church.name)}, roughly a 10-minute drive.<small>Estimate from US Census data.</small></p></div>`
+    : `<div class="reach none"><p>${esc(/\b(tx|texas)\b/i.test(a.church.address || g?.address || "") ? "We couldn't count the households near your church this time. We can bring that number to a walkthrough call." : "Household count is available for Texas churches.")}</p></div>`;
+
+  // The footer names only the checks that ran.
+  const phone = w.checked ? " on a phone, the way a neighbor would" : "";
+  const searched = (nm?.searches || []).some(searchRan) ? " and searched Google from about 4 miles away" : "";
+  const sources = [graded("google") && "Google", a.speed?.ok && "Google PageSpeed", w.youtube?.checked && "YouTube", w.vimeo?.checked && "Vimeo", a.reach && "the US Census"].filter(Boolean);
+  const from = sources.length > 1 ? `${sources.slice(0, -1).join(", ")} and ${sources.at(-1)}` : sources[0];
 
   document.getElementById("app").innerHTML = `
     <section class="hero">
@@ -125,7 +200,7 @@ function render(a) {
       <div class="grade"><b>${esc(s.overall.grade ?? "–")}</b><small>Overall</small></div>
     </section>
     ${n.summary ? `<p class="summary">${esc(n.summary)}</p>` : ""}
-    ${a.reach ? `<div class="reach"><b>${num(a.reach.households)}</b><p>households live within about ${a.reach.miles} miles of ${esc(a.church.name)}, roughly a 10-minute drive.<small>Estimate from US Census data.</small></p></div>` : ""}
+    ${reach}
     <h2>Your front door, area by area</h2>
     <div class="areas">
       ${area("Google search", s.areas.google.grade, n.areas?.google, googleFacts)}
@@ -134,24 +209,42 @@ function render(a) {
       ${area("Social and sermons", s.areas.social.grade, n.areas?.social, socialFacts)}
     </div>
     ${fixes ? `<h2>Start here</h2><ol class="fixes">${fixes}</ol>` : ""}
-    <div class="cta"><div><h3>Walk through it with us</h3><p>A free 20-minute call: every grade, and what we'd do first.</p></div>
-      <a class="btn" href="${BOOK}" target="_blank" rel="noopener">Book your walkthrough</a></div>
-    <footer>Big Splash checked ${esc(a.church.name)} on ${esc(when)} the way a neighbor would: from a phone, about 4 miles away. Numbers come from Google, Google PageSpeed, YouTube and the US Census. Big Splash · The marketing agency for the local church · bigsplash.video/church</footer>`;
+    <div class="cta"><div><h3>${VIDEO_LIVE ? "Next: a short video from Chris" : "Next: walk through it with Chris"}</h3><p>${VIDEO_LIVE ? "Then book a free 30-minute call with Chris." : "A free 30-minute call. Chris goes over every grade with you."}</p></div>
+      <a class="btn" href="${esc(walkthroughHref(a))}">${VIDEO_LIVE ? "Watch the 3-minute video" : "Book my free walkthrough"}</a></div>
+    <footer>Big Splash checked ${esc(a.church.name)} on ${esc(when)}${esc(phone)}${phone && searched ? "," : ""}${esc(searched)}.${from ? ` Numbers come from ${esc(from)}.` : ""} Big Splash · The marketing agency for the local church · bigsplash.video/church · <a href="/privacy/" style="color:inherit">Privacy</a></footer>`;
 }
 
+const MESSAGES = {
+  running: "Your audit is still running. Refresh in a minute.",
+  review: "Chris is double-checking a few details and will email your scorecard within one business day.",
+  failed: "Something went wrong on our end. Chris has the details and will email your scorecard.",
+  missing: "We couldn't find that audit. Check the link in your email, or write to chris@bigsplash.agency.",
+};
+const showState = (key) => { document.getElementById("app").innerHTML = `<p class="state">${esc(MESSAGES[key] || MESSAGES.missing)}</p>`; };
+
 (async () => {
+  let data = window.FRONT_DOOR_DATA;
   try {
-    let data = window.FRONT_DOOR_DATA;
     if (!data) {
-      const id = new URLSearchParams(location.search).get("id");
-      if (!id || !/^[a-z0-9-]{6,80}$/.test(id)) throw new Error("missing");
-      const res = await fetch(`${API}/result?id=${encodeURIComponent(id)}`);
-      if (!res.ok) throw new Error("not found");
+      const params = new URLSearchParams(location.search);
+      const id = params.get("id"), t = params.get("t");
+      if (!id || !/^[a-z0-9-]{6,80}$/.test(id)) return showState("missing");
+      const qs = new URLSearchParams({ id });
+      if (t && /^[a-f0-9]{32}$/.test(t)) qs.set("t", t);
+      const res = await fetch(`${API}/result?${qs}`);
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        return showState(body.status in MESSAGES ? body.status : "missing");
+      }
       data = await res.json();
     }
+  } catch {
+    return showState("missing");
+  }
+  try {
     render(data);
   } catch {
-    document.getElementById("app").innerHTML = `<p class="state">We couldn't find that audit. Check the link in your email, or write to chris@bigsplash.agency.</p>`;
+    showState("failed");
   }
 })();
 </script>

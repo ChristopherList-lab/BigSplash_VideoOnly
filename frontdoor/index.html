@@ -11,6 +11,31 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
 <!-- The ad landing page for the Front Door Audit. The form posts to the bigsplash-front-door worker. -->
+<!-- ============================================================
+     TRACKING (same block and IDs as /church/; fill in before launch)
+     1. Meta Pixel: paste your pixel ID into META_PIXEL_ID below.
+     2. GA4: paste your measurement ID into GA4_ID below.
+     Both stay off until an ID is present. A started audit fires
+     fbq('track','Lead') with the audit id as eventID and
+     gtag('event','generate_lead') (see trackLead() at the bottom).
+     ============================================================ -->
+<script>
+  window.BS_TRACK = { META_PIXEL_ID: '', GA4_ID: '' };
+  (function(t){
+    if (t.META_PIXEL_ID) {
+      !function(f,b,e,v,n,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];s=b.createElement(e);s.async=!0;s.src=v;b.head.appendChild(s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', t.META_PIXEL_ID); fbq('track', 'PageView');
+    }
+    if (t.GA4_ID) {
+      var g=document.createElement('script'); g.async=true; g.src='https://www.googletagmanager.com/gtag/js?id='+t.GA4_ID; document.head.appendChild(g);
+      window.dataLayer=window.dataLayer||[]; window.gtag=function(){dataLayer.push(arguments)}; gtag('js', new Date()); gtag('config', t.GA4_ID);
+    }
+    window.bsTrack = function(name, data){
+      try { if (window.fbq) fbq('trackCustom', name, data||{}); } catch(e){}
+      try { if (window.gtag) gtag('event', name, data||{}); } catch(e){}
+    };
+  })(window.BS_TRACK);
+</script>
 <style>
 :root { --ink: #131318; --card: #1f1f25; --line: #35343a; --lime: #eff88b; --white: #fff; --text: #e4e1e9; --muted: #a3a3ad; --bad: #ff8a7a; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,18 +51,23 @@ h1 { font: 800 clamp(38px, 6vw, 62px)/1.03 "Inter"; letter-spacing: -.035em; col
 .hl { position: relative; color: var(--ink); white-space: nowrap; }
 .hl::before { content: ""; position: absolute; z-index: -1; left: -.06em; right: -.08em; top: .14em; bottom: -.02em; background: var(--lime); border-radius: .07em; }
 .lede { font-size: 19px; max-width: 540px; }
+.jump { display: inline-block; margin-top: 22px; background: var(--lime); color: var(--ink); font: 800 17px/1 "Inter"; padding: 16px 26px; border-radius: 999px; text-decoration: none; }
 .checks { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 28px 0 0; max-width: 560px; }
 .checks li { background: var(--card); border-radius: 14px; padding: 16px 18px; font-size: 15px; }
 .checks b { display: block; color: var(--white); font-weight: 800; font-size: 16px; margin-bottom: 2px; }
 .sample { margin-top: 30px; display: flex; gap: 16px; align-items: center; color: var(--muted); font-size: 14px; }
 .sample img { width: 150px; border-radius: 12px; border: 1px solid var(--line); }
-form, .status { background: var(--card); border-radius: 20px; padding: 28px; }
+form, .status { background: var(--card); border-radius: 20px; padding: 28px; scroll-margin-top: 16px; }
 form h2, .status h2 { font: 800 24px/1.2 "Inter"; color: var(--white); margin-bottom: 4px; }
 form p.small, .status p { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
 label { display: block; font: 700 13px/1.3 "Inter"; color: var(--white); margin: 14px 0 6px; }
 label span { color: var(--muted); font-weight: 600; }
 input, select { width: 100%; font: 500 16px/1.3 "Inter"; color: var(--white); background: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 13px 14px; }
 input:focus, select:focus { outline: 2px solid var(--lime); border-color: transparent; }
+.consent { display: flex; gap: 10px; align-items: flex-start; font: 500 13px/1.45 "Inter"; color: var(--muted); margin: 10px 0 4px; cursor: pointer; }
+.consent input { flex: none; width: 20px; height: 20px; margin-top: 1px; padding: 0; accent-color: var(--lime); cursor: pointer; }
+.consent span { color: var(--muted); font-weight: 500; }
+.consent input:focus { outline-offset: 2px; }
 .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 button { margin-top: 22px; width: 100%; background: var(--lime); color: var(--ink); font: 800 18px/1 "Inter"; border: 0; border-radius: 999px; padding: 18px; cursor: pointer; }
@@ -62,40 +92,44 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px
     <div>
       <p class="eyebrow"><img src="/assets/images/starburst-lime-solid.svg" alt="">Free for pastors</p>
       <h1>See your church the way <span class="hl">a new family</span> does.</h1>
-      <p class="lede">The Front Door Audit looks you up from a neighbor's phone, about 4 miles away, and grades what they find. Your scorecard is ready in a few minutes.</p>
+      <p class="lede">The Front Door Audit looks you up from a neighbor's phone, about 4 miles away, and grades what it finds. Most scorecards are ready in a few minutes.</p>
+      <a class="jump" href="#audit-form">Run my free audit</a>
       <ul class="checks">
-        <li><b>Google search</b>Where you land when a neighbor searches "church."</li>
-        <li><b>Reviews</b>What families say about you in public.</li>
+        <li><b>Google search</b>Your spot in the results when a neighbor searches "church."</li>
+        <li><b>Reviews</b>Your Google star rating and how many reviews you have.</li>
         <li><b>Website on a phone</b>Service times, a plan-your-visit page, kids info and speed.</li>
-        <li><b>Social and sermons</b>How recently a neighbor could hear you preach.</li>
+        <li><b>Social and sermons</b>Your sermons and social accounts, as linked from your home page.</li>
       </ul>
-      <div class="sample"><img src="sample-scorecard.jpg" alt="A sample Front Door Audit scorecard"><p>A sample scorecard. Yours includes the number of households within a 10-minute drive and the first three fixes.</p></div>
+      <div class="sample"><img src="sample-scorecard.jpg" alt="A sample Front Door Audit scorecard"><p>A sample scorecard. Yours includes the number of households within a 10-minute drive (Texas churches) and up to three fixes to start with.</p></div>
     </div>
 
     <div>
       <form id="audit-form" novalidate>
         <h2>Run my free audit</h2>
-        <p class="small">No call needed to get your scorecard. We'll email you a copy.</p>
+        <p class="small">No call needed to get your scorecard. We'll email you a copy, then a few short notes from Chris over the next week. Reply stop anytime.</p>
         <label for="church">Church name</label>
         <input id="church" name="church" required autocomplete="organization">
         <label for="address">Church address</label>
         <input id="address" name="address" required placeholder="Street, city, state, ZIP" autocomplete="street-address">
         <label for="website">Church website</label>
         <input id="website" name="website" required placeholder="yourchurch.com" inputmode="url">
+        <label for="attendance">About how many people on a Sunday?</label>
+        <select id="attendance" name="attendance" required><option value="" selected disabled>Choose one</option><option>Under 100</option><option>100 to 249</option><option>250 to 499</option><option>500 to 999</option><option>1,000+</option></select>
         <div class="row">
           <div><label for="name">Your name</label><input id="name" name="name" required autocomplete="name"></div>
           <div><label for="role">Your role</label>
-            <select id="role" name="role"><option>Lead pastor</option><option>Executive pastor</option><option>Comms or creative</option><option>Other staff</option><option>Volunteer</option></select></div>
+            <select id="role" name="role"><option value="" selected disabled>Choose one</option><option>Lead pastor</option><option>Executive pastor</option><option>Comms or creative</option><option>Other staff</option><option>Volunteer</option></select></div>
         </div>
         <label for="email">Email</label>
         <input id="email" name="email" type="email" required autocomplete="email">
-        <div class="row">
-          <div><label for="phone">Phone <span>(optional)</span></label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
-          <div><label for="instagram">Instagram <span>(optional)</span></label><input id="instagram" name="instagram" placeholder="@yourchurch"></div>
-        </div>
+        <label for="phone">Cell phone <span id="phone-hint">(optional)</span></label>
+        <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="512-555-0100">
+        <label class="consent" for="sms_consent"><input id="sms_consent" name="sms_consent" type="checkbox" value="yes"><span>Text me my scorecard. Big Splash will send up to 2 texts about my audit. Msg and data rates may apply. Reply HELP for help or STOP to opt out. <a href="/privacy/" style="color:inherit">Privacy policy</a></span></label>
+        <label for="instagram">Instagram <span>(optional)</span></label>
+        <input id="instagram" name="instagram" placeholder="@yourchurch">
         <label for="facebook_frequency">How often does your church post on Facebook?</label>
-        <select id="facebook_frequency" name="facebook_frequency"><option>Several times a week</option><option>About once a week</option><option>A few times a month</option><option>Rarely or never</option><option>Not sure</option></select>
-        <div class="hp" aria-hidden="true"><label for="company_site">Leave this empty</label><input id="company_site" name="company_site" tabindex="-1" autocomplete="off"></div>
+        <select id="facebook_frequency" name="facebook_frequency"><option value="" selected disabled>Choose one</option><option>Several times a week</option><option>About once a week</option><option>A few times a month</option><option>Rarely or never</option><option>Not sure</option></select>
+        <div class="hp" aria-hidden="true"><label for="hp_x7">Leave this empty</label><input id="hp_x7" name="hp_x7" tabindex="-1" autocomplete="new-password"></div>
         <button type="submit">Run my free audit</button>
         <p class="err" id="err" role="alert"></p>
       </form>
@@ -103,12 +137,12 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px
       <div class="status" id="status" aria-live="polite">
         <div class="spinner" id="spinner"></div>
         <h2 id="status-title">Checking your front door…</h2>
-        <p id="status-text">We're looking you up on Google, opening your website on a phone and counting the homes around you. This takes about a minute.</p>
+        <p id="status-text">We're looking you up on Google and opening your website on a phone. This takes a few minutes.</p>
       </div>
     </div>
   </section>
 
-  <footer>Big Splash · The marketing agency for the local church · <a href="/church/" style="color:inherit">bigsplash.video/church</a> · chris@bigsplash.agency</footer>
+  <footer>Big Splash · The marketing agency for the local church · <a href="/church/" style="color:inherit">bigsplash.video/church</a> · chris@bigsplash.agency · <a href="/privacy/" style="color:inherit">Privacy</a></footer>
 </div>
 
 <script>
@@ -116,7 +150,24 @@ const API = "https://bigsplash-front-door.chris-bc4.workers.dev"; // set to the 
 const form = document.getElementById("audit-form");
 const err = document.getElementById("err");
 const params = new URLSearchParams(location.search);
-const utm = ["utm_source", "utm_medium", "utm_campaign", "utm_content"].map((k) => params.get(k) ? `${k}=${params.get(k)}` : "").filter(Boolean).join("&");
+const utm = ["utm_source", "utm_medium", "utm_campaign", "utm_content"].map((k) => params.get(k) ? `${k}=${encodeURIComponent(params.get(k))}` : "").filter(Boolean).join("&");
+const consent = form.elements.sms_consent;
+const phone = form.elements.phone;
+
+// Asking for texts makes the phone number required.
+consent.addEventListener("change", () => {
+  phone.required = consent.checked;
+  document.getElementById("phone-hint").textContent = consent.checked ? "(for your texts)" : "(optional)";
+});
+
+// Meta Lead and GA4 generate_lead, once, when an audit starts. The audit id doubles as the Meta eventID.
+let leadTracked = false;
+function trackLead(id) {
+  if (leadTracked) return;
+  leadTracked = true;
+  try { if (window.fbq) fbq("track", "Lead", { content_name: "Front Door Audit" }, { eventID: id }); } catch (e) {}
+  try { if (window.gtag) gtag("event", "generate_lead"); } catch (e) {}
+}
 
 function show(title, text, link) {
   form.style.display = "none";
@@ -140,7 +191,11 @@ async function waitForResult(id, url) {
       if (res.ok) { location.href = url; return; }
       const body = await res.json().catch(() => ({}));
       if (body.status === "review") {
-        show("We're double-checking one detail", "Your audit is done, but we want to confirm we matched the right Google listing before we send it. Chris will email your scorecard within one business day.");
+        show("We're double-checking a few details", "Your audit is done. Chris is double-checking a few details and will email your scorecard within one business day.");
+        return;
+      }
+      if (body.status === "failed") {
+        show("Something went wrong", "Something went wrong on our end. Chris has the details and will email your scorecard.");
         return;
       }
     } catch {}
@@ -155,6 +210,13 @@ form.addEventListener("submit", async (e) => {
   for (const k of ["church", "address", "website", "name", "email"]) {
     if (!String(data[k] || "").trim()) { err.textContent = "Please fill in every field above the optional ones."; form.elements[k].focus(); return; }
   }
+  if (!data.attendance) { err.textContent = "Choose about how many people come on a Sunday."; form.elements.attendance.focus(); return; }
+  if (consent.checked) {
+    if (String(data.phone || "").replace(/\D/g, "").length < 10) { err.textContent = "Add your cell number so we can text your scorecard, or uncheck the text box."; phone.focus(); return; }
+    data.sms_consent = "yes";
+  } else {
+    delete data.sms_consent;
+  }
   data.page_url = location.href.slice(0, 500);
   data.utm = utm;
   const button = form.querySelector("button");
@@ -164,11 +226,16 @@ form.addEventListener("submit", async (e) => {
     const body = await res.json().catch(() => ({}));
     if (!res.ok || !body.ok) throw new Error(body.error || "Something went wrong");
     if (body.id === "received") { show("Thanks", "We'll be in touch."); return; }
-    show("Checking your front door…", "We're looking you up on Google, opening your website on a phone and counting the homes around you. This takes about a minute.");
+    trackLead(body.id);
+    show("Checking your front door…", "We're looking you up on Google and opening your website on a phone. This takes a few minutes.");
     waitForResult(body.id, body.url);
   } catch (ex) {
     button.disabled = false; button.textContent = "Run my free audit";
-    err.textContent = `${ex.message}. If it keeps happening, email chris@bigsplash.agency and we'll run it by hand.`;
+    // The server's own message may already name Chris's email; a dropped connection gets plain words.
+    const msg = String(ex.message || "Something went wrong").replace(/\.$/, "");
+    err.textContent = /failed to fetch|load failed|networkerror/i.test(msg)
+      ? "We couldn't reach our server. Check your connection and try again, or email chris@bigsplash.agency and we'll run it by hand."
+      : msg.includes("chris@bigsplash.agency") ? `${msg}.` : `${msg}. If it keeps happening, email chris@bigsplash.agency and we'll run it by hand.`;
   }
 });
 </script>

@@ -18,6 +18,55 @@ Each morning at 13:00 UTC the worker reads the list and posts one Slack digest: 
 
 The worker sends nothing to the church itself. The church sees the thanks page, and GoHighLevel sends the confirmation email or text once you build that workflow.
 
+## LeadDesk: Front Door audit leads
+
+The same deployed worker also runs LeadDesk, a named entrypoint in `entry.js`. The Front Door worker (`../worker-frontdoor/`) calls it after each audit over a Cloudflare service binding. LeadDesk has no public route: only a worker on Chris's Cloudflare account with the binding can reach it.
+
+The Front Door worker binds to it with this block in its own `wrangler.toml`:
+
+```
+[[services]]
+binding = "DESK"
+service = "bigsplash-church-snapshot"
+entrypoint = "LeadDesk"
+```
+
+and calls `await env.DESK.frontDoorLead(lead)`. The reply is `{ clickup: { ok, id?, url? }, slack: { ok } }`. The call never throws for a ClickUp or Slack failure. Deploy this worker first, so the binding has something to point at.
+
+Per event:
+
+| `lead.event` | ClickUp (list `FRONT_DOOR_LIST_ID`, "Front Door Leads") | Slack headline |
+| --- | --- | --- |
+| `ready` | New task | New Front Door lead |
+| `review` | New task that opens with "Held for your review": reasons, possible duplicate listings, the preview link and an "Approve and send" link | Front Door audit needs your review |
+| `failed` | New task that opens with "The audit failed. Run it by hand and email the pastor." and the error | Front Door audit failed |
+| `approved` | A comment ("Approved. The scorecard went to the pastor.") on `clickup_task_id`. With no task id, a new task as for `ready` | Front Door audit approved |
+
+Each new task is named `<church>, <city>` (the address stands in for a missing city), tagged `front-door` and `audit`, priority high, assigned to `CLICKUP_ASSIGNEE_IDS`, and due 5 PM the next weekday in `TIMEZONE`. A Friday evening lead is due Monday at 5 PM. The description holds the contact (email and phone as links, texts OK yes or no, attendance, the Facebook answer), the church, the grades table ("Not checked" for an area the audit skipped), the top fixes, households nearby, the scorecard and walkthrough links, the UTM source, campaign and content, the page, and a four-step checklist: text or call within 24 hours, walkthrough booked, proposal sent, won or lost.
+
+The Slack alert names the church, city and overall grade, the contact, attendance, the ClickUp link, the scorecard link (or the preview and approve links for `review`) and the UTM campaign.
+
+LeadDesk cleans and escapes every value the same way the intake does, because the contact fields come from a public form and the church name comes from Google. A typed address never becomes a link: LeadDesk breaks `://` and puts a space before each domain dot, so `www.evil.com` reads `www .evil .com` in ClickUp and Slack. Email and texts to the pastor go through GoHighLevel, never through LeadDesk.
+
+### Repeated calls
+
+The Front Door worker calls LeadDesk from a Workflow step with retries, and Cloudflare can run a step twice. LeadDesk remembers each delivery for four days in the `DESK_SEEN` KV namespace: `desk:<event>:<audit id>` once ClickUp takes it, and `desk:<event>:<audit id>:slack` once Slack takes it. A second call with the same event and audit id gets the first result back and sends nothing twice. A destination that failed the first time gets tried again on the repeat, and a Slack retry still carries the saved task link. A double click on the approve link posts one comment and one alert.
+
+Two calls landing in the same second can both get through, because KV is not a lock. An audit with no id, or a deploy with no `DESK_SEEN` binding, gets no protection, and the log says so.
+
+### Who posts the Slack alert
+
+LeadDesk owns the Slack alert for `ready`, `review`, `failed` and `approved`. Before the Front Door worker deploys with the `DESK` binding, its own Slack posts for those events have to go: the "Front Door Audit sent", "needs your review" and "failed" alerts in `../worker-frontdoor/src/worker.js`. Leave them in and every audit posts two alerts with two different approve links.
+
+The Front Door worker keeps two Slack posts of its own:
+
+1. "Front Door Audit email did not send". LeadDesk never hears how the GoHighLevel send went.
+2. A fallback when `env.DESK.frontDoorLead` throws, which means the binding or the deploy is broken and LeadDesk posted nothing.
+
+For `review`, pass the approve link the Front Door worker builds from its review token as `approve_url`. LeadDesk prints that link as given, so Chris sees one approve link in ClickUp and Slack.
+
+The morning digest adds a section, "Front Door leads waiting on a first touch": tasks in `FRONT_DOOR_LIST_ID` still in status `to do` more than 24 hours after they were created, oldest first, plus the count of new leads in the last 24 hours. A morning with no snapshots to report and no Front Door leads posts nothing.
+
 ### Routes
 
 | Route | Purpose |
@@ -57,7 +106,7 @@ The form is public, so the worker assumes a hostile sender.
 - **Other sites.** A browser post from a site outside `ALLOWED_ORIGIN` gets a 403, and a post that is not JSON gets a 415. Add a staging or preview domain to `ALLOWED_ORIGIN` before you test the form there.
 - **Honeypot.** A bot that fills the hidden `website` field gets the same reply as a real request, and the worker sends nothing.
 - **ClickUp.** The description escapes every value from the form. Notes sit at the end as a quote block. Nothing a sender types can add a link label, an image, a rule, a ticked box or a second "Promised" line.
-- **Slack.** The alert escapes `&`, `<` and `>`, drops `*`, `_`, `~` and backticks from form values, and puts a space after `://` in any address typed into a text field. The only links are the sermon link and the ClickUp task. Link previews are off.
+- **Slack.** The alert escapes `&`, `<` and `>`, drops `*`, `_`, `~` and backticks from form values, puts a space after `://` in any address typed into a text field, and puts a space before each domain dot (`www .evil .com`), so Slack cannot link a bare domain. The only links are the sermon link and the ClickUp task. Link previews are off.
 
 Two gaps remain, and both need work outside this folder:
 
@@ -86,7 +135,7 @@ npx wrangler secret put SLACK_WEBHOOK_URL
 npx wrangler secret put GHL_WEBHOOK_URL
 ```
 
-`login` opens a browser. `deploy` prints the `https://...workers.dev` address. Each `secret put` asks for the value: paste it at that terminal prompt. Never paste a secret into a chat or a file. `GHL_WEBHOOK_URL` is optional.
+`login` opens a browser. `deploy` prints the `https://...workers.dev` address. The first deploy also creates the `DESK_SEEN` KV namespace, since `wrangler.toml` lists it with no id, and asks you to confirm. To make it by hand first, run `npx wrangler kv namespace create DESK_SEEN` and paste the printed id under `binding = "DESK_SEEN"`. Each `secret put` asks for the value: paste it at that terminal prompt. Never paste a secret into a chat or a file. `GHL_WEBHOOK_URL` is optional.
 
 - `CLICKUP_TOKEN`: ClickUp > Settings > Apps > API token.
 - `SLACK_WEBHOOK_URL`: an incoming webhook for the Slack channel that should get the alerts and the digest.
@@ -103,9 +152,10 @@ After the secrets are in:
 
 ```
 node test/worker.test.mjs
+node --test test/desk.test.mjs
 ```
 
-Plain Node, no install. The tests import `index.js`, replace `fetch` with a stub and print one PASS or FAIL line per check. They never reach ClickUp, Slack or GoHighLevel. The run exits non-zero if any check fails.
+`npm test` runs both. Plain Node, no install. The tests import `index.js`, replace `fetch` with a stub and print one PASS or FAIL line per check. They never reach ClickUp, Slack or GoHighLevel. The run exits non-zero if any check fails.
 
 ### A live test after deploy
 
@@ -150,7 +200,10 @@ All of these sit under `[vars]` in `wrangler.toml`.
 
 - `TIMEZONE`: the zone for every date in Slack and ClickUp text. Default `America/Chicago`. The label after the time reads well for US zones: Central, Eastern, Mountain, Pacific.
 - `ALLOWED_ORIGIN`: comma-separated sites allowed to post the form from a browser. Keep it set. An empty value allows every site.
-- `CLICKUP_LIST_ID`: the list that receives the tasks.
+- `CLICKUP_LIST_ID`: the list that receives the snapshot tasks.
+- `FRONT_DOOR_LIST_ID`: the "Front Door Leads" list that receives LeadDesk tasks. Unset, LeadDesk opens no task and the Slack alert says so.
+
+`DESK_SEEN` sits under `[[kv_namespaces]]`, outside `[vars]`. It holds the LeadDesk repeat record and nothing else.
 - `CLICKUP_API_BASE`: optional. Points the worker at a mock ClickUp server for local testing. Leave it unset in production.
 
 The digest time lives under `[triggers]`. Cron runs on UTC, so `0 13 * * *` means 8 AM Central in summer and 7 AM in winter.
@@ -169,7 +222,10 @@ The rate limit lives under `[[ratelimits]]`. `limit` is the number of posts and 
 
 ## Files
 
-- `index.js`: the whole worker. No dependencies, no build step.
+- `entry.js`: the deployed entry point. Re-exports the intake from `index.js` and exports the `LeadDesk` entrypoint. It imports `cloudflare:workers`, so Node cannot load it; the tests load `index.js` and `desk.js` directly.
+- `index.js`: the snapshot intake and the morning digest. No dependencies, no build step.
+- `desk.js`: LeadDesk, the Front Door task and alert logic.
 - `wrangler.toml`: name, vars, cron trigger, rate limit and the deploy steps.
 - `package.json`: marks this folder as ES modules so Node can run the tests. The repo root is set to CommonJS.
-- `test/worker.test.mjs`: the tests.
+- `test/worker.test.mjs`: the intake and digest tests.
+- `test/desk.test.mjs`: the LeadDesk and Front Door digest tests.

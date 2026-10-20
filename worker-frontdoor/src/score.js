@@ -1,6 +1,6 @@
-// Fixed scoring rules, so every church is graded the same way. Each area earns points out of 100,
-// then a letter. Findings are the facts behind the grades, ordered by how much they cost a church in guests;
-// the write-up step turns them into plain sentences.
+// Fixed scoring rules, so every church is graded the same way. Each area earns points out of 100, then a
+// letter. An area the audit could not check gets no points, no letter and no findings. Findings are the facts
+// behind the grades, ordered by how much they cost a church in guests; the write-up turns them into notes.
 
 export function letter(points) {
   if (points === null || points === undefined) return null;
@@ -11,100 +11,132 @@ export function letter(points) {
   return "F";
 }
 
-function tier(value, steps) {
+// Points for the first step the value reaches, highest step first.
+function tier(value, steps, otherwise = 0) {
   for (const [min, pts] of steps) if (value >= min) return pts;
-  return 0;
+  return otherwise;
+}
+
+// Points for the first step the value stays under, lowest step first (ranks, days).
+function upTo(value, steps, otherwise = 0) {
+  for (const [max, pts] of steps) if (value <= max) return pts;
+  return otherwise;
+}
+
+const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
+const stars = (r) => Number(r).toFixed(1);
+
+// "In a Google search for "church" from about 4 miles north, City Reach Church came up #7."
+export function rankFact(name, nearMe) {
+  const done = (nearMe?.searches || []).filter((s) => s.checked);
+  if (!done.length) return null;
+  const hit = done.filter((s) => s.rank).sort((a, b) => a.rank - b.rank)[0];
+  const s = hit || done[0];
+  const where = `In a Google search for "church" from about ${Math.round(s.milesAway) || 4} miles ${s.from}`;
+  if (hit) return `${where}, ${name} came up #${hit.rank}.`;
+  return s.scanned >= 60
+    ? `${where}, ${name} did not come up in the first 60 churches.`
+    : `${where}, ${name} did not come up among the ${s.scanned} churches Google listed.`;
 }
 
 export function scoreAudit(a) {
   const findings = [];
-  const add = (area, impact, fact, fix) => findings.push({ area, impact, fact, fix });
+  // fix = the action for "Start here" (null for a plain fact), why = what that fix changes for a family.
+  const add = (area, impact, fact, fix, why = null) => findings.push({ area, impact, fact, fix, why });
+  const name = a.church?.name || "The church";
+  // Only a listing the audit trusts is this church's. Anything else is not graded.
+  const g = a.google?.found && a.google.trusted !== false ? a.google : null;
 
   // Google listing and search
   let google = null;
-  if (a.google) {
-    const g = a.google;
-    if (!g.found) {
-      google = 0;
-      add("google", 10, "No Google listing came up for the church's name and city.", "Claim and fill out your Google Business Profile");
-    } else {
-      const rank = a.nearMe?.best ?? null;
-      let pts = 20, max = 80;
-      pts += rank === null ? 0 : rank <= 3 ? 45 : rank <= 6 ? 34 : rank <= 10 ? 22 : 12;
-      pts += g.hoursListed ? 15 : 0;
-      if (g.photoCount !== null) { pts += tier(g.photoCount, [[10, 20], [6, 14], [3, 8], [1, 4]]); max = 100; }
-      google = Math.min(100, Math.round((pts / max) * 100));
-      if (rank === null) add("google", 9, "The church did not show up in the top 20 when someone about 4 miles away searches \"church.\"", "Build up your Google listing so nearby families find you");
-      else if (rank > 3) add("google", 7, `The church shows up at number ${rank} when someone about 4 miles away searches "church."`, "Build up your Google listing so nearby families find you");
-      if (!g.hoursListed) add("google", 6, "The Google listing has no service times or hours.", "Add your service times to Google");
-      if (g.photoCount !== null && g.photoCount < 6) add("google", 4, `The Google listing has ${g.photoCount} photo${g.photoCount === 1 ? "" : "s"}.`, "Add 10 photos of a real Sunday to Google");
+  if (g) {
+    const nm = a.nearMe?.checked ? a.nearMe : null;
+    let pts = 30 + (g.hoursListed ? 20 : 0) + (g.website ? 10 : 0), max = 60;
+    if (nm) {
+      pts += nm.best ? upTo(nm.best, [[3, 40], [6, 32], [10, 24], [20, 16], [60, 10]], 10) : 4;
+      max = 100;
     }
+    google = Math.round((pts / max) * 100);
+    if (nm && (!nm.best || nm.best > 3)) add("google", nm.best ? 7 : 8, rankFact(name, nm), "Add photos and ask for reviews on your Google listing", "A complete, well-reviewed listing gives a family searching nearby more reasons to pick your church.");
+    if (!g.hoursListed) add("google", 6, "The Google listing has no service times or hours.", "Add your service times to Google", "A family can see when to come without leaving Google.");
+    if (!g.website) add("google", 4, "The Google listing does not link to your website.", "Add your website to your Google listing", "One tap takes a family from Google to your website.");
   }
 
   // Reviews
   let reviews = null;
-  if (a.google?.found) {
-    const g = a.google;
-    reviews = tier(g.rating ?? 0, [[4.7, 50], [4.4, 40], [4.0, 28], [3.5, 15]]) + tier(g.reviewCount, [[150, 50], [75, 40], [30, 28], [10, 15], [1, 6]]);
-    if (g.reviewCount < 30) add("reviews", 5, `The church has ${g.reviewCount} Google review${g.reviewCount === 1 ? "" : "s"}.`, "Ask your members for Google reviews");
-    if ((g.rating ?? 0) < 4.4 && g.reviewCount > 0) add("reviews", 5, `The Google rating is ${g.rating}.`, "Reply to every Google review, kind or not");
+  if (g) {
+    const count = g.reviewCount || 0;
+    const rating = count > 0 && typeof g.rating === "number" ? g.rating : null;
+    reviews = (rating === null ? 0 : tier(rating, [[4.7, 60], [4.4, 50], [4.0, 36], [3.5, 20]])) + tier(count, [[50, 40], [25, 32], [10, 22], [5, 14], [1, 8]]);
+    const ask = "Reviews from your members tell a new family what a Sunday feels like.";
+    if (count === 0) add("reviews", 6, `${name} has no Google reviews yet.`, "Ask your members for Google reviews", ask);
+    else if (count < 25) add("reviews", 5, rating >= 4.4 ? `${name} has ${stars(rating)} stars, but only ${plural(count, "Google review")}.` : `${name} has ${plural(count, "Google review")}.`, "Ask your members for Google reviews", ask);
+    if (rating !== null && rating < 4.4) add("reviews", 5, `The Google rating is ${stars(rating)} stars.`, "Reply to every Google review, kind or not", "A kind reply shows a visitor how your church treats people.");
+    // 4.4 to 4.6 earns fewer points but is a good rating: a plain fact, never a problem or a fix.
+    else if (rating !== null && rating < 4.7 && count >= 25) add("reviews", 1, `The Google rating is ${stars(rating)} stars from ${plural(count, "review")}.`, null);
   }
 
-  // Website
+  // Website, only when the audit could read the home page
   let website = null;
-  if (a.website?.ok) {
-    const w = a.website;
-    let pts = 0;
-    pts += w.https ? 8 : 0;
-    pts += w.viewport ? 8 : 0;
-    pts += w.serviceTimes.found ? 24 : 0;
-    pts += w.planVisit.found ? 24 : 0;
-    pts += w.kids.found ? 12 : 0;
+  const w = a.website?.checked ? a.website : null;
+  if (w) {
     const speed = a.speed?.ok ? a.speed.score : null;
-    // Phone speed scores swing 10 points between runs, so speed moves the grade without deciding it.
-    pts += speed === null ? (w.responseMs < 1500 ? 14 : 6) : tier(speed, [[90, 24], [70, 20], [50, 15], [30, 10], [0, 4]]);
-    website = pts;
-    if (!w.serviceTimes.found) add("website", 9, "Service times are not on the home page.", "Put service times at the top of your home page");
-    if (!w.planVisit.found) add("website", 8, "The home page has no plan-your-visit or I'm-new link.", "Add a Plan Your Visit page and link it up top");
-    if (!w.kids.found) add("website", 6, "The home page does not point parents to anything for kids.", "Link your kids ministry from the home page");
-    if (speed !== null && speed < 50) add("website", 6, `The site scores ${speed} out of 100 for speed on a phone${a.speed.loadTime ? `, with the main content taking ${a.speed.loadTime} to appear` : ""}.`, "Speed up your website on phones");
-    if (!w.https) add("website", 5, "The site does not load over a secure (https) connection.", "Turn on a secure https connection");
-    if (!w.viewport) add("website", 5, "The site is not set up for phone screens.", "Make your website work on phones");
-  } else if (a.website) {
-    website = 0;
-    add("website", 10, "The website did not load.", "Get your website back online");
+    const field = a.speed?.ok ? a.speed.fieldLcpSeconds || null : null;
+    // Real visitors beat the lab test when Google has them; the lab score swings from run to run.
+    const speedPts = field ? upTo(field, [[2.5, 16], [4, 11]], 5) : speed === null ? 11 : tier(speed, [[90, 16], [70, 14], [50, 11], [30, 8]], 5);
+    const pts = (w.https ? 8 : 0) + (w.viewport ? 8 : 0) + (w.serviceTimes?.found ? 24 : 0) + (w.planVisit?.found ? 20 : 0) + (w.kids?.found ? 12 : 0) + speedPts;
+    website = Math.round((pts / 88) * 100);
+    if (!w.serviceTimes?.found) add("website", 9, "We couldn't find service times on the home page.", "Put service times at the top of your home page", "A family sees when to come in the first few seconds.");
+    if (!w.planVisit?.found) add("website", 8, "We couldn't find a plan-your-visit or I'm-new link on the home page.", "Link a Plan Your Visit page from the top of your home page", "A first-time family learns where to park, where to go and what to expect.");
+    if (!w.kids?.found) add("website", 6, "We couldn't find a link for kids or families on the home page.", "Link your kids ministry from the home page", "Parents can see their kids will be safe and welcome before Sunday.");
+    const faster = "Families on a phone see your home page sooner.";
+    if (field && field > 2.5) add("website", 5, `Real visitors on phones wait about ${field} seconds for the main content to show.`, "Speed up your website on phones", faster);
+    else if (!field && speed !== null && speed < 50) add("website", 5, `Google's phone speed test, which simulates a slow cell connection, scores the site ${speed} out of 100.`, "Speed up your website on phones", faster);
+    if (!w.https) add("website", 5, "The site did not load over a secure (https) connection.", "Turn on a secure https connection", "Phones stop warning visitors that the site is not secure.");
+    if (!w.viewport) add("website", 5, "The home page is not set up to fit a phone screen.", "Make your website work on phones", "Families can read the site without pinching and zooming.");
   }
 
-  // Social and video
+  // Social and sermons, from the same home page
   let social = null;
-  if (a.website?.ok) {
-    const s = a.website.socials || {};
-    const linked = ["facebook", "instagram", "youtube", "tiktok"].filter((k) => s[k]).length;
-    let pts = tier(linked, [[3, 20], [2, 14], [1, 8]]);
-    const yt = a.website.youtube;
-    const ytDays = yt?.daysSinceLastUpload ?? null;
-    const ytPts = ytDays === null ? 0 : tier(-ytDays, [[-7, 40], [-14, 32], [-30, 22], [-60, 10]]);
-    const ig = a.instagram?.ok ? a.instagram : null;
-    const igPts = ig ? tier(ig.postsLast30Days, [[12, 40], [8, 32], [4, 22], [1, 10]]) : null;
-    if (igPts === null) pts += Math.round(ytPts * 2); // no Instagram data: YouTube carries the activity weight
-    else pts += ytPts + igPts;
-    social = Math.min(100, pts);
-    if (!linked) add("social", 8, "The website does not link to any social accounts.", "Link your social accounts from your website");
-    if (!s.youtube) add("social", 5, "The website does not link to a YouTube channel, so sermons are hard to find.", "Post sermons to YouTube and link the channel");
-    else if (ytDays === null) add("social", 4, "The YouTube channel shows no recent uploads.", "Post each Sunday's sermon to YouTube");
-    else if (ytDays > 14) add("social", 6, `The last YouTube upload was ${ytDays} days ago.`, "Post each Sunday's sermon to YouTube");
-    if (ig && ig.postsLast30Days < 8) add("social", 6, `Instagram had ${ig.postsLast30Days} post${ig.postsLast30Days === 1 ? "" : "s"} in the last 30 days.`, "Post on Instagram at least twice a week");
-    if (!s.instagram) add("social", 4, "The website does not link to an Instagram account.", "Link your Instagram from your website");
+  if (w) {
+    const s = w.socials || {};
+    const linked = ["facebook", "instagram", "youtube", "tiktok", "vimeo"].filter((k) => s[k]).length;
+    const sermons = Boolean(w.sermons?.found);
+    const days = [w.youtube?.daysSinceLastUpload, w.vimeo?.daysSinceLastUpload].filter((d) => typeof d === "number");
+    const newest = days.length ? Math.min(...days) : null;
+    let fresh = newest;
+    // A stale video account next to the church's own sermons page: the weekly sermons may live on that page,
+    // so the old upload date says nothing about how often the church posts.
+    const ownPage = (w.sermons?.sources || []).some((x) => x !== "YouTube" && x !== "Vimeo");
+    const staleAccount = fresh !== null && fresh > 14 && ownPage;
+    if (staleAccount) fresh = null;
+    const linkPts = tier(linked, [[3, 30], [2, 22], [1, 12]]);
+    // Unknown upload dates are graded like an unchecked search: out of the points that could be checked.
+    social = sermons && fresh === null
+      ? Math.round(((linkPts + 30) / 60) * 100)
+      : linkPts + (sermons ? 30 : 0) + (fresh !== null ? upTo(fresh, [[7, 40], [14, 32], [30, 22], [60, 10]], 0) : 0);
+    const post = "A recent sermon shows a family the church is active.";
+    const follow = "Families can follow along between Sundays.";
+    if (!sermons) add("social", 7, "We couldn't find a link to your sermons on the home page.", "Put last Sunday's sermon on your home page", "A family can hear you preach before they visit.");
+    else if (staleAccount) add("social", 3, `The ${w.youtube?.daysSinceLastUpload === newest ? "YouTube" : "Vimeo"} account linked from your home page last posted ${newest} days ago.`, "Link the place you post sermons each week", "A family finds this week's sermon in one tap.");
+    else if (fresh !== null && fresh > 14) add("social", 6, `The last sermon upload we found was ${fresh} days ago.`, "Post each Sunday's sermon", post);
+    else if (fresh === null) add("social", 1, "We found your sermons online. This audit could not read their upload dates.", null);
+    const NET = { facebook: "Facebook", instagram: "Instagram", youtube: "YouTube", tiktok: "TikTok", vimeo: "Vimeo" };
+    const which = Object.keys(NET).filter((k) => s[k]).map((k) => NET[k]);
+    const list = which.length > 1 ? `${which.slice(0, -1).join(", ")} and ${which.at(-1)}` : which[0];
+    if (!linked) add("social", 5, "We couldn't find links to any social accounts on the home page.", "Link your social accounts from your website", follow);
+    else if (linked < 3) add("social", linked === 1 ? 4 : 3, `The home page links to ${list} only${s.instagram ? "" : ". We couldn't find an Instagram link"}.`, s.instagram ? "Link your social accounts from your website" : "Link your Instagram from your website", follow);
+    else if (!s.instagram) add("social", 2, "We couldn't find an Instagram link on the home page.", "Link your Instagram from your website", follow);
   }
 
   const areas = { google, reviews, website, social };
   const graded = Object.values(areas).filter((v) => v !== null);
-  const overall = graded.length ? Math.round(graded.reduce((x, y) => x + y, 0) / graded.length) : null;
+  const overall = graded.length >= 3 ? Math.round(graded.reduce((x, y) => x + y, 0) / graded.length) : null;
   findings.sort((x, y) => y.impact - x.impact);
 
   return {
     overall: { points: overall, grade: letter(overall) },
-    areas: Object.fromEntries(Object.entries(areas).map(([k, v]) => [k, { points: v, grade: letter(v) }])),
+    areas: Object.fromEntries(Object.entries(areas).map(([k, v]) => [k, { points: v, grade: letter(v), checked: v !== null }])),
     findings,
   };
 }

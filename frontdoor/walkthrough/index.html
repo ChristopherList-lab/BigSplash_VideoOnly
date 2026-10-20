@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free scorecard walkthrough · Big Splash</title>
+<meta name="description" content="Book a free 30-minute call with Chris List of Big Splash. He goes through your church's Front Door Audit grade by grade and shows the first thing he would fix.">
+<meta property="og:title" content="Free Front Door Audit walkthrough">
+<meta property="og:description" content="Chris List spends 30 minutes on your scorecard with you and shows the first fix to make.">
+<meta property="og:image" content="https://bigsplash.video/assets/images/og-image.jpg">
+<link rel="canonical" href="https://bigsplash.video/frontdoor/walkthrough/">
+<link rel="icon" href="/assets/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<!--
+  Walkthrough page (the VSL step). The scorecard and the follow-up emails link here:
+  bigsplash.video/frontdoor/walkthrough/?id=<audit id>  (optional &t=<token>, passed through like the scorecard).
+  With an id it reads GET <API>/result?id=... and personalizes the top. Without one, or on any error, it shows the generic page.
+  To publish the video, set VSL_URL in the script below (mp4, Vimeo or YouTube link).
+-->
+<!-- ============================================================
+     TRACKING (same block and IDs as /church/; fill in before launch)
+     1. Meta Pixel: paste your pixel ID into META_PIXEL_ID below.
+     2. GA4: paste your measurement ID into GA4_ID below.
+     Both stay off until an ID is present. A booked call fires
+     fbq('track','Schedule') and gtag('event','book_walkthrough')
+     (see onBooked() at the bottom of the page).
+     ============================================================ -->
+<script>
+  window.BS_TRACK = { META_PIXEL_ID: '', GA4_ID: '' };
+  (function(t){
+    if (t.META_PIXEL_ID) {
+      !function(f,b,e,v,n,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];s=b.createElement(e);s.async=!0;s.src=v;b.head.appendChild(s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', t.META_PIXEL_ID); fbq('track', 'PageView');
+    }
+    if (t.GA4_ID) {
+      var g=document.createElement('script'); g.async=true; g.src='https://www.googletagmanager.com/gtag/js?id='+t.GA4_ID; document.head.appendChild(g);
+      window.dataLayer=window.dataLayer||[]; window.gtag=function(){dataLayer.push(arguments)}; gtag('js', new Date()); gtag('config', t.GA4_ID);
+    }
+    window.bsTrack = function(name, data){
+      try { if (window.fbq) fbq('trackCustom', name, data||{}); } catch(e){}
+      try { if (window.gtag) gtag('event', name, data||{}); } catch(e){}
+    };
+  })(window.BS_TRACK);
+</script>
+<style>
+:root { --ink: #131318; --card: #1f1f25; --line: #35343a; --lime: #eff88b; --white: #fff; --text: #e4e1e9; --muted: #a3a3ad; --ocean: #6a9686; --bad: #ff8a7a; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--ink); }
+html { scroll-behavior: smooth; }
+body { font-family: "Inter", system-ui, sans-serif; color: var(--text); -webkit-font-smoothing: antialiased; line-height: 1.55; overflow-x: hidden; }
+a { color: inherit; }
+.wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+header.top { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; gap: 16px; }
+header.top img { height: 30px; display: block; }
+header.top span { font: 700 12px/1 "Inter"; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.eyebrow { display: flex; align-items: center; gap: 10px; font: 700 13px/1.3 "Inter"; letter-spacing: .18em; text-transform: uppercase; color: var(--lime); }
+.eyebrow img { width: 20px; height: 20px; flex: none; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; padding: 34px 0 30px; }
+h1 { font: 800 clamp(32px, 6vw, 54px)/1.06 "Inter"; letter-spacing: -.035em; color: var(--white); margin: 16px 0 14px; overflow-wrap: anywhere; }
+.lede { font-size: 18px; color: var(--text); max-width: 580px; }
+.firstfix { margin-top: 18px; background: var(--card); border-left: 5px solid var(--lime); border-radius: 12px; padding: 14px 18px; font-size: 16px; max-width: 600px; overflow-wrap: anywhere; }
+.firstfix b { color: var(--white); }
+.firstfix span { display: block; font: 700 12px/1 "Inter"; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 24px; }
+.btn { display: inline-block; background: var(--lime); color: var(--ink); font: 800 17px/1 "Inter"; padding: 17px 26px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+.btn:focus-visible, .link:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+.link { color: var(--muted); font-size: 15px; font-weight: 600; text-underline-offset: 3px; }
+.link:hover { color: var(--white); }
+.grade { width: 150px; height: 150px; border-radius: 50%; border: 6px solid var(--lime); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.grade b { font: 800 76px/1 "Inter"; color: var(--white); letter-spacing: -.04em; }
+.grade small { font: 700 11px/1 "Inter"; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+.grade[hidden] { display: none; }
+
+/* Video */
+.vsl { margin: 6px 0 0; }
+.vsl[hidden] { display: none; }
+.player { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #0b0b0e; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); }
+.player iframe, .player video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #000; }
+.poster { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; gap: 16px;
+  background: radial-gradient(120% 90% at 50% 0%, #26262d 0%, var(--card) 45%, #16161b 100%); }
+.poster .mark { width: 44px; height: 44px; display: block; flex: none; opacity: .9; }
+.poster p { font: 700 clamp(17px, 2.6vw, 22px)/1.35 "Inter"; color: var(--white); max-width: 440px; letter-spacing: -.01em; }
+.poster small { display: block; font: 600 14px/1.4 "Inter"; color: var(--muted); margin-top: 6px; letter-spacing: 0; }
+.vsl-caption { color: var(--muted); font-size: 14px; margin-top: 12px; }
+
+/* Sections */
+h2 { font: 800 28px/1.15 "Inter"; letter-spacing: -.02em; color: var(--white); margin: 52px 0 18px; }
+.steps { list-style: none; counter-reset: step; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.steps li { counter-increment: step; background: var(--card); border-radius: 16px; padding: 22px 24px 22px 74px; position: relative; }
+.steps li::before { content: counter(step); position: absolute; left: 24px; top: 21px; width: 32px; height: 32px; border-radius: 50%; background: var(--lime); color: var(--ink); font: 800 17px/32px "Inter"; text-align: center; }
+.steps b { display: block; font: 800 18px/1.3 "Inter"; color: var(--white); margin-bottom: 6px; }
+.steps p { font-size: 15.5px; }
+.host { display: grid; grid-template-columns: 150px 1fr; grid-template-rows: auto 1fr; column-gap: 26px; row-gap: 0; background: var(--card); border-radius: 18px; padding: 24px; }
+.host img { grid-row: 1 / 3; }
+.host .who { align-self: end; }
+.host img { width: 150px; height: 190px; object-fit: cover; object-position: 50% 15%; border-radius: 12px; display: block; }
+.host h3 { font: 800 22px/1.2 "Inter"; color: var(--white); }
+.host .role { color: var(--lime); font: 700 13px/1.4 "Inter"; letter-spacing: .08em; text-transform: uppercase; margin: 6px 0 12px; }
+.host p.bio { font-size: 16px; max-width: 560px; }
+
+/* Booking */
+.book { margin-top: 52px; background: var(--card); border-radius: 20px; padding: 30px 30px 18px; scroll-margin-top: 16px; }
+.book h2 { margin: 0 0 6px; }
+.book > p { color: var(--muted); font-size: 15px; margin-bottom: 18px; }
+.cal { background: var(--white); border-radius: 14px; overflow: hidden; }
+.cal iframe { transition: height .2s ease; }
+.cal iframe { width: 100%; min-height: 820px; border: none; overflow: hidden; display: block; }
+.cal-help { color: var(--muted); font-size: 14px; padding: 14px 2px 4px; }
+
+/* FAQ */
+.faq { display: grid; gap: 10px; }
+.faq details { background: var(--card); border-radius: 14px; padding: 0 22px; }
+.faq summary { list-style: none; cursor: pointer; font: 800 17px/1.35 "Inter"; color: var(--white); padding: 18px 34px 18px 0; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 0; top: 14px; font: 600 24px/1 "Inter"; color: var(--lime); }
+.faq details[open] summary::after { content: "–"; }
+.faq summary:focus-visible { outline: 2px solid var(--lime); outline-offset: 4px; border-radius: 6px; }
+.faq details p { padding: 0 0 18px; font-size: 15.5px; max-width: 680px; }
+
+footer { color: var(--muted); font-size: 13px; padding: 26px 0 50px; border-top: 1px solid var(--line); margin-top: 52px; }
+footer a { color: inherit; }
+
+/* Phone: a slim booking bar while the calendar is off screen */
+.sticky { display: none; }
+@media (max-width: 640px) {
+  .wrap { padding: 0 16px; }
+  .hero { grid-template-columns: 1fr; padding-top: 22px; gap: 18px; }
+  .hero .grade { order: -1; width: 104px; height: 104px; border-width: 5px; }
+  .grade b { font-size: 52px; }
+  .lede { font-size: 17px; }
+  .actions .btn { width: 100%; text-align: center; }
+  .steps { grid-template-columns: 1fr; }
+  .host { grid-template-columns: 96px 1fr; grid-template-rows: auto auto; gap: 16px; padding: 18px; }
+  .host img { width: 96px; height: 124px; grid-row: 1; }
+  .host .who { align-self: center; }
+  .host p.bio { grid-column: 1 / -1; }
+  .book { padding: 22px 12px 12px; margin-left: -4px; margin-right: -4px; }
+  .book h2, .book > p { padding: 0 8px; }
+  .cal { border-radius: 10px; }
+  .cal iframe { min-height: 760px; }
+  .cal-help { padding: 12px 8px 4px; }
+  h2 { font-size: 25px; margin-top: 44px; }
+  .sticky { display: block; position: fixed; left: 0; right: 0; bottom: 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: rgba(19, 19, 24, .94); border-top: 1px solid var(--line); transform: translateY(110%); transition: transform .25s ease; z-index: 10; }
+  .sticky.on { transform: none; }
+  .sticky .btn { display: block; text-align: center; padding: 15px; font-size: 16px; }
+  body.has-sticky footer { padding-bottom: 96px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .sticky { transition: none; } }
+</style>
+</head>
+<body class="has-sticky">
+<div class="wrap">
+  <header class="top"><a href="/church/"><img src="/assets/images/logo-bigsplash-white-lime.svg" alt="Big Splash"></a><span>Walkthrough</span></header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div>
+        <p class="eyebrow"><img src="/assets/images/starburst-lime-solid.svg" alt=""><span id="eyebrow">Free 30-minute walkthrough</span></p>
+        <h1 id="headline">Walk through your scorecard with Chris.</h1>
+        <p class="lede" id="lede">Book a free 30-minute call with Chris List. He goes over every grade on your Front Door Audit and shows the first thing he would fix.</p>
+        <div id="fix-slot"></div>
+        <div class="actions">
+          <a class="btn" href="#book" id="top-cta">Book my walkthrough</a>
+          <a class="link" href="/frontdoor/" id="side-link">Run your free audit first</a>
+        </div>
+      </div>
+      <div class="grade" id="grade" hidden><b id="grade-letter">–</b><small>Overall</small></div>
+    </section>
+
+    <section class="vsl" aria-label="Video from Chris">
+      <div class="player" id="player"></div>
+      <p class="vsl-caption" id="vsl-caption">About 3 minutes. Chris opens a real scorecard and talks through it the way he will on your call.</p>
+    </section>
+
+    <h2>On the call</h2>
+    <ol class="steps">
+      <li><b>Every grade, in plain English</b><p>Chris opens your scorecard and goes through each of the four grades. Ask him anything along the way.</p></li>
+      <li><b>The first fix, and a list to keep</b><p>He shows the change he would make first and why it matters to a family looking for a church. You leave with the list even if you never hire Big Splash.</p></li>
+    </ol>
+
+    <h2>You'll talk to Chris</h2>
+    <div class="host">
+      <img src="/assets/images/chris-list-headshot.jpg" alt="Chris List" width="666" height="1000" loading="lazy">
+      <div class="who">
+        <h3>Chris List</h3>
+        <p class="role">Filmmaker · Founder of Big Splash</p>
+      </div>
+      <p class="bio">Chris is a filmmaker and the founder of Big Splash, a marketing agency for the local church based in Georgetown, Texas. He built the Front Door Audit, and he runs every walkthrough himself. You won't get handed off to a sales rep.</p>
+    </div>
+
+    <section class="book" id="book">
+      <h2>Pick a time</h2>
+      <p>The call is free and takes 30 minutes. Pick any open slot and you'll get a confirmation by email.</p>
+      <div class="cal" id="cal"></div>
+      <p class="cal-help">Calendar not loading? <a href="https://api.leadconnectorhq.com/widget/booking/YcBm4L2c5a0DNBZyessz" target="_blank" rel="noopener">Open it in a new tab</a> or email <a href="mailto:chris@bigsplash.agency">chris@bigsplash.agency</a>.</p>
+    </section>
+
+    <h2>Questions pastors ask</h2>
+    <div class="faq">
+      <details><summary>Is this a sales call?</summary><p>Chris spends the call on your grades and your questions. If you ask about working together, he'll explain how Big Splash works. If you don't, you keep the list and that's the end of it.</p></details>
+      <details><summary>Do I need to block off much time?</summary><p>The call takes 30 minutes, and Chris keeps to it, so it fits between a staff meeting and lunch.</p></details>
+      <details><summary>Do I need to bring anything?</summary><p>Bring your scorecard link if it's handy. Chris will have your audit open on his end, so you can show up with nothing but your questions.</p></details>
+      <details><summary>Should anyone else join?</summary><p>Invite the person who updates your website or social accounts, staff or volunteer. Hearing the walkthrough firsthand saves you from relaying it later.</p></details>
+    </div>
+  </main>
+
+  <footer>Big Splash · The marketing agency for the local church · <a href="/church/">bigsplash.video/church</a> · chris@bigsplash.agency · <a href="/privacy/">Privacy</a></footer>
+</div>
+
+<div class="sticky" id="sticky" aria-hidden="true"><a class="btn" href="#book" tabindex="-1">Book my walkthrough</a></div>
+
+<script>
+// Paste Chris's video link here: an .mp4 URL, a Vimeo link or a YouTube link. Leave '' to show the "video is on its way" card.
+const VSL_URL = '';
+const VSL_POSTER = ''; // optional poster image for an .mp4, e.g. '/assets/images/vsl-poster.jpg'
+
+const API = "https://bigsplash-front-door.chris-bc4.workers.dev";
+const CAL_ID = "YcBm4L2c5a0DNBZyessz";
+const BOOK = `https://api.leadconnectorhq.com/widget/booking/${CAL_ID}`;
+
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const $ = (id) => document.getElementById(id);
+
+// ---------- Video ----------
+function videoSource(raw) {
+  let u;
+  try { u = new URL(String(raw || "").trim(), location.href); } catch { return null; }
+  if (!/^https?:$/.test(u.protocol)) return null;
+  const host = u.hostname.replace(/^(www\.|m\.)/, "");
+  const parts = u.pathname.split("/").filter(Boolean);
+  const ytId = (id) => /^[\w-]{11}$/.test(id || "") ? id : null;
+
+  let yt = null;
+  if (host === "youtu.be") yt = ytId(parts[0]);
+  else if (/(^|\.)youtube(-nocookie)?\.com$/.test(host)) {
+    yt = parts[0] === "watch" ? ytId(u.searchParams.get("v")) : ["embed", "shorts", "live", "v"].includes(parts[0]) ? ytId(parts[1]) : null;
+  }
+  if (yt) return { kind: "iframe", src: `https://www.youtube-nocookie.com/embed/${yt}?rel=0&modestbranding=1&playsinline=1` };
+
+  if (host === "vimeo.com" || host === "player.vimeo.com") {
+    const nums = parts.filter((p) => /^\d+$/.test(p));
+    const id = nums[0];
+    if (id) {
+      const after = parts[parts.indexOf(id) + 1];
+      const hash = u.searchParams.get("h") || (after && /^[a-f0-9]{6,}$/i.test(after) ? after : "");
+      const qs = new URLSearchParams({ dnt: "1", title: "0", byline: "0", portrait: "0" });
+      if (hash) qs.set("h", hash);
+      return { kind: "iframe", src: `https://player.vimeo.com/video/${id}?${qs}` };
+    }
+    return null;
+  }
+  if (/\.(mp4|m4v|webm|mov)$/i.test(u.pathname)) return { kind: "video", src: u.href };
+  return null;
+}
+
+// No video yet (or it failed to load): hide the whole video section, so the page leads with the calendar.
+function showPoster(player) { player.closest(".vsl").hidden = true; }
+
+function mountVideo() {
+  const player = $("player");
+  const v = VSL_URL ? videoSource(VSL_URL) : null;
+  if (!v) return showPoster(player);
+  if (v.kind === "iframe") {
+    const f = document.createElement("iframe");
+    f.src = v.src;
+    f.title = "Chris walks through a Front Door Audit scorecard";
+    f.allow = "autoplay; fullscreen; picture-in-picture; encrypted-media";
+    f.setAttribute("allowfullscreen", "");
+    f.loading = "lazy";
+    f.referrerPolicy = "strict-origin-when-cross-origin";
+    player.appendChild(f);
+  } else {
+    const el = document.createElement("video");
+    el.controls = true; el.playsInline = true; el.preload = "metadata";
+    el.setAttribute("playsinline", "");
+    if (VSL_POSTER) el.poster = VSL_POSTER;
+    el.src = v.src;
+    el.addEventListener("error", () => { player.innerHTML = ""; showPoster(player); }, { once: true });
+    player.appendChild(el);
+  }
+}
+
+// ---------- Calendar (GoHighLevel standard embed) ----------
+function mountCalendar() {
+  const f = document.createElement("iframe");
+  f.src = BOOK;
+  f.id = `${CAL_ID}_${Date.now()}`;
+  f.title = "Book your walkthrough with Chris";
+  f.setAttribute("scrolling", "no");
+  f.style.width = "100%";
+  f.style.border = "none";
+  f.style.overflow = "hidden";
+  $("cal").appendChild(f);
+  const s = document.createElement("script");
+  s.src = "https://link.msgsndr.com/js/form_embed.js";
+  s.type = "text/javascript";
+  document.body.appendChild(s);
+}
+
+// ---------- Personalization ----------
+function personalize(a) {
+  const name = String(a?.church?.name || "").trim();
+  if (!name) return;
+  const qs = auditQuery();
+  if (qs) { // point the side link back at this church's scorecard, now that it exists
+    const back = $("side-link");
+    back.href = `/front-door/?${qs}`;
+    back.textContent = "Back to my scorecard";
+  }
+  const grade = a?.scores?.overall?.grade ? String(a.scores.overall.grade) : "";
+  const fix = Array.isArray(a?.notes?.fixes) ? a.notes.fixes.find((f) => f && f.title) : null;
+
+  document.title = `${name} · Your walkthrough · Big Splash`;
+  $("eyebrow").textContent = "Your Front Door Audit";
+  $("headline").innerHTML = `${esc(name)}'s Front Door Audit${grade ? `: overall ${esc(grade)}` : ""}`;
+  $("lede").textContent = "Book 30 free minutes with Chris List. He'll go through each grade with you and show the first thing he would fix.";
+  if (fix) $("fix-slot").innerHTML = `<p class="firstfix"><span>First fix on your list</span><b>${esc(fix.title)}</b></p>`;
+  if (grade) { $("grade-letter").textContent = grade; $("grade").hidden = false; }
+}
+
+function auditQuery() {
+  const params = new URLSearchParams(location.search);
+  const id = params.get("id"), t = params.get("t");
+  if (!id || !/^[a-z0-9-]{6,80}$/.test(id)) return null;
+  const qs = new URLSearchParams({ id });
+  if (t && /^[a-f0-9]{32}$/.test(t)) qs.set("t", t);
+  return qs;
+}
+
+async function loadAudit() {
+  if (window.FRONT_DOOR_DATA) return window.FRONT_DOOR_DATA; // preview builds
+  const qs = auditQuery();
+  if (!qs) return null;
+
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 8000);
+  try {
+    const res = await fetch(`${API}/result?${qs}`, { signal: ctrl.signal });
+    if (!res.ok) return null;
+    return await res.json();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+// ---------- Phone booking bar ----------
+function mountSticky() {
+  const bar = $("sticky");
+  if (!("IntersectionObserver" in window)) return;
+  const seen = new Map();
+  const update = () => bar.classList.toggle("on", ![...seen.values()].some(Boolean));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => seen.set(e.target, e.isIntersecting));
+    update();
+  });
+  [$("top-cta"), $("book"), document.querySelector("footer")].forEach((el) => { seen.set(el, true); io.observe(el); });
+}
+
+// ---------- Booked call -> Meta Schedule + GA4 book_walkthrough ----------
+// The GHL booking widget posts a message to this page when a booking goes through
+// (seen as "msgsndr-booking-complete" or similar; form_embed.js sizing messages are ignored).
+// Fires once per page view. Confirm with one test booking in Meta Events Manager before Oct 30.
+let booked = false;
+function onBooked() {
+  if (booked) return;
+  booked = true;
+  const id = auditQuery()?.get("id") || "";
+  try { if (window.fbq) fbq("track", "Schedule", { content_name: "Front Door Audit walkthrough" }); } catch (e) {}
+  try { if (window.gtag) gtag("event", "book_walkthrough", { audit_id: id }); } catch (e) {}
+}
+window.addEventListener("message", (e) => {
+  if (!/(^|\.)(leadconnectorhq|msgsndr)\.com$/.test((() => { try { return new URL(e.origin).hostname; } catch { return ""; } })())) return;
+  let d = e.data, text = "";
+  try { text = typeof d === "string" ? d : JSON.stringify(d); } catch { return; }
+  if (!text || text.length > 20000 || text.startsWith("[iFrameSizer]")) return;
+  if (/booking[-_ ]?(complete|completed|confirmed|success)|appointment[-_ ]?(booked|created|confirmed|scheduled)/i.test(text)) onBooked();
+});
+
+mountVideo();
+mountCalendar();
+mountSticky();
+loadAudit().then((a) => { if (a) personalize(a); }).catch(() => {}); // any error: keep the generic page
+</script>
+</body>
+</html>

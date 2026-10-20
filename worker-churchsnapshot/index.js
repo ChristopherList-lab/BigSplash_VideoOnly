@@ -366,26 +366,96 @@ async function postJson(url, payload) {
 
 // ---------- Morning digest ----------
 
+// Two sections, each optional: snapshots (CLICKUP_LIST_ID) and Front Door
+// leads (FRONT_DOOR_LIST_ID). Nothing posts when both come back empty.
 async function sendDigest(env, now) {
-  if (!env.CLICKUP_TOKEN || !env.CLICKUP_LIST_ID || !env.SLACK_WEBHOOK_URL) return;
-  let text;
-  try {
-    text = digestText(await fetchSnapshotTasks(env), now, env);
-  } catch (err) {
-    // A quiet morning means "nothing open", so a failed read has to say so.
-    const reason = scrub(err?.message, env);
-    console.error('Digest could not read ClickUp:', reason);
-    text = `*Snapshots this morning*\nThe digest could not read ClickUp (${esc(reason)}). Check the list by hand.`;
+  if (!env.CLICKUP_TOKEN || !env.SLACK_WEBHOOK_URL) return;
+  if (!env.CLICKUP_LIST_ID && !env.FRONT_DOOR_LIST_ID) return;
+  const blocks = [];
+  if (env.CLICKUP_LIST_ID) {
+    let text;
+    try {
+      text = digestText(await fetchSnapshotTasks(env), now, env);
+    } catch (err) {
+      // A quiet morning means "nothing open", so a failed read has to say so.
+      const reason = scrub(err?.message, env);
+      console.error('Digest could not read ClickUp:', reason);
+      text = `*Snapshots this morning*\nThe digest could not read ClickUp (${esc(reason)}). Check the list by hand.`;
+    }
+    if (text) blocks.push(text);
   }
-  if (text) await postSlack(env, text);
+  if (env.FRONT_DOOR_LIST_ID) {
+    const text = await frontDoorDigest(env, now);
+    if (text) blocks.push(text);
+  }
+  if (blocks.length) await postSlack(env, blocks.join('\n\n'));
+}
+
+function fetchSnapshotTasks(env) {
+  return fetchTasks(env, env.CLICKUP_LIST_ID, 'include_closed=true&tags%5B%5D=snapshot&');
+}
+
+// ---------- Front Door leads in the digest ----------
+
+const FRONT_DOOR_TITLE = '*Front Door leads waiting on a first touch*';
+
+// Two reads: open tasks (to find leads still in "to do" after a day) and every
+// task created in the last 24 hours, closed ones included, for the new-lead count.
+async function frontDoorDigest(env, now) {
+  try {
+    const open = await fetchTasks(env, env.FRONT_DOOR_LIST_ID, '');
+    const recent = await fetchTasks(env, env.FRONT_DOOR_LIST_ID, `include_closed=true&date_created_gt=${Math.floor(now - DAY)}&`);
+    return frontDoorDigestText(open, recent, now, env);
+  } catch (err) {
+    const reason = scrub(err?.message, env);
+    console.error('Digest could not read the Front Door list:', reason);
+    return `${FRONT_DOOR_TITLE}\nThe digest could not read the Front Door list (${esc(reason)}). Check it by hand.`;
+  }
+}
+
+function frontDoorDigestText(open, recent, now, env) {
+  const real = (task) => !/^(TEMPLATE|SETUP)\b/.test(String(task.name || '').trim());
+  const created = (task) => Number(task.date_created) || 0;
+  const waiting = open.tasks.filter(real)
+    .filter((task) => String(task.status?.status || '').trim().toLowerCase() === 'to do')
+    .filter((task) => created(task) > 0 && created(task) <= now - DAY)
+    .sort((a, b) => created(a) - created(b));
+  const fresh = new Set(recent.tasks.filter(real)
+    .filter((task) => created(task) > now - DAY && created(task) <= now)
+    .map((task, i) => task.id ?? `no-id-${i}`)).size;
+  const cutOff = open.cutOff || recent.cutOff;
+  if (!waiting.length && !fresh && !cutOff) return '';
+
+  const lines = [FRONT_DOOR_TITLE, `New leads in the last 24 hours: ${fresh}`];
+  if (!waiting.length) lines.push('No lead has waited more than a day.');
+  for (const task of waiting.slice(0, MAX_SECTION_LINES)) {
+    const name = Array.from(String(task.name || 'Untitled task').trim()).slice(0, MAX_NAME_CHARS).join('');
+    const parts = [slackText(name), `in "to do" since ${formatDate(created(task), env)} (${ageText(now - created(task))})`];
+    const link = httpUrl(task.url);
+    if (link) parts.push(slackLink(link));
+    lines.push(`Waiting: ${parts.join(' ')}`);
+  }
+  const more = waiting.length - MAX_SECTION_LINES;
+  if (more > 0) lines.push(`Waiting: and ${more} more, see ClickUp`);
+  if (cutOff) {
+    lines.push(`The Front Door list holds more than ${MAX_DIGEST_PAGES * CLICKUP_PAGE_SIZE} tasks to read, so this section may miss some. Archive old ones in ClickUp.`);
+  }
+  return lines.join('\n');
+}
+
+// "30 hours" under two days, "3 days" from there on.
+function ageText(ms) {
+  const hours = Math.max(1, Math.floor(ms / HOUR));
+  return hours < 48 ? hoursText(hours) : `${Math.floor(hours / 24)} days`;
 }
 
 // Returns the tasks and whether the page cap ended the reading early.
-async function fetchSnapshotTasks(env) {
+// `query` is the part of the query string before page, ending in "&" when set.
+async function fetchTasks(env, listId, query) {
   const byId = new Map();
   for (let page = 0; page < MAX_DIGEST_PAGES; page++) {
-    const url = `${clickUpBase(env)}/list/${encodeURIComponent(env.CLICKUP_LIST_ID)}/task`
-      + `?include_closed=true&tags%5B%5D=snapshot&page=${page}`;
+    const url = `${clickUpBase(env)}/list/${encodeURIComponent(listId)}/task`
+      + `?${query}page=${page}`;
     const res = await fetch(url, {
       headers: { 'Authorization': env.CLICKUP_TOKEN },
       signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
@@ -509,9 +579,17 @@ function slackEmail(value) {
   return esc(String(value).replace(/[*~`]/g, '').replace(/:\/\//g, ': //'));
 }
 
-// The same, minus underscores. Only email keeps them, because addresses use them.
+// The same, minus underscores, and with every typed domain broken up. Only email
+// keeps them, because addresses use them.
 function slackText(value) {
-  return slackEmail(String(value).replace(/_/g, ''));
+  return slackEmail(defuseDomains(String(value).replace(/_/g, '')));
+}
+
+// Slack links a bare domain ("evil.com") and markdown links "www.evil.com", so a
+// space goes before each dot that starts a domain label: "www .evil .com". Two
+// letters after the dot is the shortest TLD, so "e.g.", "St. Mary" and "3.5" stay.
+function defuseDomains(value) {
+  return String(value).replace(/([\p{L}\p{N}-])\.(?=\p{L}{2})/gu, '$1 .');
 }
 
 // Percent-encodes the characters Slack and markdown read as markup inside an address.
@@ -575,3 +653,11 @@ function corsHeaders(env, request) {
 function json(obj, status, headers) {
   return new Response(JSON.stringify(obj), { status, headers: { ...headers, 'Content-Type': 'application/json' } });
 }
+
+// Shared with desk.js, the Front Door lead desk. entry.js wires both into the
+// deployed worker; the default export above stays the snapshot intake.
+export {
+  md, httpUrl, plainHref, esc, slackText, slackEmail, slackLink, defuseDomains, scrub, tidy,
+  assigneeIds, clickUpBase, formatDate, zoneLabel, dateParts, timeZone,
+  EMAIL_SHAPE, UPSTREAM_TIMEOUT_MS, HOUR, DAY,
+};

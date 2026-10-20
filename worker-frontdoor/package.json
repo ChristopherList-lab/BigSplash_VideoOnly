@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "audit": "node run-local.mjs"
+    "audit": "node run-local.mjs",
+    "test": "node --import ./test/hooks.mjs --test test/*.test.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.135.0"

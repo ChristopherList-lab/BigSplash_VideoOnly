@@ -16,8 +16,17 @@ Voice:
 
 Rules:
 - Use only the facts provided. Never invent numbers, names, platforms or events.
-- If an area was not checked, say it was not checked in this audit.
-- Each fix must be something the church staff could start this week, written as an action.`;
+- If an area was not checked, say it was not checked in this audit. Never call an area failing, weak or missing when it was not checked.
+- Never mention load times or seconds unless a real-visitor number is given. The phone speed score is a lab test on a simulated slow connection; call it that.
+- Each fix must be something the church staff could start this week, written as an action.
+- If upload dates were not checked, do not suggest posting more often and do not guess how recent the sermons are.
+- If real visitors wait 2.5 seconds or less, do not tell the church to speed up the site.
+- In each area, name one thing the church does well before the gap, when the facts show one.
+- Only mention a search rank or household count when the facts give one.
+- A finding marked "(fact only)" is not a problem; never turn it into a fix or the biggest gap.
+
+Style:
+- Active voice. No adverbs like really, just, actually or simply. Never write "not X, but Y"; state the point directly.`;
 
 const SCHEMA = {
   type: "object",
@@ -55,46 +64,87 @@ const SCHEMA = {
 function factSheet(a) {
   const s = a.scores;
   const lines = [`Church: ${a.church.name}${a.church.city ? `, ${a.church.city}` : ""}`];
-  lines.push(`Overall grade: ${s.overall.grade ?? "not graded"}`);
-  for (const [k, v] of Object.entries(s.areas)) lines.push(`${k} grade: ${v.grade ?? "not checked"}`);
-  if (a.google?.found) lines.push(`Google: rating ${a.google.rating ?? "none"} from ${a.google.reviewCount} reviews, ${a.google.photoCount === null ? "photos not checked" : `${a.google.photoCount} photos`}, service hours ${a.google.hoursListed ? "listed" : "not listed"}.`);
-  if (a.nearMe) lines.push(`Search "church" from about 4 miles away: ${a.nearMe.best ? `best position ${a.nearMe.best}` : "not in the top 20"}.`);
-  if (a.website?.ok) {
-    const w = a.website;
-    lines.push(`Website: service times ${w.serviceTimes.found ? "found" : "missing"} on the home page, plan-your-visit link ${w.planVisit.found ? `found ("${w.planVisit.label}")` : "missing"}, kids link ${w.kids.found ? "found" : "missing"}, secure connection ${w.https ? "yes" : "no"}.`);
-    lines.push(`Social links on the website: ${Object.keys(w.socials).join(", ") || "none"}.`);
-    if (w.youtube?.daysSinceLastUpload !== undefined) lines.push(`YouTube: last upload ${w.youtube.daysSinceLastUpload} days ago, ${w.youtube.uploadsLast30Days} uploads in 30 days.`);
-  }
-  if (a.speed?.ok) lines.push(`Phone speed score: ${a.speed.score} out of 100${a.speed.loadTime ? `, main content appears in ${a.speed.loadTime}` : ""}.`);
+  lines.push(`Overall grade: ${s.overall.grade ?? "not graded, too few areas were checked"}`);
+  for (const [k, v] of Object.entries(s.areas)) lines.push(`${k} grade: ${v.grade ?? "not checked in this audit"}`);
+  const g = a.google?.found && a.google.trusted !== false ? a.google : null;
+  if (g) lines.push(`Google listing: rating ${g.reviewCount ? g.rating : "none yet"} from ${g.reviewCount} reviews, service hours ${g.hoursListed ? "listed" : "not listed"}, website ${g.website ? "on the listing" : "not on the listing"}.`);
+  else lines.push("Google listing: not checked in this audit.");
+  if (g && a.nearMe?.checked) {
+    for (const r of a.nearMe.searches) {
+      if (!r.checked) lines.push(`Search "church" from about 4 miles ${r.from}: not checked.`);
+      else lines.push(`Search "church" from about ${Math.round(r.milesAway) || 4} miles ${r.from}: ${r.rank ? `#${r.rank}` : `not in the first ${r.scanned} results`}.`);
+    }
+  } else if (g) lines.push(`Search "church" from about 4 miles away: not checked.`);
+  const w = a.website?.checked ? a.website : null;
+  if (w) {
+    const times = !w.serviceTimes.found ? "not found" : w.serviceTimes.via === "link" ? `not on the home page itself, but the home page links to them ("${w.serviceTimes.sample}")` : "found on the home page";
+    lines.push(`Website (${w.finalUrl}): service times ${times}, plan-your-visit link ${w.planVisit.found ? `found ("${w.planVisit.label}")` : "not found"}, kids link ${w.kids.found ? "found" : "not found"}, secure connection ${w.https ? "yes" : "no"}.`);
+    lines.push(`Social links on the website: ${Object.keys(w.socials).join(", ") || "none found"}.`);
+    lines.push(`Sermons linked from the home page: ${w.sermons?.found ? w.sermons.sources.join(", ") : "none found"}.`);
+    for (const [label, v] of [["YouTube", w.youtube], ["Vimeo", w.vimeo]]) {
+      if (!v) continue;
+      if (v.otherChannel) lines.push(`${label}: the only ${label} item on the home page is a video from another channel; not counted.`);
+      else lines.push(typeof v.daysSinceLastUpload === "number" ? `${label}: last upload ${v.daysSinceLastUpload} days ago${typeof v.uploadsLast30Days === "number" ? `, ${v.uploadsLast30Days} uploads in 30 days` : ""}.` : `${label}: linked, upload dates not checked.`);
+    }
+  } else lines.push("Website: not checked in this audit.");
+  if (w && a.speed?.ok) lines.push(`Google phone speed test (lab test on a simulated slow cell connection): ${a.speed.score} out of 100.${a.speed.fieldLcpSeconds ? ` Real visitors on phones wait about ${a.speed.fieldLcpSeconds} seconds for the main content.` : " No real-visitor load time available."}`);
+  else if (w) lines.push("Phone speed: not checked.");
   if (a.instagram?.ok) lines.push(`Instagram: ${a.instagram.postsLast30Days} posts in 30 days, last post ${a.instagram.daysSinceLastPost} days ago.`);
   if (a.reach) lines.push(`About ${a.reach.households.toLocaleString("en-US")} households live within ${a.reach.miles} miles.`);
   lines.push("Findings, most important first:");
-  for (const f of s.findings) lines.push(`- [${f.area}] ${f.fact}`);
+  for (const f of s.findings) lines.push(`- [${f.area}] ${f.fact}${f.fix ? "" : " (fact only)"}`);
   if (!s.findings.length) lines.push("- No problems found in the areas checked.");
   return lines.join("\n");
 }
 
+const OPENERS = {
+  A: "A new family can find what they need to plan a first visit.",
+  B: "A new family can find most of what they need.",
+  C: "A new family can find some of what they need.",
+  D: "A new family will have trouble finding what they need.",
+  F: "A new family will have trouble finding what they need.",
+};
+const NOT_CHECKED = "We couldn't check this one this time. We can look at it together on a walkthrough call.";
+// The kind first sentence for an A or B area that still has a gap to name.
+const LEADS = {
+  google: "The Google listing has the basics.",
+  reviews: "People who review you on Google rate you well.",
+  website: "The home page has most of what a first-time guest looks for.",
+  social: "A neighbor can find your sermons from the home page.",
+};
+
+// "The Google listing..." reads as "the Google listing..." mid-sentence; names and "Google's" keep their capital.
+const midSentence = (fact) => /^(The|We|In|A|An|Real)\b/.test(fact) ? fact.charAt(0).toLowerCase() + fact.slice(1) : fact;
+
 // Plain wording built straight from the findings, used when Claude is unavailable.
 export function fallbackNotes(a) {
   const s = a.scores;
-  const by = (area) => s.findings.filter((f) => f.area === area).map((f) => f.fact);
+  const by = (area) => s.findings.filter((f) => f.area === area);
   const note = (area, ok) => {
-    if (s.areas[area].grade === null) return "Not checked in this audit.";
-    const facts = by(area);
-    return facts.length ? facts.slice(0, 2).join(" ") : ok;
+    const grade = s.areas[area].grade;
+    if (grade === null) return NOT_CHECKED;
+    const found = by(area);
+    const good = grade === "A" || grade === "B";
+    if (!found.length) return good ? ok : "There's room to grow here. We can look at it together on a walkthrough call.";
+    // An A or B names what works before the gap; a plain fact with no fix stands on its own.
+    if (good) return found[0].fix ? `${LEADS[area]} ${found[0].fact}` : found[0].fact;
+    return found.slice(0, 2).map((f) => f.fact).join(" ");
   };
-  const top = s.findings[0];
+  // A plain fact with no fix (an unread upload date, a 4.5 rating) is never the biggest gap or a fix.
+  const top = s.findings.find((f) => f.fix);
+  const grade = s.overall.grade;
+  const opener = grade === null ? "We couldn't check everything this time." : grade === "A" && top ? OPENERS.B : OPENERS[grade];
+  const fixes = [];
+  for (const f of s.findings) if (f.fix && fixes.length < 3 && !fixes.some((x) => x.title === f.fix)) fixes.push({ title: f.fix, why: f.why || f.fact });
   return {
-    summary: top
-      ? `A new family can find a lot of what they need. The biggest gap: ${top.fact.charAt(0).toLowerCase()}${top.fact.slice(1)}`
-      : "A new family can find what they need to plan a first visit.",
+    summary: top ? `${opener} The biggest gap: ${midSentence(top.fact)}` : opener,
     areas: {
       google: note("google", "The Google listing gives a neighbor what they need."),
       reviews: note("reviews", "Reviews look healthy."),
       website: note("website", "The website answers a first-time guest's questions."),
-      social: note("social", "Sermons and social accounts look active."),
+      social: note("social", "Your latest sermon went up recently, and the home page links to your social accounts."),
     },
-    fixes: s.findings.slice(0, 3).map((f) => ({ title: f.fix, why: f.fact })),
+    fixes,
     by: "rules",
   };
 }

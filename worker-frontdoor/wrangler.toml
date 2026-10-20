@@ -1,18 +1,21 @@
 # Big Splash Front Door Audit worker
 #
 # A pastor submits the form on bigsplash.video/frontdoor. This worker saves the request, then a Workflow
-# runs the audit (Google, website, social, reach), writes the notes, saves the scorecard and alerts Slack
-# and GoHighLevel. The scorecard lives at bigsplash.video/front-door/?id=<audit id>.
+# runs the audit (Google, website, social, reach), writes the notes and saves the scorecard. After that:
+# GoHighLevel gets the contact and a note, the pastor gets Chris's email (and a text with consent), the
+# follow-up Workflow starts, and LeadDesk on the bigsplash-church-snapshot worker opens the ClickUp task
+# and posts Slack. The scorecard lives at bigsplash.video/front-door/?id=<audit id>.
 #
 # One-time setup (run from this worker-frontdoor/ directory):
 #   npx wrangler login                                   # opens a browser, click Allow
 #   npx wrangler kv namespace create AUDITS              # paste the printed id into [[kv_namespaces]] below
 #   npx wrangler secret put GOOGLE_API_KEY < ~/.bigsplash-google-key
 #   npx wrangler secret put ANTHROPIC_API_KEY < ~/.bigsplash-anthropic-key
-#   npx wrangler secret put SLACK_WEBHOOK_URL            # optional: Slack alert for every audit
-#   npx wrangler secret put GHL_WEBHOOK_URL              # optional: GoHighLevel workflow that emails the pastor
-#   npx wrangler deploy
+#   npx wrangler secret put GHL_TOKEN                    # GoHighLevel Private Integration token (paste at the prompt)
+#   npx wrangler secret put SLACK_WEBHOOK_URL            # Slack when the desk is missing, fails, or its Slack post fails
+#   npx wrangler deploy                                  # deploy bigsplash-church-snapshot first, so DESK has a target
 #
+# Until GHL_TOKEN is set no pastor gets an email or text, and the desk alert says so.
 # Then open https://bigsplash-front-door.<account>.workers.dev/health to confirm each piece shows true.
 
 name = "bigsplash-front-door"
@@ -26,6 +29,25 @@ name = "front-door-audit"
 binding = "AUDIT_FLOW"
 class_name = "FrontDoorAudit"
 
+# The follow-ups after the scorecard email (src/nurture.js): days 1, 2, 4 and 7.
+[[workflows]]
+name = "front-door-nurture"
+binding = "NURTURE_FLOW"
+class_name = "FrontDoorNurture"
+
+# Approving a held audit (src/worker.js FrontDoorApprove). The instance id approve-<audit id> exists once,
+# so a double tap approves once, and each send is a saved step.
+[[workflows]]
+name = "front-door-approve"
+binding = "APPROVE_FLOW"
+class_name = "FrontDoorApprove"
+
+# LeadDesk: opens the ClickUp task and posts Slack for every audit.
+[[services]]
+binding = "DESK"
+service = "bigsplash-church-snapshot"
+entrypoint = "LeadDesk"
+
 [[kv_namespaces]]
 binding = "AUDITS"
 id = "2c469cb531614af8ba420e83eae788bb"
@@ -38,6 +60,22 @@ simple = { limit = 5, period = 60 }
 
 [vars]
 ALLOWED_ORIGIN = "https://bigsplash.video,https://www.bigsplash.video,https://bigsplash.church,https://www.bigsplash.church"
+# Most audits started in one UTC day; past this the form asks the pastor to email Chris.
+DAILY_LIMIT = "300"
+# Fallback origin for the approve link in Slack when a record has none.
+WORKER_ORIGIN = "https://bigsplash-front-door.chris-bc4.workers.dev"
+# GoHighLevel sub-account. The token is the GHL_TOKEN secret, never a var.
+GHL_LOCATION_ID = "f8RUB78GlgA6lIDz8HB8"
+# Who the pastor's emails come from. Change it once a dedicated sending domain is set up in GoHighLevel.
+GHL_EMAIL_FROM = "Chris List <chris@bigsplash.agency>"
+# The mailing address at the foot of every email.
+BUSINESS_ADDRESS = "1119 Ascot St., Georgetown, TX 78626"
+# Empty skips opportunities. Set a pipeline id (and optionally GHL_PIPELINE_STAGE_ID) to open one per lead.
+GHL_PIPELINE_ID = ""
+# Send windows and day counts for the follow-ups.
+TIMEZONE = "America/Chicago"
+# Empty until Chris's video is on the walkthrough page. Set to "yes" and the emails and text 2 mention it.
+VSL_LIVE = ""
 
 [observability]
 enabled = true

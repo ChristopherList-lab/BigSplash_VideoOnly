@@ -767,7 +767,7 @@ const unescapedLink = /(?<!\\)\[[^\]]*\]\(/;
   const r = await send(hostile);
   const text = to(calls, 'slack')[0].body.text;
   check('hostile request still goes through', r.status === 200, r.text);
-  check('Slack escapes <, > and & in the church name', text.includes('*&lt;!channel&gt; &lt;https: //evil.example|Click here&gt; &amp; Sons*'), text);
+  check('Slack escapes <, > and & in the church name', text.includes('*&lt;!channel&gt; &lt;https: //evil .example|Click here&gt; &amp; Sons*'), text);
   check('Slack escapes city, name, role and phone',
     text.includes('&lt;@U123&gt;') && text.includes('Dana &lt;b&gt;') && text.includes('R&amp;D &gt; Pastor') && text.includes('&lt;tel:5125550142|call me&gt;'), text);
   check('Slack escapes the email', text.includes(' · &lt;!channel&gt;@x.org · '), text);
@@ -789,11 +789,19 @@ const unescapedLink = /(?<!\\)\[[^\]]*\]\(/;
     email: 'first_last@gracechurch.org',
   });
   const lines = slackLines(calls);
-  check('a form value cannot restyle the alert or reverse its text', lines[1] === '*Grace Church x https: //evil.example/login*, Austinnitsua · 250 to 499 on a Sunday', JSON.stringify(lines[1]));
+  check('a form value cannot restyle the alert or reverse its text', lines[1] === '*Grace Church x https: //evil .example/login*, Austinnitsua · 250 to 499 on a Sunday', JSON.stringify(lines[1]));
   check('name, role and phone lose their markup; the email keeps its underscore',
-    lines[2] === 'From Dana, see http: //app.clickup.com.evil.example/t/abc123 · first_last@gracechurch.org · 512 555', lines[2]);
+    lines[2] === 'From Dana, see http: //app .clickup .com .evil .example/t/abc123 · first_last@gracechurch.org · 512 555', lines[2]);
   check('an address typed into a text field is never sent as a link', !lines.join('\n').replace(/<[^>]*>/g, '').includes('://'), lines.join('\n'));
   check('the ClickUp task still shows the church as typed', to(calls, 'clickup')[0].body.name.startsWith('Grace* _Church_ `x` https://evil.example/login, ~Austin~nitsua'));
+}
+{
+  const calls = stubFetch();
+  await send({ ...GOOD, church: 'Grace www.evil.com', role: 'Pastor at evil.com', phone: 'St. Mary e.g. 3.5' });
+  const lines = slackLines(calls);
+  check('Slack: a bare www. or bare domain is broken up so Slack cannot link it',
+    lines[1].startsWith('*Grace www .evil .com*') && lines[2].includes('Pastor at evil .com') && !/\b(www\.|evil\.com)/.test(lines.slice(0, 3).join('\n')), lines.join('\n'));
+  check('Slack: abbreviations and decimals stay as typed', lines[2].includes('St. Mary e.g. 3.5'), lines[2]);
 }
 {
   const calls = stubFetch();
@@ -1110,7 +1118,7 @@ async function digestOf(tasks, options = {}) {
   const hostile = { ...openTask('bad1', '<!channel> <https://evil.example|free clips> & *Co* _x_ `y`', 6), url: 'javascript:alert(1)' };
   const { text } = await digestOf([hostile]);
   check('digest escapes task names, drops markup and drops non-http links',
-    text === '*Snapshots this morning*\nDue in the next 24 hours: &lt;!channel&gt; &lt;https: //evil.example|free clips&gt; &amp; Co x y due Mon, Oct 12, 2:00 PM', text);
+    text === '*Snapshots this morning*\nDue in the next 24 hours: &lt;!channel&gt; &lt;https: //evil .example|free clips&gt; &amp; Co x y due Mon, Oct 12, 2:00 PM', text);
 }
 {
   const { lines } = await digestOf([openTask('long', 'L'.repeat(300) + ', Austin', 6)]);
@@ -1241,7 +1249,7 @@ for (const key of ['CLICKUP_TOKEN', 'CLICKUP_LIST_ID', 'SLACK_WEBHOOK_URL']) {
 {
   const toml = read('wrangler.toml');
   const value = (key) => toml.match(new RegExp(`^${key}\\s*=\\s*"([^"]*)"`, 'm'))?.[1];
-  equal('wrangler.toml keeps the worker name and entry file', [value('name'), value('main')], ['bigsplash-church-snapshot', 'index.js']);
+  equal('wrangler.toml keeps the worker name and entry file', [value('name'), value('main')], ['bigsplash-church-snapshot', 'entry.js']);
   check('wrangler.toml runs the digest at 13:00 UTC daily', /^\[triggers\]\ncrons = \["0 13 \* \* \*"\]$/m.test(toml), toml.match(/crons.*/)?.[0]);
   equal('wrangler.toml sets the four vars',
     [value('CLICKUP_LIST_ID'), value('ALLOWED_ORIGIN'), value('TURNAROUND_HOURS'), value('TIMEZONE')],
