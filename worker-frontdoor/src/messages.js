@@ -136,9 +136,10 @@ export function foundingWelcomeEmail(input = {}) {
   return render(`Welcome to Big Splash, ${v.church}`, [
     [`Hi ${v.first},`],
     [`Thank you for trusting us with ${v.church}. Your founding spot is yours, and your $3,500 payment came through.`],
+    [`Our mission: 100,000 families welcomed into the local church. ${v.church} is one of our first five founding churches, and we're glad to start with you.`],
     ["First step: book your kickoff call. We'll pick your filming day and plan the campaign together.", ["Book your kickoff call: ", kickoff]],
-    ["After the call, we film at your church and build your plan-your-visit page. The follow-up texts and emails your guests get come next, ready before launch."],
-    ["Start gathering your logo and your kids ministry details now, so the build moves fast."],
+    ["After the call, we film at your church and build your plan-your-visit page. Next we write the texts that welcome each new family and follow up after their first Sunday, all loaded before launch."],
+    ["Start gathering your logo and your kids ministry details now, and pick who on your welcome team should get the Saturday list of families."],
     [`Your ${months}-month partnership starts the day the campaign launches. Month 1 is part of your $3,500, so the first monthly charge of ${dollars(monthly)} comes 30 days after launch. Everything we build stays yours.`],
     [terms.href ? [`Your Founding Partnership Terms${version ? ` (version ${version})` : ""}: `, terms] : ""],
     ["Reply to this email with any question. It comes straight to our team."],

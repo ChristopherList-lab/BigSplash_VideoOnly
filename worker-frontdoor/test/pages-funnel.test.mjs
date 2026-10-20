@@ -340,7 +340,7 @@ describe("privacy and plain words", () => {
   });
 
   test("the form says follow-up notes come after the scorecard", () => {
-    assert.match(landing, /We'll email you a copy, then a few short notes from Chris over the next week\. Reply stop anytime\./);
+    assert.match(landing, /We'll email you a copy, then a few short notes from our team over the next week\. Reply stop anytime\./);
   });
 
   test("the walkthrough page hides the video spot until VSL_URL is set", () => {
@@ -358,7 +358,8 @@ describe("privacy and plain words", () => {
     for (const banned of ["Fill Sunday", "fill Sunday", "likes and clicks", "Where you land", "How do you know who showed up", "What is the campaign budget", "Who films and edits", "and on your welcome team"]) {
       assert.equal(church.includes(banned), false, banned);
     }
-    assert.match(text, /Invite your neighbors to Sunday\./);
+    assert.match(text, /We film your church\./);
+    assert.match(text, /100,000 families welcomed into the local church/);
     assert.equal(/Where you land/.test(landing), false);
   });
 });

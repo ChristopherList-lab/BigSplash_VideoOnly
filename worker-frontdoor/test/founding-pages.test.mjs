@@ -27,8 +27,7 @@ function fakeDom(page) {
       id: m[3], tag: m[1], hidden: /\shidden(\s|$|>)/.test(attrs + " "), textContent: "", innerHTML: "", value: "", checked: false,
       className: "", disabled: false, focused: 0, on: {}, firstElementChild: { textContent: "" },
       classList: { toggle() {}, add() {}, remove() {} },
-      focus() { this.focused++; }, addEventListener(type, fn) { this.on[type] = fn; }, scrollIntoView() {},
-    };
+      focus() { this.focused++; }, addEventListener(type, fn) { this.on[type] = fn; }, scrollIntoView() {}, play: async () => {}, pause() {}, load() {}, setAttribute() {}, getAttribute: () => null, querySelector: () => ({ textContent: "", setAttribute() {} }),    };
   }
   return els;
 }
@@ -44,10 +43,10 @@ function run(page, { search = "", hostname = "bigsplash.video", routes = {}, ses
   const calls = [], fbq = [], gtag = [], assigned = [];
   const context = {
     document: {
-      getElementById: (id) => els[id] || null, querySelectorAll: () => [], addEventListener() {},
+      getElementById: (id) => els[id] || null, querySelector: () => null, querySelectorAll: () => [], addEventListener() {},
       createElement: () => ({ style: {} }), head: { appendChild() {} },
     },
-    location: { search, hostname, href: `https://${hostname}/x/${search}`, assign: (u) => assigned.push(u) },
+    location: { search, hostname, href: `https://${hostname}/x/${search}`, assign: (u) => assigned.push(u), replace: (u) => assigned.push(u) },
     fetch: async (url, init = {}) => {
       calls.push({ url: String(url), method: init.method || "GET", body: init.body ? JSON.parse(init.body) : null });
       const path = new URL(url).pathname;
@@ -57,7 +56,7 @@ function run(page, { search = "", hostname = "bigsplash.video", routes = {}, ses
     },
     sessionStorage: storage(session), localStorage: storage(local),
     fbq: (...a) => fbq.push(a), gtag: (...a) => gtag.push(a), tailwind: {},
-    IntersectionObserver: class { observe() {} unobserve() {} }, addEventListener() {}, scrollY: 0,
+    IntersectionObserver: class { observe() {} unobserve() {} }, addEventListener() {}, scrollY: 0, matchMedia: () => ({ matches: false, addEventListener() {} }),
     URLSearchParams, Response, Promise, Object, String, Number, JSON, Error, TypeError, Date, Math, console, Array, setTimeout: () => 0,
     ...extra,
   };
@@ -129,7 +128,7 @@ function runFoundingWithForm(opts = {}) {
   const session = storage(opts.session || {});
   const context = {
     document: { getElementById: (id) => els[id] || null, createElement: () => ({ style: {} }), head: { appendChild() {} } },
-    location: { search: opts.search || "", hostname: opts.hostname || "bigsplash.video", assign: (u) => assigned.push(u) },
+    location: { search: opts.search || "", hostname: opts.hostname || "bigsplash.video", assign: (u) => assigned.push(u), replace: (u) => assigned.push(u) },
     fetch: async (url, init = {}) => {
       calls.push({ url: String(url), method: init.method || "GET", body: init.body ? JSON.parse(init.body) : null });
       const r = (opts.routes || {})[new URL(url).pathname];
@@ -336,7 +335,7 @@ describe("founding page: markup", () => {
       assert.ok(founding.includes(item), item);
       assert.ok(church.includes(item), `church page: ${item}`);
     }
-    for (const term of ["Your term starts the day your campaign launches.", "can cancel with 30 days notice.", "Everything we build for your church stays yours.", "We never promise a set number of guests."]) {
+    for (const term of ["Your term starts the day your campaign launches.", "can cancel with 30 days notice.", "Everything we build for your church stays yours.", "We never promise a set number of families."]) {
       assert.ok(founding.includes(term), term);
     }
     assert.match(founding, /\$3,500/);

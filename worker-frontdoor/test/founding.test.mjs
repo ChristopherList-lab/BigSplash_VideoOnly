@@ -834,6 +834,8 @@ describe("welcome email, payloads and config", () => {
     assert.ok(m.text.includes(`Book your kickoff call: ${KICKOFF_URL}`));
     assert.ok(m.text.includes("Your 12-month partnership starts the day the campaign launches."));
     assert.ok(m.text.includes("the first monthly charge of $1,497 comes 30 days after launch"));
+    assert.ok(m.text.includes("Our mission: 100,000 families welcomed into the local church."));
+    assert.equal(/\bguests?\b/i.test(m.text), false, "family language");
     assert.ok(m.text.endsWith("The Big Splash Team\n\n1119 Ascot St., Georgetown, TX 78626."));
     assert.ok(m.html.includes("City Reach &lt;Church&gt;"));
     assert.ok(!m.html.includes("<Church>"));

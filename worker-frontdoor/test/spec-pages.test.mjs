@@ -212,7 +212,7 @@ describe("landing page", () => {
   test("polling handles failed and review", () => {
     const js = inlineScripts(landing);
     assert.match(js, /status\s*===\s*["']failed["']/);
-    assert.match(js, /Something went wrong on our end\. Chris has the details and will email your scorecard\./);
+    assert.match(js, /Something went wrong on our end\. Our team has the details and will email your scorecard\./);
     assert.match(js, /status\s*===\s*["']review["']/);
   });
 

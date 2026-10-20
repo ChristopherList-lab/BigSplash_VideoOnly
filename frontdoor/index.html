@@ -77,6 +77,7 @@ button:disabled { opacity: .6; cursor: wait; }
 .status .spinner { width: 44px; height: 44px; border-radius: 50%; border: 4px solid var(--line); border-top-color: var(--lime); animation: spin 1s linear infinite; margin-bottom: 18px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .status a.btn { display: inline-block; margin-top: 10px; background: var(--lime); color: var(--ink); font: 800 16px/1 "Inter"; padding: 15px 22px; border-radius: 999px; text-decoration: none; }
+.mission { margin-top: 16px; color: var(--muted); font-size: 14px; }
 footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; padding: 24px 0 40px; }
 @media (max-width: 860px) {
   .hero { grid-template-columns: 1fr; gap: 30px; }
@@ -92,7 +93,7 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px
     <div>
       <p class="eyebrow"><img src="/assets/images/starburst-lime-solid.svg" alt="">Free for pastors</p>
       <h1>See your church the way <span class="hl">a new family</span> does.</h1>
-      <p class="lede">The Front Door Audit looks you up from a neighbor's phone, about 4 miles away, and grades what it finds. Most scorecards are ready in a few minutes.</p>
+      <p class="lede">A family's first visit starts on a phone. The Front Door Audit looks you up from a neighbor's phone, about 4 miles away, and grades what it finds. Most scorecards are ready in a few minutes.</p>
       <a class="jump" href="#audit-form">Run my free audit</a>
       <ul class="checks">
         <li><b>Google search</b>Your spot in the results when a neighbor searches "church."</li>
@@ -101,12 +102,13 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px
         <li><b>Social and sermons</b>Your sermons and social accounts, as linked from your home page.</li>
       </ul>
       <div class="sample"><img src="sample-scorecard.jpg" alt="A sample Front Door Audit scorecard"><p>A sample scorecard. Yours includes the number of households within a 10-minute drive (Texas churches) and up to three fixes to start with.</p></div>
+      <p class="mission">Our mission: 100,000 families welcomed into the local church.</p>
     </div>
 
     <div>
       <form id="audit-form" novalidate>
         <h2>Run my free audit</h2>
-        <p class="small">No call needed to get your scorecard. We'll email you a copy, then a few short notes from Chris over the next week. Reply stop anytime.</p>
+        <p class="small">No call needed to get your scorecard. We'll email you a copy, then a few short notes from our team over the next week. Reply stop anytime.</p>
         <label for="church">Church name</label>
         <input id="church" name="church" required autocomplete="organization">
         <label for="address">Church address</label>
@@ -191,11 +193,11 @@ async function waitForResult(id, url) {
       if (res.ok) { location.href = url; return; }
       const body = await res.json().catch(() => ({}));
       if (body.status === "review") {
-        show("We're double-checking a few details", "Your audit is done. Chris is double-checking a few details and will email your scorecard within one business day.");
+        show("We're double-checking a few details", "Your audit is done. Our team is double-checking a few details and will email your scorecard within one business day.");
         return;
       }
       if (body.status === "failed") {
-        show("Something went wrong", "Something went wrong on our end. Chris has the details and will email your scorecard.");
+        show("Something went wrong", "Something went wrong on our end. Our team has the details and will email your scorecard.");
         return;
       }
     } catch {}
