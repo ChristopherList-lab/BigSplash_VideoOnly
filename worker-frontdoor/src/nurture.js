@@ -12,10 +12,14 @@ import * as ghl from "./ghl.js";
 import { scorecardText, fixEmail, nudgeText, callEmail, lastEmail } from "./messages.js";
 
 const DAY = 86400000;
+// Text messages use the "sms" or "reply" window; everything else is an email.
+const isText = (kind) => kind === "sms" || kind === "reply";
 const YEAR = 60 * 60 * 24 * 365;
-export const WINDOWS = { email: [8, 18], sms: [10, 19] };
+// "reply" is the scorecard text the pastor asked for on the form: standard texting hours, any day.
+// Follow-up texts keep the narrower "sms" window and skip Sundays.
+export const WINDOWS = { email: [8, 18], sms: [10, 19], reply: [8, 21] };
 export const STEPS = [
-  { key: "text 1", day: 0, kind: "sms", build: scorecardText, only: "text1" },
+  { key: "text 1", day: 0, kind: "reply", build: scorecardText, only: "text1" },
   { key: "email 2", day: 1, kind: "email", build: fixEmail },
   { key: "text 2", day: 2, kind: "sms", build: nudgeText },
   { key: "email 3", day: 4, kind: "email", build: callEmail },
@@ -50,7 +54,7 @@ export function sendTime(ms, kind, tz = "America/Chicago") {
   let t = ms;
   for (let i = 0; i < 10; i++) {
     const p = wall(t, tz);
-    if (p.wd === 0 || p.h >= close) { t = zonedTime(p.y, p.m, p.d + 1, open, tz); continue; }
+    if ((p.wd === 0 && kind !== "reply") || p.h >= close) { t = zonedTime(p.y, p.m, p.d + 1, open, tz); continue; }
     if (p.h < open) return zonedTime(p.y, p.m, p.d, open, tz);
     return t;
   }
@@ -65,7 +69,7 @@ export function plan(startedAt, { smsConsent, text1 = false, tz }) {
   let last = startedAt;
   const out = [];
   for (const s of STEPS) {
-    if (s.kind === "sms" && !smsConsent) continue;
+    if (isText(s.kind) && !smsConsent) continue;
     if (s.only === "text1" && !text1) continue;
     last = Math.max(last, sendTime(startedAt + s.day * DAY, s.kind, tz));
     out.push({ key: s.key, kind: s.kind, at: last });
@@ -129,7 +133,7 @@ export class FrontDoorNurture extends WorkflowEntrypoint {
       await step.sleepUntil(`wait for ${s.key}`, new Date(s.at));
       let verdict;
       try {
-        verdict = await step.do(`check before ${s.key}`, CHECK, async () => stopCheck(env, p, s.kind));
+        verdict = await step.do(`check before ${s.key}`, CHECK, async () => stopCheck(env, p, isText(s.kind) ? "sms" : "email"));
       } catch (err) {
         // GoHighLevel could not be read: skip this message rather than send blind.
         await step.do(`log check failed ${s.key}`, async () => { await logNurture(env, p.id, { skipped: s.key, reason: "the stop check failed" }); return true; });
@@ -149,7 +153,7 @@ export class FrontDoorNurture extends WorkflowEntrypoint {
           const msg = def.build({ ...p, videoLive: Boolean(env.VSL_LIVE), address: env.BUSINESS_ADDRESS });
           if (!msg) { await logNurture(env, p.id, { skipped: s.key, reason: "no top fix" }); return "skipped"; }
           // Text 1 shares its marker with deliver.js, so it never goes out from both places.
-          await ghl.sendOnce(env, `sent:${p.id}:${s.key.replace(/\s+/g, "")}`, () => (s.kind === "sms"
+          await ghl.sendOnce(env, `sent:${p.id}:${s.key.replace(/\s+/g, "")}`, () => (isText(s.kind)
             ? ghl.sendSms(env, { contactId: p.contactId, message: msg.message })
             : ghl.sendEmail(env, { contactId: p.contactId, subject: msg.subject, html: msg.html, text: msg.text })));
           await logNurture(env, p.id, { sent: s.key });

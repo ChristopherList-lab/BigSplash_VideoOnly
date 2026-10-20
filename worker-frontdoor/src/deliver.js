@@ -73,6 +73,7 @@ export function leadPayload(a, delivery = {}) {
     error: a.error || "",
     emailed: delivery.emailed === true,
     texted: delivery.texted === true,
+    text_later: delivery.textLater === true,
   };
 }
 
@@ -130,7 +131,7 @@ export async function ghlContact(env, step, a) {
 
 // a = { event, id, record, church, contact, result, error?, preview_url?, approve_url?, clickup_task_id? }
 // Text 1 goes right away for a fresh audit, since the pastor just asked for it. An approved audit
-// texts right away only inside the text window; otherwise the follow-up run sends text 1 when it opens.
+// texts right away between 8 AM and 9 PM Central; otherwise the follow-up run sends text 1 at 8 AM.
 export async function deliver(env, step, a) {
   // out.textLater (set only when true): text 1 waits for the text window in the follow-up run.
   const out = { contactId: null, emailed: false, texted: false, nurture: false };
@@ -144,7 +145,7 @@ export async function deliver(env, step, a) {
       ghl.sendEmail(env, { contactId: out.contactId, subject: email.subject, html: email.html, text: email.text })), false);
     const textsOk = a.contact?.sms_consent === true && Boolean(ghl.usPhone(a.contact.phone));
     const textNow = textsOk && (a.event === "ready" ||
-      await guard(step, `${a.event} text window`, ONCE, async () => inWindow(Date.now(), "sms", env.TIMEZONE || "America/Chicago"), true));
+      await guard(step, `${a.event} text window`, ONCE, async () => inWindow(Date.now(), "reply", env.TIMEZONE || "America/Chicago"), true));
     if (textNow) {
       out.texted = await guard(step, `${a.event} text 1`, ONCE, () => ghl.sendOnce(env, `sent:${a.id}:text1`, () =>
         ghl.sendSms(env, { contactId: out.contactId, message: scorecardText(v).message })), false);

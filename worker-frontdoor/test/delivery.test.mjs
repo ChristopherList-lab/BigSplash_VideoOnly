@@ -358,6 +358,21 @@ describe("the approve link", () => {
     assert.equal(record().ghl.textLater, true);
   });
 
+  test("approved at 9:34 AM: the scorecard text goes right away, with the desk told", async () => {
+    const { g, e, desk } = setup();
+    const { id, record } = await audit(e, REVIEW);
+    await atClock(() => approveIt(e, id, record().reviewToken), "2026-10-20T14:34:00Z");
+    assert.equal(g.texts.length, 1);
+    assert.deepEqual([desk.leads.at(-1).texted, desk.leads.at(-1).text_later], [true, false]);
+  });
+
+  test("approved at 10:30 PM: the desk hears the text is queued", async () => {
+    const { e, desk } = setup();
+    const { id, record } = await audit(e, REVIEW);
+    await atClock(() => approveIt(e, id, record().reviewToken), "2026-10-21T03:30:00Z");
+    assert.deepEqual([desk.leads.at(-1).texted, desk.leads.at(-1).text_later], [false, true]);
+  });
+
   test("text 1 that failed: the follow-ups send no text 2", async () => {
     const { g, e, nurture, desk } = setup();
     const real = globalThis.fetch;

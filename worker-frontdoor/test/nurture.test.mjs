@@ -163,13 +163,13 @@ describe("the run", () => {
     assert.ok(e.AUDITS.m.has(`sent:${params().id}:text2`) && e.AUDITS.m.has(`sent:${params().id}:email4`));
   });
 
-  test("text 1 handed over by a late approval waits for the text window, then text 2 follows it", async () => {
+  test("text 1 handed over by a late approval waits for 8 AM Central, then text 2 follows it", async () => {
     const g = fakeGhl();
     stubFetch([g.route]);
     // Approved Tuesday 10:30 PM Central.
     const late = Z("2026-10-21T03:30:00Z");
     const { step, log } = await run(env(), params({ text1: true, startedAt: late }));
-    assert.deepEqual(step.sleeps.slice(0, 1).map((s) => [s.name, new Date(s.at).toISOString()]), [["wait for text 1", "2026-10-21T15:00:00.000Z"]]);
+    assert.deepEqual(step.sleeps.slice(0, 1).map((s) => [s.name, new Date(s.at).toISOString()]), [["wait for text 1", "2026-10-21T13:00:00.000Z"]]);
     assert.equal(g.texts.length, 2);
     assert.equal(g.texts[0].message, `Pat, Chris at Big Splash. Your scorecard: ${params().scorecardUrl} Reply STOP to opt out`);
     assert.match(g.texts[1].message, /^Pat, Chris at Big Splash\. Book a call with our team: /);

@@ -135,6 +135,8 @@ export function cleanLead(raw, now = Date.now()) {
     // Whether the Front Door worker emailed and texted the pastor. null when the lead did not say.
     emailed: typeof l.emailed === 'boolean' ? l.emailed : null,
     texted: typeof l.texted === 'boolean' ? l.texted : null,
+    // True when the text waits for texting hours (10 AM to 7 PM Central) in the follow-up run.
+    text_later: l.text_later === true,
   };
 }
 
@@ -210,6 +212,13 @@ function telLink(phone) {
 }
 
 // Ready and approved leads say whether the pastor got the scorecard. Other events message nobody.
+// The ClickUp line for the scorecard text: sent, waiting for texting hours, not wanted, or not sent.
+function textStatus(lead, c) {
+  if (lead.texted) return 'Yes';
+  if (lead.text_later) return 'Queued for texting hours (10 AM to 7 PM Central)';
+  return c.sms_consent ? 'No' : 'No, they did not ask for texts';
+}
+
 function saysSent(lead) {
   return (lead.event === 'ready' || lead.event === 'approved') && lead.emailed !== null;
 }
@@ -265,7 +274,7 @@ export function leadDescription(lead, env) {
     `**Texts OK:** ${c.sms_consent ? 'Yes' : 'No'}`,
     ...(saysSent(lead) ? [
       `**Scorecard emailed:** ${lead.emailed ? 'Yes' : 'No, send it by hand'}`,
-      `**Scorecard texted:** ${lead.texted ? 'Yes' : 'No'}`,
+      `**Scorecard texted:** ${textStatus(lead, c)}`,
     ] : []),
     `**Sunday attendance:** ${c.attendance ? mdText(c.attendance) : 'Not given'}`,
     `**Posts on Facebook:** ${c.facebook_frequency ? mdText(c.facebook_frequency) : 'Not given'}`,
@@ -328,8 +337,11 @@ export function leadSlackText(lead, clickup) {
   }
   if (lead.event === 'failed') lines.push(`Error: ${lead.error ? slackText(lead.error) : 'none given'}`);
   if (saysSent(lead)) {
+    const textLine = lead.texted ? ' and texted'
+      : lead.text_later ? '. The text goes out when texting hours open (10 AM to 7 PM Central)'
+      : lead.contact.sms_consent ? ', not texted' : ', no text (they did not ask for one)';
     lines.push(lead.emailed
-      ? `Pastor emailed${lead.texted ? ' and texted' : ', not texted'}`
+      ? `Pastor emailed${textLine}`
       : `Pastor NOT emailed${lead.texted ? ' (texted)' : ''}: send the scorecard by hand`);
   }
   lines.push(clickUpLine(lead, clickup));
