@@ -130,7 +130,7 @@ describe("ready", () => {
     assert.equal(g.emails[0].subject, "Front Door scorecard for City Reach Church");
     assert.match(g.emails[0].message, new RegExp(`https://bigsplash\\.video/frontdoor/walkthrough/\\?id=${id}`));
     assert.equal(g.texts.length, 1);
-    assert.equal(g.texts[0].message, `Pat, Chris at Big Splash. Your scorecard: https://bigsplash.video/front-door/?id=${id} Reply STOP to opt out`);
+    assert.equal(g.texts[0].message, `Hi Pat, here's the Front Door Audit for City Reach Church. Check out your scorecard: https://bigsplash.video/front-door/?id=${id}\nThe team at Big Splash. Reply STOP to opt out`);
 
     assert.equal(nurture.made.length, 1);
     assert.equal(nurture.made[0].id, `nurture-${id}`);

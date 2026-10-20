@@ -91,7 +91,7 @@ WORKER_ORIGIN = "https://bigsplash-front-door.chris-bc4.workers.dev"
 # GoHighLevel sub-account. The token is the GHL_TOKEN secret, never a var.
 GHL_LOCATION_ID = "f8RUB78GlgA6lIDz8HB8"
 # Who the pastor's emails come from. Change it once a dedicated sending domain is set up in GoHighLevel.
-GHL_EMAIL_FROM = "Chris List <chris@bigsplash.agency>"
+GHL_EMAIL_FROM = "Big Splash <chris@bigsplash.agency>"
 # The mailing address at the foot of every email.
 BUSINESS_ADDRESS = "1119 Ascot St., Georgetown, TX 78626"
 # Empty skips opportunities. Set a pipeline id (and optionally GHL_PIPELINE_STAGE_ID) to open one per lead.

@@ -11,7 +11,7 @@ const full = {
 const bare = { ...full, firstName: "", topFix: "", grade: "" };
 const EMAILS = { scorecardEmail, approvedEmail, fixEmail, callEmail, lastEmail };
 const TEXTS = { scorecardText, nudgeText };
-const FOOTER = "Chris List / Big Splash\n\n1119 Ascot St., Georgetown, TX 78626. Reply stop and I won't email you again.";
+const FOOTER = "The Big Splash Team\n\n1119 Ascot St., Georgetown, TX 78626. Reply stop and we won't email you again.";
 
 describe("every email", () => {
   for (const [name, build] of Object.entries(EMAILS)) {
@@ -21,7 +21,7 @@ describe("every email", () => {
         assert.ok(m.subject && m.html && m.text);
         assert.ok(m.text.startsWith("Hi Pat,\n\n"), m.text);
         assert.ok(m.text.endsWith(FOOTER), m.text);
-        assert.ok(m.html.endsWith("<p>1119 Ascot St., Georgetown, TX 78626. Reply stop and I won&#39;t email you again.</p>"));
+        assert.ok(m.html.endsWith("<p>1119 Ascot St., Georgetown, TX 78626. Reply stop and we won&#39;t email you again.</p>"));
         assert.ok(m.text.includes(full.walkthroughUrl) || m.text.includes(full.scorecardUrl));
         const tags = [...m.html.matchAll(/<\/?([a-z]+)/g)].map((x) => x[1]);
         assert.deepEqual([...new Set(tags)].filter((t) => !["p", "br", "a"].includes(t)), [], "paragraphs and links only");
@@ -38,7 +38,7 @@ describe("every email", () => {
 
   test("the address comes from BUSINESS_ADDRESS when set", () => {
     const m = lastEmail({ ...full, address: "PO Box 1, Georgetown, TX 78627" });
-    assert.ok(m.text.endsWith("PO Box 1, Georgetown, TX 78627. Reply stop and I won't email you again."));
+    assert.ok(m.text.endsWith("PO Box 1, Georgetown, TX 78627. Reply stop and we won't email you again."));
   });
 
   test("the call is 30 minutes wherever the copy names it", () => {
@@ -75,7 +75,7 @@ describe("email 1 and the approved variant", () => {
     assert.equal(m.subject, "Your Front Door scorecard (sorry for the wait)");
     assert.match(m.text, /Something in the audit for City Reach Church needed a human look/);
     assert.equal(/Google results/.test(m.text), false);
-    assert.match(m.text, /Thanks for your patience\.\n\nChris List \/ Big Splash/);
+    assert.match(m.text, /Thanks for your patience\.\n\nThe Big Splash Team/);
     assert.ok(m.text.includes(`our team will cover every grade with you on a free 30-minute call.\nBook a call with our team: ${full.walkthroughUrl}`));
   });
 });
@@ -83,8 +83,8 @@ describe("email 1 and the approved variant", () => {
 describe("follow-up emails", () => {
   test("email 2 is about the top fix and returns null without one", () => {
     const m = fixEmail(full);
-    assert.equal(m.subject, "The fix I'd start with at City Reach Church");
-    assert.ok(m.text.includes("I'd start here:\n\nAdd Sunday service times to your Google listing\n\n"));
+    assert.equal(m.subject, "The fix we'd start with at City Reach Church");
+    assert.ok(m.text.includes("we'd start here:\n\nAdd Sunday service times to your Google listing\n\n"));
     assert.equal(fixEmail(bare), null);
   });
 
@@ -115,28 +115,29 @@ describe("follow-up emails", () => {
 });
 
 describe("texts", () => {
-  test("text 1 names Big Splash, sends the full link and ends with the STOP line", () => {
+  test("text 1 names the church and Big Splash, sends the full link and ends with the STOP line", () => {
     const { message } = scorecardText(full);
-    assert.equal(message, `Pat, Chris at Big Splash. Your scorecard: ${full.scorecardUrl} Reply STOP to opt out`);
+    assert.equal(message, `Hi Pat, here's the Front Door Audit for City Reach Church. Check out your scorecard: ${full.scorecardUrl}\nThe team at Big Splash. Reply STOP to opt out`);
     assert.ok(message.endsWith("Reply STOP to opt out"));
-    assert.equal(scorecardText(bare).message.startsWith("Pastor, Chris at Big Splash."), true);
+    assert.equal(scorecardText(bare).message.startsWith("Hi Pastor, here's the Front Door Audit for City Reach Church."), true);
+    assert.equal(/Chris/.test(message), false, "texts come from the team, not Chris");
   });
 
   test("text 2 names Big Splash, and email 2 claims no more than the fix's place on the list", () => {
-    assert.equal(nudgeText(full).message, `Pat, Chris at Big Splash. Book a call with our team: ${full.walkthroughUrl}`);
-    assert.equal(nudgeText({ ...full, videoLive: true }).message, `Pat, Chris at Big Splash. Book a call with our team: ${full.walkthroughUrl}`);
+    assert.equal(nudgeText(full).message, `Hi Pat, the team at Big Splash here. Want to go over City Reach Church's scorecard together? Book a call with our team: ${full.walkthroughUrl}`);
+    assert.equal(nudgeText({ ...full, videoLive: true }).message, `Hi Pat, the team at Big Splash here. Want to go over City Reach Church's scorecard together? Book a call with our team: ${full.walkthroughUrl}`);
     const fix = fixEmail(full).text;
     assert.match(fix, /It sits at the top of the fix list on your scorecard\. A staff member or a sharp volunteer can often handle it in-house\./);
     assert.equal(/pulled your grade down|Most churches/.test(fix), false);
   });
 
-  test("texts stay within one 160-character segment with a 7-letter name and the longest id", () => {
+  test("texts stay within two text segments with a 7-letter name, a long church name and the longest id", () => {
     const longId = `${"a".repeat(40)}-1a2b3c4d`;
-    const v = { ...full, firstName: "Jessica", scorecardUrl: `https://bigsplash.video/front-door/?id=${longId}`, walkthroughUrl: `https://bigsplash.video/frontdoor/walkthrough/?id=${longId}` };
+    const v = { ...full, firstName: "Jessica", church: "First Baptist Church of Round Rock", scorecardUrl: `https://bigsplash.video/front-door/?id=${longId}`, walkthroughUrl: `https://bigsplash.video/frontdoor/walkthrough/?id=${longId}` };
     for (const [name, build] of Object.entries(TEXTS)) {
       for (const videoLive of [false, true]) {
         const { message } = build({ ...v, videoLive });
-        assert.ok(message.length <= 160, `${name}: ${message.length}`);
+        assert.ok(message.length <= 306, `${name}: ${message.length}`);
         assert.equal(/[‘’“”]/.test(message), false, "straight quotes only");
         assert.equal(/bit\.ly|tinyurl|lnk/.test(message), false);
       }
@@ -164,7 +165,9 @@ describe("hostile values", () => {
 
   test("line breaks and invisible characters in a name cannot add lines to a text or subject", () => {
     const m = scorecardText({ ...full, firstName: "Pat\nSTOP‮" });
-    assert.equal(m.message.includes("\n"), false);
+    // The only line break is the one before the sign-off.
+    assert.equal(m.message.split("\n").length, 2);
+    assert.ok(m.message.split("\n")[1].startsWith("The team at Big Splash."));
     const e = scorecardEmail({ ...full, church: "Grace\r\nBcc: x@y.z" });
     assert.equal(/[\r\n]/.test(e.subject), false);
   });

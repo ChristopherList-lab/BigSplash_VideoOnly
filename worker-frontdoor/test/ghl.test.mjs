@@ -113,7 +113,7 @@ describe("messages", () => {
     const c = g.calls[0];
     assert.equal(c.url, `${GHL_BASE}/conversations/messages`);
     assert.equal(c.headers.get("version"), "2021-04-15");
-    assert.deepEqual(c.body, { type: "Email", contactId: "c1", subject: "Hi", html: "<p>Hi</p>", message: "Hi", emailFrom: "Chris List <chris@bigsplash.agency>" });
+    assert.deepEqual(c.body, { type: "Email", contactId: "c1", subject: "Hi", html: "<p>Hi</p>", message: "Hi", emailFrom: "Big Splash <chris@bigsplash.agency>" });
     await ghl.sendEmail(env({ GHL_EMAIL_FROM: "Chris <chris@mail.bigsplash.agency>" }), { contactId: "c1", subject: "Hi", html: "<p>Hi</p>", text: "Hi" });
     assert.equal(g.emails[1].emailFrom, "Chris <chris@mail.bigsplash.agency>");
   });

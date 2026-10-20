@@ -72,9 +72,9 @@ describe("the run", () => {
     stubFetch([g.route]);
     const e = env();
     const { step, log } = await run(e);
-    assert.deepEqual(g.emails.map((m) => m.subject), ["The fix I'd start with at City Reach Church", "Before you book: the 30-minute call with our team", "Last note on your scorecard"]);
+    assert.deepEqual(g.emails.map((m) => m.subject), ["The fix we'd start with at City Reach Church", "Before you book: the 30-minute call with our team", "Last note on your scorecard"]);
     assert.equal(g.texts.length, 1);
-    assert.match(g.texts[0].message, /^Pat, Chris at Big Splash\./);
+    assert.match(g.texts[0].message, /^Hi Pat, the team at Big Splash here\. Want to go over City Reach Church's scorecard together\?/);
     assert.ok(g.emails.every((m) => m.contactId === "ghl-contact-1" && m.type === "Email" && m.html && m.message));
     assert.deepEqual(step.sleeps.map((s) => [s.name, new Date(s.at).toISOString()]), [
       ["wait for email 2", "2026-10-21T15:00:00.000Z"], ["wait for text 2", "2026-10-22T15:00:00.000Z"],
@@ -171,8 +171,8 @@ describe("the run", () => {
     const { step, log } = await run(env(), params({ text1: true, startedAt: late }));
     assert.deepEqual(step.sleeps.slice(0, 1).map((s) => [s.name, new Date(s.at).toISOString()]), [["wait for text 1", "2026-10-21T13:00:00.000Z"]]);
     assert.equal(g.texts.length, 2);
-    assert.equal(g.texts[0].message, `Pat, Chris at Big Splash. Your scorecard: ${params().scorecardUrl} Reply STOP to opt out`);
-    assert.match(g.texts[1].message, /^Pat, Chris at Big Splash\. Book a call with our team: /);
+    assert.equal(g.texts[0].message, `Hi Pat, here's the Front Door Audit for City Reach Church. Check out your scorecard: ${params().scorecardUrl}\nThe team at Big Splash. Reply STOP to opt out`);
+    assert.match(g.texts[1].message, /^Hi Pat, the team at Big Splash here\. .* Book a call with our team: /);
     assert.deepEqual(log.events.filter((x) => x.sent).map((x) => x.sent), ["text 1", "email 2", "text 2", "email 3", "email 4"]);
   });
 

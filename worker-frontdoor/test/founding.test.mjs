@@ -455,7 +455,7 @@ describe("POST /stripe/webhook", () => {
     assert.ok(g.emails[0].message.startsWith("Hi Pat,"));
     assert.ok(g.emails[0].message.includes(`Book your kickoff call: ${KICKOFF_URL}`));
     assert.ok(g.emails[0].html.includes(`<a href="${KICKOFF_URL}">`));
-    assert.ok(g.emails[0].message.endsWith("Chris List / Big Splash\n\n1119 Ascot St., Georgetown, TX 78626."));
+    assert.ok(g.emails[0].message.endsWith("The Big Splash Team\n\n1119 Ascot St., Georgetown, TX 78626."));
     assert.equal(g.texts.length, 0);
 
     // LeadDesk "won".
@@ -834,7 +834,7 @@ describe("welcome email, payloads and config", () => {
     assert.ok(m.text.includes(`Book your kickoff call: ${KICKOFF_URL}`));
     assert.ok(m.text.includes("Your 12-month partnership starts the day the campaign launches."));
     assert.ok(m.text.includes("the first monthly charge of $1,497 comes 30 days after launch"));
-    assert.ok(m.text.endsWith("Chris List / Big Splash\n\n1119 Ascot St., Georgetown, TX 78626."));
+    assert.ok(m.text.endsWith("The Big Splash Team\n\n1119 Ascot St., Georgetown, TX 78626."));
     assert.ok(m.html.includes("City Reach &lt;Church&gt;"));
     assert.ok(!m.html.includes("<Church>"));
     const six = foundingWelcomeEmail({ firstName: "Pat", church: "X", termMonths: 6, monthly: 1697 });

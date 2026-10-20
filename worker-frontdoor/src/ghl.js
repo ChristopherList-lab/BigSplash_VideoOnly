@@ -13,7 +13,7 @@ const MAX_WAIT = 10000;
 const FIELD_KEYS = ["contact.audit_scorecard_url", "contact.audit_walkthrough_url"];
 const FIELD_TTL = 60 * 60 * 24;
 const SENT_TTL = 60 * 60 * 24 * 30;
-const DEFAULT_FROM = "Chris List <chris@bigsplash.agency>";
+const DEFAULT_FROM = "Big Splash <chris@bigsplash.agency>";
 
 export const ghlReady = (env) => Boolean(env?.GHL_TOKEN && env?.GHL_LOCATION_ID);
 
