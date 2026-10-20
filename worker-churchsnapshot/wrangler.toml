@@ -7,7 +7,8 @@
 #
 # entry.js also exports LeadDesk, a named entrypoint the Front Door worker
 # calls over a service binding (env.DESK.frontDoorLead(lead)). It opens the
-# ClickUp task and posts the Slack alert for every Front Door audit. Deploy
+# ClickUp task and posts the Slack alert for every Front Door audit, and the
+# onboarding task and billing notes for each founding partner. Deploy
 # this worker before the Front Door worker so the binding has a target.
 #
 # Deploy steps (run from this worker-churchsnapshot/ directory):
@@ -53,6 +54,10 @@ TIMEZONE = "America/Chicago"
 # ClickUp list "Front Door Leads". LeadDesk (desk.js) opens one task here per
 # Front Door audit, and the morning digest lists leads still in "to do".
 FRONT_DOOR_LIST_ID = "901422444894"
+# ClickUp list "Church Clients" (Church Vertical folder). A founding partner's
+# paid checkout ("won") opens its onboarding task here, and billing notes
+# ("billing") land as comments on that task.
+CHURCH_CLIENTS_LIST_ID = "901421227438"
 
 # LeadDesk remembers each Front Door delivery here for four days, so a retried
 # Workflow step opens no second ClickUp task and posts no second Slack alert.

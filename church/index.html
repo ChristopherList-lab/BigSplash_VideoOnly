@@ -133,6 +133,7 @@
   .on-dark .btn-ghost:hover { border-color: #eff88b; background: rgba(239,248,139,0.08); }
   .on-dark a:focus-visible, .on-dark button:focus-visible { outline-color: #eff88b; }
 
+  [hidden] { display: none !important; }
   #mobile-cta { transform: translateY(120%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
   #mobile-cta.show { transform: none; }
 
@@ -422,6 +423,11 @@
           </ul>
           <div class="mt-auto pt-8">
             <p class="rounded-xl border border-[#dde69a] bg-[#f3f8bf] p-4 text-[15px] text-ink"><span class="font-semibold">Founding churches:</span> our first 5 pay $3,500, and month 1 of your term is included.</p>
+            <!-- Shows only when the front door worker says founding checkout is open (GET /founding/status). -->
+            <div id="founding-claim" class="mt-4" hidden>
+              <a href="/church/founding/?utm_source=church_page" data-cta="price-founding" class="btn-primary w-full">Claim a founding spot <span class="material-symbols-outlined text-xl">arrow_forward</span></a>
+              <p id="founding-left" class="mt-2 text-center text-sm font-semibold text-ink tnum"></p>
+            </div>
             <a href="/frontdoor/?utm_source=church_page" data-cta="price-build" class="btn-ghost w-full mt-4">Start with a free audit</a>
           </div>
         </div>
@@ -499,6 +505,7 @@
         <h2 class="display text-[1.9rem] md:text-[2.75rem]">A Texas studio that already serves churches</h2>
         <p class="mt-5 text-lg text-copy leading-relaxed">I'm Chris List. Big Splash is a video and marketing studio in Georgetown. I filmed the City Reach Church pieces on this page, and each week I cut sermon clips and design graphics for a church in Austin. This offer exists because pastors kept asking the same question: how do we reach the families moving in around us?</p>
         <p class="mt-4 text-lg text-copy leading-relaxed">I film at your church and edit your videos myself. AI tools help me with transcripts and rough cuts, and nothing reaches you until I've watched it. Anything that speaks to what your church believes goes to you first.</p>
+        <p class="mt-6 text-xl font-bold text-ink leading-snug">Our mission: <span class="mark">100,000 families with a church to call home.</span></p>
         <div class="mt-8 flex flex-col sm:flex-row gap-3">
           <a href="/frontdoor/?utm_source=church_page" data-cta="founder" class="btn-primary">Run my free audit</a>
           <button type="button" data-open-intake data-intake-service="Church" class="btn-ghost">Book a call with our team</button>
@@ -587,6 +594,15 @@
       const c = e.target.closest('[data-cta]');
       if (c && window.bsTrack) bsTrack('cta_click', { location: c.dataset.cta });
     });
+
+    // Founding spots: the button and count stay hidden unless the worker says checkout is open.
+    // Local testing only: open http://localhost:8765/church/?api=http://localhost:8787 to use a worker on this Mac.
+    const API = (['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).get('api')) || 'https://bigsplash-front-door.chris-bc4.workers.dev';
+    fetch(`${API}/founding/status`).then((r) => r.ok ? r.json() : null).then((s) => {
+      if (!s || s.open !== true || !Number.isInteger(s.spots_left) || !Number.isInteger(s.total) || s.spots_left < 1 || s.spots_left > s.total) return;
+      document.getElementById('founding-left').textContent = `${s.spots_left} of ${s.total} founding spots left`;
+      document.getElementById('founding-claim').hidden = false;
+    }).catch(() => {});
   })();
   </script>
   <script src="../js/intake.js"></script>

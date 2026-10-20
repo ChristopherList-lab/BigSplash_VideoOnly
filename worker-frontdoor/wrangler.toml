@@ -17,6 +17,23 @@
 #
 # Until GHL_TOKEN is set no pastor gets an email or text, and the desk alert says so.
 # Then open https://bigsplash-front-door.<account>.workers.dev/health to confirm each piece shows true.
+#
+# Founding partner checkout (src/founding.js, src/stripe.js). Two secrets, set by Chris:
+#   npx wrangler secret put STRIPE_SECRET_KEY      # a restricted key (rk_live_...), made in Stripe > Developers > API keys
+#                                                  # > Create restricted key, with Write on Checkout Sessions, Prices,
+#                                                  # Products and Subscriptions, and Read on PaymentIntents and Customers
+#   npx wrangler secret put STRIPE_WEBHOOK_SECRET  # the whsec_... signing secret of the webhook endpoint below
+# Webhook endpoint (Stripe Workbench > Webhooks > Create an event destination, "Your account", payload
+# Snapshot, API version 2026-09-30.endive to match STRIPE_VERSION in src/stripe.js):
+#   URL: https://bigsplash-front-door.chris-bc4.workers.dev/stripe/webhook
+#   Events: checkout.session.completed, checkout.session.async_payment_succeeded,
+#           checkout.session.async_payment_failed, invoice.paid, invoice.payment_failed,
+#           customer.subscription.deleted
+# Turn on "US bank account" (ACH Direct Debit) in Stripe > Settings > Payment methods. Checkout asks for
+# instant bank verification only, so no microdeposits hold a founding spot for days.
+# The agreement's IP hash is keyed with STRIPE_SECRET_KEY. An optional IP_HASH_SECRET secret replaces it.
+# The checkout stays closed until FOUNDING_LIVE = "yes" below and both secrets are set; /health shows
+# stripe, stripe_webhook and founding_live.
 
 name = "bigsplash-front-door"
 main = "src/worker.js"
@@ -41,6 +58,13 @@ class_name = "FrontDoorNurture"
 name = "front-door-approve"
 binding = "APPROVE_FLOW"
 class_name = "FrontDoorApprove"
+
+# Founding partners (src/founding.js): the won steps (GoHighLevel, the welcome email, LeadDesk) and the
+# billing notices. Instance won-<checkout session id> exists once, so a repeated Stripe event runs nothing twice.
+[[workflows]]
+name = "front-door-founding"
+binding = "FOUNDING_FLOW"
+class_name = "FoundingFlow"
 
 # LeadDesk: opens the ClickUp task and posts Slack for every audit.
 [[services]]
@@ -76,6 +100,12 @@ GHL_PIPELINE_ID = ""
 TIMEZONE = "America/Chicago"
 # Empty until Chris's video is on the walkthrough page. Set to "yes" and the emails and text 2 mention it.
 VSL_LIVE = ""
+# Founding checkout. "yes" opens it (with both Stripe secrets set); empty keeps the button hidden.
+FOUNDING_LIVE = ""
+# Founding spots in all. Paid checkouts and bank payments still processing each hold one.
+FOUNDING_TOTAL = "5"
+# The Founding Partnership Terms version each agreement records. Change it when the terms page changes.
+TERMS_VERSION = "2026-10-20"
 
 [observability]
 enabled = true

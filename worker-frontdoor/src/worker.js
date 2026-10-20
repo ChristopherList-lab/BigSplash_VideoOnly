@@ -8,12 +8,15 @@
 // approve Workflow (FrontDoorApprove), whose fixed instance id lets each audit be approved once.
 // When the desk is not bound or its Slack post fails, the worker posts Slack itself (SLACK_WEBHOOK_URL).
 // Contact details live in a separate key and never reach the public result.
+// The founding partner checkout (Stripe) lives in founding.js; its routes are /founding/* and /stripe/webhook.
 import { WorkflowEntrypoint } from "cloudflare:workers";
 import { runAudit } from "./audit.js";
 import { normalizeUrl, siteKey } from "./website.js";
 import { deliver, directStep, ghlContact, SCORECARD } from "./deliver.js";
 import { ghlReady } from "./ghl.js";
+import { foundingRoute } from "./founding.js";
 export { FrontDoorNurture } from "./nurture.js";
+export { FoundingFlow } from "./founding.js";
 
 const LIMITS = { church: 120, address: 200, website: 300, name: 120, role: 120, email: 200, phone: 40, instagram: 60, facebook_frequency: 40, attendance: 40, page_url: 500, utm: 500 };
 const REQUIRED = ["church", "address", "website", "name", "email"];
@@ -48,7 +51,13 @@ async function route(request, env, cors, ctx) {
 
   if (path === "/health" && request.method === "GET") {
     return json({ ok: true, google: Boolean(env.GOOGLE_API_KEY), anthropic: Boolean(env.ANTHROPIC_API_KEY), ghl: ghlReady(env), desk: Boolean(env.DESK),
-      nurture: Boolean(env.NURTURE_FLOW), approve_flow: Boolean(env.APPROVE_FLOW), slack_fallback: Boolean(env.SLACK_WEBHOOK_URL), storage: Boolean(env.AUDITS), daily_limit: dailyLimit(env) }, 200, cors);
+      nurture: Boolean(env.NURTURE_FLOW), approve_flow: Boolean(env.APPROVE_FLOW), slack_fallback: Boolean(env.SLACK_WEBHOOK_URL), storage: Boolean(env.AUDITS), daily_limit: dailyLimit(env),
+      stripe: Boolean(env.STRIPE_SECRET_KEY), stripe_webhook: Boolean(env.STRIPE_WEBHOOK_SECRET), founding_live: String(env.FOUNDING_LIVE || "").trim().toLowerCase() === "yes", founding_flow: Boolean(env.FOUNDING_FLOW) }, 200, cors);
+  }
+  // The founding checkout, its Stripe webhook and the start-monthly link (src/founding.js).
+  if (path.startsWith("/founding/") || path === "/stripe/webhook") {
+    const res = await foundingRoute(request, env, cors, ctx, path);
+    if (res) return res;
   }
   if (path === "/result" && request.method === "GET") return result(url, env, cors);
   if (path === "/approve" && request.method === "GET") return approveConfirm(url, env);

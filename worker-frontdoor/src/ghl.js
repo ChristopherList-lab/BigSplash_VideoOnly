@@ -95,10 +95,10 @@ export async function customFieldIds(env) {
 
 // Creates or updates the contact, then adds the tags. Upsert's own tags field replaces every tag on the
 // contact (per the docs), which would wipe tags like fd-stop, so tags go through the Add Tags endpoint.
-// lead = { name, email, phone, church, website, tags, scorecardUrl, walkthroughUrl }
+// lead = { name, email, phone, church, website, tags, scorecardUrl, walkthroughUrl, source? }
 export async function upsertContact(env, lead) {
   const { firstName, lastName } = splitName(lead.name);
-  const body = { locationId: env.GHL_LOCATION_ID, email: lead.email, source: "Front Door Audit" };
+  const body = { locationId: env.GHL_LOCATION_ID, email: lead.email, source: lead.source || "Front Door Audit" };
   if (firstName) body.firstName = firstName;
   if (lastName) body.lastName = lastName;
   const phone = usPhone(lead.phone);

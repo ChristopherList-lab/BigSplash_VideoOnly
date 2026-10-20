@@ -48,6 +48,17 @@ The Slack alert names the church, city and overall grade, the contact, attendanc
 
 LeadDesk cleans and escapes every value the same way the intake does, because the contact fields come from a public form and the church name comes from Google. A typed address never becomes a link: LeadDesk breaks `://` and puts a space before each domain dot, so `www.evil.com` reads `www .evil .com` in ClickUp and Slack. Email and texts to the pastor go through GoHighLevel, never through LeadDesk.
 
+### Founding partners: `won` and `billing`
+
+The Front Door worker's founding checkout (Stripe) sends two more events through the same `frontDoorLead` call.
+
+| `lead.event` | ClickUp | Slack headline |
+| --- | --- | --- |
+| `won` | New task `Onboard <church>: founding partner` in `CHURCH_CLIENTS_LIST_ID` ("Church Clients"), priority urgent, due 5 PM two weekdays out, tagged `founding-partner` and `onboarding`. The description holds the contact, the term and monthly amount, the amount paid, the Stripe customer (linked to the dashboard), the checkout session, the agreement summary, the "Start monthly billing" link and a seven-step onboarding checklist | New founding partner |
+| `billing` | A comment on `clickup_task_id` when the call names one; Slack only otherwise. `kind` is `started`, `invoice_paid`, `invoice_failed`, `canceled`, `bank_processing` or `bank_failed`, and `message` is the line Chris reads | Per kind, for example "Monthly billing set" |
+
+Both events get the same cleaning and the same `DESK_SEEN` repeat protection, keyed `desk:won:<checkout session id>` and `desk:billing:<kind>-<Stripe id>`.
+
 ### Repeated calls
 
 The Front Door worker calls LeadDesk from a Workflow step with retries, and Cloudflare can run a step twice. LeadDesk remembers each delivery for four days in the `DESK_SEEN` KV namespace: `desk:<event>:<audit id>` once ClickUp takes it, and `desk:<event>:<audit id>:slack` once Slack takes it. A second call with the same event and audit id gets the first result back and sends nothing twice. A destination that failed the first time gets tried again on the repeat, and a Slack retry still carries the saved task link. A double click on the approve link posts one comment and one alert.

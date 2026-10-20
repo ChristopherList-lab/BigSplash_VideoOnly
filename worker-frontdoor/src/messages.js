@@ -26,8 +26,9 @@ function vars(v = {}) {
 }
 
 // paragraphs: arrays of lines; a line is a string, a {href}, or an array of both. Empty lines drop out.
-function render(subject, paragraphs, address) {
-  const all = [...paragraphs, ["Chris List / Big Splash"], [`${address}. Reply stop and I won't email you again.`]];
+// stopLine false drops "Reply stop" from the footer, for a client's own account email.
+function render(subject, paragraphs, address, { stopLine = true } = {}) {
+  const all = [...paragraphs, ["Chris List / Big Splash"], [stopLine ? `${address}. Reply stop and I won't email you again.` : `${address}.`]];
   const parts = (l) => (Array.isArray(l) ? l : [l]).filter((p) => p !== null && p !== undefined && p !== "" && !(typeof p === "object" && !p.href));
   const kept = all.map((p) => p.filter((l) => parts(l).length)).filter((p) => p.length);
   const text = kept.map((p) => p.map((l) => parts(l).map((x) => (typeof x === "string" ? x : x.href)).join("")).join("\n")).join("\n\n");
@@ -116,4 +117,29 @@ export function lastEmail(input) {
     ["If this season is full, reply with the month that works better and I'll reach out then."],
     ["Glad to be in your corner either way."],
   ], v.address);
+}
+
+// The founding partner's welcome, sent once their $3,500 is paid. Input: { firstName, church, kickoffUrl,
+// termMonths (12 or 6), monthly (1497 or 1697), termsUrl, termsVersion, address }. An account email, so
+// no "reply stop" line. The terms link gives the church its own copy of what it agreed to.
+export const KICKOFF_URL = "https://api.leadconnectorhq.com/widget/booking/YcBm4L2c5a0DNBZyessz";
+const dollars = (n) => `$${Number(n).toLocaleString("en-US")}`;
+
+export function foundingWelcomeEmail(input = {}) {
+  const v = vars(input);
+  const months = Number(input.termMonths) === 6 ? 6 : 12;
+  const monthly = Number(input.monthly) || (months === 6 ? 1697 : 1497);
+  const kickoff = link(input.kickoffUrl || KICKOFF_URL);
+  const terms = link(input.termsUrl);
+  const version = line(input.termsVersion);
+  return render(`Welcome to Big Splash, ${v.church}`, [
+    [`Hi ${v.first},`],
+    [`Thank you for trusting us with ${v.church}. Your founding spot is yours, and your $3,500 payment came through.`],
+    ["First step: book your kickoff call. We'll pick your filming day and plan the campaign together.", ["Book your kickoff call: ", kickoff]],
+    ["After the call, we film at your church and build your plan-your-visit page. The follow-up texts and emails your guests get come next, ready before launch."],
+    ["Start gathering your logo and your kids ministry details now, so the build moves fast."],
+    [`Your ${months}-month partnership starts the day the campaign launches. Month 1 is part of your $3,500, so the first monthly charge of ${dollars(monthly)} comes 30 days after launch. Everything we build stays yours.`],
+    [terms.href ? [`Your Founding Partnership Terms${version ? ` (version ${version})` : ""}: `, terms] : ""],
+    ["Reply to this email with any question. It comes straight to me."],
+  ], v.address, { stopLine: false });
 }
