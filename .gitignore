@@ -22,3 +22,9 @@ worker/.wrangler/
 # Local worker secrets and build output, any worker folder
 **/.dev.vars
 **/.wrangler/
+
+# Local builds and drafts
+node_modules/
+**/out/
+church/_hero-options/
+church/index.variant-*.html
