@@ -243,7 +243,7 @@ describe("church page", () => {
   test("every offer button links to the audit with the church_page source", () => {
     const links = [...church.matchAll(/<a\b[^>]*href="([^"]*)"[^>]*data-cta="([^"]+)"[^>]*>/g)].map((m) => [m[2], m[1]]);
     const ctas = Object.fromEntries(links);
-    for (const where of ["nav", "hero", "audit-section", "price-build", "price-monthly", "christmas-audit", "founder", "final", "mobile-sticky"]) {
+    for (const where of ["nav", "hero", "audit-section", "price-monthly", "christmas-audit", "founder", "final", "mobile-sticky"]) {
       assert.equal(ctas[where], AUDIT, where);
     }
     const sticky = church.match(/<div id="mobile-cta"[\s\S]*?<\/div>/)[0];
@@ -270,7 +270,7 @@ describe("church page", () => {
   });
 
   test("pricing, films, founder and Christmas stay; the light theme stays", () => {
-    for (const keep of ["$4,500", "$1,497", "$2,497", 'id="films"', 'id="christmas"', "<!-- ========== FOUNDER", 'id="levels"', 'id="faq"']) {
+    for (const keep of ["$1,497", "$1,997", "Custom quote", 'id="films"', 'id="christmas"', "<!-- ========== FOUNDER", 'id="levels"', 'id="faq"']) {
       assert.ok(church.includes(keep), keep);
     }
     assert.match(church, /paper: '#f8f5ee'/);

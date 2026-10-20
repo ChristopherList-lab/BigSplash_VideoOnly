@@ -70,11 +70,11 @@ const status = (open, spots_left, total = 5) => ({ "/founding/status": { body: {
 
 // ---------- Church page ----------
 describe("church page founding button", () => {
-  test("sits under the founding line, hidden by default, with no number in the markup", () => {
-    const line = church.indexOf("our first 5 pay $3,500, and month 1 of your term is included.");
+  test("sits under the founding rate line, hidden by default, with no number in the markup", () => {
+    const line = church.indexOf("Our first 5 churches lock in $1,497. New churches after that pay $1,997.");
     const box = church.indexOf('<div id="founding-claim"');
-    const audit = church.indexOf('data-cta="price-build"');
-    assert.ok(line > 0 && box > line && audit > box, "founding line, then the claim box, then the audit button");
+    const audit = church.indexOf('data-cta="price-monthly"');
+    assert.ok(line > 0 && box > line && audit > box, "founding rate line, then the claim box, then the audit button");
     assert.match(church, /<div id="founding-claim" class="mt-4" hidden>/);
     assert.match(church, /<a href="\/church\/founding\/\?utm_source=church_page" data-cta="price-founding" class="btn-primary w-full">Claim a founding spot /);
     assert.match(church, /<p id="founding-left"[^>]*><\/p>/);
@@ -329,12 +329,18 @@ describe("founding page: markup", () => {
     assert.match(founding, /<select class="field" id="role" name="role" required><option value="" selected disabled>Choose one<\/option>/);
   });
 
-  test("what a founding church gets matches the church page pricing", () => {
+  test("what a founding church gets, and the church page's one month-to-month price", () => {
+    // The church page moved to one price with filming quoted separately (2026-10-20). The founding
+    // checkout still sells the old build and term, and stays off until it is reworked to match.
     for (const item of ["A full day of filming at your church", "5 finished videos: your pastor's invitation, a member testimony, the Sunday experience, kids ministry and a first-visit walkthrough",
       "Your own plan-your-visit page", "Follow-up texts and emails, written and loaded", "Your Facebook and Instagram campaign, set up and ready to launch"]) {
       assert.ok(founding.includes(item), item);
-      assert.ok(church.includes(item), `church page: ${item}`);
     }
+    assert.ok(church.includes("Your own plan-your-visit page"));
+    assert.match(church, /<s class="price-was tnum"><span class="sr-only">Regular rate <\/span>\$1,997<\/s>/);
+    assert.match(church, /Month to month\. Cancel with 30 days notice\./);
+    assert.match(church, /Filming at your church<\/h3>\s*<p[^>]*>Custom quote<\/p>/);
+    for (const old of ["$4,500", "$3,500", "$2,497", "$1,697", "6 or 12"]) assert.ok(!church.includes(old), `church page still says ${old}`);
     for (const term of ["Your term starts the day your campaign launches.", "can cancel with 30 days notice.", "Everything we build for your church stays yours.", "We never promise a set number of families."]) {
       assert.ok(founding.includes(term), term);
     }
