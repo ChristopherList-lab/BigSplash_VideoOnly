@@ -57,6 +57,12 @@ function world({ listings = [place("cr", "City Reach Church", { websiteUri: "htt
 
 const cityReach = { name: "City Reach Church", address: "2700 W Whitestone Blvd, Cedar Park, TX 78613", city: "Cedar Park, TX 78613", website: "cityreachchurch.com" };
 const pastorText = (r) => allText(r.scores?.findings) + allText(r.notes);
+// Sent automatically: nothing held, and every pastor-facing word stays kind (no "down", no blame for our checks).
+const sent = (r) => {
+  assert.equal(r.needsReview, false, r.reviewReason);
+  assert.deepEqual(r.reviewReasons, []);
+  assert.ok(r.scores.overall.grade, "an overall grade from the areas that were checked");
+};
 const held = (r) => {
   assert.equal(r.needsReview, true, "audit should be held");
   assert.ok(Array.isArray(r.reviewReasons) && r.reviewReasons.length > 0, "reviewReasons");
@@ -109,18 +115,20 @@ describe("runAudit", () => {
     assert.equal(r.website.checked, true);
   });
 
-  test("near-me 429: Google graded without rank, no 'did not come up', held", async () => {
+  test("near-me 429: Google graded without rank, no 'did not come up', sent with a note for Chris", async () => {
     world({ nearMe: "429" });
     const r = await runAudit(cityReach, env);
     assert.ok(["error", "not-checked"].includes(r.checks.nearMe), r.checks.nearMe);
     assert.equal(r.nearMe?.checked ?? false, false);
-    held(r);
+    sent(r);
+    assert.equal(r.coverage.graded, 4);
+    assert.ok(r.infoLines.some((x) => /near-me Google search failed/.test(x)), r.infoLines.join(" "));
     assert.ok(r.scores.areas.google.grade, "Google still graded");
     assert.ok(Math.abs(r.scores.areas.google.points - 100) <= 1, String(r.scores.areas.google.points));
     assert.equal(/did not come up|not in the top|Not in top/i.test(pastorText(r)), false, pastorText(r));
   });
 
-  test("Cloudflare challenge on the church site: not checked, held, no website grade", async () => {
+  test("Cloudflare challenge on the church site: left out, no website grade, sent on the other areas", async () => {
     const cf = `<html><head><title>Just a moment...</title></head><body><p>Enable JavaScript and cookies to continue</p><script src="/cdn-cgi/challenge-platform/h/b/orchestrate/chl_page/v1"></script></body></html>`;
     world({ sites: [[/cityreachchurch\.com/, () => html(cf, 403, { server: "cloudflare" })]] });
     const r = await runAudit(cityReach, env);
@@ -128,20 +136,24 @@ describe("runAudit", () => {
     assert.equal(r.website.checked, false);
     assert.equal(r.scores.areas.website.grade ?? null, null);
     assert.equal(r.scores.areas.social.grade ?? null, null);
-    held(r);
-    assert.equal(/did not load|back online|is down/i.test(pastorText(r)), false);
+    sent(r);
+    assert.deepEqual(r.coverage.missing, [{ area: "website", why: "blocked" }, { area: "social", why: "blocked" }]);
+    assert.equal(r.coverage.note, "Graded on 2 of 4 areas. We couldn't check your website this time.");
+    assert.equal(/did not load|didn't load|back online|is down/i.test(pastorText(r)), false);
   });
 
-  test("JavaScript shell site: not checked, held, no false 'missing' claims", async () => {
+  test("JavaScript shell site: left out, sent, no false 'missing' claims", async () => {
     world({ sites: [[/cityreachchurch\.com/, () => html('<!DOCTYPE html><html><head><title>City Reach</title></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script src="/static/js/main.4f2a.js"></script></body></html>')]] });
     const r = await runAudit(cityReach, env);
     assert.equal(r.website.checked, false);
     assert.equal(r.website.reason, "page builds itself with JavaScript");
-    held(r);
+    assert.equal(r.website.failure, "javascript");
+    sent(r);
+    assert.equal(r.coverage.graded, 2);
     assert.equal(/plan-your-visit|service times are|kids|social accounts|sermons/i.test(allText(r.scores.findings)), false, allText(r.scores.findings));
   });
 
-  test("Facebook page typed as the website: not checked, held, no false claims", async () => {
+  test("Facebook page typed as the website: left out, sent, no false claims", async () => {
     world({
       listings: [place("fbc", "First Baptist Church of Georgetown", { websiteUri: "https://www.facebook.com/FBCGeorgetown", formattedAddress: "1333 W University Ave, Georgetown, TX 78628, USA", location: GT })],
       sites: [[/facebook\.com/, () => html(facebookLogin)]],
@@ -149,7 +161,8 @@ describe("runAudit", () => {
     });
     const r = await runAudit({ name: "First Baptist Church of Georgetown", address: "1333 W University Ave, Georgetown, TX 78628", city: "Georgetown, TX", website: "facebook.com/FBCGeorgetown" }, env);
     assert.equal(r.website.checked, false);
-    held(r);
+    assert.equal(r.website.down, false);
+    sent(r);
     assert.equal(/plan-your-visit|service times are|kids|social accounts/i.test(allText(r.scores.findings)), false, allText(r.scores.findings));
   });
 
@@ -178,21 +191,26 @@ describe("runAudit", () => {
     assert.equal(r.needsReview, false, r.reviewReason);
   });
 
-  test("no Google listing: held, Google and Reviews not graded, no F", async () => {
+  test("no Google listing: Google and Reviews graded F with the claim-your-listing fix, sent", async () => {
     world({ listings: [] });
     const r = await runAudit(cityReach, env);
-    held(r);
-    assert.equal(r.scores.areas.google.grade ?? null, null);
-    assert.equal(r.scores.areas.reviews.grade ?? null, null);
-    assert.equal(r.scores.overall.grade ?? null, null, "fewer than 3 areas graded");
+    sent(r);
+    assert.equal(r.scores.areas.google.grade, "F");
+    assert.equal(r.scores.areas.reviews.grade, "F");
+    assert.equal(r.coverage.graded, 4);
+    assert.match(pastorText(r), /We couldn't find your church on Google Maps\./);
+    assert.match(pastorText(r), /Claim your free Google Business Profile/);
   });
 
-  test("Google lookup error: check marked error and held", async () => {
+  test("Google lookup error (500): Google and Reviews left out, graded on the website, sent", async () => {
     world({ placesError: true });
     const r = await runAudit(cityReach, env);
     assert.equal(r.checks.google, "error");
-    held(r);
+    sent(r);
     assert.equal(r.scores.areas.google.grade ?? null, null);
+    assert.deepEqual(r.coverage.missing, [{ area: "google", why: "api-error" }, { area: "reviews", why: "api-error" }]);
+    assert.equal(r.coverage.note, "Graded on 2 of 4 areas. We couldn't check Google this time.");
+    assert.equal(/Google Maps|Business Profile/.test(pastorText(r)), false, "our failure never reads as a missing listing");
   });
 
   test("preschool sharing the domain loses; possible duplicates stay on the result for Slack", async () => {

@@ -152,8 +152,8 @@ describe("scorecard page", () => {
   const T = "a".repeat(32);
   for (const [status, msg] of [
     ["running", "Your audit is still running. Refresh in a minute."],
-    ["review", "Chris is double-checking a few details and will email your scorecard within one business day."],
-    ["failed", "Something went wrong on our end. Chris has the details and will email your scorecard."],
+    ["review", "Our team is double-checking a few details and will email your scorecard within one business day."],
+    ["failed", "Something went wrong on our end. Our team has the details and will email your scorecard."],
   ]) {
     test(`status ${status} gets its own message and the token is passed to /result`, async () => {
       const r = await renderScorecard({ search: `?id=city-reach-church-c6d90375&t=${T}`, result: { status: 404, body: { status } } });

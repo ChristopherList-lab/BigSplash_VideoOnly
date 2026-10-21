@@ -8,7 +8,7 @@ const TIMEOUT_MS = 10000;
 const LISTING_FIELDS = [
   "places.id", "places.displayName", "places.formattedAddress", "places.location", "places.rating",
   "places.userRatingCount", "places.websiteUri", "places.regularOpeningHours", "places.regularSecondaryOpeningHours",
-  "places.googleMapsUri", "places.primaryType", "places.businessStatus",
+  "places.googleMapsUri", "places.primaryType", "places.types", "places.businessStatus",
 ].join(",");
 
 async function searchText(key, body, fields) {
@@ -18,9 +18,31 @@ async function searchText(key, body, fields) {
     body: JSON.stringify(body),
     signal: AbortSignal.timeout(TIMEOUT_MS),
   });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(`Places search failed (${res.status}): ${data?.error?.message || "no detail"}`);
-  return { places: data.places || [], next: data.nextPageToken || null };
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw Object.assign(new Error(`Places search failed (${res.status}): ${data?.error?.message || "no detail"}`), { status: res.status, apiStatus: data?.error?.status || null });
+  }
+  // A reply that times out mid-body or will not parse is our failure, never "no places": it throws, and
+  // placesFailure names it. Places (New) answers {} for zero results, so a parsed reply with no places key is
+  // still an empty answer.
+  const text = await res.text();
+  let data;
+  try { data = JSON.parse(text); } catch { data = null; }
+  if (!data || typeof data !== "object" || Array.isArray(data)) throw Object.assign(new Error(`Places reply could not be read (${res.status})`), { status: res.status });
+  return { places: Array.isArray(data.places) ? data.places : [], next: data.nextPageToken || null };
+}
+
+// Why a Places call failed, as a reason code. Every one of these is our side: the church is never graded on it.
+//   quota         Google's daily or per-minute limit (429, RESOURCE_EXHAUSTED)
+//   timeout       Google did not answer in time
+//   key-rejected  the API key is wrong, restricted or missing Places API (New)
+//   api-error     anything else (a 5xx, a network error)
+export function placesFailure(err) {
+  const text = `${err?.apiStatus || ""} ${err?.message || ""}`;
+  if (err?.name === "TimeoutError" || err?.name === "AbortError") return "timeout";
+  if (err?.status === 429 || /RESOURCE_EXHAUSTED|quota/i.test(text)) return "quota";
+  if (err?.status === 401 || err?.status === 403 || /PERMISSION_DENIED|API key|API_KEY/i.test(text)) return "key-rejected";
+  return "api-error";
 }
 
 // Words that many church names share, so they never prove two names belong to the same church.
@@ -71,17 +93,33 @@ export function matchConfidence(place, church, sites = [church.website]) {
 
 const hasPeriods = (h) => Boolean(h?.periods?.length);
 
+const isChurch = (p) => [p.primaryType, ...(Array.isArray(p.types) ? p.types : [])].some((t) => t === "church" || t === "place_of_worship");
+
+// Throws when Places fails (placesFailure() names why). Google having no listing for this church is a real
+// finding (listed: false), the way a family searching for it would see: Places answered with nothing, or only
+// with places that are not this church and not a church at all (the street address itself, the pizza shop next
+// door). A church-typed place that matches neither the name nor the website may be this church under another
+// name ("FBC" for First Baptist), so it comes back found with low or conflict confidence and audit.js holds it.
+// An answer with only permanently closed listings is found: false, listed: true, closed: true.
 export async function findListing(key, church, sites = [church.website]) {
   const query = [church.name, church.address || church.city].filter(Boolean).join(", ");
   const { places: raw } = await searchText(key, { textQuery: query, pageSize: 5 }, LISTING_FIELDS);
   const places = raw.filter((p) => p.businessStatus !== "CLOSED_PERMANENTLY");
-  if (!places.length) return { found: false, query, possibleDuplicates: [] };
+  const unlisted = { found: false, listed: false, query, possibleDuplicates: [] };
+  if (!raw.length) return unlisted;
+  if (!places.length) return { found: false, listed: true, closed: true, query, possibleDuplicates: [] };
   const typedWords = nameWords(church.name);
   const ranked = places.map((p, i) => {
     const words = nameWords(p.displayName?.text);
     const side = SIDE.some((w) => words.includes(w) && !typedWords.includes(w)) ? 1 : 0;
-    return { p, i, side, m: matchConfidence(p, church, sites) };
-  }).sort((a, b) => a.side - b.side || ORDER[a.m.confidence] - ORDER[b.m.confidence] || a.i - b.i);
+    const m = matchConfidence(p, church, sites);
+    // A place that matches nothing and is not a church (the pizza shop next door) ranks last, so a hold names the
+    // church-typed place that may be this one.
+    const unrelated = !m.nameOk && !m.domainOk && !isChurch(p) ? 1 : 0;
+    return { p, i, side, unrelated, m };
+  }).sort((a, b) => a.side - b.side || a.unrelated - b.unrelated || ORDER[a.m.confidence] - ORDER[b.m.confidence] || a.i - b.i);
+  // Chris's Slack line names what Google did return, so a wrong "no listing" is easy to spot after it sends.
+  if (ranked.every((r) => r.unrelated)) return { ...unlisted, returned: places.slice(0, 3).map((x) => x.displayName?.text || x.formattedAddress).filter(Boolean) };
   const { p, m } = ranked[0];
 
   // Other listings for the same website or name at another address: a second campus, an old building
@@ -121,8 +159,8 @@ export async function findListing(key, church, sites = [church.website]) {
 
 // Search "church" from points about 4 miles north and south of the church. The bias circle is centered on
 // the search point and reaches just past the church, the way a phone's location would. Pages through up to
-// 60 results, and ranks the church among the places Google types as churches. An API error marks that one
-// search not checked; this never throws.
+// 60 results, and ranks the church among the places Google types as churches. An API error, an unreadable reply
+// or a search with no churches in it marks that one search not checked; this never throws.
 export async function nearMeRank(key, listing) {
   if (!listing?.found || typeof listing.lat !== "number") return { checked: false, best: null, searches: [] };
   const offset = 4 / 69; // degrees of latitude in 4 miles
@@ -147,6 +185,8 @@ export async function nearMeRank(key, listing) {
         }
         token = page.next;
       } while (rank === null && token && pulled < 60);
+      // A search that came back with no churches at all says nothing about this church's rank: not checked.
+      if (!seen.length) { searches.push({ ...base, checked: false, error: "no results" }); continue; }
       const ahead = seen.slice(0, rank ? Math.min(rank - 1, 3) : 3).map((p) => p.displayName?.text).filter(Boolean);
       searches.push({ ...base, checked: true, rank, scanned: seen.length, ahead });
     } catch (err) {

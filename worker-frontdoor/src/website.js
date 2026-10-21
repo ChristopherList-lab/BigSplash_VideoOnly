@@ -1,8 +1,13 @@
 // Website checks from a first-time guest's point of view. Opens the home page the way a phone does, then
 // answers: can a stranger find service times, a plan-your-visit page and something for kids, which social
 // accounts does the church link to, and where are the sermons? YouTube and Vimeo activity come from public
-// feeds, so they need no API key. A page the audit could not read comes back checked:false, never as "down".
+// feeds, so they need no API key. A page the audit could not read comes back checked:false with a reason code:
+//   down: true   the site is broken for every visitor, so a new family would hit it too (failure: "timeout",
+//                "dns", "refused", "server-error", "certificate" or "no-home-page"). score.js grades it F.
+//   down: false  our check could not read it (failure: "blocked", "javascript", "connection", "not-a-page",
+//                "page-missing" or "no-address"). That area is left out of the grade, never counted against the church.
 import { namesMatch, nameWords } from "./google.js";
+import { brandFromPage, stylesheetLinks } from "./brand.js";
 
 export const PHONE_UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 18_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0 Mobile/15E148 Safari/604.1";
 const DESKTOP_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36";
@@ -13,6 +18,9 @@ const TIMEOUT_MS = 15000;
 // The whole home-page check, every address variant and redirect hop included, stays under this.
 const SITE_BUDGET_MS = 45000;
 const MAX_BYTES = 2_000_000;
+// The church's own stylesheets, read for its colors and fonts: two at most, each capped and quick.
+const CSS_MAX_BYTES = 400_000;
+const CSS_TIMEOUT_MS = 6000;
 const DAY = 86400000;
 
 export function normalizeUrl(raw) {
@@ -153,26 +161,56 @@ async function getPage(url, headers = PHONE, timeout = TIMEOUT_MS) {
 
 const CHALLENGE = /<title>\s*(?:just a moment|attention required|checking your browser)|sgcaptcha|_cf_chl_opt|enable javascript and cookies to continue/i;
 
+// Server errors and the gateway codes Cloudflare returns when it cannot reach a site (521 refused, 522 and 524
+// timed out, 523 unreachable, 525 and 526 a broken certificate) mean the site is broken for every visitor.
+// 503 is not one of them: Wordfence and other firewalls answer bots with it, so it counts as turned away.
+const GATEWAY = { 521: "refused", 522: "timeout", 523: "refused", 524: "timeout", 525: "certificate", 526: "certificate" };
+const downStatus = (s) => GATEWAY[s] || (s >= 500 && s !== 503 ? "server-error" : null);
+const CERT_ERROR = /CERT|SSL|TLS|SELF_SIGNED|UNABLE_TO_VERIFY|HOSTNAME_MISMATCH/i;
+// A timeout counts against the site only when the fetch had this long; a shorter wait was our budget running out.
+const FULL_WAIT_MS = 10000;
+
 // One fetch, sorted into: a page we can read, a page that is not there, or something that kept us out.
-async function tryUrl(url, timeout = TIMEOUT_MS) {
+// Every miss carries code (why) and down: true when a family's phone would fail the same way, false when only
+// our check was kept out, null when it says nothing either way (a timeout on our last few seconds of budget).
+// home: whether this is the site's home page (a 404 there means the site is broken; deeper, it may be a typo).
+async function tryUrl(url, timeout = TIMEOUT_MS, { home = true } = {}) {
   const started = Date.now();
   try {
     const { res, body, url: finalUrl } = await getPage(url, PHONE, timeout);
     const s = res.status;
-    if (CHALLENGE.test(body.slice(0, 30000))) return { kind: "blocked", status: s, reason: "a bot check page stopped the audit" };
-    if (s === 404 || s === 410) return { kind: "missing", status: s };
-    if (s === 530 && /\b1016\b|dns/i.test(body)) return { kind: "missing", status: s };
-    if ([401, 403, 429, 503].includes(s)) return { kind: "blocked", status: s, reason: `the site turned the audit away (${s})` };
-    if (!res.ok) return { kind: "blocked", status: s, reason: `the site answered with an error (${s})` };
+    if (CHALLENGE.test(body.slice(0, 30000))) return { kind: "blocked", code: "blocked", down: false, status: s, reason: "a bot check page stopped the audit" };
+    if (s === 404 || s === 410) return { kind: "missing", code: home ? "no-home-page" : "page-missing", down: home, status: s };
+    if (s === 530 && /\b1016\b|dns/i.test(body)) return { kind: "missing", code: "dns", down: true, status: s };
+    if ([401, 403, 429, 503].includes(s)) return { kind: "blocked", code: "blocked", down: false, status: s, reason: `the site turned the audit away (${s})` };
+    if (!res.ok) {
+      const broken = downStatus(s);
+      return { kind: "blocked", code: broken || "blocked", down: Boolean(broken), status: s, reason: `the site answered with an error (${s})` };
+    }
     const type = res.headers.get("content-type") || "";
-    if (type && !/html|xml/i.test(type)) return { kind: "blocked", status: s, reason: `the address returned ${type.split(";")[0]}, not a web page` };
+    if (type && !/html|xml/i.test(type)) return { kind: "blocked", code: "not-a-page", down: false, status: s, reason: `the address returned ${type.split(";")[0]}, not a web page` };
     return { kind: "ok", status: s, html: body, finalUrl, ms: Date.now() - started };
   } catch (err) {
     const code = err?.cause?.code || err?.code || "";
-    if (code === "ENOTFOUND") return { kind: "missing", status: null };
+    if (code === "ENOTFOUND") return { kind: "missing", code: "dns", down: true, status: null };
     const timedOut = err?.name === "TimeoutError" || err?.name === "AbortError";
-    return { kind: "error", status: null, reason: timedOut ? "the site took too long to answer" : `the connection failed${code ? ` (${code})` : ""}` };
+    if (timedOut) return { kind: "error", code: "timeout", down: timeout >= FULL_WAIT_MS ? true : null, status: null, reason: "the site took too long to answer" };
+    const reason = `the connection failed${code ? ` (${code})` : ""}`;
+    if (code === "ECONNREFUSED") return { kind: "error", code: "refused", down: true, status: null, reason };
+    if (CERT_ERROR.test(`${code} ${err?.cause?.message || ""}`)) return { kind: "error", code: "certificate", down: true, status: null, reason };
+    // A reset or an unnamed network error can be a firewall dropping our check, so it says nothing about the site.
+    return { kind: "error", code: "connection", down: false, status: null, reason };
   }
+}
+
+// The verdict over every address tried: down only when each one failed the way it would on a family's phone.
+// The code is the first failure that explains the reason line (a missing page explains it only when nothing else does).
+function verdict(misses) {
+  const counted = misses.filter((m) => m.down !== null);
+  const down = counted.length > 0 && counted.every((m) => m.down);
+  const pool = down ? counted : counted.filter((m) => !m.down);
+  const pick = pool.find((m) => m.kind !== "missing") || pool[0];
+  return { down, failure: pick?.code || "connection" };
 }
 
 // The typed address first, then with or without www, then plain http.
@@ -406,258 +444,26 @@ export function ownsChannel(owner, candidates) {
   });
 }
 
-// The church's photo for the scorecard. Candidates, best first: the share image (og:image, then
-// twitter:image), then a hero background and the largest images near the top of the page. Logos, icons,
-// SVGs and images known to be small or banner-shaped are skipped, and so is any picture the page also uses as
-// its site icon or logo. A PNG (often a graphic) goes after any JPEG or WebP, and a file named like a designed
-// graphic (a sermon series title, a slide, a flyer) goes after both. src/photo.js fetches them in order and
-// checks the real size.
-// wzsitethumbnails: the share image Weebly makes by screenshotting the site itself.
-const PHOTO_URL_NOT = /logo|favicon|icon|avatar|badge|placeholder|spacer|sprite|wzsitethumbnails|(?:^|[^a-z])pixels?(?:[^a-z]|$)/;
-const PHOTO_ALT_NOT = /logo|favicon|avatar|placeholder|spacer|\bicons?\b|\bbadges?\b|\bpixels?\b/i;
-// Video thumbnails, maps and profile pictures are never the church's photo.
-const NOT_PHOTO_HOST = /(?:^|\.)(?:ytimg\.com|vimeocdn\.com|maps\.googleapis\.com|maps\.gstatic\.com|gravatar\.com|fbcdn\.net|cdninstagram\.com)$/i;
-const PHOTO_MIN_WIDTH = 600;
-const PHOTO_ASPECT = [0.6, 2.5];
-const PHOTO_TRIES = 3;
-// File-name words for a designed graphic rather than a photo: "ACTS - Title.jpg", "COME TO THE TABLE SLIDE.jpg".
-const GRAPHIC_NAME = /(?:^|[^a-z])(?:titles?|slides?|graphics?|flyers?|posters?|promos?|series|sermons?|invites?|invitations?|announcements?|save[-_ +]*the[-_ +]*date)(?:[^a-z]|$)/;
-// Squarespace serves the original upload without a format; 1500w keeps it sharp and under the 2 MB cap.
-const SQUARESPACE_WIDTH = 1500;
-
-const intAttr = (tag, name) => {
-  const v = attr(tag, name);
-  return v && /^\d+(?:px)?$/i.test(v) ? parseInt(v, 10) : null;
-};
-
-// The srcset entry to fetch: the widest up to 2000w, else the narrowest above it. Width-less sets give a URL only.
-function fromSrcset(set) {
-  if (!set) return null;
-  const items = set.trim().split(/,\s+/).map((part) => {
-    const m = part.trim().match(/^(\S+)(?:\s+(\d+(?:\.\d+)?)([wx]))?/);
-    return m ? { url: m[1].replace(/,$/, ""), w: m[3] === "w" ? Number(m[2]) : null, x: m[3] === "x" ? Number(m[2]) : null } : null;
-  }).filter(Boolean);
-  if (!items.length) return null;
-  const sized = items.filter((i) => i.w).sort((a, b) => a.w - b.w);
-  if (sized.length) return sized.filter((i) => i.w <= 2000).pop() || sized[0];
-  return items.filter((i) => (i.x || 1) <= 2).sort((a, b) => (b.x || 1) - (a.x || 1))[0] || items[0];
-}
-
-// The file name, decoded and lowercased.
-function fileName(url) {
-  let name = "";
-  try { name = new URL(url).pathname.split("/").filter(Boolean).pop() || ""; } catch {}
-  try { name = decodeURIComponent(name); } catch {}
-  return name.toLowerCase();
-}
-
-// The same picture at any size or format: a Wix media id, else the folder and the file name without its size,
-// WordPress's cropped- prefix or the extension (Squarespace and WordPress folders are ids or months). A file
-// name without an image extension (GetImage.ashx?guid=...) keeps its query, which names the picture.
-function imageKey(url) {
-  let u;
-  try { u = new URL(url); } catch { return null; }
-  let path = u.pathname;
-  try { path = decodeURIComponent(path); } catch {}
-  const wix = u.hostname === "static.wixstatic.com" && path.match(/^\/media\/([^/~.]+)/);
-  if (wix) return `wix:${wix[1]}`;
-  const parts = path.toLowerCase().split("/").filter(Boolean);
-  const last = parts.pop() || "";
-  if (!/\.(?:jpe?g|png|webp|avif|gif|svg|ico)$/.test(last)) return `${parts.pop() || ""}/${last}${u.search}`;
-  const file = last.replace(/\.[a-z0-9]+$/, "").replace(/-\d{2,4}x\d{2,4}$/, "").replace(/-scaled$/, "").replace(/^cropped-/, "");
-  return file ? `${parts.pop() || ""}/${file}` : null;
-}
-
-// Pictures the page uses as its site icon or logo: icon links, the tile image, logo <img>s (menu and footer
-// included), Wix logo images and the logo in the page's structured data. A share image is often one of these.
-function logoKeys(html, base) {
-  const urls = [];
-  for (const m of html.matchAll(/<link\b[^>]*>/gi)) if (/icon/i.test(attr(m[0], "rel") || "")) urls.push(attr(m[0], "href"));
-  for (const m of html.matchAll(/<meta\b[^>]*>/gi)) if (/^msapplication-tileimage$/i.test(attr(m[0], "name") || "")) urls.push(attr(m[0], "content"));
-  for (const m of html.matchAll(/<img\b[^>]*>/gi)) {
-    if (!/logo/i.test(`${attr(m[0], "alt") || ""} ${attr(m[0], "class") || ""} ${attr(m[0], "id") || ""} ${attr(m[0], "src") || ""}`)) continue;
-    urls.push(attr(m[0], "src"), attr(m[0], "data-src"), fromSrcset(attr(m[0], "srcset"))?.url);
+// The church's look (src/brand.js): its color, font and logo candidates, from the home page and up to two of
+// its own stylesheets. A stylesheet that fails or runs long is skipped. Never throws.
+async function brandFields(html, pageUrl, until) {
+  try {
+    const css = await Promise.all(stylesheetLinks(html, pageUrl).map(async (url) => {
+      const wait = left(until, CSS_TIMEOUT_MS);
+      if (wait < 1000) return "";
+      try {
+        const res = await fetch(url, { headers: { ...PHONE, Accept: "text/css,*/*;q=0.1" }, redirect: "follow", signal: AbortSignal.timeout(wait) });
+        const type = res.headers.get("content-type") || "";
+        if (!res.ok || (type && !/css|text\/plain/i.test(type))) { res.body?.cancel().catch(() => {}); return ""; }
+        return await readCapped(res, CSS_MAX_BYTES);
+      } catch {
+        return "";
+      }
+    }));
+    return { brand: brandFromPage(html, pageUrl, css) };
+  } catch {
+    return { brand: null };
   }
-  for (const c of wixImages(html)) if (/logo/i.test(c.alt)) urls.push(c.url);
-  for (const m of html.matchAll(/"logo"\s*:\s*(?:\{[^{}]*?"(?:url|contentUrl)"\s*:\s*)?"(https?:[^"]+)"/gi)) urls.push(m[1].replace(/\\\//g, "/"));
-  return new Set(urls.map((u) => absolute(u, base)).filter(Boolean).map(imageKey).filter(Boolean));
-}
-
-// Wix draws its images from the data-image-info JSON on <wow-image>; the <img> inside has no address.
-function wixImages(html) {
-  const out = [];
-  for (const m of html.matchAll(/<wow-image\b[^>]*>/gi)) {
-    let d;
-    try { d = JSON.parse(attr(m[0], "data-image-info") || "").imageData; } catch { continue; }
-    const file = String(d?.uri || "").replace(/^https?:\/\/static\.wixstatic\.com\/media\//, "");
-    if (!/^[\w-]+(?:~mv2)?\.(?:jpe?g|png|webp)$/i.test(file)) continue;
-    const width = Number(d.width) > 0 ? Number(d.width) : null, height = Number(d.height) > 0 ? Number(d.height) : null;
-    const url = `https://static.wixstatic.com/media/${file}` + (width && height ? `/v1/fill/w_${width},h_${height},al_c,q_85/${file}` : "");
-    out.push({ url, width, height, alt: `${d.alt || ""} ${d.name || ""}`.trim(), cls: attr(m[0], "id") || "" });
-  }
-  return out;
-}
-
-const isPng = (u) => /\.png(?:$|\/)/i.test(u.pathname) || /[?&](?:format|fm)=png\b/i.test(u.search);
-
-function photoOk(c) {
-  let u;
-  try { u = new URL(c.url); } catch { return false; }
-  if (!/^https?:$/.test(u.protocol) || NOT_PHOTO_HOST.test(u.hostname)) return false;
-  let path = u.pathname + u.search;
-  try { path = decodeURIComponent(path); } catch {}
-  path = path.toLowerCase();
-  if (/\.(?:svgz?|gif|ico|bmp|tiff?)(?:$|\/)/.test(u.pathname.toLowerCase()) || /[?&](?:format|fm)=svg\b/.test(path)) return false;
-  if (PHOTO_URL_NOT.test(path) || PHOTO_ALT_NOT.test(c.alt || "") || PHOTO_ALT_NOT.test(c.cls || "")) return false;
-  if (c.width && c.width < PHOTO_MIN_WIDTH) return false;
-  if (c.width && c.height && (c.width / c.height < PHOTO_ASPECT[0] || c.width / c.height > PHOTO_ASPECT[1])) return false;
-  return true;
-}
-
-// Image hosts that size on request. A Squarespace image without a size asks for 1500w. A Wix image asks for
-// its displayed size (the img width and height) up to 1600 wide, without the blurred low-res placeholder.
-function cdnSized(c) {
-  let u;
-  try { u = new URL(c.url); } catch { return c; }
-  const wix = u.hostname === "static.wixstatic.com" && u.pathname.match(/^(\/media\/[^/]+)\/v1\/(?:fill|fit|crop)\/([^/]+)\/([^/]+)$/);
-  if (wix) {
-    const asked = wix[2].match(/(?:^|,)w_(\d+),h_(\d+)/);
-    const [w, h] = c.width && c.height ? [c.width, c.height] : asked ? [Number(asked[1]), Number(asked[2])] : [null, null];
-    if (!w || !h) return c;
-    const width = Math.min(w, 1600), height = Math.round(h * Math.min(w, 1600) / w);
-    return { ...c, url: `${u.origin}${wix[1]}/v1/fill/w_${width},h_${height},al_c,q_85/${wix[3]}`, width, height };
-  }
-  if (!/(^|\.)squarespace-cdn\.com$/.test(u.hostname) || u.searchParams.has("format")) return c;
-  u.searchParams.set("format", `${SQUARESPACE_WIDTH}w`);
-  const out = { ...c, url: u.toString() };
-  if (c.width > SQUARESPACE_WIDTH) {
-    if (c.height) out.height = Math.round(c.height * SQUARESPACE_WIDTH / c.width);
-    out.width = SQUARESPACE_WIDTH;
-  }
-  return out;
-}
-
-// One <img>: the URL to fetch (srcset first, then the lazy-load attributes, then src) and its known size.
-function imgCandidate(tag, base) {
-  const dims = (attr(tag, "data-image-dimensions") || "").match(/^(\d+)\s*x\s*(\d+)$/i);
-  const aw = intAttr(tag, "width"), ah = intAttr(tag, "height");
-  const [dw, dh] = dims ? [Number(dims[1]), Number(dims[2])] : [null, null];
-  const set = fromSrcset(attr(tag, "srcset") || attr(tag, "data-srcset") || attr(tag, "data-lazy-srcset"));
-  const ratio = aw && ah ? ah / aw : dw && dh ? dh / dw : null;
-  let url, width, height;
-  if (set?.w) {
-    url = set.url; width = set.w; height = ratio ? Math.round(set.w * ratio) : null;
-  } else {
-    const raw = ["data-src", "data-lazy-src", "data-original", "data-image", "src"].map((n) => attr(tag, n))
-      .find((v) => v && !/^data:/i.test(v) && !/blank\.(?:gif|png)|spacer|lazy[-_]?placeholder/i.test(v)) || set?.url;
-    url = raw; width = dw || aw; height = dw ? dh : ah;
-  }
-  const abs = absolute(url, base);
-  if (abs && !width) ({ width, height } = { width, height, ...sizeFromName(abs) });
-  return abs ? { url: abs, width: width || null, height: height || null, alt: attr(tag, "alt") || "", cls: `${attr(tag, "class") || ""} ${attr(tag, "id") || ""}` } : null;
-}
-
-const CSS_URL = /url\(\s*(['"]?)([^'")]+)\1\s*\)/i;
-const HERO_SELECTOR = /hero|banner|masthead|jumbotron|cover|header|slide|splash|intro|landing|page-title/i;
-
-// Background images: inline style or lazy-load attributes on the page's blocks, and <style> rules. A block or
-// rule that reads like a hero (hero, banner, masthead, slide...) is a hero; any other block, such as a
-// call-to-action card, ranks with the images whose size is unknown.
-function backgrounds(body, html, base) {
-  const hero = [], other = [];
-  for (const m of body.matchAll(/<(?:div|section|header|figure|a|span|li|main|article)\b[^>]*>/gi)) {
-    if (hero.length + other.length >= 8) break;
-    const tag = m[0];
-    const style = attr(tag, "style") || "";
-    const raw = (/background(?:-image)?\s*:/i.test(style) && (style.match(CSS_URL) || [])[2]) ||
-      attr(tag, "data-bg") || attr(tag, "data-background") || attr(tag, "data-background-image") || attr(tag, "data-bg-src");
-    const url = raw && absolute((raw.match(CSS_URL) || [])[2] || raw, base);
-    if (!url) continue;
-    const cls = `${attr(tag, "class") || ""} ${attr(tag, "id") || ""}`;
-    (HERO_SELECTOR.test(cls) ? hero : other).push({ url, source: "hero", cls, ...sizeFromName(url) });
-  }
-  for (const s of html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style\s*>/gi)) {
-    // Split on braces rather than one regex: a long run with no brace made the regex take seconds.
-    for (const chunk of s[1].split("}")) {
-      if (hero.length >= 3) break;
-      const parts = chunk.split("{");
-      if (parts.length < 2) continue;
-      const decl = parts.pop(), selector = parts.pop();
-      if (!HERO_SELECTOR.test(selector) || !/background(?:-image)?\s*:/i.test(decl)) continue;
-      const url = absolute(decode((decl.match(CSS_URL) || [])[2] || ""), base);
-      if (url) hero.push({ url, source: "hero", ...sizeFromName(url) });
-    }
-  }
-  return { hero, other };
-}
-
-// WordPress names its resized copies photo-1024x768.jpg: a known size for free.
-function sizeFromName(url) {
-  const m = url.match(/-(\d{2,4})x(\d{2,4})\.(?:jpe?g|png|webp|avif)(?:$|\?)/i);
-  return m ? { width: Number(m[1]), height: Number(m[2]) } : {};
-}
-
-// website.photo is the first candidate; src/photo.js tries photoCandidates in order. Never throws.
-function photoFields(html, pageUrl) {
-  let list = [];
-  try { list = findPhotos(html, pageUrl); } catch {}
-  return { photo: list[0] || null, photoCandidates: list };
-}
-
-export function findPhotos(html, pageUrl, limit = PHOTO_TRIES) {
-  const baseTag = (html.match(/<base\b[^>]*>/i) || [])[0];
-  const base = (baseTag && absolute(attr(baseTag, "href"), pageUrl)) || pageUrl;
-
-  // The share image, with its stated size when the page gives one.
-  const metas = [...html.matchAll(/<meta\b[^>]*>/gi)].map((m) => [(attr(m[0], "property") || attr(m[0], "name") || "").toLowerCase(), attr(m[0], "content") || ""]);
-  const share = (names, prefix, source) => {
-    const i = metas.findIndex(([k, v]) => names.includes(k) && v);
-    if (i === -1) return null;
-    const url = absolute(metas[i][1], base);
-    if (!url) return null;
-    let width = null, height = null;
-    for (const [k, v] of metas.slice(i + 1)) {
-      if (names.includes(k)) break;
-      if (k === `${prefix}:width` && /^\d+$/.test(v)) width = Number(v);
-      if (k === `${prefix}:height` && /^\d+$/.test(v)) height = Number(v);
-    }
-    return { url, source, width, height };
-  };
-  const og = share(["og:image", "og:image:url", "og:image:secure_url"], "og:image", "og");
-  const twitter = share(["twitter:image", "twitter:image:src"], "twitter:image", "twitter");
-
-  // Images near the top of the page body, outside the menu and the footer. noscript stays: lazy loaders
-  // often keep the real <img> there.
-  const start = html.search(/<body\b/i);
-  const body = (start === -1 ? html : html.slice(start))
-    .replace(/<!--[\s\S]*?-->/g, " ")
-    .replace(/<(script|style|template|svg|nav|footer)\b[\s\S]*?<\/\1\s*>/gi, " ");
-  const imgs = [...body.matchAll(/<img\b[^>]*>/gi)].slice(0, 40)
-    .map((m, i) => ({ ...imgCandidate(m[0], base), source: "img", at: i }))
-    .filter((c) => c.url)
-    .concat(wixImages(body).slice(0, 20).map((c, i) => ({ ...c, source: "img", at: 40 + i })));
-  const sized = imgs.filter((c) => c.width).sort((a, b) => Math.min(b.width, 1600) - Math.min(a.width, 1600) || a.at - b.at);
-  const unsized = imgs.filter((c) => !c.width);
-
-  const seen = new Set();
-  // A share image with a stock name (facebook-share-default.jpg, og-image.png) or a square one is often the
-  // logo on a color card or a slogan graphic, so every image on the page goes ahead of it.
-  const bg = backgrounds(body, html, base);
-  const stock = (c) => /share|social|default|open-?graph|\bog[-_]?image|fb[-_]?image|\bog\b/i.test(new URL(c.url).pathname) ||
-    Boolean(c.width && c.height && Math.abs(c.width / c.height - 1) < 0.1);
-  const shares = [og, twitter].filter(Boolean);
-  const logos = logoKeys(html, base);
-  const list = [...shares.filter((c) => !stock(c)), ...bg.hero, ...sized, ...bg.other, ...unsized, ...shares.filter(stock)].filter(Boolean).map(cdnSized).filter((c) => {
-    if (seen.has(c.url) || !photoOk(c) || logos.has(imageKey(c.url))) return false;
-    seen.add(c.url);
-    return true;
-  });
-  // A PNG is often a graphic: any JPEG or WebP goes first. A file named like a designed graphic goes last.
-  // Wix keeps the uploaded file name in the alt text, after any alt the church wrote.
-  const graphic = (c) => GRAPHIC_NAME.test(fileName(c.url)) || (/\.(?:jpe?g|png|webp)$/i.test(c.alt || "") && GRAPHIC_NAME.test(c.alt.toLowerCase()));
-  const tier = (c) => (graphic(c) ? 2 : 0) + (isPng(new URL(c.url)) ? 1 : 0);
-  const ranked = list.map((c, i) => ({ c, i, t: tier(c) })).sort((a, b) => a.t - b.t || a.i - b.i).map((x) => x.c);
-  return ranked.slice(0, limit).map(({ url, source, width, height }) => ({ url, source, ...(width ? { width } : {}), ...(height ? { height } : {}) }));
 }
 
 // Time left before a deadline, capped at one fetch's timeout. Under a second means stop.
@@ -751,24 +557,27 @@ export async function vimeoActivity(v, now = Date.now(), owner = null, until = D
 // name = the church's name, so a video embedded from someone else's channel is never read as the church's.
 export async function checkWebsite(rawUrl, { source = "typed", name = null } = {}) {
   const url = normalizeUrl(rawUrl);
-  if (!url) return { ok: false, checked: false, reason: "no usable website address", url: rawUrl || null, source };
+  // "none" or "n/a" in the website field is no address at all, not a site that failed to load.
+  if (!url || !new URL(url).hostname.includes(".")) return { ok: false, checked: false, reason: "no usable website address", url: url || rawUrl || null, source, down: false, failure: "no-address" };
 
   // Every variant and hop shares one time budget. A host that timed out is not tried again under the
   // same scheme, so a site that drops packets costs two timeouts, not five.
   const until = Date.now() + SITE_BUDGET_MS;
   const slow = new Set();
+  const misses = [];
   let hit = null, fail = null;
   for (const candidate of variants(url)) {
     const u = new URL(candidate);
     if (slow.has(u.protocol + u.hostname.replace(/^www\./, ""))) continue;
     const wait = left(until, TIMEOUT_MS);
     if (wait < 1000) { fail = fail || { kind: "error", status: null, reason: "the site took too long to answer" }; break; }
-    const r = await tryUrl(candidate, wait);
+    const r = await tryUrl(candidate, wait, { home: u.pathname === "/" });
     if (r.kind === "ok") { hit = r; break; }
+    misses.push(r);
     if (r.kind === "error" && /too long/.test(r.reason)) slow.add(u.protocol + u.hostname.replace(/^www\./, ""));
     if (r.kind !== "missing" && !fail) fail = r;
   }
-  if (!hit) return { ok: false, checked: false, reason: fail ? fail.reason : "did not load", url, status: fail?.status ?? null, source };
+  if (!hit) return { ok: false, checked: false, reason: fail ? fail.reason : "did not load", url, status: fail?.status ?? null, source, ...verdict(misses) };
 
   // Follow a meta refresh, a script redirect or a full-page frame, up to two hops.
   let { html, finalUrl, ms: responseMs, status } = hit;
@@ -788,10 +597,10 @@ export async function checkWebsite(rawUrl, { source = "typed", name = null } = {
     url, finalUrl, status, source, responseMs,
     https: finalUrl.startsWith("https://"),
     title: textOf(((html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1] || "")).slice(0, 120),
-    ...photoFields(html, finalUrl),
+    ...(await brandFields(html, finalUrl, until)),
   };
   if (isThin(html, text, all.filter((l) => l.tag === "a").length)) {
-    return { ok: false, checked: false, reason: "page builds itself with JavaScript", ...base };
+    return { ok: false, checked: false, reason: "page builds itself with JavaScript", ...base, down: false, failure: "javascript" };
   }
 
   const kids = findLink(all, KIDS_LABEL, KIDS_PATH, finalUrl);

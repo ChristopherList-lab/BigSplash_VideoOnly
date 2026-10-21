@@ -51,17 +51,18 @@ test("a listing with another church's website is held and not graded as this chu
   assert.equal(r.reviewReason, r.reviewReasons.join(" "));
 });
 
-test("a near-me search error holds the audit and never reads as 'not found'", async () => {
+test("a near-me search error sends the audit, tells Chris, and never reads as 'not found'", async () => {
   world({ nearMe: "error" });
   const r = await runAudit(church, env);
   assert.equal(r.checks.nearMe, "error");
-  assert.equal(r.needsReview, true);
-  assert.ok(r.reviewReasons.some((x) => /near-me/.test(x)));
+  assert.equal(r.needsReview, false, r.reviewReason);
+  assert.ok(r.infoLines.some((x) => /near-me/.test(x)));
+  assert.equal(r.coverage.graded, 4);
   assert.equal(r.scores.areas.google.points, 100); // out of 60, rank left out
   assert.equal(r.scores.findings.some((f) => /did not come up/.test(f.fact)), false);
 });
 
-test("a site that blocks the audit is not checked; the Google listing's site is tried and the audit is held", async () => {
+test("a site that blocks the audit is not checked; the Google listing's site is tried; the domain conflict holds it", async () => {
   world({
     site: () => page("Forbidden", 403),
     places: [listing({ websiteUri: "https://cityreach.church/" })],
@@ -71,16 +72,24 @@ test("a site that blocks the audit is not checked; the Google listing's site is 
   assert.equal(r.website.source, "google");
   assert.equal(r.website.checked, true);
   assert.equal(r.needsReview, true);
-  assert.ok(r.reviewReasons.some((x) => /used the website on the Google listing/.test(x)));
+  // The swap itself is a note for Chris; the listing linking to another domain is what holds it.
+  assert.deepEqual(r.reviewReasons.length, 1);
+  assert.match(r.reviewReasons[0], /may be a different church: .*cityreach\.church/);
+  assert.ok(r.infoLines.some((x) => /graded the website on the Google listing \(cityreach\.church\)/.test(x)), r.infoLines.join(" "));
 });
 
-test("a site nobody can read stays not checked and is held, never graded F", async () => {
+test("a site that blocks our check is left out, never graded F, and the audit still sends", async () => {
   world({ site: () => page("Forbidden", 403), places: [listing({ websiteUri: "https://cityreachchurch.com/" })] });
   const r = await runAudit(church, env);
   assert.equal(r.checks.website, "not-checked");
+  assert.equal(r.website.down, false);
+  assert.equal(r.website.failure, "blocked");
   assert.equal(r.scores.areas.website.grade, null);
-  assert.equal(r.needsReview, true);
-  assert.ok(r.reviewReasons.some((x) => /website was not checked/.test(x)));
+  assert.equal(r.scores.areas.social.grade, null);
+  assert.equal(r.needsReview, false, r.reviewReason);
+  assert.ok(r.scores.overall.grade, "graded on Google and Reviews");
+  assert.deepEqual(r.coverage, { graded: 2, of: 4, missing: [{ area: "website", why: "blocked" }, { area: "social", why: "blocked" }],
+    note: "Graded on 2 of 4 areas. We couldn't check your website this time." });
 });
 
 test("a listing far from the typed address is held", async () => {
@@ -91,12 +100,18 @@ test("a listing far from the typed address is held", async () => {
   assert.equal(r.scores.areas.google.checked, false);
 });
 
-test("no Google listing holds the audit with no Google grade", async () => {
+test("no Google listing grades Google and Reviews F with the fix, and sends", async () => {
   world({ places: [] });
   const r = await runAudit(church, env);
-  assert.equal(r.needsReview, true);
-  assert.equal(r.scores.areas.google.grade, null);
-  assert.ok(r.reviewReasons.some((x) => /No Google listing/.test(x)));
+  assert.equal(r.needsReview, false, r.reviewReason);
+  assert.equal(r.google.listed, false);
+  assert.equal(r.scores.areas.google.grade, "F");
+  assert.equal(r.scores.areas.reviews.grade, "F");
+  assert.equal(r.coverage.graded, 4);
+  assert.equal(r.coverage.note, null);
+  assert.equal(r.scores.findings[0].fact, "We couldn't find your church on Google Maps.");
+  assert.equal(r.notes.fixes[0].title, "Claim your free Google Business Profile");
+  assert.ok(r.infoLines.some((x) => /No Google listing came up/.test(x)));
 });
 
 test("pagespeed: runtime errors are not scores, and only field data gives seconds", async () => {

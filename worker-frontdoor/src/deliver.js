@@ -7,6 +7,7 @@
 import * as ghl from "./ghl.js";
 import { scorecardEmail, approvedEmail, scorecardText } from "./messages.js";
 import { inWindow } from "./nurture.js";
+import { coverageText } from "./score.js";
 
 export const SCORECARD = "https://bigsplash.video/front-door/?id=";
 export const WALKTHROUGH = "https://bigsplash.video/frontdoor/walkthrough/?id=";
@@ -34,6 +35,13 @@ export function messageVars(env, { id, church, contact, result }) {
     firstName: ghl.splitName(contact?.name).firstName,
     church: church?.name || "",
     grade: result?.scores?.overall?.grade || "",
+    // The plain note for a grade built from fewer than four areas; older results have no coverage.
+    coverage: result?.coverage?.note || "",
+    // What the first email may say the audit did. Older results (no coverage) keep the email they always had.
+    ...(result?.coverage ? {
+      searched: (result?.nearMe?.searches || []).some((s) => s.checked),
+      opened: Boolean(result?.website?.checked || result?.website?.down),
+    } : {}),
     topFix: result?.notes?.fixes?.[0]?.title || "",
     scorecardUrl: SCORECARD + id,
     walkthroughUrl: WALKTHROUGH + id,
@@ -66,6 +74,9 @@ export function leadPayload(a, delivery = {}) {
     fixes: (r.notes?.fixes || []).slice(0, 3).map((f) => ({ title: f?.title || "", why: f?.why || "" })),
     households: r.reach?.households ?? null,
     review_reasons: a.event === "review" ? r.reviewReasons || [] : [],
+    // For Chris on every event: which areas the grade left out and why, and what the audit did without holding.
+    coverage: coverageText(r.coverage),
+    info: Array.isArray(r.infoLines) ? r.infoLines : [],
     possible_duplicates: r.possibleDuplicates || [],
     utm: c.utm && typeof c.utm === "object" ? c.utm : {},
     page_url: c.page_url || "",
@@ -97,6 +108,8 @@ export function noteText(a) {
     `Posts on Facebook: ${c.facebook_frequency || "not given"}`,
     `Grades: overall ${g.overall || "not graded"}, Google ${g.google || "not checked"}, reviews ${g.reviews || "not checked"}, website ${g.website || "not checked"}, social ${g.social || "not checked"}`,
   ];
+  if (l.coverage) lines.push(l.coverage);
+  lines.push(...l.info.map((x) => `Note: ${x}`));
   l.fixes.forEach((f, i) => lines.push(`Fix ${i + 1}: ${f.title}${f.why ? `. ${f.why}` : ""}`));
   if (l.households !== null) lines.push(`Households within 5 miles: ${Number(l.households).toLocaleString("en-US")}`);
   if (a.event === "review") lines.push(...(a.result?.reviewReasons || []).map((r) => `Held because: ${r}`));

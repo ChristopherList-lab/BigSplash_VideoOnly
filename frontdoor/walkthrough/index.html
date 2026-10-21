@@ -61,6 +61,9 @@ header.top span { font: 700 12px/1 "Inter"; letter-spacing: .18em; text-transfor
 .hero { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; padding: 34px 0 30px; }
 h1 { font: 800 clamp(32px, 6vw, 54px)/1.06 "Inter"; letter-spacing: -.035em; color: var(--white); margin: 16px 0 14px; overflow-wrap: anywhere; }
 .lede { font-size: 18px; color: var(--text); max-width: 580px; }
+/* Beside a grade built from fewer than four areas: what it counts and what we couldn't check. */
+.partial { margin-top: 14px; max-width: 580px; font-size: 15px; line-height: 1.5; color: var(--muted); border-left: 3px solid var(--line); padding-left: 12px; }
+.partial[hidden] { display: none; }
 .firstfix { margin-top: 18px; background: var(--card); border-left: 5px solid var(--lime); border-radius: 12px; padding: 14px 18px; font-size: 16px; max-width: 600px; overflow-wrap: anywhere; }
 .firstfix b { color: var(--white); }
 .firstfix span { display: block; font: 700 12px/1 "Inter"; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
@@ -73,10 +76,9 @@ h1 { font: 800 clamp(32px, 6vw, 54px)/1.06 "Inter"; letter-spacing: -.035em; col
 .grade b { font: 800 76px/1 "Inter"; color: var(--white); letter-spacing: -.04em; }
 .grade small { font: 700 11px/1 "Inter"; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
 .grade[hidden] { display: none; }
-/* The church's own photo above the headline, when the audit saved one (the worker's /photo route). */
-.church-photo { width: 100%; max-width: 360px; margin-bottom: 18px; }
-.church-photo img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 12px; background: var(--card); }
-.church-photo figcaption { font: 600 12px/1.3 "Inter"; color: var(--muted); margin-top: 6px; overflow-wrap: anywhere; }
+/* The church's logo spans the top of the hero when the audit saved one; empty, the slot takes no room. */
+#logo-slot { grid-column: 1 / -1; order: -2; display: flex; }
+#logo-slot:empty { display: none; }
 
 /* Video */
 .vsl { margin: 6px 0 0; }
@@ -132,7 +134,6 @@ footer a { color: inherit; }
 @media (max-width: 640px) {
   .wrap { padding: 0 16px; }
   .hero { grid-template-columns: 1fr; padding-top: 22px; gap: 18px; }
-  .church-photo { max-width: none; }
   .hero .grade { order: -1; width: 104px; height: 104px; border-width: 5px; }
   .grade b { font-size: 52px; }
   .lede { font-size: 17px; }
@@ -154,7 +155,49 @@ footer a { color: inherit; }
   body.has-sticky footer { padding-bottom: 96px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .sticky { transition: none; } }
+
+/* Co-branded look, the same as the scorecard's, when the audit found the church's logo or color (result.brand): a slim
+   Big Splash strip on top, then the church's header (its logo, large, on a soft wash of its color) and a light page
+   in the church's color and font. Without a logo, the church's name in its color leads the headline. cobrand() fills
+   #brand-style and adds .cobrand to <html>. Without a brand the page keeps the dark look above. */
+html.cobrand { --card: #fff; --line: #e7e3da; --white: #131318; --text: #3f3f47; --muted: #5f5f68; --lime: var(--brand); --soft: #f7f5f0; }
+html.cobrand, html.cobrand body { background: var(--soft); }
+html.cobrand header.top { flex-direction: row-reverse; padding: 11px 0; background: var(--ink); box-shadow: 0 0 0 100vmax var(--ink); clip-path: inset(0 -100vmax); }
+html.cobrand header.top img { height: 22px; }
+html.cobrand header.top span { color: #fff; font-size: 11px; }
+html.cobrand .eyebrow img { display: none; }
+/* The eyebrow is small text on the wash, so it takes the church color darkened to 4.5:1 there (brand.onWash). */
+html.cobrand .eyebrow { color: var(--brand-ink); }
+html.cobrand h1, html.cobrand h2, html.cobrand h3, html.cobrand .steps b, html.cobrand .faq summary { font-family: var(--brand-font), "Inter", system-ui, sans-serif; }
+html.cobrand h2::before { content: ""; display: block; width: 36px; height: 4px; border-radius: 2px; background: var(--brand); margin-bottom: 12px; }
+/* The wash and its hairline are a border image drawn past both sides of the column, so they reach the window's
+   edges without making the page scroll sideways. */
+html.cobrand .hero { border-image: linear-gradient(to top, var(--line) 1px, var(--brand-wash) 1px) 0 fill / 0 / 0 100vmax; padding: 44px 0 46px; row-gap: 30px; }
+html.cobrand .hero .church-name { color: var(--brand); }
+html.cobrand .hero.has-logo .church-name { color: inherit; }
+html.cobrand .hero.has-logo h1 { font-size: clamp(28px, 4vw, 40px); margin-top: 14px; }
+.church-logo { display: inline-flex; align-items: center; max-width: 100%; border-radius: 16px; }
+.church-logo img { display: block; width: var(--logo-w, 320px); max-width: 100%; height: auto; }
+.church-logo.light { background: var(--brand); padding: 20px 28px; }
+.church-logo.mixed { background: #131318; padding: 20px 28px; }
+.church-logo.solid { background: #fff; padding: 14px 18px; box-shadow: 0 0 0 1px var(--line); }
+html.cobrand .grade { background: #fff; box-shadow: 0 0 0 1px var(--line); }
+html.cobrand .grade b { color: var(--brand); }
+html.cobrand .btn { color: var(--on-brand); }
+html.cobrand .firstfix, html.cobrand .steps li, html.cobrand .host, html.cobrand .book, html.cobrand .faq details { box-shadow: 0 0 0 1px var(--line); }
+html.cobrand .steps li::before { background: var(--brand); color: var(--on-brand); }
+html.cobrand .cal { background: #fff; box-shadow: 0 0 0 1px var(--line); }
+html.cobrand .sticky { background: rgba(255, 255, 255, .96); border-top-color: var(--line); }
+@media (max-width: 640px) {
+  html.cobrand .hero { padding: 30px 0 34px; row-gap: 22px; }
+  .church-logo img { width: var(--logo-w-sm, 240px); }
+  .church-logo.light, .church-logo.mixed { padding: 14px 18px; border-radius: 14px; }
+  .church-logo.solid { padding: 10px 12px; border-radius: 12px; }
+  /* On a phone the logo leads and the headline already says the grade, so the ring steps aside. */
+  html.cobrand .hero.has-logo .grade { display: none; }
+}
 </style>
+<style id="brand-style"></style>
 </head>
 <body class="has-sticky">
 <div class="wrap">
@@ -162,11 +205,12 @@ footer a { color: inherit; }
 
   <main>
     <section class="hero" id="hero">
+      <div id="logo-slot"></div>
       <div>
-        <div id="photo-slot"></div>
         <p class="eyebrow"><img src="/assets/images/starburst-lime-solid.svg" alt=""><span id="eyebrow">Free 30-minute call</span></p>
         <h1 id="headline">Go over your scorecard with our team.</h1>
         <p class="lede" id="lede">Book a free 30-minute call with our team. We go over every grade on your Front Door Audit and show you the first thing we would fix.</p>
+        <p class="partial" id="partial" hidden></p>
         <div id="fix-slot"></div>
         <div class="actions">
           <a class="btn" href="#book" id="top-cta">Book a call with our team</a>
@@ -183,7 +227,7 @@ footer a { color: inherit; }
 
     <h2>On the call</h2>
     <ol class="steps">
-      <li><b>Every grade, in plain English</b><p>Our team opens your scorecard and goes through each of the four grades. Ask us anything along the way.</p></li>
+      <li><b>Every grade, in plain English</b><p>Our team opens your scorecard and goes through each grade with you. Ask us anything along the way.</p></li>
       <li><b>The first fix, and a list to keep</b><p>We show you the change we would make first and why it matters to a family looking for a church. You leave with the list even if you never hire Big Splash.</p></li>
     </ol>
 
@@ -321,16 +365,118 @@ function personalize(a) {
 
   document.title = `${name} · Book a call with our team · Big Splash`;
   $("eyebrow").textContent = "Your Front Door Audit";
-  $("headline").innerHTML = `${esc(name)}'s Front Door Audit${grade ? `: overall ${esc(grade)}` : ""}`;
+  $("headline").innerHTML = `<span class="church-name">${esc(name)}'s</span> Front Door Audit${grade ? `: overall ${esc(grade)}` : ""}`;
   $("lede").textContent = "Book a free 30-minute call with our team. We'll go through each grade with you and show you the first thing we would fix.";
   if (fix) $("fix-slot").innerHTML = `<p class="firstfix"><span>First fix on your list</span><b>${esc(fix.title)}</b></p>`;
   if (grade) { $("grade-letter").textContent = grade; $("grade").hidden = false; }
+  const note = coverageNote(a);
+  if (note) { $("partial").textContent = note; $("partial").hidden = false; }
   const id = auditQuery()?.get("id") || (/^[a-z0-9-]{6,80}$/.test(a?.id || "") ? a.id : "");
-  if (a?.photo?.stored && id) {
-    // The church's photo from its own website. If it fails to load it is removed and the top looks as it does without one.
-    const w = Number(a.photo.width) > 0 ? Math.round(a.photo.width) : 1600, h = Number(a.photo.height) > 0 ? Math.round(a.photo.height) : 900;
-    $("photo-slot").innerHTML = `<figure class="church-photo"><img src="${esc(`${API}/photo?id=${encodeURIComponent(id)}`)}" alt="Photo from ${esc(name)}'s website" width="${w}" height="${h}" loading="eager" decoding="async" onerror="this.parentNode.remove()"><figcaption>From ${esc(name)}'s website</figcaption></figure>`;
-  }
+  cobrand(a, id);
+}
+
+// The note beside a grade built from fewer than four areas, the same as the scorecard's: coverage.note on new results,
+// the same sentence from the area grades on older ones, nothing beside an old result with no overall grade.
+const AREA_KEYS = ["google", "reviews", "website", "social"];
+const PASTOR_NAME = { google: "Google", reviews: "Google", website: "your website", social: "your social links" };
+function coverageNote(a) {
+  const s = a?.scores;
+  if (!s?.overall?.grade) return "";
+  if (a.coverage && typeof a.coverage === "object") return typeof a.coverage.note === "string" ? a.coverage.note : "";
+  const missing = AREA_KEYS.filter((k) => !s.areas?.[k]?.grade);
+  if (!missing.length) return "";
+  let names = [...new Set(missing.map((k) => PASTOR_NAME[k]))];
+  if (names.includes("your website")) names = names.filter((n) => n !== "your social links");
+  return `Graded on ${AREA_KEYS.length - missing.length} of ${AREA_KEYS.length} areas. We couldn't check ${names.join(" or ")} this time.`;
+}
+
+// The church's look, the same as the scorecard's, when the audit found its color or saved its logo. Only well-formed
+// values reach the page. A logo without a usable color still leads the page, on a neutral look.
+const HEX = /^#[0-9a-f]{6}$/i;
+function brandOf(a, id) {
+  const b = a?.brand;
+  const color = HEX.test(b?.primary || "") ? b.primary : null;
+  const logo = b?.logo?.stored && id ? b.logo : null;
+  if (!color && !logo) return null;
+  return {
+    primary: color || "#131318",
+    neutral: !color,
+    on: color && HEX.test(b.onPrimary || "") ? b.onPrimary : "#ffffff",
+    // Small text on the header wash. A result from before onWash existed gets ink, which reads on any wash.
+    ink: color && HEX.test(b.onWash || "") ? b.onWash : "#131318",
+    font: typeof b.font === "string" && /^[A-Za-z0-9][A-Za-z0-9 ]{0,39}$/.test(b.font) ? b.font : null,
+    logo,
+  };
+}
+
+// The church color mixed with white: `keep` is how much of the color stays.
+function tint(hex, keep) {
+  const n = parseInt(hex.slice(1), 16), mix = (c) => Math.round(c * keep + 255 * (1 - keep)).toString(16).padStart(2, "0");
+  return `#${mix(n >> 16)}${mix((n >> 8) & 255)}${mix(n & 255)}`;
+}
+
+// The CSS variables for the co-branded look, and the church's Google font when it has one (Inter otherwise).
+function brandCss(b) {
+  const fam = b.font && b.font.toLowerCase() !== "inter" ? b.font : null;
+  const q = fam ? encodeURIComponent(fam).replace(/%20/g, "+") : "";
+  const imports = fam ? `@import url("https://fonts.googleapis.com/css2?family=${q}&display=swap");\n@import url("https://fonts.googleapis.com/css2?family=${q}:wght@700&display=swap");\n` : "";
+  const wash = b.neutral ? "#ffffff" : tint(b.primary, 0.1);
+  return `${imports}:root { --brand: ${b.primary}; --on-brand: ${b.on}; --brand-wash: ${wash}; --brand-font: ${fam ? `"${fam}"` : '"Inter"'}; --brand-ink: ${b.ink}; }`;
+}
+
+// How wide to draw a logo so a square mark and a long wordmark carry about the same weight: the width that gives it
+// `area` square pixels, at most maxH tall and maxW wide, and never past 1.5 times a raster logo's own pixels.
+function logoWidth(logo, area, maxH, maxW) {
+  const w = Number(logo.width) > 0 ? Number(logo.width) : 0, h = Number(logo.height) > 0 ? Number(logo.height) : 0;
+  const ratio = w && h ? Math.min(10, Math.max(0.33, w / h)) : 3;
+  let width = Math.min(maxW, Math.min(maxH, Math.sqrt(area / ratio)) * ratio);
+  if (w && logo.type !== "image/svg+xml") width = Math.min(width, w * 1.5);
+  return Math.round(width);
+}
+
+// The church's look and its logo across the top of the hero, from the worker's /logo route. If the logo fails to
+// load, logoGone() takes it out and the church's name in its color leads the headline instead.
+function cobrand(a, id) {
+  const b = brandOf(a, id);
+  if (!b) return;
+  $("brand-style").textContent = brandCss(b);
+  document.documentElement?.classList?.add("cobrand");
+  if (!b.logo) return;
+  $("hero").classList.add("has-logo");
+  const w = Number(b.logo.width) > 0 ? Math.round(b.logo.width) : 240, h = Number(b.logo.height) > 0 ? Math.round(b.logo.height) : 80;
+  const size = `--logo-w: ${logoWidth(b.logo, 46000, 150, 460)}px; --logo-w-sm: ${logoWidth(b.logo, 24000, 112, 310)}px`;
+  $("logo-slot").innerHTML = `<span class="church-logo"><img src="${esc(`${API}/logo?id=${encodeURIComponent(id)}`)}" alt="${esc(a.church.name)} logo" width="${w}" height="${h}" style="${size}" crossorigin="anonymous" decoding="async" onload="logoTone(this)" onerror="logoGone(this)"></span>`;
+}
+
+function logoGone() {
+  $("logo-slot").innerHTML = "";
+  $("hero").classList.remove("has-logo");
+}
+
+// A white logo on a clear background gets a chip of the church color; white words beside a colored mark get a dark
+// chip; a logo with no see-through pixels (drawn on its own box) gets a white card.
+function logoTone(img) {
+  try {
+    const w = 48, h = Math.max(8, Math.min(96, Math.round(48 * (img.naturalHeight || 1) / (img.naturalWidth || 1))));
+    const c = document.createElement("canvas");
+    c.width = w; c.height = h;
+    const ctx = c.getContext("2d");
+    ctx.drawImage(img, 0, 0, w, h);
+    const d = ctx.getImageData(0, 0, w, h).data;
+    // Mostly light ink (over half its drawn pixels) on a see-through background reads as a white logo. A logo with
+    // white lettering beside a colored mark (Faith Lutheran: a gold cross, white words) gets a dark chip instead,
+    // so both the words and the mark stay readable.
+    let clear = 0, n = 0, light = 0;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i + 3] < 128) { clear++; continue; }
+      n++;
+      if ((0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2]) / 255 > 0.82) light++;
+    }
+    const open = n + clear ? clear / (n + clear) : 0;
+    if (n && open > 0.1 && light / n > 0.5) img.parentNode.classList.add("light");
+    else if (n && open > 0.1 && light / n > 0.25) img.parentNode.classList.add("mixed");
+    else if (n && open < 0.02) img.parentNode.classList.add("solid");
+  } catch {}
 }
 
 function auditQuery() {

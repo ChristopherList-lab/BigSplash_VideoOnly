@@ -16,7 +16,8 @@ Voice:
 
 Rules:
 - Use only the facts provided. Never invent numbers, names, platforms or events.
-- If an area was not checked, say it was not checked in this audit. Never call an area failing, weak or missing when it was not checked.
+- If an area was not checked, say it was not checked in this audit. Never call an area failing, weak or missing when it was not checked. A check that failed is our problem, never the church's.
+- If the website did not load on a phone, or Google has no listing for the church, say so plainly and kindly and name the fix. A new family would run into the same thing.
 - Never mention load times or seconds unless a real-visitor number is given. The phone speed score is a lab test on a simulated slow connection; call it that.
 - Each fix must be something the church staff could start this week, written as an action.
 - If upload dates were not checked, do not suggest posting more often and do not guess how recent the sermons are.
@@ -64,10 +65,12 @@ const SCHEMA = {
 function factSheet(a) {
   const s = a.scores;
   const lines = [`Church: ${a.church.name}${a.church.city ? `, ${a.church.city}` : ""}`];
-  lines.push(`Overall grade: ${s.overall.grade ?? "not graded, too few areas were checked"}`);
+  const c = a.coverage;
+  lines.push(`Overall grade: ${s.overall.grade ?? "not graded, nothing could be checked"}${s.overall.grade && c && c.graded < c.of ? ` (graded on ${c.graded} of ${c.of} areas; the rest could not be checked in this audit)` : ""}`);
   for (const [k, v] of Object.entries(s.areas)) lines.push(`${k} grade: ${v.grade ?? "not checked in this audit"}`);
   const g = a.google?.found && a.google.trusted !== false ? a.google : null;
   if (g) lines.push(`Google listing: rating ${g.reviewCount ? g.rating : "none yet"} from ${g.reviewCount} reviews, service hours ${g.hoursListed ? "listed" : "not listed"}, website ${g.website ? "on the listing" : "not on the listing"}.`);
+  else if (a.google?.found === false && a.google.listed === false) lines.push("Google listing: none. Google Maps has no listing for this church's name and address, so there are no Google reviews either.");
   else lines.push("Google listing: not checked in this audit.");
   if (g && a.nearMe?.checked) {
     for (const r of a.nearMe.searches) {
@@ -86,6 +89,9 @@ function factSheet(a) {
       if (v.otherChannel) lines.push(`${label}: the only ${label} item on the home page is a video from another channel; not counted.`);
       else lines.push(typeof v.daysSinceLastUpload === "number" ? `${label}: last upload ${v.daysSinceLastUpload} days ago${typeof v.uploadsLast30Days === "number" ? `, ${v.uploadsLast30Days} uploads in 30 days` : ""}.` : `${label}: linked, upload dates not checked.`);
     }
+  } else if (a.website?.down) {
+    lines.push(`Website (${a.website.url}): did not load when we opened it on a phone (${a.website.reason}). A family would see an error too.`);
+    lines.push("Social links and sermons: not checked in this audit. We read them from the home page, and it did not load.");
   } else lines.push("Website: not checked in this audit.");
   if (w && a.speed?.ok) lines.push(`Google phone speed test (lab test on a simulated slow cell connection): ${a.speed.score} out of 100.${a.speed.fieldLcpSeconds ? ` Real visitors on phones wait about ${a.speed.fieldLcpSeconds} seconds for the main content.` : " No real-visitor load time available."}`);
   else if (w) lines.push("Phone speed: not checked.");
@@ -114,7 +120,7 @@ const LEADS = {
 };
 
 // "The Google listing..." reads as "the Google listing..." mid-sentence; names and "Google's" keep their capital.
-const midSentence = (fact) => /^(The|We|In|A|An|Real)\b/.test(fact) ? fact.charAt(0).toLowerCase() + fact.slice(1) : fact;
+const midSentence = (fact) => /^(The|We|In|A|An|Real|Your|With)\b/.test(fact) ? fact.charAt(0).toLowerCase() + fact.slice(1) : fact;
 
 // Plain wording built straight from the findings, used when Claude is unavailable.
 export function fallbackNotes(a) {

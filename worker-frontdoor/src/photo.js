@@ -1,21 +1,15 @@
-// The church photo on the scorecard. website.js picks up to three candidate images from the home page;
-// this fetches them in order the way a phone would and keeps the first real JPEG, PNG, WebP or AVIF that is
-// at least 600 px wide and not a banner strip. Its bytes go in KV (AUDITS, photo:<audit id>), so the
-// scorecard never loads anything from the church's site. A photo that cannot be had is left out: it never
-// fails the audit or changes a grade.
+// Fetching a picture from a church's website, shared by the church logo (src/logo.js): only plain public web
+// addresses, redirects followed by hand, one timeout, a size cap, and the bytes' real type and size read from
+// their header. The scorecard used to show a church photo picked from the home page too; it picked event
+// graphics and stock fields often enough that the team dropped it (October 2026), so the audit no longer
+// fetches photos and the worker no longer serves them. The PHOTO_ names stay for the shared rules.
 import { PHONE_UA } from "./website.js";
 
 export const PHOTO_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif"];
 const ALIASES = { "image/jpg": "image/jpeg", "image/pjpeg": "image/jpeg", "image/x-png": "image/png" };
 export const PHOTO_TIMEOUT_MS = 10000;
 export const PHOTO_MAX_BYTES = 2_000_000;
-const MIN_WIDTH = 600;
-const ASPECT = [0.6, 2.5];
-const TRIES = 3;
 const MAX_HOPS = 3;
-// Bytes per pixel below this is a flat graphic (a logo on a color card), not a photo. AVIF packs tighter.
-const FLAT = { "image/avif": 0.012, other: 0.025 };
-const YEAR = 60 * 60 * 24 * 365;
 const HEADERS = { "User-Agent": PHONE_UA, "Accept-Language": "en-US,en;q=0.9", Accept: "image/avif,image/webp,image/jpeg,image/png;q=0.9,*/*;q=0.5" };
 
 const ascii = (b, at, len) => String.fromCharCode(...b.subarray(at, at + len));
@@ -78,13 +72,6 @@ export function imageSize(b, type = sniffImage(b)) {
   return null;
 }
 
-// Whether a known size makes a usable scorecard photo.
-export function photoSizeOk(width, height) {
-  if (!width || !height) return false;
-  const r = width / height;
-  return width >= MIN_WIDTH && r >= ASPECT[0] && r <= ASPECT[1];
-}
-
 async function readAll(res, max) {
   const reader = res.body.getReader();
   const chunks = [];
@@ -114,9 +101,11 @@ export function publicImageUrl(raw) {
   return u;
 }
 
-// One candidate: { ok: true, bytes, type, width, height } or { ok: false, reason }. Redirects are followed by
-// hand, at most MAX_HOPS, and every hop has to pass publicImageUrl too. One timeout covers every hop and the body.
-export async function fetchPhoto(url, { signal = null, referer = null } = {}) {
+// The bytes at a church-picked address, the way a phone fetches an image: { ok: true, bytes, type } or
+// { ok: false, reason }. Redirects are followed by hand, at most MAX_HOPS, and every hop has to pass
+// publicImageUrl too. One timeout covers every hop and the body. Only `types` are read, up to maxBytes.
+export async function fetchImage(url, { signal = null, referer = null, types = PHOTO_TYPES, maxBytes = PHOTO_MAX_BYTES } = {}) {
+  const cap = maxBytes >= 1_000_000 ? `${maxBytes / 1_000_000} MB` : `${Math.round(maxBytes / 1000)} KB`;
   try {
     let u = publicImageUrl(url);
     if (!u) return { ok: false, reason: "not a public web address" };
@@ -136,37 +125,13 @@ export async function fetchPhoto(url, { signal = null, referer = null } = {}) {
     if (!res.ok) { res.body?.cancel().catch(() => {}); return { ok: false, reason: `answered ${res.status}` }; }
     const given = (res.headers.get("content-type") || "").split(";")[0].trim().toLowerCase();
     const type = ALIASES[given] || given;
-    if (!PHOTO_TYPES.includes(type)) { res.body?.cancel().catch(() => {}); return { ok: false, reason: `type ${given || "missing"}` }; }
-    if (Number(res.headers.get("content-length")) > PHOTO_MAX_BYTES) { res.body?.cancel().catch(() => {}); return { ok: false, reason: "over 2 MB" }; }
-    const bytes = res.body ? await readAll(res, PHOTO_MAX_BYTES) : null;
-    if (!bytes) return { ok: false, reason: res.body ? "over 2 MB" : "empty" };
-    if (sniffImage(bytes) !== type) return { ok: false, reason: `bytes are not ${type}` };
-    const size = imageSize(bytes, type);
-    if (!size) return { ok: false, reason: "size unreadable" };
-    if (!photoSizeOk(size.width, size.height)) return { ok: false, reason: `${size.width}x${size.height} is too small or not photo-shaped` };
-    if (bytes.length / (size.width * size.height) < (FLAT[type] || FLAT.other)) return { ok: false, reason: "a flat graphic, not a photo" };
-    return { ok: true, bytes, type, ...size };
+    if (!types.includes(type)) { res.body?.cancel().catch(() => {}); return { ok: false, reason: `type ${given || "missing"}` }; }
+    if (Number(res.headers.get("content-length")) > maxBytes) { res.body?.cancel().catch(() => {}); return { ok: false, reason: `over ${cap}` }; }
+    const bytes = res.body ? await readAll(res, maxBytes) : null;
+    if (!bytes) return { ok: false, reason: res.body ? `over ${cap}` : "empty" };
+    return { ok: true, bytes, type };
   } catch (err) {
     const timedOut = err?.name === "TimeoutError" || err?.name === "AbortError";
     return { ok: false, reason: timedOut ? "took too long" : "fetch failed" };
   }
-}
-
-// Tries up to three candidates and saves the first good one under photo:<id>. Returns { photo, misses }:
-// photo = { stored: true, width, height, source } or null; misses = one short line per candidate that failed.
-// An aborted signal stops the tries and skips the save, so a late photo never lands after the audit moved on.
-export async function savePhoto(env, id, candidates, { signal = null, referer = null } = {}) {
-  const misses = [];
-  if (!env?.AUDITS || !id) return { photo: null, misses };
-  for (const c of (candidates || []).slice(0, TRIES)) {
-    if (signal?.aborted) break;
-    const got = await fetchPhoto(c.url, { signal, referer });
-    if (!got.ok) { misses.push(`${String(c.url).slice(0, 120)}: ${got.reason}`); continue; }
-    if (signal?.aborted) break;
-    // KV metadata is capped at 1024 bytes of JSON, so the source address is cut short well under that.
-    const metadata = { type: got.type, width: got.width, height: got.height, source: String(c.source || "").slice(0, 20), from: String(c.url).slice(0, 400) };
-    await env.AUDITS.put(`photo:${id}`, got.bytes, { expirationTtl: YEAR, metadata });
-    return { photo: { stored: true, width: got.width, height: got.height, source: c.source }, misses };
-  }
-  return { photo: null, misses };
 }

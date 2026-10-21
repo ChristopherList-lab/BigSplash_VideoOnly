@@ -1,6 +1,13 @@
 // Fixed scoring rules, so every church is graded the same way. Each area earns points out of 100, then a
-// letter. An area the audit could not check gets no points, no letter and no findings. Findings are the facts
-// behind the grades, ordered by how much they cost a church in guests; the write-up turns them into notes.
+// letter. Findings are the facts behind the grades, ordered by how much they cost a church in guests; the
+// write-up turns them into notes.
+// Chris's rule (2026-10-20): always give a score. The overall grade averages every area that was checked, one
+// or more. A problem a new family would hit too is graded, low, with the fix: a website that did not load on a
+// phone (website.down) grades Website F, and a church Google has no listing for (google.listed false) grades Google
+// and Reviews F. A check that failed on our side (a Google error, a site that turned our check away) leaves its
+// areas out: no points, no letter, no findings, and coverage says which ones and why. Social comes from links on
+// the home page, so a home page that did not load leaves Social out too (why "site-down"): the church's Facebook
+// or YouTube may still be easy to find, and we never looked.
 
 export function letter(points) {
   if (points === null || points === undefined) return null;
@@ -39,6 +46,25 @@ export function rankFact(name, nearMe) {
     : `${where}, ${name} did not come up among the ${s.scanned} churches Google listed.`;
 }
 
+// What a family's phone ran into when the website did not load (website.js failure codes), in plain words.
+const CAUSE = {
+  timeout: "The site didn't answer in time.",
+  dns: "The web address doesn't lead to a site right now.",
+  refused: "The site's server didn't accept the connection.",
+  certificate: "The site's security certificate is broken, so a phone shows a warning instead of the page.",
+  "no-home-page": "The home page came back as page not found.",
+};
+function downCause(w) {
+  if (w.failure === "server-error") return `The site answered with a server error${w.status ? ` (${w.status})` : ""}.`;
+  return CAUSE[w.failure] || "";
+}
+const BACK = "A family who taps your link sees your church instead of an error.";
+const DOWN_FIX = {
+  dns: ["Make sure your web address still points to your site", BACK],
+  certificate: ["Fix your website's security certificate", "Phones open your site without a security warning."],
+  default: ["Get your website loading on phones again", BACK],
+};
+
 export function scoreAudit(a) {
   const findings = [];
   // fix = the action for "Start here" (null for a plain fact), why = what that fix changes for a family.
@@ -46,6 +72,8 @@ export function scoreAudit(a) {
   const name = a.church?.name || "The church";
   // Only a listing the audit trusts is this church's. Anything else is not graded.
   const g = a.google?.found && a.google.trusted !== false ? a.google : null;
+  // Google answered and has no listing at all for this name and address. Older results never say listed: false.
+  const unlisted = a.google?.found === false && a.google.listed === false;
 
   // Google listing and search
   let google = null;
@@ -62,8 +90,17 @@ export function scoreAudit(a) {
     if (!g.website) add("google", 4, "The Google listing does not link to your website.", "Add your website to your Google listing", "One tap takes a family from Google to your website.");
   }
 
+  if (unlisted) {
+    google = 0;
+    add("google", 10, "We couldn't find your church on Google Maps.", "Claim your free Google Business Profile", "Your church shows up on the map, with service times and directions, when a family nearby searches for a church.");
+  }
+
   // Reviews
   let reviews = null;
+  if (unlisted) {
+    reviews = 0;
+    add("reviews", 6, "With no Google listing, a family can't read reviews of your church yet.", "Ask your members for Google reviews once your listing is live", "Reviews from your members tell a new family what a Sunday feels like.");
+  }
   if (g) {
     const count = g.reviewCount || 0;
     const rating = count > 0 && typeof g.rating === "number" ? g.rating : null;
@@ -76,9 +113,15 @@ export function scoreAudit(a) {
     else if (rating !== null && rating < 4.7 && count >= 25) add("reviews", 1, `The Google rating is ${stars(rating)} stars from ${plural(count, "review")}.`, null);
   }
 
-  // Website, only when the audit could read the home page
+  // Website, when the audit could read the home page, or F when the site did not load for anyone
   let website = null;
   const w = a.website?.checked ? a.website : null;
+  const down = !w && a.website?.down === true ? a.website : null;
+  if (down) {
+    website = 0;
+    const [fix, why] = DOWN_FIX[down.failure] || DOWN_FIX.default;
+    add("website", 10, `Your website didn't load when we opened it on a phone. ${downCause(down)}`.trim(), fix, why);
+  }
   if (w) {
     const speed = a.speed?.ok ? a.speed.score : null;
     const field = a.speed?.ok ? a.speed.fieldLcpSeconds || null : null;
@@ -96,7 +139,7 @@ export function scoreAudit(a) {
     if (!w.viewport) add("website", 5, "The home page is not set up to fit a phone screen.", "Make your website work on phones", "Families can read the site without pinching and zooming.");
   }
 
-  // Social and sermons, from the same home page
+  // Social and sermons, from the same home page. A home page that did not load was never read, so Social is left out.
   let social = null;
   if (w) {
     const s = w.socials || {};
@@ -131,7 +174,8 @@ export function scoreAudit(a) {
 
   const areas = { google, reviews, website, social };
   const graded = Object.values(areas).filter((v) => v !== null);
-  const overall = graded.length >= 3 ? Math.round(graded.reduce((x, y) => x + y, 0) / graded.length) : null;
+  // Every area that was checked counts, however few. Only an audit with nothing checked has no overall grade.
+  const overall = graded.length ? Math.round(graded.reduce((x, y) => x + y, 0) / graded.length) : null;
   findings.sort((x, y) => y.impact - x.impact);
 
   return {
@@ -139,4 +183,50 @@ export function scoreAudit(a) {
     areas: Object.fromEntries(Object.entries(areas).map(([k, v]) => [k, { points: v, grade: letter(v), checked: v !== null }])),
     findings,
   };
+}
+
+// ---------- Coverage: which areas count toward the grade ----------
+export const AREAS = ["google", "reviews", "website", "social"];
+// Google and Reviews come from the listing, Website and Social from the home page, so each pair goes out together.
+const PASTOR_NAME = { google: "Google", reviews: "Google", website: "your website", social: "your social links" };
+
+// The sentence a pastor reads beside a grade built from fewer than four areas:
+// "Graded on 2 of 4 areas. We couldn't check Google this time." Null when all four count.
+// missingAreas: area names, or { area, why } from coverageOf. Social left out because the home page did not load
+// (why "site-down") says so, since the Website grade beside it already shows the site down.
+export function coverageNote(graded, missingAreas) {
+  const missing = missingAreas.map((m) => (typeof m === "string" ? { area: m } : m));
+  if (!missing.length) return null;
+  if (!graded) return "We couldn't check any of the four areas this time.";
+  const head = `Graded on ${graded} of ${AREAS.length} areas.`;
+  if (missing.length === 1 && missing[0].area === "social" && missing[0].why === "site-down") return `${head} We couldn't check your social links because your website didn't load.`;
+  let names = [...new Set(missing.map((m) => PASTOR_NAME[m.area]).filter(Boolean))];
+  if (names.includes("your website")) names = names.filter((n) => n !== "your social links");
+  return `${head} We couldn't check ${names.join(" or ")} this time.`;
+}
+
+// result.coverage: { graded, of, missing: [{ area, why }], note }. why maps an area to its reason code
+// (google.js placesFailure, website.js failure, or audit.js's own: no-key, listing-unsure, listing-closed, site-down).
+export function coverageOf(scores, why = {}) {
+  const missing = AREAS.filter((k) => !scores?.areas?.[k]?.grade).map((area) => ({ area, why: why[area] || "not-checked" }));
+  const graded = AREAS.length - missing.length;
+  return { graded, of: AREAS.length, missing, note: coverageNote(graded, missing) };
+}
+
+// For Chris (Slack, ClickUp, the GoHighLevel note): which areas were left out and why, in one line.
+const WHY = {
+  "no-key": "no Google key is set", quota: "the Google quota ran out", timeout: "Google timed out", "key-rejected": "Google turned down the API key",
+  "api-error": "the Google lookup failed", "listing-unsure": "the Google listing may be another church's", "listing-closed": "Google shows only a closed listing",
+  blocked: "the site turned our check away", javascript: "the page builds itself with JavaScript", connection: "the connection to the site failed",
+  "not-a-page": "the address is not a web page", "page-missing": "the typed page was not found", "no-address": "no usable website address",
+  "loads-elsewhere": "the site loaded for Google's speed test but not for our check", "site-down": "the website did not load, so its links could not be read",
+  "not-checked": "not checked",
+};
+const CHRIS_NAME = { google: "Google", reviews: "Reviews", website: "Website", social: "Social" };
+export function coverageText(c) {
+  if (!c || !Array.isArray(c.missing) || !c.missing.length) return "";
+  const groups = new Map();
+  for (const m of c.missing) groups.set(m.why, [...(groups.get(m.why) || []), CHRIS_NAME[m.area] || m.area]);
+  const parts = [...groups].map(([why, areas]) => `${areas.join(" and ")} (${WHY[why] || why})`);
+  return `${c.graded ? `Graded on ${c.graded} of ${c.of} areas.` : "Nothing could be graded."} Left out: ${parts.join("; ")}.`;
 }

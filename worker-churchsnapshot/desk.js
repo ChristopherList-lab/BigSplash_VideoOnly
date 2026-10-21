@@ -120,6 +120,10 @@ export function cleanLead(raw, now = Date.now()) {
       .filter((f) => f.title || f.why),
     households: count(l.households),
     review_reasons: list(l.review_reasons, 10).map((r) => text(r, 200)).filter(Boolean),
+    // Which areas the grade left out and why ("Graded on 2 of 4 areas. Left out: ..."), and what the audit did
+    // without holding (a website swapped for the listing's, a site graded F). Older leads send neither.
+    coverage: text(l.coverage, 300),
+    info: list(l.info, 6).map((r) => text(r, 300)).filter(Boolean),
     possible_duplicates: list(l.possible_duplicates, 5).filter(isObj)
       .map((d) => ({ name: text(d.name, 120), address: text(d.address, 200), reviewCount: count(d.reviewCount) }))
       .filter((d) => d.name || d.address),
@@ -288,6 +292,8 @@ export function leadDescription(lead, env) {
     ...AREAS.map(([key, label]) => `| ${label} | ${lead.grades[key] || 'Not checked'} |`),
     '',
   );
+  if (lead.coverage) out.push(`**Coverage:** ${mdText(lead.coverage)}`, '');
+  if (lead.info.length) out.push('**Notes from the audit:**', ...lead.info.map((x) => `- ${mdItem(x)}`), '');
   if (lead.fixes.length) {
     out.push('**Top fixes:**', ...lead.fixes.map((f, i) => `${i + 1}. ${[f.title && mdItem(f.title), f.why && mdText(f.why)].filter(Boolean).join(': ')}`), '');
   }
@@ -331,6 +337,8 @@ export function leadSlackText(lead, clickup) {
     contact,
     c.attendance ? `${slackText(c.attendance)} on a Sunday` : 'Sunday attendance not given',
   ];
+  if (lead.coverage) lines.push(slackText(lead.coverage));
+  for (const x of lead.info) lines.push(`FYI: ${slackText(x)}`);
   if (lead.event === 'review') {
     if (lead.review_reasons.length) lines.push(`Held because: ${lead.review_reasons.map(slackText).join('; ')}`);
     if (lead.possible_duplicates.length) lines.push(`Possible duplicate listings: ${lead.possible_duplicates.length}`);

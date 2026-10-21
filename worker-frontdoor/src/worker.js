@@ -15,7 +15,8 @@ import { normalizeUrl, siteKey } from "./website.js";
 import { deliver, directStep, ghlContact, SCORECARD } from "./deliver.js";
 import { ghlReady } from "./ghl.js";
 import { foundingRoute } from "./founding.js";
-import { PHOTO_TYPES, sniffImage } from "./photo.js";
+import { servableLogo, SVG_TYPE } from "./logo.js";
+import { coverageText } from "./score.js";
 export { FrontDoorNurture } from "./nurture.js";
 export { FoundingFlow } from "./founding.js";
 
@@ -61,7 +62,7 @@ async function route(request, env, cors, ctx) {
     if (res) return res;
   }
   if (path === "/result" && request.method === "GET") return result(url, env, cors);
-  if (path === "/photo" && request.method === "GET") return photo(url, env);
+  if (path === "/logo" && request.method === "GET") return logo(url, env);
   if (path === "/approve" && request.method === "GET") return approveConfirm(url, env);
   if (path === "/approve" && request.method === "POST") return approve(request, env);
   if (path === "/nurture" && request.method === "GET") return nurtureLog(url, env, cors);
@@ -80,17 +81,20 @@ async function result(url, env, cors) {
   return json({ error: "Not found", status: record?.status || null }, 404, { ...cors, "Cache-Control": "no-store" });
 }
 
-// The church photo saved with an audit (src/photo.js), for the scorecard and the walkthrough page. Audit ids
-// are unguessable, so it is served whatever the audit's status, but only bytes saved as a photo whose type
-// still matches what they are.
-async function photo(url, env) {
+// The church logo saved with an audit (src/logo.js). Audit ids are unguessable, so it is served whatever the
+// audit's status, but only bytes whose stored type still matches what they are. An SVG is checked again on the
+// way out and goes with a policy that lets it run nothing and load nothing. Any origin may read it (the scorecard
+// checks whether a logo is light enough to need a dark chip behind it).
+async function logo(url, env) {
   const id = url.searchParams.get("id") || "";
   const missing = () => new Response("Not found", { status: 404, headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } });
   if (!/^[a-z0-9-]{6,80}$/.test(id)) return missing();
-  const { value, metadata } = (await env.AUDITS.getWithMetadata(`photo:${id}`, "arrayBuffer")) || {};
+  const { value, metadata } = (await env.AUDITS.getWithMetadata(`logo:${id}`, "arrayBuffer")) || {};
   const type = metadata?.type;
-  if (!value || !PHOTO_TYPES.includes(type) || sniffImage(new Uint8Array(value)) !== type) return missing();
-  return new Response(value, { status: 200, headers: { "Content-Type": type, "Cache-Control": "public, max-age=86400", "X-Content-Type-Options": "nosniff", "Content-Security-Policy": "default-src 'none'" } });
+  if (!value || !servableLogo(new Uint8Array(value), type)) return missing();
+  const headers = { "Content-Type": type, "Cache-Control": "public, max-age=86400", "X-Content-Type-Options": "nosniff", "Access-Control-Allow-Origin": "*",
+    "Content-Security-Policy": type === SVG_TYPE ? "default-src 'none'; style-src 'unsafe-inline'" : "default-src 'none'" };
+  return new Response(value, { status: 200, headers });
 }
 
 // The approve link from Slack or ClickUp. A GET changes nothing: mail scanners and link previews open links,
@@ -308,6 +312,8 @@ export class FrontDoorAudit extends WorkflowEntrypoint {
       if (!church) throw new Error("No church details in the record or the workflow params");
       result = await step.do("audit", { retries: { limit: 2, delay: "20 seconds", backoff: "linear" }, timeout: "5 minutes" },
         async () => runAudit(church, this.env, { id }));
+      // The audit may have read the city off the matched Google listing; the record and LeadDesk get it too.
+      if (result?.church?.city && result.church.city !== church.city) church = { ...church, city: result.church.city };
       // With no email address nobody would get the scorecard, so Chris holds it.
       if (!contact?.email) {
         result.needsReview = true;
@@ -452,6 +458,10 @@ export function slackText(church, contact, result, status, id, token, origin, se
     ? [`*Front Door Audit ready:* ${slackSafe(church.name)} got ${g ? `${/^[AEF]/.test(g) ? "an" : "a"} ${g}` : "no overall grade"}`]
     : [`*Front Door Audit needs your review:* ${slackSafe(church.name)}`, "Held because:", ...(result.reviewReasons || [result.reviewReason]).map((r) => `• ${slackSafe(r)}`)];
   lines.push(contactLine(contact), `Overall ${g ?? "not graded"} · ${grades}`);
+  // Which areas the grade left out and why, and what the audit did on its own (a swapped website, a site graded F).
+  const covered = coverageText(result.coverage);
+  if (covered) lines.push(covered);
+  for (const x of result.infoLines || []) lines.push(`FYI: ${slackSafe(x)}`);
   // Which site the Website and Social grades came from, next to the listing that was graded.
   if (result.website?.finalUrl) lines.push(`Website graded: ${slackSafe(result.website.finalUrl)}${result.google?.found ? ` · Listing: ${slackSafe(result.google.name)}, ${slackSafe(result.google.address)}` : ""}`);
   if (contact?.facebook_frequency) lines.push(`Says they post on Facebook: ${slackSafe(contact.facebook_frequency)}`);
@@ -478,7 +488,7 @@ async function postJson(url, payload) {
 // What the public scorecard link serves: no other churches' listings and no notes meant for Chris.
 function publicResult(r) {
   if (!r) return r;
-  const { possibleDuplicates, reviewReasons, reviewReason, errors, ...rest } = r;
+  const { possibleDuplicates, reviewReasons, reviewReason, errors, infoLines, ...rest } = r;
   if (rest.google) {
     const { possibleDuplicates: _d, conflictReason: _c, ...g } = rest.google;
     rest.google = g;

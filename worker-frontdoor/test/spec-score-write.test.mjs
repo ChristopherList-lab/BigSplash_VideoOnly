@@ -41,10 +41,13 @@ describe("area shape and overall", () => {
     assert.deepEqual(facts(s), []);
   });
 
-  test("overall is the average of graded areas, only with 3 or more", () => {
+  test("overall is the average of every graded area, however few; nothing graded means no overall", () => {
     let s = scoreAudit(audit({ google: google({ rating: 4.8, reviewCount: 5 }), website: { ok: false, checked: false, reason: "could not check" } }));
     assert.equal(s.areas.website.points, null);
     assert.equal(s.areas.social.points, null);
+    near(s.overall.points, (100 + 74) / 2, "2 of 4");
+    assert.equal(s.overall.grade, "B");
+    s = scoreAudit(audit({ google: null, nearMe: null, website: { ok: false, checked: false, reason: "could not check" } }));
     assert.equal(s.overall.points ?? null, null);
     assert.equal(s.overall.grade ?? null, null);
     s = scoreAudit(audit({ google: google({ rating: 4.8, reviewCount: 5 }), website: website({ socials: {}, sermons: { found: false, sources: [] }, youtube: null }) }));
@@ -104,7 +107,7 @@ describe("Google area", () => {
     assert.ok(has(s, "The Google listing has no service times or hours.", "Add your service times to Google"));
   });
 
-  test("no Google listing: Google and Reviews not graded, no finding, never F", () => {
+  test("Google not checked (or an older result that never said listed: false): not graded, no finding, never F", () => {
     for (const g of [{ found: false }, null]) {
       const s = scoreAudit(audit({ google: g, nearMe: null }));
       assert.deepEqual([s.areas.google.points, s.areas.google.grade ?? null, s.areas.google.checked], [null, null, false]);
@@ -267,7 +270,7 @@ describe("fallback notes", () => {
     c: audit({ nearMe: nearMe(5, 9), google: google({ rating: 4.8, reviewCount: 5 }), website: website({ planVisit: { found: false }, socials: { facebook: {}, instagram: {} }, youtube: { daysSinceLastUpload: 20 } }), speed: speed(60) }),
     weak: audit({ nearMe: nearMe(null, null), google: google({ rating: 3.2, reviewCount: 2, hoursListed: false }),
       website: website({ https: false, viewport: false, serviceTimes: { found: false }, planVisit: { found: false }, kids: { found: false }, socials: {}, sermons: { found: false, sources: [] }, youtube: null }), speed: speed(12) }),
-    notChecked: audit({ google: { found: false }, nearMe: null }),
+    notChecked: audit({ google: null, nearMe: null, website: { ok: false, checked: false, reason: "could not check" } }),
   };
 
   test("opener follows the overall grade, then the biggest gap", () => {

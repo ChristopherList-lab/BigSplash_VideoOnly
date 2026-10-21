@@ -425,6 +425,33 @@ test('cleanLead caps lists and lengths', () => {
   assert.equal(lead.submitted_at, 42);
 });
 
+// ---------- Coverage and notes from the audit ----------
+
+test('a partial grade: Slack and the task show which areas were left out and the audit notes; older leads show neither', async () => {
+  const lead = {
+    ...LEAD,
+    coverage: 'Graded on 2 of 4 areas. Left out: Website and Social (the site turned our check away).',
+    info: ['The near-me Google search failed, so Google was graded from the listing alone.'],
+  };
+  const { slack, desc } = await run(lead);
+  assert.ok(slack.includes('\nGraded on 2 of 4 areas. Left out: Website and Social (the site turned our check away).\n'), slack);
+  assert.ok(slack.includes('\nFYI: The near-me Google search failed, so Google was graded from the listing alone.\n'), slack);
+  assert.ok(desc.includes('**Coverage:** Graded on 2 of 4 areas. Left out: Website and Social (the site turned our check away).'), desc);
+  assert.ok(desc.includes('**Notes from the audit:**\n- The near-me Google search failed, so Google was graded from the listing alone.'), desc);
+  const old = await run(LEAD);
+  assert.equal(/Graded on|FYI:|Coverage|Notes from the audit/.test(old.slack + old.desc), false);
+});
+
+test('coverage and notes are cleaned like every other value: no pings, links or extra lines', async () => {
+  const lead = { ...REVIEW, coverage: 'Graded on 2 <!channel>\n*x*', info: ['<https://evil.test|click> [a](https://evil.test)', ...Array.from({ length: 9 }, (_, i) => `n${i}`)] };
+  const { slack, desc } = await run(lead);
+  assert.ok(!/<!channel>|<https:\/\/evil/.test(slack), slack);
+  assert.equal((slack.match(/^FYI: /gm) || []).length, 6, 'at most six notes');
+  const links = (d) => (d.match(/(?<!\\)\]\(/g) || []).length;
+  assert.equal(links(desc), links((await run(REVIEW)).desc), 'the notes add no markdown link');
+  assert.equal(cleanLead({ coverage: 7, info: 'not a list' }).info.length, 0);
+});
+
 // ---------- One destination failing ----------
 
 test('ClickUp failing still sends the Slack alert, and the alert says so', async () => {

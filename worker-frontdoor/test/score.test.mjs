@@ -36,26 +36,30 @@ test("near-me not checked grades Google out of 60 with no rank finding", () => {
   assert.equal(s.findings.filter((f) => f.area === "google").length, 0);
 });
 
-test("no listing, or an untrusted one, is not graded and gets no finding", () => {
-  for (const g of [{ found: false }, google({ trusted: false }), null]) {
+test("an unchecked or untrusted listing is not graded and gets no finding; the rest still make the grade", () => {
+  // { found: false } with no listed flag is an older result: it never says Google has no listing.
+  for (const g of [{ found: false }, { found: false, listed: true, closed: true }, google({ trusted: false }), null]) {
     const s = scoreAudit({ church, google: g, nearMe: null, website: website() });
     assert.equal(s.areas.google.points, null);
     assert.equal(s.areas.google.checked, false);
     assert.equal(s.areas.reviews.points, null);
     assert.equal(s.findings.filter((f) => f.area === "google" || f.area === "reviews").length, 0);
-    assert.equal(s.overall.grade, null); // only 2 areas graded
+    assert.equal(s.overall.grade, "A"); // website and social, 2 of 4
   }
 });
 
-test("a website the audit could not read is not graded, and social goes with it", () => {
+test("a website the audit could not read is not graded, social goes with it, and Google still makes the grade", () => {
   const s = scoreAudit({ church, google: google(), nearMe: nearMe(2), website: { ok: false, checked: false, reason: "did not load" } });
   assert.equal(s.areas.website.grade, null);
   assert.equal(s.areas.social.grade, null);
   assert.equal(s.findings.some((f) => /did not load|back online/.test(f.fact + f.fix)), false);
-  assert.equal(s.overall.points, null);
+  assert.equal(s.overall.points, 100);
   const n = notes({ church, google: google(), nearMe: nearMe(2), website: { checked: false } });
   assert.equal(n.areas.website, "We couldn't check this one this time. We can go over it together on a call with our team.");
-  assert.match(n.summary, /^We couldn't check everything this time\./);
+  assert.match(n.summary, /^A new family can find what they need/);
+  // Nothing checked at all: no overall grade, and the not-checked opener.
+  const none = notes({ church, google: null, website: { checked: false } });
+  assert.match(none.summary, /^We couldn't check everything this time\./);
 });
 
 test("reviews: few reviews and a lower rating each get a finding", () => {

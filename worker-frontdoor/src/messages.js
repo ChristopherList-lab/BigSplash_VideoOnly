@@ -1,7 +1,11 @@
 // The emails and texts a pastor gets from the Big Splash team, ported from front-door-funnel/EMAILS-AND-TEXTS.md.
 // Chris's rule (2026-10-20): every message comes from "the team at Big Splash", never from Chris by name.
-// Each email builder takes { firstName, church, grade, topFix, scorecardUrl, walkthroughUrl, videoLive,
-// address } and returns { subject, html, text }; each text builder returns { message }.
+// Each email builder takes { firstName, church, grade, coverage, searched, opened, topFix, scorecardUrl,
+// walkthroughUrl, videoLive, address } and returns { subject, html, text }; each text builder returns { message }.
+// coverage is the plain note for a grade built from fewer than four areas ("Graded on 3 of 4 areas. We couldn't
+// check Google this time."), empty when all four count. searched (the 4-mile Google search ran) and opened (the
+// audit opened the website on a phone) say what the first email may claim; left out, they follow coverage, the
+// way older results read.
 // Emails are plain and personal: paragraphs and links only, no images, no tracking. Every value is
 // escaped in the HTML. videoLive is false until Chris's walkthrough video is on the page, and the copy
 // says nothing about a video until then.
@@ -18,6 +22,9 @@ function vars(v = {}) {
     first: line(v.firstName) || "Pastor",
     church: line(v.church) || "your church",
     grade: line(v.grade),
+    coverage: line(v.coverage),
+    searched: typeof v.searched === "boolean" ? v.searched : !line(v.coverage),
+    opened: typeof v.opened === "boolean" ? v.opened : !line(v.coverage),
     fix: line(v.topFix),
     scorecard: v.scorecardUrl,
     walk: v.walkthroughUrl,
@@ -38,7 +45,15 @@ function render(subject, paragraphs, address, { stopLine = true } = {}) {
 }
 
 const gradeLine = (v) => (v.grade ? `Overall grade: ${v.grade}` : "Your grades are ready, area by area.");
+// Only beside a grade: the note explains what the grade is built from.
+const coverageLine = (v) => (v.grade ? v.coverage : "");
 const fixLine = (v) => (v.fix ? `First fix on your list: ${v.fix}` : "");
+// What the audit did, the way a family would: only the checks that ran.
+function methodLine(v) {
+  const did = v.searched ? "searched for you from about 4 miles out" : "looked your church up";
+  const site = v.opened ? " and opened your website on a phone" : "";
+  return `The audit ${did}${site}${v.searched || v.opened ? "," : ""} the way a family new to town would before their first Sunday.`;
+}
 // The one booking line every email ends its pitch with.
 const bookLine = (v) => ["Book a call with our team: ", link(v.walk)];
 
@@ -48,8 +63,10 @@ export function scorecardEmail(input) {
   return render(`Front Door scorecard for ${v.church}`, [
     [`Hi ${v.first},`],
     [`Your Front Door Audit for ${v.church} is done:`, link(v.scorecard)],
-    [gradeLine(v), fixLine(v)],
-    ["The audit searched for you from about 4 miles out and opened your website on a phone, the way a family new to town would before their first Sunday. Every grade on the page shows the fact behind it, so you can check our work."],
+    [gradeLine(v), coverageLine(v), fixLine(v)],
+    // Names only the checks that ran: an audit can grade all four areas without the 4-mile search (no listing,
+    // or the search failed and Google was graded from the listing alone).
+    [`${methodLine(v)} Every grade on the page shows the fact behind it, so you can check our work.`],
     ["If you'd like a second set of eyes, our team will go through every grade with you on a free 30-minute call and show you what we'd do first.", bookLine(v)],
   ], v.address);
 }
@@ -60,7 +77,7 @@ export function approvedEmail(input) {
   return render("Your Front Door scorecard (sorry for the wait)", [
     [`Hi ${v.first},`],
     [`Sorry for the wait on this one. Something in the audit for ${v.church} needed a human look, so our team checked it by hand before sending your scorecard. It's ready now:`, link(v.scorecard)],
-    [gradeLine(v), fixLine(v)],
+    [gradeLine(v), coverageLine(v), fixLine(v)],
     ["If you'd like to go through it together, our team will cover every grade with you on a free 30-minute call.", bookLine(v)],
     ["Thanks for your patience."],
   ], v.address);
