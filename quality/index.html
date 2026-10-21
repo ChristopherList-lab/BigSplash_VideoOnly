@@ -1,370 +1,429 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Quality Cooling, Heating &amp; Plumbing · Growth Plan · Big Splash</title>
-  <meta name="description" content="The Big Splash growth plan for Quality Cooling, Heating &amp; Plumbing. Pick a plan and start autopay.">
-  <meta name="robots" content="noindex,nofollow">
-  <link rel="icon" type="image/png" href="../Bigsplash_FAVcon.png">
-  <link rel="apple-touch-icon" href="../Bigsplash_FAVcon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #131318;
-      --surface: #1b1b20;
-      --surface-2: #1f1f25;
-      --line: #34343c;
-      --lime: #eff88b;
-      --on-lime: #2f3300;
-      --ink: #f4f1ea;
-      --body: #ddd8ce;
-      --dim: #a8a39a;
-      --red: #d11a2a;
-      --on-red: #fbf7f2;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; }
-    body {
-      background: var(--bg);
-      color: var(--body);
-      font-family: 'Inter', system-ui, sans-serif;
-      font-size: 17px;
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: inherit; }
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-    .display { font-family: 'Anton', Impact, sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ink); line-height: 1.02; margin: 0; }
-    .eyebrow { font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--lime); margin: 0 0 12px; }
-    section { padding: 64px 0; border-top: 1px solid #222228; }
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quality Cooling, Heating &amp; Plumbing · Growth Plan · Big Splash</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="../Bigsplash_FAVcon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--lime:#eff88b;--on-lime:#2f3300;--ink:#f4f1ea;--dim:#a8a39a;--line:#34343c;--surface:#1b1b20}
+html,body{margin:0}body{background:#0b0b0f;font-family:'Inter',system-ui,sans-serif;color:#ddd8ce;-webkit-font-smoothing:antialiased}
+.deck{max-width:1440px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:16px}
+.slide{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:14px}
+.slide>section{position:absolute;top:0;left:0;width:1920px;height:1080px;transform-origin:0 0;box-sizing:border-box}
+.slide section *{box-sizing:border-box;margin:0}
+.slide a{color:inherit}
+.extra{background:#131318;border-radius:14px;padding:clamp(20px,4vw,56px)}
+.eyebrow{font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin:0 0 10px}
+.work h2{font-family:'Anton',Impact,sans-serif;font-weight:400;text-transform:uppercase;color:var(--ink);font-size:clamp(32px,5vw,56px);line-height:1.05;margin:0}
+.work .sub{color:var(--dim);margin:8px 0 24px}
+.work-groups{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.work-groups h3{color:var(--ink);font-size:16px;font-weight:700;margin:0 0 12px}.work-groups h3 span{color:var(--lime)}
+.reels{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.reel{position:relative;display:block;aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:var(--surface)}
+.reel img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}.reel:hover img{transform:scale(1.04)}
+.reel::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,14,.85),rgba(10,10,14,0) 45%)}
+.reel .play{position:absolute;top:50%;left:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:var(--lime);z-index:1}
+.reel .play::before{content:"";position:absolute;left:18px;top:14px;border-left:14px solid var(--on-lime);border-top:9px solid transparent;border-bottom:9px solid transparent}
+.reel .cap{position:absolute;left:12px;right:12px;bottom:12px;z-index:1;color:var(--ink);font-size:14px;font-weight:700}
+.paybar{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.btn{flex:1 1 280px;display:block;text-align:center;text-decoration:none;font-weight:800;font-size:18px;padding:20px 22px;border-radius:14px}
+.btn.lime{background:var(--lime);color:var(--on-lime);box-shadow:0 8px 30px rgba(239,248,139,.18)}
+.btn.ghost{color:var(--ink);border:2px solid var(--line)}.btn.ghost:hover{border-color:var(--lime)}
+.paybar .note{flex:1 1 280px;color:var(--dim);font-size:15px}
+.lightbox{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(8,8,12,.9)}
+.lightbox.open{display:flex}.lightbox video{height:min(88vh,164vw);aspect-ratio:9/16;max-width:92vw;border-radius:16px;background:#000}
+.lightbox .close{position:absolute;top:16px;right:16px;width:46px;height:46px;border:0;border-radius:50%;background:var(--lime);color:var(--on-lime);font-size:28px;font-weight:700;cursor:pointer}
+@media (max-width:760px){.deck{padding:8px;gap:8px}.slide{border-radius:8px}.work-groups{grid-template-columns:1fr}}
+</style></head><body>
+<main class="deck">
+<div class="slide"><section id="cover" data-transition="fade" style="background:#131318;color:#DDD8CE;font-family:'Inter', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between">
+<div style="display:flex;flex-direction:row;align-items:center;gap:40px">
+<img src="assets/bigsplash-white.png" alt="Big Splash logo" style="width:276px;height:72px;object-fit:contain">
+<p style="font-size:44px;color:#A8A39A">×</p>
+<img src="assets/quality-logo.png" alt="Quality Cooling, Heating &amp; Plumbing logo" style="width:266px;height:96px;object-fit:contain">
+</div>
+<div style="display:flex;flex-direction:column;gap:40px">
+<h1 style="font-family:'Anton', Impact, sans-serif;font-size:132px;font-weight:400;line-height:1.02;text-transform:uppercase;color:#F4F1EA">40 years of quality.<br><span style="color:#EFF88B">Let’s put it on camera.</span></h1>
+<p style="font-size:36px;line-height:1.35;color:#A8A39A">A monthly video and Meta ads plan that starts in Georgetown and grows with results</p>
+</div>
+<div style="display:flex;flex-direction:row;align-items:center;gap:24px">
+<p style="font-size:24px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#2F3300;background:#EFF88B;padding:8px 20px;border-radius:999px">Local to Georgetown</p>
+<p style="font-size:24px;color:#A8A39A">Prepared for Fred Bilbo · October 21, 2026</p>
+</div>
 
-    header { padding: 32px 0 0; }
-    .lockup { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .lockup img.bs { height: 34px; width: auto; }
-    .lockup img.qc { height: 48px; width: auto; }
-    .lockup .x { color: var(--dim); font-size: 22px; }
+</section>
+</div>
+<div class="slide"><section id="today" data-transition="fade" style="background:#131318;color:#DDD8CE;font-family:'Inter', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between;gap:56px">
+<h2 style="font-family:'Anton', Impact, sans-serif;font-size:88px;font-weight:400;line-height:1.1;text-transform:uppercase;color:#F4F1EA">Where you stand today</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:24px">
+<div style="background:#1B1B20;border-radius:20px;padding:40px 32px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:96px;line-height:1.0;color:#EFF88B">4,000+</p>
+<p style="font-size:30px;line-height:1.35;color:#DDD8CE">verified reviews with a 5-star rating</p>
+</div>
+<div style="background:#1B1B20;border-radius:20px;padding:40px 32px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:96px;line-height:1.0;color:#EFF88B">3</p>
+<p style="font-size:30px;line-height:1.35;color:#DDD8CE">offices: Georgetown, Abilene and Brownwood</p>
+</div>
+<div style="background:#1B1B20;border-radius:20px;padding:40px 32px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:96px;line-height:1.0;color:#FF8A8F">1.3K</p>
+<p style="font-size:30px;line-height:1.35;color:#DDD8CE">Facebook followers. Last post in July.</p>
+</div>
+<div style="background:#1B1B20;border-radius:20px;padding:40px 32px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:96px;line-height:1.0;color:#FF8A8F">0</p>
+<p style="font-size:30px;line-height:1.35;color:#DDD8CE">Instagram or TikTok accounts linked on your website</p>
+</div>
+</div>
+<p style="font-size:48px;font-weight:700;line-height:1.25;color:#F4F1EA">Customers already love you. Your social doesn’t show it yet.</p>
 
-    .hero { padding: 72px 0 64px; border-top: 0; }
-    .hero h1 { font-size: clamp(48px, 9vw, 104px); }
-    .hero h1 span { color: var(--lime); }
-    .hero p.lede { font-size: clamp(18px, 2.2vw, 22px); color: var(--dim); max-width: 680px; margin: 28px 0 0; }
-    .pill { display: inline-block; background: var(--lime); color: var(--on-lime); font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; }
-    .hero .meta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 32px; color: var(--dim); font-size: 14px; }
-    .hero .cta { display: inline-block; margin-top: 36px; }
+</section>
+</div>
+<div class="slide"><section id="rhythm" data-transition="fade" style="background:#F3F0E8;color:#3A3832;font-family:'Inter', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+<h2 style="font-family:'Anton', Impact, sans-serif;font-size:88px;font-weight:400;line-height:1.1;text-transform:uppercase;color:#131318">One shoot a month, two styles</h2>
+<div style="display:grid;grid-template-columns:repeat(6, 1fr);gap:16px">
+<div style="background:#EFF88B;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:4px">
+<p style="font-size:24px;color:#2F3300">Kickoff</p>
+<p style="font-size:36px;font-weight:800;color:#2F3300">Both</p>
+</div>
+<div style="background:#131318;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:4px">
+<p style="font-size:24px;color:#A8A39A">Month 2</p>
+<p style="font-size:36px;font-weight:800;color:#F4F1EA">Field</p>
+</div>
+<div style="background:#D11A2A;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:4px">
+<p style="font-size:24px;color:#FBE3E4">Month 3</p>
+<p style="font-size:36px;font-weight:800;color:#FBF7F2">Owner</p>
+</div>
+<div style="background:#131318;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:4px">
+<p style="font-size:24px;color:#A8A39A">Month 4</p>
+<p style="font-size:36px;font-weight:800;color:#F4F1EA">Field</p>
+</div>
+<div style="background:#D11A2A;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:4px">
+<p style="font-size:24px;color:#FBE3E4">Month 5</p>
+<p style="font-size:36px;font-weight:800;color:#FBF7F2">Owner</p>
+</div>
+<div style="background:#131318;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:4px">
+<p style="font-size:24px;color:#A8A39A">Month 6</p>
+<p style="font-size:36px;font-weight:800;color:#F4F1EA">Field</p>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+<div style="background:#FBFAF6;border-top:8px solid #131318;border-radius:16px;padding:40px;display:flex;flex-direction:column;gap:16px">
+<h3 style="font-size:40px;font-weight:800;color:#131318">Field months</h3>
+<p style="font-size:30px;line-height:1.4;color:#3A3832">Our shooter rides along on a live job with an iPhone. We capture the before, the tear-out, the install and the after, in photos and video.</p>
+</div>
+<div style="background:#FBFAF6;border-top:8px solid #D11A2A;border-radius:16px;padding:40px;display:flex;flex-direction:column;gap:16px">
+<h3 style="font-size:40px;font-weight:800;color:#131318">Owner months</h3>
+<p style="font-size:30px;line-height:1.4;color:#3A3832">Chris brings the cinema camera to a job site. Fred and the Bilbo Brothers speak to camera from scripts we write.</p>
+</div>
+</div>
+<p style="font-size:28px;color:#5A5650">The kickoff covers both shoots within your first three weeks, scheduled around your crews. We’re local to Georgetown, so when a big install comes up, we can be on site that week.</p>
 
-    .grid { display: grid; gap: 16px; }
-    .g3 { grid-template-columns: repeat(3, 1fr); }
-    .g4 { grid-template-columns: repeat(4, 1fr); }
-    .card { background: var(--surface); border-radius: 18px; padding: 26px; }
-    .card .num { font-family: 'Anton', Impact, sans-serif; font-size: 40px; line-height: 1; color: var(--lime); }
-    .card h3 { color: var(--ink); font-size: 19px; font-weight: 700; margin: 10px 0 6px; }
-    .card p { margin: 0; color: var(--dim); font-size: 15.5px; }
-    h2.display { font-size: clamp(36px, 5.5vw, 56px); margin-bottom: 28px; }
+</section>
+</div>
+<div class="extra work"><p class="eyebrow">Recent work</p><h2>What the shoots look like</h2><p class="sub">Tap any video to watch it.</p>
+<div class="work-groups"><div><h3><span>Field months:</span> real jobs</h3><div class="reels">
+<a class="reel" href="https://f.io/35AI2Sca" target="_blank" rel="noopener" data-video="assets/work/install-day.mp4"><img src="assets/work/install-day.webp" alt="Crew installing lights on a house"><span class="play"></span><span class="cap">Install day</span></a>
+<a class="reel" href="https://f.io/yzbzlMjb" target="_blank" rel="noopener" data-video="assets/work/retire-the-ladder.mp4"><img src="assets/work/retire-the-ladder.webp" alt="Homeowner on a ladder"><span class="play"></span><span class="cap">Retire the ladder</span></a>
+<a class="reel" href="https://f.io/og4Q5NGP" target="_blank" rel="noopener" data-video="assets/work/holiday-lights.mp4"><img src="assets/work/holiday-lights.webp" alt="House lights controlled from a phone"><span class="play"></span><span class="cap">Lights from your phone</span></a>
+</div></div><div><h3><span>Owner months:</span> on camera</h3><div class="reels">
+<a class="reel" href="https://f.io/gZg28jLo" target="_blank" rel="noopener" data-video="assets/work/poppy-pro-cleaning.mp4"><img src="assets/work/poppy-pro-cleaning.webp" alt="Business owner walking a street"><span class="play"></span><span class="cap">Poppy Pro Cleaning ad</span></a>
+<a class="reel" href="https://f.io/RHLBORwQ" target="_blank" rel="noopener" data-video="assets/work/lead-form-ad.mp4"><img src="assets/work/lead-form-ad.webp" alt="Woman speaking to camera"><span class="play"></span><span class="cap">Lead form ad</span></a>
+<a class="reel" href="https://f.io/0aXpRgt8" target="_blank" rel="noopener" data-video="assets/work/owner-on-camera.mp4"><img src="assets/work/owner-on-camera.webp" alt="Owner speaking to camera"><span class="play"></span><span class="cap">Owner on camera</span></a>
+</div></div></div></div>
+<div class="slide"><section id="monthly" data-transition="fade" style="background:#131318;color:#DDD8CE;font-family:'Inter', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:48px">
+<h2 style="font-family:'Anton', Impact, sans-serif;font-size:88px;font-weight:400;line-height:1.1;text-transform:uppercase;color:#F4F1EA">Every month, done for you</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px">
+<div style="background:#1B1B20;border-radius:20px;padding:36px 40px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;flex-direction:row;align-items:baseline;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:64px;line-height:1.0;white-space:nowrap;color:#EFF88B">10</p>
+<p style="font-size:34px;font-weight:700;color:#F4F1EA">social posts</p>
+</div>
+<p style="font-size:28px;line-height:1.4;color:#A8A39A">Made and scheduled to Instagram, TikTok and YouTube Shorts.</p>
+</div>
+<div style="background:#1B1B20;border-radius:20px;padding:36px 40px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;flex-direction:row;align-items:baseline;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:64px;line-height:1.0;white-space:nowrap;color:#EFF88B">5</p>
+<p style="font-size:34px;font-weight:700;color:#F4F1EA">new ads</p>
+</div>
+<p style="font-size:28px;line-height:1.4;color:#A8A39A">Fresh Meta ad creative every month, so your ads never go stale.</p>
+</div>
+<div style="background:#1B1B20;border-radius:20px;padding:36px 40px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;flex-direction:row;align-items:baseline;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:64px;line-height:1.0;white-space:nowrap;color:#EFF88B">Meta</p>
+<p style="font-size:34px;font-weight:700;color:#F4F1EA">ads managed</p>
+</div>
+<p style="font-size:28px;line-height:1.4;color:#A8A39A">Tuned every week, starting in Georgetown and growing with results.</p>
+</div>
+<div style="background:#1B1B20;border-radius:20px;padding:36px 40px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;flex-direction:row;align-items:baseline;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:64px;line-height:1.0;white-space:nowrap;color:#EFF88B">1</p>
+<p style="font-size:34px;font-weight:700;color:#F4F1EA">shoot day</p>
+</div>
+<p style="font-size:28px;line-height:1.4;color:#A8A39A">Field or owner style, filmed on one of your job sites.</p>
+</div>
+<div style="background:#1B1B20;border-radius:20px;padding:36px 40px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;flex-direction:row;align-items:baseline;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:64px;line-height:1.0;white-space:nowrap;color:#EFF88B">Live</p>
+<p style="font-size:34px;font-weight:700;color:#F4F1EA">lead alerts</p>
+</div>
+<p style="font-size:28px;line-height:1.4;color:#A8A39A">Tracks every lead, alerts you instantly and links to the software you already use.</p>
+</div>
+<div style="background:#1B1B20;border-radius:20px;padding:36px 40px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;flex-direction:row;align-items:baseline;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:64px;line-height:1.0;white-space:nowrap;color:#EFF88B">Weekly</p>
+<p style="font-size:34px;font-weight:700;color:#F4F1EA">results reports</p>
+</div>
+<p style="font-size:28px;line-height:1.4;color:#A8A39A">A short report every week on what came in and what we’re changing.</p>
+</div>
+</div>
 
-    .steps .card { border-top: 4px solid var(--line); }
-    .steps .card.hl { background: var(--lime); border-top-color: var(--on-lime); }
-    .steps .card.hl .num, .steps .card.hl h3, .steps .card.hl p { color: var(--on-lime); }
-    .steps .card.end { border: 2px solid var(--red); }
-    .steps .card.end .num { color: #ff8a8f; }
+</section>
+</div>
+<div class="slide"><section id="markets" data-transition="fade" style="background:#F3F0E8;color:#3A3832;font-family:'Inter', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between;gap:40px">
+<h2 style="font-family:'Anton', Impact, sans-serif;font-size:88px;font-weight:400;line-height:1.1;text-transform:uppercase;color:#131318">Start in Georgetown, then expand</h2>
+<div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px">
+<div style="background:#D11A2A;border-radius:24px;padding:44px 48px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;flex-direction:row">
+<p style="font-size:24px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#A0141F;background:#FBF7F2;padding:8px 20px;border-radius:999px">Now</p>
+</div>
+<h3 style="font-size:44px;font-weight:800;line-height:1.2;color:#FBF7F2">Georgetown + North Austin</h3>
+<p style="font-size:26px;line-height:1.4;color:#FBE3E4">Round Rock, Cedar Park, Leander, Pflugerville</p>
+<div style="display:flex;flex-direction:row;align-items:baseline;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:96px;line-height:1.0;color:#FBF7F2">$1,000</p>
+<p style="font-size:30px;color:#FBE3E4">per month</p>
+</div>
+</div>
+<div style="background:#FBFAF6;border:2px dashed #BDB6A8;border-radius:24px;padding:44px 40px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;flex-direction:row">
+<p style="font-size:24px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#F4F1EA;background:#131318;padding:8px 20px;border-radius:999px">Next</p>
+</div>
+<h3 style="font-size:44px;font-weight:800;line-height:1.2;color:#131318">Abilene</h3>
+<p style="font-size:26px;line-height:1.4;color:#5A5650">Your original shop. Added once Georgetown proves out.</p>
+</div>
+<div style="background:#FBFAF6;border:2px dashed #BDB6A8;border-radius:24px;padding:44px 40px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;flex-direction:row">
+<p style="font-size:24px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#F4F1EA;background:#131318;padding:8px 20px;border-radius:999px">Then</p>
+</div>
+<h3 style="font-size:44px;font-weight:800;line-height:1.2;color:#131318">Brownwood</h3>
+<p style="font-size:26px;line-height:1.4;color:#5A5650">Your newest office. Added after Abilene.</p>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;border-top:2px solid #D6D1C6;padding:32px 0px 0px 0px">
+<p style="font-size:36px;font-weight:800;color:#131318">$1,000 a month minimum ad spend</p>
+<p style="font-size:28px;line-height:1.4;color:#3A3832">Paid straight to Meta on your own card, so you own the ad account. Once Georgetown books jobs at a cost we both like, we add the next town with its own ad budget and management fee, using the same footage with local copy.</p>
+</div>
 
-    .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .plan { background: var(--surface); border: 2px solid var(--line); border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 14px; }
-    .plan.best { border: 3px solid var(--lime); }
-    .plan .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-    .plan h3 { margin: 0; color: var(--ink); font-size: 24px; font-weight: 800; }
-    .plan .tag { font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; background: #2a2a31; color: var(--body); white-space: nowrap; }
-    .plan.best .tag { background: var(--lime); color: var(--on-lime); }
-    .price { display: flex; align-items: baseline; gap: 10px; }
-    .price strong { font-family: 'Anton', Impact, sans-serif; font-weight: 400; font-size: 72px; line-height: 1; color: var(--ink); }
-    .plan.best .price strong { color: var(--lime); }
-    .price span { color: var(--dim); }
-    .plan ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
-    .plan li { padding-left: 26px; position: relative; color: var(--body); }
-    .plan li::before { content: ""; position: absolute; left: 4px; top: 9px; width: 10px; height: 10px; border-radius: 50%; background: var(--lime); }
-    .due { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; color: var(--dim); font-size: 15px; }
-    .due b { color: var(--ink); }
-    .btn { display: block; text-align: center; text-decoration: none; font-weight: 800; font-size: 17px; padding: 18px 22px; border-radius: 14px; transition: transform .15s ease, box-shadow .15s ease; }
-    .btn:hover { transform: translateY(-1px); }
-    .btn:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
-    .btn.lime { background: var(--lime); color: var(--on-lime); box-shadow: 0 8px 30px rgba(239, 248, 139, 0.18); }
-    .btn.ghost { background: transparent; color: var(--ink); border: 2px solid var(--line); }
-    .btn.ghost:hover { border-color: var(--lime); }
+</section>
+</div>
+<div class="slide"><section id="first90" data-transition="fade" style="background:#131318;color:#DDD8CE;font-family:'Inter', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between;gap:40px">
+<div style="display:flex;flex-direction:column;gap:20px">
+<h2 style="font-family:'Anton', Impact, sans-serif;font-size:88px;font-weight:400;line-height:1.1;text-transform:uppercase;color:#F4F1EA">Your first 90 days</h2>
+<p style="font-size:34px;line-height:1.35;color:#A8A39A">Ads go live before the cameras do, so filming around your crews never holds up leads.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(6, 1fr);gap:20px">
+<div style="background:#1B1B20;border-top:6px solid #A8A39A;border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;gap:12px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:44px;line-height:1.0;text-transform:uppercase;white-space:nowrap;color:#EFF88B">Week 1–2</p>
+<h3 style="font-size:32px;font-weight:800;color:#F4F1EA">Setup</h3>
+<p style="font-size:26px;line-height:1.4;color:#A8A39A">Accounts, ad build, scripts, GHL linked to your software.</p>
+</div>
+<div style="background:#1B1B20;border-top:6px solid #A8A39A;border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;gap:12px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:48px;line-height:1.0;text-transform:uppercase;color:#EFF88B">Day 14</p>
+<h3 style="font-size:32px;font-weight:800;color:#F4F1EA">Ads live</h3>
+<p style="font-size:26px;line-height:1.4;color:#A8A39A">Starter ads built from your reviews and offers.</p>
+</div>
+<div style="background:#1B1B20;border-top:6px solid #A8A39A;border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;gap:12px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:48px;line-height:1.0;text-transform:uppercase;color:#EFF88B">Day 21</p>
+<h3 style="font-size:32px;font-weight:800;color:#F4F1EA">Shoots done</h3>
+<p style="font-size:26px;line-height:1.4;color:#A8A39A">Field and owner shoots, set around your crews’ schedule.</p>
+</div>
+<div style="background:#EFF88B;border-top:6px solid #2F3300;border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;gap:12px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:48px;line-height:1.0;text-transform:uppercase;color:#1C1F00">Day 30</p>
+<h3 style="font-size:32px;font-weight:800;color:#1C1F00">First leads</h3>
+<p style="font-size:26px;line-height:1.4;color:#2F3300">Leads hitting your phone, plus your weekly reports.</p>
+</div>
+<div style="background:#1B1B20;border-top:6px solid #A8A39A;border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;gap:12px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:48px;line-height:1.0;text-transform:uppercase;color:#EFF88B">Day 60</p>
+<h3 style="font-size:32px;font-weight:800;color:#F4F1EA">Tuned</h3>
+<p style="font-size:26px;line-height:1.4;color:#A8A39A">Your footage in the ads. We set your cost-per-lead target.</p>
+</div>
+<div style="background:#1B1B20;border:3px solid #D11A2A;border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;gap:12px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:48px;line-height:1.0;text-transform:uppercase;color:#FF8A8F">Day 90</p>
+<h3 style="font-size:32px;font-weight:800;color:#F4F1EA">Your call</h3>
+<p style="font-size:26px;line-height:1.4;color:#A8A39A">Keep going, or cancel with no fees.</p>
+</div>
+</div>
+<p style="font-size:26px;line-height:1.4;color:#A8A39A">Dates count from the day we get access to your Facebook page and ad account.</p>
 
-    .promise { margin-top: 20px; background: var(--red); color: var(--on-red); border-radius: 18px; padding: 22px 28px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
-    .promise .display { font-size: 32px; color: var(--on-red); white-space: nowrap; }
-    .promise p { margin: 0; font-size: 17px; }
-    .fine { margin-top: 20px; color: var(--dim); font-size: 14.5px; }
-    .fine p { margin: 0 0 6px; }
+</section>
+</div>
+<div class="slide"><section id="budget" data-transition="fade" style="background:#F3F0E8;color:#3A3832;font-family:'Inter', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between;gap:40px">
+<h2 style="font-family:'Anton', Impact, sans-serif;font-size:88px;font-weight:400;line-height:1.1;text-transform:uppercase;color:#131318">How we spend the ad budget</h2>
+<div style="display:grid;grid-template-columns:1.25fr 1fr;gap:32px">
+<div style="display:flex;flex-direction:column;gap:20px">
+<div style="background:#FBFAF6;border-left:8px solid #131318;border-radius:16px;padding:26px 32px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;flex-direction:row;align-items:center;gap:16px">
+<p style="font-size:24px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#F4F1EA;background:#131318;padding:6px 16px;border-radius:999px">Test</p>
+<h3 style="font-size:34px;font-weight:800;color:#131318">Months 1 and 2 · $1,000/mo</h3>
+</div>
+<p style="font-size:27px;line-height:1.4;color:#3A3832">Find the offers and ads that book jobs, and learn your real cost per lead.</p>
+</div>
+<div style="background:#FBFAF6;border-left:8px solid #D11A2A;border-radius:16px;padding:26px 32px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;flex-direction:row;align-items:center;gap:16px">
+<p style="font-size:24px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#FBF7F2;background:#D11A2A;padding:6px 16px;border-radius:999px">Push</p>
+<h3 style="font-size:34px;font-weight:800;color:#131318">Cold fronts and heat waves</h3>
+</div>
+<p style="font-size:27px;line-height:1.4;color:#3A3832">Calls spike when the weather turns. We add $300 to $500 for a 3 to 5 day push, with your OK by text first.</p>
+</div>
+<div style="background:#FBFAF6;border-left:8px solid #8A9A1E;border-radius:16px;padding:26px 32px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;flex-direction:row;align-items:center;gap:16px">
+<p style="font-size:24px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#2F3300;background:#EFF88B;padding:6px 16px;border-radius:999px">Scale</p>
+<h3 style="font-size:34px;font-weight:800;color:#131318">Once it works</h3>
+</div>
+<p style="font-size:27px;line-height:1.4;color:#3A3832">Raise the steady budget, then add Abilene and Brownwood. Each new town adds its own ad spend and management fee.</p>
+</div>
+</div>
+<div style="background:#131318;border-radius:20px;padding:40px 44px;display:flex;flex-direction:column;gap:22px">
+<p style="font-size:24px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#EFF88B">What a win looks like</p>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:flex-start">
+<svg width="36" height="36" viewBox="0 0 24 24" style="flex:none"><circle cx="12" cy="12" r="11" fill="#EFF88B"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#2F3300" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<p style="font-size:30px;line-height:1.35;color:#F4F1EA">10 to 25 leads a month at $40 to $80 each</p>
+</div>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:flex-start">
+<svg width="36" height="36" viewBox="0 0 24 24" style="flex:none"><circle cx="12" cy="12" r="11" fill="#EFF88B"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#2F3300" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<p style="font-size:30px;line-height:1.35;color:#F4F1EA">Every lead called back within 5 minutes</p>
+</div>
+<div style="display:flex;flex-direction:row;gap:16px;align-items:flex-start">
+<svg width="36" height="36" viewBox="0 0 24 24" style="flex:none"><circle cx="12" cy="12" r="11" fill="#EFF88B"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#2F3300" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<p style="font-size:30px;line-height:1.35;color:#F4F1EA">One replacement a month covers the whole plan</p>
+</div>
+</div>
+</div>
+<p style="font-size:26px;line-height:1.4;color:#5A5650">Mild weeks are normal. We use them to build your audience and run financing offers, so the next cold front lands harder.</p>
 
-    .addons .card .num { font-size: 34px; color: var(--ink); }
-    .addons .card .num small { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--dim); text-transform: none; margin-left: 6px; }
-    .allin { margin-top: 16px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 18px; padding: 22px 26px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
-    .allin .display { font-size: 40px; white-space: nowrap; }
-    .allin p { margin: 0; flex: 1; min-width: 240px; color: var(--body); }
+</section>
+</div>
+<div class="slide"><section id="math" data-transition="fade" style="background:#EFF88B;color:#2F3300;font-family:'Inter', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:48px">
+<h2 style="font-family:'Anton', Impact, sans-serif;font-size:140px;font-weight:400;line-height:1.0;text-transform:uppercase;color:#1C1F00">One new system<br>pays for the month.</h2>
+<p style="font-size:40px;line-height:1.4;color:#2F3300">On the 12-month plan, everything comes to $3,950 a month with ad spend included. A single AC or heat pump replacement covers it.</p>
 
-    footer { padding: 56px 0 64px; border-top: 1px solid #222228; }
-    .contact { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; justify-content: space-between; }
-    .contact img { height: 30px; width: auto; }
-    .contact .who { color: var(--ink); font-weight: 700; }
-    .contact a { color: var(--lime); text-decoration: none; }
-    .contact .links { display: flex; gap: 20px; flex-wrap: wrap; }
+</section>
+</div>
+<div class="slide"><section id="investment" data-transition="fade" style="background:#131318;color:#DDD8CE;font-family:'Inter', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between;gap:32px">
+<h2 style="font-family:'Anton', Impact, sans-serif;font-size:88px;font-weight:400;line-height:1.1;text-transform:uppercase;color:#F4F1EA">Your investment</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+<div style="background:#1B1B20;border:3px solid #EFF88B;border-radius:24px;padding:44px 48px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:16px">
+<h3 style="font-size:44px;font-weight:800;color:#F4F1EA">12-month plan</h3>
+<p style="font-size:24px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#2F3300;background:#EFF88B;padding:8px 20px;border-radius:999px">Best value</p>
+</div>
+<div style="display:flex;flex-direction:row;align-items:baseline;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:112px;line-height:1.0;color:#EFF88B">$2,950</p>
+<p style="font-size:30px;color:#A8A39A">per month</p>
+</div>
+<p style="font-size:28px;line-height:1.4;color:#DDD8CE">Setup fee waived, a $1,500 savings.<br>Your rate stays locked for the year.</p>
+</div>
+<div style="background:#1B1B20;border:2px solid #3A3A42;border-radius:24px;padding:44px 48px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:16px">
+<h3 style="font-size:44px;font-weight:800;color:#F4F1EA">6-month plan</h3>
+<p style="font-size:24px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#DDD8CE;background:#2A2A31;padding:8px 20px;border-radius:999px">Shorter term</p>
+</div>
+<div style="display:flex;flex-direction:row;align-items:baseline;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:112px;line-height:1.0;color:#F4F1EA">$3,250</p>
+<p style="font-size:30px;color:#A8A39A">per month</p>
+</div>
+<p style="font-size:28px;line-height:1.4;color:#DDD8CE">Plus a $1,500 one-time setup for the kickoff shoots, new accounts, ad build and GHL setup.</p>
+</div>
+</div>
+<div style="background:#D11A2A;border-radius:20px;padding:28px 40px;display:flex;flex-direction:row;align-items:center;gap:40px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:48px;line-height:1.0;text-transform:uppercase;color:#FBF7F2;white-space:nowrap">90-day promise</p>
+<p style="font-size:30px;line-height:1.35;color:#FBF7F2">Not happy after 3 months? Cancel with no fees. Tell us before day 90.</p>
+</div>
+<p style="font-size:26px;line-height:1.45;color:#A8A39A"><span style="color:#F4F1EA">Plan pricing covers Georgetown and North Austin. Each new market adds its own ad spend and management fee, agreed before it launches.</span><br>Ad spend is separate: $1,000/mo minimum, billed by Meta to your card. Autopay through Stripe, by bank transfer or card.<br>After your term, month to month with 30 days’ notice.</p>
 
-    .work .sub { color: var(--dim); margin: -12px 0 28px; max-width: 640px; }
-    .work-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-    .work-groups h3 { color: var(--ink); font-size: 16px; font-weight: 700; margin: 0 0 12px; }
-    .work-groups h3 span { color: var(--lime); }
-    .reels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .reel { position: relative; display: block; aspect-ratio: 9 / 16; border-radius: 14px; overflow: hidden; background: var(--surface); text-decoration: none; }
-    .reel img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s ease; }
-    .reel:hover img { transform: scale(1.04); }
-    .reel:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
-    .reel::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,14,.85) 0%, rgba(10,10,14,0) 45%); }
-    .reel .play { position: absolute; top: 50%; left: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; background: var(--lime); z-index: 1; box-shadow: 0 6px 20px rgba(0,0,0,.35); }
-    .reel .play::before { content: ""; position: absolute; left: 18px; top: 14px; border-left: 14px solid var(--on-lime); border-top: 9px solid transparent; border-bottom: 9px solid transparent; }
-    .reel .cap { position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 1; color: var(--ink); font-size: 14px; font-weight: 700; line-height: 1.3; }
+</section>
+</div>
+<div class="extra paybar" id="plans"><a class="btn lime" href="https://buy.stripe.com/eVq14n1pNbSv6PN9V118c03">Start the 12-month plan · $2,950/mo</a><a class="btn ghost" href="https://buy.stripe.com/bJeeVdd8v7Cfgqn4AH18c04">Start the 6-month plan · $4,750 today</a></div>
+<div class="slide"><section id="addons" data-transition="fade" style="background:#F3F0E8;color:#3A3832;font-family:'Inter', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between;gap:40px">
+<h2 style="font-family:'Anton', Impact, sans-serif;font-size:88px;font-weight:400;line-height:1.1;text-transform:uppercase;color:#131318">Add-ons</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px">
+<div style="background:#FBFAF6;border-top:8px solid #131318;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:14px">
+<h3 style="font-size:38px;font-weight:800;color:#131318">Website rebuild</h3>
+<div style="display:flex;flex-direction:row;align-items:baseline;gap:14px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:80px;line-height:1.0;color:#131318">$2,000</p>
+<p style="font-size:26px;color:#5A5650">one-time</p>
+</div>
+<p style="font-size:28px;line-height:1.4;color:#3A3832">A new site for all three offices, live within 60 days, with your Google rankings kept intact.</p>
+</div>
+<div style="background:#FBFAF6;border-top:8px solid #131318;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:14px">
+<h3 style="font-size:38px;font-weight:800;color:#131318">Website care</h3>
+<div style="display:flex;flex-direction:row;align-items:baseline;gap:14px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:80px;line-height:1.0;color:#131318">$250</p>
+<p style="font-size:26px;color:#5A5650">per month</p>
+</div>
+<p style="font-size:28px;line-height:1.4;color:#3A3832">Hosting, updates, backups and edits whenever you ask, plus landing pages for your ads.</p>
+</div>
+<div style="background:#FBFAF6;border-top:8px solid #D11A2A;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:14px">
+<h3 style="font-size:38px;font-weight:800;color:#131318">AI optimization</h3>
+<div style="display:flex;flex-direction:row;align-items:baseline;gap:14px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:80px;line-height:1.0;color:#131318">$500</p>
+<p style="font-size:26px;color:#5A5650">per month</p>
+</div>
+<p style="font-size:28px;line-height:1.4;color:#3A3832">Set up in your first 30 days, so ChatGPT and Google’s AI recommend you for AC repair nearby.</p>
+</div>
+</div>
+<div style="background:#131318;border-radius:20px;padding:36px 44px;display:flex;flex-direction:row;align-items:center;gap:40px">
+<div style="flex:none;width:420px;display:flex;flex-direction:column;gap:4px">
+<p style="font-size:26px;font-weight:800;letter-spacing:2px;text-transform:uppercase;white-space:nowrap;color:#EFF88B">All-in, 12 months</p>
+<p style="font-family:'Anton', Impact, sans-serif;font-size:80px;line-height:1.0;color:#F4F1EA;white-space:nowrap">$3,700/mo</p>
+</div>
+<p style="font-size:30px;line-height:1.4;color:#DDD8CE">The 12-month plan, website care and AI optimization together, with the $2,000 rebuild included. The rebuild starts after your first 90 days and goes live within 60.</p>
+</div>
 
-    .lightbox { position: fixed; inset: 0; z-index: 50; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(8, 8, 12, 0.9); }
-    .lightbox.open { display: flex; }
-    .lightbox video { height: min(88vh, 164vw); aspect-ratio: 9 / 16; max-width: 92vw; border-radius: 16px; background: #000; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
-    .lightbox .close { position: absolute; top: 16px; right: 16px; width: 46px; height: 46px; border: 0; border-radius: 50%; background: var(--lime); color: var(--on-lime); font-size: 28px; line-height: 46px; font-weight: 700; cursor: pointer; }
-    .lightbox .close:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+</section>
+</div>
+<div class="extra paybar"><a class="btn lime" href="https://buy.stripe.com/14A5kDd8vg8L5LJebh18c02">Start All-in · $3,700/mo</a><span class="note">Add website care or AI optimization at checkout on either plan above.</span></div>
+<div class="slide"><section id="next" data-transition="fade" style="background:#131318;color:#DDD8CE;font-family:'Inter', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+<h2 style="font-family:'Anton', Impact, sans-serif;font-size:88px;font-weight:400;line-height:1.1;text-transform:uppercase;color:#F4F1EA">Next steps</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px">
+<div style="background:#1B1B20;border-radius:20px;padding:44px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:96px;line-height:1.0;color:#EFF88B">01</p>
+<h3 style="font-size:40px;font-weight:800;line-height:1.2;color:#F4F1EA">Pick your plan</h3>
+<p style="font-size:28px;line-height:1.4;color:#A8A39A">Choose 6 or 12 months and start autopay at <a href="#plans"><span style="color:#EFF88B">bigsplash.video/quality</span></a>.</p>
+</div>
+<div style="background:#1B1B20;border-radius:20px;padding:44px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:96px;line-height:1.0;color:#EFF88B">02</p>
+<h3 style="font-size:40px;font-weight:800;line-height:1.2;color:#F4F1EA">Sign the agreement</h3>
+<p style="font-size:28px;line-height:1.4;color:#A8A39A">We send it for e-signature with your kickoff dates.</p>
+</div>
+<div style="background:#1B1B20;border-radius:20px;padding:44px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'Anton', Impact, sans-serif;font-size:96px;line-height:1.0;color:#EFF88B">03</p>
+<h3 style="font-size:40px;font-weight:800;line-height:1.2;color:#F4F1EA">Book the kickoff shoots</h3>
+<p style="font-size:28px;line-height:1.4;color:#A8A39A">Both within three weeks, on dates that work for your crews.</p>
+</div>
+</div>
+<div style="display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:32px">
+<div style="display:flex;flex-direction:row;align-items:center;gap:40px">
+<img src="assets/bigsplash-white.png" alt="Big Splash logo" style="width:230px;height:60px;object-fit:contain">
+<p style="font-size:32px;font-weight:800;color:#F4F1EA">Chris List</p>
+<p style="font-size:32px;color:#EFF88B">chris@bigsplash.agency</p>
+</div>
+<img src="assets/quality-logo.png" alt="Quality Cooling, Heating &amp; Plumbing logo" style="width:222px;height:80px;object-fit:contain">
+</div>
 
-    .budget-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 20px; align-items: start; }
-    .phases { display: grid; gap: 14px; }
-    .phase { background: var(--surface); border-left: 6px solid var(--line); border-radius: 16px; padding: 20px 24px; }
-    .phase.push { border-left-color: var(--red); }
-    .phase.scale { border-left-color: var(--lime); }
-    .phase .head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
-    .phase .tag { font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; background: #2a2a31; color: var(--body); }
-    .phase.push .tag { background: var(--red); color: var(--on-red); }
-    .phase.scale .tag { background: var(--lime); color: var(--on-lime); }
-    .phase h3 { margin: 0; color: var(--ink); font-size: 19px; font-weight: 800; }
-    .phase p { margin: 0; color: var(--dim); }
-    .win { background: var(--surface-2); border: 2px solid var(--lime); border-radius: 18px; padding: 26px 28px; }
-    .win ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-    .win li { position: relative; padding-left: 36px; color: var(--ink); font-size: 18px; font-weight: 600; line-height: 1.4; }
-    .win li::before { content: ""; position: absolute; left: 0; top: 2px; width: 24px; height: 24px; border-radius: 50%; background: var(--lime) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 12.5l3.2 3.2L17 9' fill='none' stroke='%232f3300' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat; }
-    .budget-note { margin-top: 18px; color: var(--dim); font-size: 15.5px; }
-
-    @media (max-width: 860px) {
-      .g3, .g4 { grid-template-columns: 1fr 1fr; }
-      .plans { grid-template-columns: 1fr; }
-      .work-groups { grid-template-columns: 1fr; }
-      .budget-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 520px) {
-      .wrap { padding: 0 16px; }
-      .g3, .g4 { grid-template-columns: 1fr; }
-      section { padding: 48px 0; }
-      .hero { padding: 48px 0; }
-      .price strong { font-size: 60px; }
-      .lockup img.bs { height: 28px; }
-      .lockup img.qc { height: 40px; }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="wrap lockup">
-      <img class="bs" src="assets/bigsplash-white.png" alt="Big Splash">
-      <span class="x">×</span>
-      <img class="qc" src="assets/quality-logo.png" alt="Quality Cooling, Heating &amp; Plumbing">
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="wrap">
-        <h1 class="display">40 years of quality.<br><span>Let’s put it on camera.</span></h1>
-        <p class="lede">A monthly video and Meta ads plan for Quality Cooling, Heating &amp; Plumbing. It starts in Georgetown and grows with results.</p>
-        <div class="meta"><span class="pill">Local to Georgetown</span><span>Prepared for Fred Bilbo</span></div>
-        <a class="btn lime cta" href="#plans">Pick your plan</a>
-      </div>
-    </section>
-
-    <section>
-      <div class="wrap">
-        <p class="eyebrow">Every month</p>
-        <h2 class="display">Done for you</h2>
-        <div class="grid g3">
-          <div class="card"><div class="num">1</div><h3>Shoot day</h3><p>Field months capture real jobs. Owner months put Fred and the Bilbo Brothers on camera.</p></div>
-          <div class="card"><div class="num">10</div><h3>Social posts</h3><p>Made and scheduled to Instagram, TikTok and YouTube Shorts.</p></div>
-          <div class="card"><div class="num">5</div><h3>New ads</h3><p>Fresh Meta ad creative every month, so your ads never go stale.</p></div>
-          <div class="card"><div class="num">Meta</div><h3>Ads managed</h3><p>Tuned every week, starting in Georgetown, then Abilene and Brownwood.</p></div>
-          <div class="card"><div class="num">Live</div><h3>Lead alerts</h3><p>GoHighLevel tracks every lead and alerts you the moment one comes in.</p></div>
-          <div class="card"><div class="num">Weekly</div><h3>Results reports</h3><p>A short report every week on what came in and what we’re changing.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="work">
-      <div class="wrap">
-        <p class="eyebrow">Recent work</p>
-        <h2 class="display">What the shoots look like</h2>
-        <p class="sub">Tap any video to watch it.</p>
-        <div class="work-groups">
-          <div>
-            <h3><span>Field months:</span> real jobs</h3>
-            <div class="reels">
-              <a class="reel" href="https://f.io/35AI2Sca" target="_blank" rel="noopener" data-video="assets/work/install-day.mp4"><img src="assets/work/install-day.webp" alt="Crew on ladders installing lights on a house"><span class="play"></span><span class="cap">Install day</span></a>
-              <a class="reel" href="https://f.io/yzbzlMjb" target="_blank" rel="noopener" data-video="assets/work/retire-the-ladder.mp4"><img src="assets/work/retire-the-ladder.webp" alt="Homeowner on a ladder beside her house"><span class="play"></span><span class="cap">Retire the ladder</span></a>
-              <a class="reel" href="https://f.io/og4Q5NGP" target="_blank" rel="noopener" data-video="assets/work/holiday-lights.mp4"><img src="assets/work/holiday-lights.webp" alt="House lights controlled from a phone at night"><span class="play"></span><span class="cap">Lights from your phone</span></a>
-            </div>
-          </div>
-          <div>
-            <h3><span>Owner months:</span> on camera</h3>
-            <div class="reels">
-              <a class="reel" href="https://f.io/gZg28jLo" target="_blank" rel="noopener" data-video="assets/work/poppy-pro-cleaning.mp4"><img src="assets/work/poppy-pro-cleaning.webp" alt="Business owner walking a neighborhood street"><span class="play"></span><span class="cap">Poppy Pro Cleaning ad</span></a>
-              <a class="reel" href="https://f.io/RHLBORwQ" target="_blank" rel="noopener" data-video="assets/work/lead-form-ad.mp4"><img src="assets/work/lead-form-ad.webp" alt="Woman speaking to camera"><span class="play"></span><span class="cap">Lead form ad</span></a>
-              <a class="reel" href="https://f.io/0aXpRgt8" target="_blank" rel="noopener" data-video="assets/work/owner-on-camera.mp4"><img src="assets/work/owner-on-camera.webp" alt="Owner speaking to camera in his office"><span class="play"></span><span class="cap">Owner on camera</span></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="wrap">
-        <p class="eyebrow">Your first 90 days</p>
-        <h2 class="display">Leads before the cameras</h2>
-        <div class="grid g4 steps">
-          <div class="card"><div class="num">Day 14</div><h3>Ads live</h3><p>Starter ads built from your reviews and offers.</p></div>
-          <div class="card"><div class="num">Day 21</div><h3>Shoots done</h3><p>Field and owner shoots, set around your crews.</p></div>
-          <div class="card hl"><div class="num">Day 30</div><h3>First leads</h3><p>Leads hitting your phone, plus weekly reports.</p></div>
-          <div class="card end"><div class="num">Day 90</div><h3>Your call</h3><p>Keep going, or cancel with no fees.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="wrap">
-        <p class="eyebrow">Setting expectations</p>
-        <h2 class="display">How we spend the ad budget</h2>
-        <div class="budget-grid">
-          <div class="phases">
-            <div class="phase"><div class="head"><span class="tag">Test</span><h3>Months 1 and 2 · $1,000/mo</h3></div><p>Find the offers and ads that book jobs, and learn your real cost per lead.</p></div>
-            <div class="phase push"><div class="head"><span class="tag">Push</span><h3>Cold fronts and heat waves</h3></div><p>Calls spike when the weather turns. We add $300 to $500 for a 3 to 5 day push, with your OK by text first.</p></div>
-            <div class="phase scale"><div class="head"><span class="tag">Scale</span><h3>Once it works</h3></div><p>Raise the steady budget, then add Abilene and Brownwood. Each new town adds its own ad spend and management fee.</p></div>
-          </div>
-          <div class="win">
-            <p class="eyebrow">What a win looks like</p>
-            <ul>
-              <li>10 to 25 leads a month at $40 to $80 each</li>
-              <li>Every lead called back within 5 minutes</li>
-              <li>One replacement a month covers the whole plan</li>
-            </ul>
-          </div>
-        </div>
-        <p class="budget-note">Mild weeks are normal. We use them to build your audience and run financing offers, so the next cold front lands harder.</p>
-      </div>
-    </section>
-
-    <section id="plans">
-      <div class="wrap">
-        <p class="eyebrow">Your investment</p>
-        <h2 class="display">Pick your plan</h2>
-        <div class="plans">
-          <div class="plan best">
-            <div class="top"><h3>12-month plan</h3><span class="tag">Best value</span></div>
-            <div class="price"><strong>$2,950</strong><span>per month</span></div>
-            <ul>
-              <li>Setup fee waived, a $1,500 savings</li>
-              <li>Your rate stays locked for the year</li>
-            </ul>
-            <div class="due"><span>Due today</span><b>$2,950</b></div>
-            <a class="btn lime" href="https://buy.stripe.com/eVq14n1pNbSv6PN9V118c03">Start the 12-month plan</a>
-          </div>
-          <div class="plan">
-            <div class="top"><h3>6-month plan</h3><span class="tag">Shorter term</span></div>
-            <div class="price"><strong>$3,250</strong><span>per month</span></div>
-            <ul>
-              <li>Plus a $1,500 one-time setup</li>
-              <li>Setup covers the kickoff shoots, new accounts, ad build and GHL setup</li>
-            </ul>
-            <div class="due"><span>Due today</span><b>$4,750</b></div>
-            <a class="btn ghost" href="https://buy.stripe.com/bJeeVdd8v7Cfgqn4AH18c04">Start the 6-month plan</a>
-          </div>
-        </div>
-        <div class="promise">
-          <span class="display">90-day promise</span>
-          <p>Not happy after 3 months? Cancel with no fees. Tell us before day 90.</p>
-        </div>
-        <div class="fine">
-          <p>Add website care or AI optimization at checkout with one tap. The 6-month checkout also offers the website rebuild.</p>
-          <p>Autopay runs through Stripe each month, by bank transfer or card.</p>
-          <p>Ad spend is separate: $1,000 a month minimum, billed by Meta to your own card.</p>
-          <p style="color:var(--body)">Plan pricing covers Georgetown and North Austin. Each new market adds its own ad spend and management fee, agreed before it launches.</p>
-          <p>After your term, the plan runs month to month with 30 days’ notice. We’ll send your agreement for e-signature with your kickoff dates.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="addons">
-      <div class="wrap">
-        <p class="eyebrow">Optional</p>
-        <h2 class="display">Add-ons</h2>
-        <p style="margin:-12px 0 24px;color:var(--dim)">Pick them at checkout under “Add to your order,” or go All-in.</p>
-        <div class="grid g3">
-          <div class="card"><div class="num">$2,000<small>one-time</small></div><h3>Website rebuild</h3><p>A new site for all three offices, live within 60 days, with your Google rankings kept intact.</p></div>
-          <div class="card"><div class="num">$250<small>per month</small></div><h3>Website care</h3><p>Hosting, updates, backups and edits whenever you ask, plus landing pages for your ads.</p></div>
-          <div class="card"><div class="num">$500<small>per month</small></div><h3>AI optimization</h3><p>Set up in your first 30 days, so ChatGPT and Google’s AI recommend you for AC repair nearby.</p></div>
-        </div>
-        <div class="allin">
-          <span class="display" style="text-transform:none">$3,700/mo</span>
-          <p><b>All-in, 12 months.</b> The 12-month plan, website care and AI optimization together, with the $2,000 rebuild included. The rebuild starts after your first 90 days.</p>
-          <a class="btn lime" style="flex:none" href="https://buy.stripe.com/14A5kDd8vg8L5LJebh18c02">Start All-in</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap contact">
-      <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
-        <img src="assets/bigsplash-white.png" alt="Big Splash">
-        <span class="who">Chris List</span>
-      </div>
-      <div class="links">
-        <a href="mailto:chris@bigsplash.agency">chris@bigsplash.agency</a>
-        <a href="tel:+12546003466">(254) 600-3466</a>
-      </div>
-    </div>
-  </footer>
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Video player">
-    <button class="close" type="button" aria-label="Close video">×</button>
-    <video controls playsinline preload="none"></video>
-  </div>
-  <script>
-    (function () {
-      var lb = document.getElementById('lightbox');
-      var v = lb.querySelector('video');
-      var closeBtn = lb.querySelector('.close');
-      var last = null;
-      function open(a) {
-        last = a;
-        v.poster = a.querySelector('img').src;
-        v.src = a.getAttribute('data-video');
-        lb.classList.add('open');
-        document.body.style.overflow = 'hidden';
-        closeBtn.focus();
-        var p = v.play(); if (p && p.catch) p.catch(function () {});
-      }
-      function close() {
-        v.pause(); v.removeAttribute('src'); v.load();
-        lb.classList.remove('open');
-        document.body.style.overflow = '';
-        if (last) last.focus();
-      }
-      document.querySelectorAll('.reel[data-video]').forEach(function (a) {
-        a.addEventListener('click', function (e) { e.preventDefault(); open(a); });
-      });
-      closeBtn.addEventListener('click', close);
-      lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && lb.classList.contains('open')) close(); });
-    })();
-  </script>
-</body>
-</html>
+</section>
+</div>
+</main>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Video player"><button class="close" type="button" aria-label="Close video">×</button><video controls playsinline preload="none"></video></div>
+<script>
+(function(){
+  function fit(){document.querySelectorAll('.slide').forEach(function(s){s.firstElementChild.style.transform='scale('+(s.clientWidth/1920)+')';});}
+  fit(); window.addEventListener('resize',fit); if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+  var lb=document.getElementById('lightbox'),v=lb.querySelector('video'),c=lb.querySelector('.close'),last=null;
+  function open(a){last=a;v.poster=a.querySelector('img').src;v.src=a.getAttribute('data-video');lb.classList.add('open');document.body.style.overflow='hidden';c.focus();var p=v.play();if(p&&p.catch)p.catch(function(){});}
+  function close(){v.pause();v.removeAttribute('src');v.load();lb.classList.remove('open');document.body.style.overflow='';if(last)last.focus();}
+  document.querySelectorAll('.reel[data-video]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();open(a);});});
+  c.addEventListener('click',close);lb.addEventListener('click',function(e){if(e.target===lb)close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb.classList.contains('open'))close();});
+})();
+</script>
+</body></html>
