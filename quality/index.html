@@ -126,6 +126,12 @@
     .reel .play::before { content: ""; position: absolute; left: 18px; top: 14px; border-left: 14px solid var(--on-lime); border-top: 9px solid transparent; border-bottom: 9px solid transparent; }
     .reel .cap { position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 1; color: var(--ink); font-size: 14px; font-weight: 700; line-height: 1.3; }
 
+    .lightbox { position: fixed; inset: 0; z-index: 50; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(8, 8, 12, 0.9); }
+    .lightbox.open { display: flex; }
+    .lightbox video { height: min(88vh, 164vw); aspect-ratio: 9 / 16; max-width: 92vw; border-radius: 16px; background: #000; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+    .lightbox .close { position: absolute; top: 16px; right: 16px; width: 46px; height: 46px; border: 0; border-radius: 50%; background: var(--lime); color: var(--on-lime); font-size: 28px; line-height: 46px; font-weight: 700; cursor: pointer; }
+    .lightbox .close:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
     @media (max-width: 860px) {
       .g3, .g4 { grid-template-columns: 1fr 1fr; }
       .plans { grid-template-columns: 1fr; }
@@ -185,17 +191,17 @@
           <div>
             <h3><span>Field months:</span> real jobs</h3>
             <div class="reels">
-              <a class="reel" href="https://f.io/35AI2Sca" target="_blank" rel="noopener"><img src="assets/work/install-day.webp" alt="Crew on ladders installing lights on a house"><span class="play"></span><span class="cap">Install day</span></a>
-              <a class="reel" href="https://f.io/yzbzlMjb" target="_blank" rel="noopener"><img src="assets/work/retire-the-ladder.webp" alt="Homeowner on a ladder beside her house"><span class="play"></span><span class="cap">Retire the ladder</span></a>
-              <a class="reel" href="https://f.io/og4Q5NGP" target="_blank" rel="noopener"><img src="assets/work/holiday-lights.webp" alt="House lights controlled from a phone at night"><span class="play"></span><span class="cap">Lights from your phone</span></a>
+              <a class="reel" href="https://f.io/35AI2Sca" target="_blank" rel="noopener" data-video="assets/work/install-day.mp4"><img src="assets/work/install-day.webp" alt="Crew on ladders installing lights on a house"><span class="play"></span><span class="cap">Install day</span></a>
+              <a class="reel" href="https://f.io/yzbzlMjb" target="_blank" rel="noopener" data-video="assets/work/retire-the-ladder.mp4"><img src="assets/work/retire-the-ladder.webp" alt="Homeowner on a ladder beside her house"><span class="play"></span><span class="cap">Retire the ladder</span></a>
+              <a class="reel" href="https://f.io/og4Q5NGP" target="_blank" rel="noopener" data-video="assets/work/holiday-lights.mp4"><img src="assets/work/holiday-lights.webp" alt="House lights controlled from a phone at night"><span class="play"></span><span class="cap">Lights from your phone</span></a>
             </div>
           </div>
           <div>
             <h3><span>Owner months:</span> on camera</h3>
             <div class="reels">
-              <a class="reel" href="https://f.io/gZg28jLo" target="_blank" rel="noopener"><img src="assets/work/poppy-pro-cleaning.webp" alt="Business owner walking a neighborhood street"><span class="play"></span><span class="cap">Poppy Pro Cleaning ad</span></a>
-              <a class="reel" href="https://f.io/RHLBORwQ" target="_blank" rel="noopener"><img src="assets/work/lead-form-ad.webp" alt="Woman speaking to camera"><span class="play"></span><span class="cap">Lead form ad</span></a>
-              <a class="reel" href="https://f.io/0aXpRgt8" target="_blank" rel="noopener"><img src="assets/work/owner-on-camera.webp" alt="Owner speaking to camera in his office"><span class="play"></span><span class="cap">Owner on camera</span></a>
+              <a class="reel" href="https://f.io/gZg28jLo" target="_blank" rel="noopener" data-video="assets/work/poppy-pro-cleaning.mp4"><img src="assets/work/poppy-pro-cleaning.webp" alt="Business owner walking a neighborhood street"><span class="play"></span><span class="cap">Poppy Pro Cleaning ad</span></a>
+              <a class="reel" href="https://f.io/RHLBORwQ" target="_blank" rel="noopener" data-video="assets/work/lead-form-ad.mp4"><img src="assets/work/lead-form-ad.webp" alt="Woman speaking to camera"><span class="play"></span><span class="cap">Lead form ad</span></a>
+              <a class="reel" href="https://f.io/0aXpRgt8" target="_blank" rel="noopener" data-video="assets/work/owner-on-camera.mp4"><img src="assets/work/owner-on-camera.webp" alt="Owner speaking to camera in his office"><span class="play"></span><span class="cap">Owner on camera</span></a>
             </div>
           </div>
         </div>
@@ -285,5 +291,38 @@
       </div>
     </div>
   </footer>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Video player">
+    <button class="close" type="button" aria-label="Close video">×</button>
+    <video controls playsinline preload="none"></video>
+  </div>
+  <script>
+    (function () {
+      var lb = document.getElementById('lightbox');
+      var v = lb.querySelector('video');
+      var closeBtn = lb.querySelector('.close');
+      var last = null;
+      function open(a) {
+        last = a;
+        v.poster = a.querySelector('img').src;
+        v.src = a.getAttribute('data-video');
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+        var p = v.play(); if (p && p.catch) p.catch(function () {});
+      }
+      function close() {
+        v.pause(); v.removeAttribute('src'); v.load();
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+        if (last) last.focus();
+      }
+      document.querySelectorAll('.reel[data-video]').forEach(function (a) {
+        a.addEventListener('click', function (e) { e.preventDefault(); open(a); });
+      });
+      closeBtn.addEventListener('click', close);
+      lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && lb.classList.contains('open')) close(); });
+    })();
+  </script>
 </body>
 </html>
