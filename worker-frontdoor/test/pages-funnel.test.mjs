@@ -272,12 +272,30 @@ describe("church page", () => {
     assert.ok(s.includes("It's free, and you don't have to get on a call. Most scorecards are ready in a few minutes."));
   });
 
-  test("pricing, films, founder and Christmas stay; the light theme stays", () => {
+  test("pricing, films, founder and Christmas stay; the page below the hero stays dark", () => {
     for (const keep of ["$1,497", "$1,997", "Custom quote", 'id="films"', 'id="christmas"', "<!-- ========== FOUNDER", 'id="levels"', 'id="faq"']) {
       assert.ok(church.includes(keep), keep);
     }
-    assert.match(church, /paper: '#f8f5ee'/);
-    assert.match(church, /html, body \{ background: #f8f5ee;/);
+    // The near-black root paints over the old cream rule, so an overscroll bounce at either end stays dark.
+    assert.match(church, /:root \{ --night: #0b0b0e;/);
+    assert.match(church, /html, body \{ background-color: #0b0b0e; \}/);
+    assert.match(church, /main\.night \{ background: var\(--night\);/);
+    assert.match(church, /<main id="main" class="night">/);
+    assert.match(church, /<meta name="theme-color" content="#0b0b0e">/);
+  });
+
+  test("the Saturday list is said once, in the Saturday text step, and the closing film keeps its pause button", () => {
+    const text = visible(church);
+    // The welcome team still hears about the Saturday list, but Step 3 no longer repeats the Saturday step above it.
+    assert.equal(text.split("Your welcome team gets a list of who's coming.").length - 1, 1);
+    assert.equal(text.includes("On Saturday, your welcome team gets a list of who's coming."), false);
+    const saturday = church.slice(church.indexOf('data-screen="3"'), church.indexOf('data-screen="4"'));
+    assert.ok(saturday.includes("Your welcome team gets a list of who's coming."), "the list line sits in the Saturday step");
+    // The film credit shows once, in the hero; the closing section keeps only its pause button.
+    assert.equal(text.split("We filmed this at City Reach Church in Cedar Park").length - 1, 1);
+    const finalCta = church.slice(church.indexOf("<!-- ========== FINAL CTA"), church.indexOf("</main>"));
+    assert.match(finalCta, /<button type="button" id="final-video-toggle" class="film-toggle" aria-label="Pause the background video" aria-pressed="false">/);
+    assert.equal(finalCta.includes("We filmed this"), false);
   });
 
   test("the FAQ covers the audit and the page script no longer looks for the form", () => {
@@ -358,11 +376,32 @@ describe("privacy and plain words", () => {
 
   test("the church page keeps to Chris's writing rules where the review found gaps", () => {
     const text = visible(church);
-    for (const banned of ["Fill Sunday", "fill Sunday", "likes and clicks", "Where you land", "How do you know who showed up", "What is the campaign budget", "Who films and edits", "and on your welcome team"]) {
+    for (const banned of ["Fill Sunday", "fill Sunday", "likes and clicks", "Where you land", "How do you know who showed up", "What is the campaign budget", "Who films and edits", "and on your welcome team",
+      "share your church's story", "Every monthly plan", "an online invite that only they see", "They also see that invite.", "Most campaigns take a few months", "through your doors"]) {
       assert.equal(church.includes(banned), false, banned);
     }
     assert.match(text, /We help your church/);
     assert.match(text, /100,000 families welcomed into the local church/);
+    assert.match(church, /We invite families near your church with short videos on Facebook and Instagram\. We follow up with each new family\./);
+    assert.ok(text.includes("We also show them a Facebook and Instagram ad that invites them back."));
+    assert.ok(text.includes("No. You sign a simple month-to-month agreement and can cancel with 30 days notice. Give a new campaign a few months before you judge it."));
     assert.equal(/Where you land/.test(landing), false);
+  });
+
+  test("the church page's second review: no adverbs, no repeated report, one plain Saturday text", () => {
+    const text = visible(church);
+    for (const banned of ["Good stewardship", "STOP anytime", "already serves churches", "Already have videos?", "Still have a question?", "Can we still work together?",
+      "We share these to show how we film.", "use a simple link", "still matter most", "straight from its own account", "All you need to welcome new families",
+      "One ad won't bring a family in.", "who hasn't replied STOP", "We check your church from a phone", "what your leaders see each month", "These are sample numbers."]) {
+      assert.equal(text.includes(banned), false, banned);
+    }
+    assert.ok(text.includes("We text a reminder with parking and kids info. Your welcome team gets a list of who's coming."));
+    assert.ok(text.includes("They pick a service time on a page we build for you, and your church texts them to confirm."));
+    assert.ok(text.includes("From a phone about 4 miles away, we search for your church and grade what we find."));
+    assert.ok(text.includes("Families can reply STOP to end the texts."));
+    // The report phone only feeds the sticky stage; below it the full sheet is the one report.
+    assert.match(church, /\n  \.j-visual-report \{ display: none; \}\n/);
+    // The sticky phone steps aside as soon as the sheet comes into view.
+    assert.match(church, /sheet\.getBoundingClientRect\(\)\.top < window\.innerHeight \* 0\.9/);
   });
 });
