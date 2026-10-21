@@ -132,10 +132,28 @@
     .lightbox .close { position: absolute; top: 16px; right: 16px; width: 46px; height: 46px; border: 0; border-radius: 50%; background: var(--lime); color: var(--on-lime); font-size: 28px; line-height: 46px; font-weight: 700; cursor: pointer; }
     .lightbox .close:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 
+    .budget-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 20px; align-items: start; }
+    .phases { display: grid; gap: 14px; }
+    .phase { background: var(--surface); border-left: 6px solid var(--line); border-radius: 16px; padding: 20px 24px; }
+    .phase.push { border-left-color: var(--red); }
+    .phase.scale { border-left-color: var(--lime); }
+    .phase .head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+    .phase .tag { font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; background: #2a2a31; color: var(--body); }
+    .phase.push .tag { background: var(--red); color: var(--on-red); }
+    .phase.scale .tag { background: var(--lime); color: var(--on-lime); }
+    .phase h3 { margin: 0; color: var(--ink); font-size: 19px; font-weight: 800; }
+    .phase p { margin: 0; color: var(--dim); }
+    .win { background: var(--surface-2); border: 2px solid var(--lime); border-radius: 18px; padding: 26px 28px; }
+    .win ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+    .win li { position: relative; padding-left: 36px; color: var(--ink); font-size: 18px; font-weight: 600; line-height: 1.4; }
+    .win li::before { content: ""; position: absolute; left: 0; top: 2px; width: 24px; height: 24px; border-radius: 50%; background: var(--lime) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 12.5l3.2 3.2L17 9' fill='none' stroke='%232f3300' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat; }
+    .budget-note { margin-top: 18px; color: var(--dim); font-size: 15.5px; }
+
     @media (max-width: 860px) {
       .g3, .g4 { grid-template-columns: 1fr 1fr; }
       .plans { grid-template-columns: 1fr; }
       .work-groups { grid-template-columns: 1fr; }
+      .budget-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 520px) {
       .wrap { padding: 0 16px; }
@@ -218,6 +236,29 @@
           <div class="card hl"><div class="num">Day 30</div><h3>First leads</h3><p>Leads hitting your phone, plus weekly reports.</p></div>
           <div class="card end"><div class="num">Day 90</div><h3>Your call</h3><p>Keep going, or cancel with no fees.</p></div>
         </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <p class="eyebrow">Setting expectations</p>
+        <h2 class="display">How we spend the ad budget</h2>
+        <div class="budget-grid">
+          <div class="phases">
+            <div class="phase"><div class="head"><span class="tag">Test</span><h3>Months 1 and 2 · $1,000/mo</h3></div><p>Find the offers and ads that book jobs, and learn your real cost per lead.</p></div>
+            <div class="phase push"><div class="head"><span class="tag">Push</span><h3>Cold fronts and heat waves</h3></div><p>Calls spike when the weather turns. We add $300 to $500 for a 3 to 5 day push, with your OK by text first.</p></div>
+            <div class="phase scale"><div class="head"><span class="tag">Scale</span><h3>Once it works</h3></div><p>Raise the steady budget, then add Abilene and Brownwood.</p></div>
+          </div>
+          <div class="win">
+            <p class="eyebrow">What a win looks like</p>
+            <ul>
+              <li>10 to 25 leads a month at $40 to $80 each</li>
+              <li>Every lead called back within 5 minutes</li>
+              <li>One replacement a month covers the whole plan</li>
+            </ul>
+          </div>
+        </div>
+        <p class="budget-note">Mild weeks are normal. We use them to build your audience and run financing offers, so the next cold front lands harder.</p>
       </div>
     </section>
 
