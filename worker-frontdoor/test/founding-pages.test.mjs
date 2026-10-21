@@ -336,9 +336,9 @@ describe("founding page: markup", () => {
       "Your own plan-your-visit page", "Follow-up texts and emails, written and loaded", "Your Facebook and Instagram campaign, set up and ready to launch"]) {
       assert.ok(founding.includes(item), item);
     }
-    assert.ok(church.includes("Your own plan-your-visit page"));
-    assert.match(church, /<s class="price-was tnum"><span class="sr-only">Regular rate <\/span>\$1,997<\/s>/);
-    assert.match(church, /Month to month\. Cancel with 30 days notice\./);
+    assert.ok(church.includes("A web page where new families plan their visit"));
+    assert.match(church, /<s class="price-was tnum"><span class="sr-only">Regular price <\/span>\$1,997<\/s>/);
+    assert.match(church, /No long-term contract\. You sign a simple month-to-month agreement\. Cancel with 30 days notice\./);
     assert.match(church, /Filming at your church<\/h3>\s*<p[^>]*>Custom quote<\/p>/);
     for (const old of ["$4,500", "$3,500", "$2,497", "$1,697", "6 or 12"]) assert.ok(!church.includes(old), `church page still says ${old}`);
     for (const term of ["Your term starts the day your campaign launches.", "can cancel with 30 days notice.", "Everything we build for your church stays yours.", "We never promise a set number of families."]) {

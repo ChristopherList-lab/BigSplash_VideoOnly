@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Free Front Door Audit for churches · Big Splash</title>
-<meta name="description" content="See your church the way a new family does. A free audit of your Google listing, reviews, website and sermons, from a neighbor's phone.">
+<meta name="description" content="See your church the way a new family does. Our free audit checks your Google results, reviews, website, social and sermons. It runs from a phone about 4 miles from your church.">
 <meta property="og:title" content="Free Front Door Audit for churches">
-<meta property="og:description" content="See your church the way a new family does: Google, reviews, website and sermons, graded in minutes.">
+<meta property="og:description" content="See your church the way a new family does. We check your Google results, reviews, website, social and sermons. Most scorecards are ready in a few minutes.">
 <link rel="icon" href="/assets/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -93,29 +93,29 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px
     <div>
       <p class="eyebrow"><img src="/assets/images/starburst-lime-solid.svg" alt="">Free for pastors</p>
       <h1>See your church the way <span class="hl">a new family</span> does.</h1>
-      <p class="lede">A family's first visit starts on a phone. The Front Door Audit looks you up from a neighbor's phone, about 4 miles away, and grades what it finds. Most scorecards are ready in a few minutes.</p>
+      <p class="lede">New families look you up on their phone before they visit. Our free Front Door Audit runs that same search from a phone about 4 miles away. It grades what it finds, and most scorecards are ready in a few minutes.</p>
       <a class="jump" href="#audit-form">Run my free audit</a>
       <ul class="checks">
-        <li><b>Google search</b>Your spot in the results when a neighbor searches "church."</li>
+        <li><b>Google search</b>Your Google rank when a neighbor searches "church."</li>
         <li><b>Reviews</b>Your Google star rating and how many reviews you have.</li>
-        <li><b>Website on a phone</b>Service times, a plan-your-visit page, kids info and speed.</li>
-        <li><b>Social and sermons</b>Your sermons and social accounts, as linked from your home page.</li>
+        <li><b>Website on a phone</b>Service times, kids info, a plan-your-visit page and how fast your site loads.</li>
+        <li><b>Social and sermons</b>Can people find your sermons and social media from your home page?</li>
       </ul>
-      <div class="sample"><img src="sample-scorecard.jpg" alt="A sample Front Door Audit scorecard"><p>A sample scorecard. Yours includes the number of households within a 10-minute drive (Texas churches) and up to three fixes to start with.</p></div>
+      <div class="sample"><img src="sample-scorecard.jpg" alt="A sample Front Door Audit scorecard"><p>Here's a sample scorecard. Yours lists up to three things to fix first. Texas churches also see how many households live within a 10-minute drive.</p></div>
       <p class="mission">Our mission: 100,000 families welcomed into the local church.</p>
     </div>
 
     <div>
       <form id="audit-form" novalidate>
         <h2>Run my free audit</h2>
-        <p class="small">No call needed to get your scorecard. We'll email you a copy, then a few short notes from our team over the next week. Reply stop anytime.</p>
+        <p class="small">No call needed. We'll email your scorecard, then a few short notes over the next week. Reply "stop" anytime to end them.</p>
         <label for="church">Church name</label>
         <input id="church" name="church" required autocomplete="organization">
         <label for="address">Church address</label>
         <input id="address" name="address" required placeholder="Street, city, state, ZIP" autocomplete="street-address">
         <label for="website">Church website</label>
         <input id="website" name="website" required placeholder="yourchurch.com" inputmode="url">
-        <label for="attendance">About how many people on a Sunday?</label>
+        <label for="attendance">About how many people come on a Sunday?</label>
         <select id="attendance" name="attendance" required><option value="" selected disabled>Choose one</option><option>Under 100</option><option>100 to 249</option><option>250 to 499</option><option>500 to 999</option><option>1,000+</option></select>
         <div class="row">
           <div><label for="name">Your name</label><input id="name" name="name" required autocomplete="name"></div>
@@ -138,8 +138,8 @@ footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px
 
       <div class="status" id="status" aria-live="polite">
         <div class="spinner" id="spinner"></div>
-        <h2 id="status-title">Checking your front door…</h2>
-        <p id="status-text">We're looking you up on Google and opening your website on a phone. This takes a few minutes.</p>
+        <h2 id="status-title">Running your audit…</h2>
+        <p id="status-text">We're looking up your church on Google and opening your website on a phone. This takes a few minutes.</p>
       </div>
     </div>
   </section>
@@ -159,7 +159,7 @@ const phone = form.elements.phone;
 // Asking for texts makes the phone number required.
 consent.addEventListener("change", () => {
   phone.required = consent.checked;
-  document.getElementById("phone-hint").textContent = consent.checked ? "(for your texts)" : "(optional)";
+  document.getElementById("phone-hint").textContent = consent.checked ? "(needed for texts)" : "(optional)";
 });
 
 // Meta Lead and GA4 generate_lead, once, when an audit starts. The audit id doubles as the Meta eventID.
@@ -193,16 +193,16 @@ async function waitForResult(id, url) {
       if (res.ok) { location.href = url; return; }
       const body = await res.json().catch(() => ({}));
       if (body.status === "review") {
-        show("We're double-checking a few details", "Your audit is done. Our team is double-checking a few details and will email your scorecard within one business day.");
+        show("We're double-checking your scorecard", "Our team wants to look over a few things. We'll email your scorecard within one business day.");
         return;
       }
       if (body.status === "failed") {
-        show("Something went wrong", "Something went wrong on our end. Our team has the details and will email your scorecard.");
+        show("Sorry, something went wrong", "The problem is on our end. Our team knows about it and will email your scorecard.");
         return;
       }
     } catch {}
   }
-  show("Your audit is still running", "It's taking longer than usual. We'll email you the scorecard as soon as it's ready.", url);
+  show("Your audit is still running", "It's taking longer than usual. We'll email your scorecard as soon as it's ready.", url);
 }
 
 form.addEventListener("submit", async (e) => {
@@ -210,11 +210,11 @@ form.addEventListener("submit", async (e) => {
   err.textContent = "";
   const data = Object.fromEntries(new FormData(form).entries());
   for (const k of ["church", "address", "website", "name", "email"]) {
-    if (!String(data[k] || "").trim()) { err.textContent = "Please fill in every field above the optional ones."; form.elements[k].focus(); return; }
+    if (!String(data[k] || "").trim()) { err.textContent = "Please fill in your church name, address and website, plus your name and email."; form.elements[k].focus(); return; }
   }
-  if (!data.attendance) { err.textContent = "Choose about how many people come on a Sunday."; form.elements.attendance.focus(); return; }
+  if (!data.attendance) { err.textContent = "Please pick about how many people come on a Sunday."; form.elements.attendance.focus(); return; }
   if (consent.checked) {
-    if (String(data.phone || "").replace(/\D/g, "").length < 10) { err.textContent = "Add your cell number so we can text your scorecard, or uncheck the text box."; phone.focus(); return; }
+    if (String(data.phone || "").replace(/\D/g, "").length < 10) { err.textContent = "Add your cell number so we can text your scorecard. Or uncheck the box if you don't want texts."; phone.focus(); return; }
     data.sms_consent = "yes";
   } else {
     delete data.sms_consent;
@@ -227,17 +227,17 @@ form.addEventListener("submit", async (e) => {
     const res = await fetch(`${API}/audit`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
     const body = await res.json().catch(() => ({}));
     if (!res.ok || !body.ok) throw new Error(body.error || "Something went wrong");
-    if (body.id === "received") { show("Thanks", "We'll be in touch."); return; }
+    if (body.id === "received") { show("Thanks!", "We got your info. Our team will be in touch."); return; }
     trackLead(body.id);
-    show("Checking your front door…", "We're looking you up on Google and opening your website on a phone. This takes a few minutes.");
+    show("Running your audit…", "We're looking up your church on Google and opening your website on a phone. This takes a few minutes.");
     waitForResult(body.id, body.url);
   } catch (ex) {
     button.disabled = false; button.textContent = "Run my free audit";
     // The server's own message may already name Chris's email; a dropped connection gets plain words.
     const msg = String(ex.message || "Something went wrong").replace(/\.$/, "");
     err.textContent = /failed to fetch|load failed|networkerror/i.test(msg)
-      ? "We couldn't reach our server. Check your connection and try again, or email chris@bigsplash.agency and we'll run it by hand."
-      : msg.includes("chris@bigsplash.agency") ? `${msg}.` : `${msg}. If it keeps happening, email chris@bigsplash.agency and we'll run it by hand.`;
+      ? "We couldn't connect. Check your internet and try again. Or email chris@bigsplash.agency and we'll run your audit for you."
+      : msg.includes("chris@bigsplash.agency") ? `${msg}.` : `${msg}. If this keeps happening, email chris@bigsplash.agency and we'll run your audit for you.`;
   }
 });
 </script>

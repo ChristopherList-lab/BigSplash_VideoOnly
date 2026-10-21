@@ -206,13 +206,13 @@ describe("landing page", () => {
   });
 
   test("household promise names Texas churches and up to three fixes", () => {
-    assert.match(landing, /within a 10-minute drive \(Texas churches\) and up to three fixes to start with\./);
+    assert.match(landing, /Yours lists up to three things to fix first\. Texas churches also see how many households live within a 10-minute drive\./);
   });
 
   test("polling handles failed and review", () => {
     const js = inlineScripts(landing);
     assert.match(js, /status\s*===\s*["']failed["']/);
-    assert.match(js, /Something went wrong on our end\. Our team has the details and will email your scorecard\./);
+    assert.match(js, /The problem is on our end\. Our team knows about it and will email your scorecard\./);
     assert.match(js, /status\s*===\s*["']review["']/);
   });
 

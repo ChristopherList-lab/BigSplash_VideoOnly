@@ -35,7 +35,7 @@ describe("landing page form", () => {
     assert.ok(sel, "attendance select");
     assert.match(sel[1], /\brequired\b/);
     const label = landing.match(/<label for="attendance">([^<]*)<\/label>/);
-    assert.equal(label?.[1], "About how many people on a Sunday?");
+    assert.equal(label?.[1], "About how many people come on a Sunday?");
     const opts = [...sel[2].matchAll(/<option([^>]*)>([^<]*)<\/option>/g)];
     assert.match(opts[0][1], /value=""/);
     assert.match(opts[0][1], /\bdisabled\b/);
@@ -256,7 +256,7 @@ describe("church page", () => {
     for (const l of labels) assert.equal(l, "Book a call with our team");
     const text = visible(church);
     assert.equal(/Talk to Chris|Message Chris|call with Chris|message Chris/.test(text), false);
-    assert.match(text, /you can book a free 30-minute call with our team afterward\./);
+    assert.match(text, /Book a free 30-minute call with our team\./);
   });
 
   test("one Front Door Audit section: the four areas, the sample scorecard, the button and the promise", () => {
@@ -264,12 +264,12 @@ describe("church page", () => {
     assert.equal(sections.length, 1);
     const s = sections[0];
     for (const area of ["Google search", "Reviews", "Website on a phone", "Social and sermons"]) assert.ok(s.includes(area), area);
-    // The sample is built in the page (the fictional Cedar Bend Church, same as the hero card), not a cropped screenshot.
-    assert.match(s, /<figure class="[^"]*sc-detail"[^>]*aria-label="Sample scorecard detail for a fictional church">/);
-    assert.ok(s.includes("A sample for a fictional church."));
+    // The sample is built in the page (the made-up Cedar Bend Church, same as the hero card), not a cropped screenshot.
+    assert.match(s, /<figure class="[^"]*sc-detail"[^>]*aria-label="Sample scorecard for a made-up church">/);
+    assert.ok(s.includes("This sample is for a made-up church."));
     assert.equal(s.includes("sample-scorecard.jpg"), false);
     assert.ok(s.includes(`href="${AUDIT}"`));
-    assert.ok(s.includes("Most scorecards are ready in a few minutes. Free, no call needed."));
+    assert.ok(s.includes("It's free, and you don't have to get on a call. Most scorecards are ready in a few minutes."));
   });
 
   test("pricing, films, founder and Christmas stay; the light theme stays", () => {
@@ -281,7 +281,7 @@ describe("church page", () => {
   });
 
   test("the FAQ covers the audit and the page script no longer looks for the form", () => {
-    assert.match(church, /Does the Front Door Audit cost anything\?/);
+    assert.match(church, /Is the Front Door Audit free\?/);
     const js = inlineScripts(church);
     assert.equal(/snapshot-form|getElementById\('snapshot'\)/.test(js), false);
     assert.match(js, /getElementById\('audit'\)/);
@@ -343,7 +343,7 @@ describe("privacy and plain words", () => {
   });
 
   test("the form says follow-up notes come after the scorecard", () => {
-    assert.match(landing, /We'll email you a copy, then a few short notes from our team over the next week\. Reply stop anytime\./);
+    assert.match(landing, /No call needed\. We'll email your scorecard, then a few short notes over the next week\. Reply "stop" anytime to end them\./);
   });
 
   test("the walkthrough page hides the video spot until VSL_URL is set", () => {
@@ -361,7 +361,7 @@ describe("privacy and plain words", () => {
     for (const banned of ["Fill Sunday", "fill Sunday", "likes and clicks", "Where you land", "How do you know who showed up", "What is the campaign budget", "Who films and edits", "and on your welcome team"]) {
       assert.equal(church.includes(banned), false, banned);
     }
-    assert.match(text, /We film your church\./);
+    assert.match(text, /We help your church/);
     assert.match(text, /100,000 families welcomed into the local church/);
     assert.equal(/Where you land/.test(landing), false);
   });
