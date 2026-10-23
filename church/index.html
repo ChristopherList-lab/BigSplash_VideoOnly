@@ -358,30 +358,83 @@
   .glass { background: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.03)); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1.25rem; -webkit-backdrop-filter: blur(16px) saturate(1.15); backdrop-filter: blur(16px) saturate(1.15); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 30px 60px -34px rgba(0, 0, 0, 0.8); }
   .glass-strong { background: linear-gradient(180deg, rgba(30, 30, 37, 0.92), rgba(19, 19, 24, 0.92)); border-radius: 1.75rem; }
 
-  /* ---------- Problem: the dusk street, heading in the sky, four worries as glass cards ---------- */
-  .problem-scene { position: absolute; left: 0; right: 0; top: 0; height: 125vw; max-height: 44rem; overflow: hidden; pointer-events: none; }
-  .problem-scene img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; display: block; }
-  .problem-scene::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #0b0b0e 0%, rgba(11, 11, 14, 0.55) 16%, rgba(11, 11, 14, 0.2) 38%, rgba(11, 11, 14, 0.25) 62%, rgba(11, 11, 14, 0.85) 86%, #0b0b0e 100%); }
+  /* ---------- Problem: a map of Georgetown with a 10-mile ring, heading on the left, four worries as glass cards ----------
+     Everything on the map is placed from the pin: --px and --py put the pin in the section, --r is the ring's
+     radius (10 miles), and each label's --dx and --dy are miles east and south of the pin divided by 10.
+     The variables sit on the section so the heading's grid row can reserve room from the pin down to --below:
+     the stat under the pin on phones, the whole ring from 640px. The map credit and the cards follow that row,
+     and the map fades out (--fade-a to --fade-b) before the cards, so their glass blurs near-black. */
+  .problem { --r: 37vw; --px: 56%; --py: calc(236px + 24vw); --below: 7.25rem; --fade-a: calc(var(--py) + var(--below) - 1.25rem); --fade-b: calc(var(--py) + var(--below) + 0.25rem); }
+  .problem-scene { position: absolute; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; -webkit-mask-image: linear-gradient(180deg, #000 var(--fade-a), transparent var(--fade-b)); mask-image: linear-gradient(180deg, #000 var(--fade-a), transparent var(--fade-b)); }
+  .pm-map { position: absolute; z-index: 0; left: calc(var(--px) - 1.6 * var(--r)); top: calc(var(--py) - 1.6 * var(--r)); width: calc(2.9 * var(--r)); height: calc(3.2 * var(--r)); }
+  .pm-map img { width: 100%; height: 100%; display: block; }
+  .problem-scene::after { content: ""; position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg, #0b0b0e 0%, rgba(11, 11, 14, 0.6) 5%, rgba(11, 11, 14, 0) 14%); }
+  .pm-glow, .pm-ring { position: absolute; z-index: 2; left: calc(var(--px) - var(--r)); top: calc(var(--py) - var(--r)); width: calc(2 * var(--r)); height: calc(2 * var(--r)); border-radius: 50%; }
+  .pm-glow { background: radial-gradient(closest-side, rgba(239, 248, 139, 0.02) 0%, rgba(239, 248, 139, 0.03) 74%, rgba(239, 248, 139, 0.09) 100%); box-shadow: 0 0 56px rgba(239, 248, 139, 0.05); }
+  .pm-ring { overflow: visible; }
+  .pm-ring circle { fill: none; stroke: #eff88b; stroke-width: 1.5px; stroke-dasharray: 2 6; stroke-linecap: round; vector-effect: non-scaling-stroke; opacity: 0.9; }
+  .pm-town, .pm-ring-label, .pm-pin, .pm-label { position: absolute; z-index: 3; left: calc(var(--px) + var(--dx, 0) * var(--r)); top: calc(var(--py) + var(--dy, 0) * var(--r)); }
+  /* A town label: a small dot on the town's center, the name to its right. Town names sit above the pin so its pulse passes under them. */
+  .pm-town { z-index: 4; display: flex; align-items: center; gap: 0.45rem; transform: translate(-0.19rem, -50%); white-space: nowrap; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); text-shadow: 0 0 6px #0b0b0e, 0 0 12px #0b0b0e; }
+  .pm-town::before { content: ""; width: 0.375rem; height: 0.375rem; border-radius: 50%; background: rgba(255, 255, 255, 0.55); box-shadow: 0 0 0 2px rgba(11, 11, 14, 0.9); }
+  /* Georgetown sits a fixed distance above the pin (not a share of the ring), so it clears the pin at every width. */
+  .pm-town-center { transform: translate(-50%, calc(-100% - 1.75rem)); color: rgba(255, 255, 255, 0.62); }
+  /* West of the ring, and near the right edge below 1280px, a label reads to the left of its dot so it stays off the ring. */
+  .pm-flip { flex-direction: row-reverse; transform: translate(calc(-100% + 0.19rem), -50%); }
+  .pm-town-center::before { display: none; }
+  /* The ring's label sits on the ring itself, left of the pin below 960px and up and to the right from 960px. */
+  .pm-ring-label { --dx: -1; --dy: 0; transform: translate(-50%, -50%); white-space: nowrap; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #eff88b; background: #0b0b0e; border: 1px solid rgba(239, 248, 139, 0.45); border-radius: 1rem; padding: 0.2rem 0.6rem; }
+  .pm-pin { width: 1.75rem; height: 1.75rem; margin: -0.875rem 0 0 -0.875rem; border-radius: 50%; border: 1.5px solid #eff88b; background: rgba(239, 248, 139, 0.16); box-shadow: 0 0 24px rgba(239, 248, 139, 0.25); }
+  .pm-pin::before { content: ""; position: absolute; left: 50%; top: 50%; width: 0.625rem; height: 0.625rem; margin: -0.3125rem 0 0 -0.3125rem; border-radius: 50%; background: #eff88b; }
+  .pm-pin::after { content: ""; position: absolute; inset: -1.5px; border-radius: 50%; border: 1.5px solid #eff88b; opacity: 0; }
+  @keyframes pm-pulse { 0% { transform: scale(1); opacity: 0.75; } 70%, 100% { transform: scale(2.2); opacity: 0; } }
+  @media (prefers-reduced-motion: no-preference) { .pm-pin::after { animation: pm-pulse 2.8s cubic-bezier(0.2, 0.6, 0.3, 1) infinite; } }
+  /* The stat sits under the pin on a dark card like the ring's chip, so the ring and roads pass behind it, never through the words. */
+  .pm-label { margin-top: 1.4rem; transform: translateX(-50%); width: max-content; max-width: min(16.5rem, calc(2 * (100% - var(--px)) - 2.5rem)); padding: 0.45rem 0.8rem 0.55rem; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.75rem; background: rgba(11, 11, 14, 0.86); text-align: center; line-height: 1.3; text-wrap: balance; }
+  .pm-label b { display: block; font-size: 0.9375rem; font-weight: 700; color: #ffffff; }
+  .pm-label span { display: block; margin-top: 0.2rem; font-size: 0.8125rem; font-weight: 500; color: rgba(255, 255, 255, 0.75); }
+  /* Phones and tablets name only Georgetown; the towns around the ring join from 1024px, where they clear the cards. */
+  .pm-wide { display: none; }
+  /* The heading's row reaches down to --below under the pin; the credit and cards follow it. */
+  .problem-inner { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(calc(var(--py) + var(--below)), auto) auto auto; }
+  .problem-head { grid-row: 1; align-self: start; }
+  .map-credit { grid-row: 2; margin: 0 0 0.75rem; font-size: 0.75rem; line-height: 1.5; color: rgba(255, 255, 255, 0.55); }
+  .map-credit a { color: rgba(255, 255, 255, 0.65); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(255, 255, 255, 0.3); }
+  .map-credit a:hover { color: #ffffff; }
+  .problem-cards { grid-row: 3; }
   .problem-head { padding-top: 3.5rem; }
   /* A soft shade behind the heading instead of a text-shadow (the word masks would clip a shadow into boxes). */
   .problem { overflow-x: clip; }
   .problem-head { position: relative; isolation: isolate; }
-  .problem-head::before { content: ""; position: absolute; z-index: -1; left: -6rem; top: 0; width: 46rem; max-width: 150%; height: 100%; background: radial-gradient(closest-side, rgba(11, 11, 14, 0.5), rgba(11, 11, 14, 0)); pointer-events: none; }
-  .problem-cards { margin-top: 44vw; }
+  .problem-head::before { content: ""; position: absolute; z-index: -1; left: -6rem; top: 0; width: 46rem; max-width: 150%; height: 100%; background: radial-gradient(closest-side, rgba(11, 11, 14, 0.6), rgba(11, 11, 14, 0)); pointer-events: none; }
   @media (max-width: 1023px) {
     .problem-cards .glass { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 1rem; align-items: center; }
     .problem-cards .glass h3 { margin-top: 0; }
     .problem-cards .glass p { grid-column: 1 / -1; }
   }
-  @media (min-width: 640px) { .problem-cards { margin-top: 40vw; } }
-  @media (min-width: 768px) {
-    .problem-scene { height: 56.25vw; max-height: 52rem; }
-    .problem-scene img { object-position: 50% 50%; }
-    .problem-scene::after { background: linear-gradient(180deg, #0b0b0e 0%, rgba(11, 11, 14, 0.5) 14%, rgba(11, 11, 14, 0.05) 36%, rgba(11, 11, 14, 0.05) 58%, rgba(11, 11, 14, 0.8) 84%, #0b0b0e 100%), linear-gradient(90deg, rgba(11, 11, 14, 0.55) 0%, rgba(11, 11, 14, 0) 55%); }
-    .problem-head { padding-top: 5rem; }
-    .problem-cards { margin-top: 20vw; }
+  /* Below 350px the stat wraps to three lines, so the row reaches a little lower. */
+  @media (max-width: 349px) { .problem { --below: 8.25rem; } }
+  @media (min-width: 640px) {
+    .problem { --r: 27vw; --px: 66%; --py: calc(200px + 18vw); --below: calc(var(--r) + 1rem); --fade-a: calc(var(--py) + 0.9 * var(--r)); --fade-b: calc(var(--py) + var(--r) + 1rem); }
+    .pm-map { width: calc(3.2 * var(--r)); }
   }
-  @media (min-width: 1280px) { .problem-cards { margin-top: min(19vw, 22rem); } }
+  @media (min-width: 768px) {
+    .problem { --r: 24vw; --px: 70%; --py: calc(250px + 7vw); }
+    .problem-scene::after { background: linear-gradient(180deg, #0b0b0e 0%, rgba(11, 11, 14, 0.6) 4%, rgba(11, 11, 14, 0) 12%), linear-gradient(90deg, rgba(11, 11, 14, 0.7) 0%, rgba(11, 11, 14, 0.3) 38%, rgba(11, 11, 14, 0) 56%); }
+    .problem-head { padding-top: 5rem; }
+  }
+  /* From 960px the pin and ring sit to the right of the heading. */
+  @media (min-width: 960px) {
+    .problem { --r: 19vw; --px: calc(50% + 29vw); --py: calc(220px + 8vw); }
+    .pm-ring-label { --dx: 0.707; --dy: -0.707; }
+  }
+  @media (min-width: 1024px) {
+    .pm-wide { display: flex; }
+  }
+  @media (min-width: 1280px) {
+    .problem { --r: min(19.5vw, 300px); --px: calc(50% + min(25.7vw, 400px)); --py: calc(200px + min(9vw, 140px)); }
+    .pm-flip-narrow { flex-direction: row; transform: translate(-0.19rem, -50%); }
+  }
 
   /* ---------- The family's journey ---------- */
   .journey { background: var(--night); }
@@ -681,6 +734,12 @@
   .xmas-scene { position: relative; aspect-ratio: 4 / 3; max-height: 36rem; overflow: hidden; }
   .xmas-scene img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
   .xmas-scene::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #0b0b0e 0%, rgba(11, 11, 14, 0) 22%, rgba(11, 11, 14, 0) 55%, #0b0b0e 100%); }
+  /* Below 1024px the picture sits above the copy. It fades itself out at top and bottom (a mask, not a dark overlay),
+     so it blends into the section's warm glow without a seam under it. */
+  @media (max-width: 1023px) {
+    .xmas-scene { -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 22%, #000 60%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0, #000 22%, #000 60%, transparent 100%); }
+    .xmas-scene::after { display: none; }
+  }
   .xmas-copy { position: relative; }
   .xmas-kicker { align-self: flex-start; display: inline-block; font-size: 0.9375rem; font-weight: 600; color: rgba(255, 255, 255, 0.9); border: 1px solid rgba(255, 255, 255, 0.28); padding: 0.3rem 0.85rem; border-radius: 1.1rem; }
   @media (min-width: 1024px) {
@@ -793,16 +852,30 @@
   <main id="main" class="night">
 
   <!-- ========== PROBLEM ==========
-       Scene: a dusk street with the church lit at the end of the block (AI-made mood image; notes in
-       ~/Desktop/BigSplash_Design/church-scenes/SCENES.md, outside the site). The heading sits in the sky; the four worries follow as glass cards. -->
+       Scene: a map of Georgetown, Texas, with a church pin near downtown and a ring at the true 10-mile scale.
+       The base map is real OpenStreetMap roads and water, drawn to WebP (each image is centered on the pin;
+       the phone crop keeps 16 miles west, 13 east and 16 north and south). The pin, ring and labels are HTML on top,
+       placed in units of the ring's radius (--r = 10 miles), so they stay true to the map at every width.
+       The household count uses the Front Door Audit's method (worker-frontdoor/src/reach.js): Census tracts
+       whose center sits within 10 miles of the pin, rounded to the nearest 100. The four worries follow as glass cards. -->
   <section class="problem relative px-5 md:px-8 pb-20 md:pb-28" data-screen-label="03 Problem">
-    <div class="problem-scene" aria-hidden="true">
-      <picture>
-        <source media="(min-width: 768px)" srcset="../assets/images/church/scenes/neighborhood-church-dusk-16x9-800.webp 800w, ../assets/images/church/scenes/neighborhood-church-dusk-16x9-1600.webp 1600w" sizes="100vw" width="1600" height="900">
-        <img src="../assets/images/church/scenes/neighborhood-church-dusk-4x5-800.webp" width="640" height="800" alt="" loading="lazy" decoding="async">
+    <div class="problem-scene" role="img" aria-label="Map of Georgetown, Texas. A church near downtown sits at the center of a 10-mile circle. About 129,200 households live within 10 miles of downtown Georgetown.">
+      <picture class="pm-map">
+        <source media="(min-width: 640px)" srcset="../assets/images/church/map/georgetown-map-1200.webp 1200w, ../assets/images/church/map/georgetown-map-2400.webp 2400w" sizes="(min-width: 1280px) min(62.4vw, 960px), (min-width: 1024px) 61vw, (min-width: 768px) 77vw, 87vw" width="1200" height="1200">
+        <img src="../assets/images/church/map/georgetown-map-phone-870.webp" width="870" height="960" alt="" loading="lazy" decoding="async">
       </picture>
+      <span class="pm-glow"></span>
+      <svg class="pm-ring" viewBox="0 0 200 200" focusable="false"><circle cx="100" cy="100" r="100"/></svg>
+      <span class="pm-town pm-town-center">Georgetown</span>
+      <span class="pm-town pm-wide" style="--dx: -0.005; --dy: 0.86">Round Rock</span>
+      <span class="pm-town pm-wide pm-flip pm-flip-narrow" style="--dx: 0.779; --dy: 0.623">Hutto</span>
+      <span class="pm-town pm-wide pm-flip" style="--dx: -1.062; --dy: 0.41">Leander</span>
+      <span class="pm-town pm-wide pm-flip" style="--dx: -0.891; --dy: 0.769">Cedar Park</span>
+      <span class="pm-ring-label">10 miles</span>
+      <span class="pm-pin"></span>
+      <span class="pm-label"><b>Your church</b><span>About 129,200 households live within 10 miles of downtown Georgetown</span></span>
     </div>
-    <div class="relative max-w-6xl mx-auto">
+    <div class="problem-inner relative max-w-6xl mx-auto">
       <div class="problem-head max-w-3xl reveal">
         <p class="eyebrow mb-5">Sound familiar?</p>
         <h2 class="display h2">Your message is good. Families nearby <span class="hl">haven't heard it yet.</span></h2>
@@ -829,6 +902,7 @@
           <p class="mt-3 text-base leading-relaxed text-white/75">We text each new family from a number in your church's name. Then we check in for six Sundays. <a href="#follow-up" class="underline underline-offset-4 decoration-white/50 text-white">See how we follow up</a>.</p>
         </div>
       </div>
+      <p class="map-credit">Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>. Household estimate from US Census data.</p>
     </div>
   </section>
 
@@ -1265,7 +1339,7 @@
   <!-- ========== CHRISTMAS ========== -->
   <section id="christmas" class="xmas relative" data-screen-label="09 Christmas">
     <div class="xmas-scene" aria-hidden="true">
-      <img src="../assets/images/church/scenes/christmas-lobby-lamps-4x3-800.webp" srcset="../assets/images/church/scenes/christmas-lobby-lamps-4x3-800.webp 800w, ../assets/images/church/scenes/christmas-lobby-lamps-4x3-1600.webp 1600w" sizes="(min-width: 1024px) 58vw, 100vw" width="1600" height="1200" alt="" loading="lazy" decoding="async">
+      <img src="../assets/images/church/scenes/christmas-eve-candles-4x3-800.webp" srcset="../assets/images/church/scenes/christmas-eve-candles-4x3-800.webp 800w, ../assets/images/church/scenes/christmas-eve-candles-4x3-1600.webp 1600w" sizes="(min-width: 1024px) 58vw, 100vw" width="1600" height="1200" alt="" loading="lazy" decoding="async">
     </div>
     <div class="relative max-w-6xl mx-auto px-5 md:px-8">
       <div class="xmas-copy pt-2 pb-16 md:pb-20 lg:py-16 reveal">
