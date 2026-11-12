@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trimlight × Big Splash · 2027 Content Plan</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="A filming day every month at one locked price for 12 months. Built for Tina and Trimlight.">
+<meta property="og:title" content="Trimlight × Big Splash · 2027 Content Plan">
+<meta property="og:description" content="A filming day every month. One locked price for 12 months.">
+<meta property="og:image" content="https://bigsplash.video/trimlight2027/assets/statics/christmas-lights-done.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="../Bigsplash_FAVcon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --lime:#eff88b;--on-lime:#2f3300;--ink:#f4f1ea;--body:#ddd8ce;--dim:#a8a39a;
+  --bg:#131318;--bg-dim:#0e0e13;--surface:#1b1b20;--surface-2:#1f1f25;--line:#34343c;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{margin:0}
+body{background:var(--bg);color:var(--body);font-family:'Inter',system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(239,248,139,.3)}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+section{padding:clamp(56px,9vw,112px) 0}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--lime);margin:0 0 16px}
+h1,h2,h3{font-family:'Anton',Impact,sans-serif;font-weight:400;text-transform:uppercase;color:var(--ink);line-height:1.02;letter-spacing:-.01em;margin:0}
+h1{font-size:clamp(44px,5.3vw,76px)}
+h2{font-size:clamp(36px,5.6vw,72px)}
+h3{font-size:clamp(24px,2.6vw,32px);line-height:1.1}
+.lime{color:var(--lime)}
+.glow{text-shadow:0 0 40px rgba(239,248,139,.35)}
+.lede{font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--body);max-width:34em;margin:20px 0 0}
+.sub{color:var(--dim);max-width:40em;margin:14px 0 0}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:rgba(19,19,24,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.brands{display:flex;align-items:center;gap:14px;min-width:0}
+.brands .bs{height:24px;width:auto}
+.brands .x{color:var(--dim);font-size:18px}
+.brands .tl{height:42px;width:auto}
+.pill{display:inline-block;text-decoration:none;font-weight:800;font-size:14px;white-space:nowrap;padding:10px 18px;border-radius:999px;background:var(--lime);color:var(--on-lime);transition:box-shadow .3s}
+.pill:hover{box-shadow:0 0 30px rgba(239,248,139,.3)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding-top:clamp(40px,7vw,88px)}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:70vw;height:70vw;max-width:900px;max-height:900px;background:radial-gradient(closest-side,rgba(239,248,139,.10),rgba(239,248,139,0));pointer-events:none}
+.hero .wrap{position:relative}
+.hero .split{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:clamp(28px,5vw,72px);align-items:center}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.btn{display:inline-block;text-align:center;text-decoration:none;font-weight:800;font-size:17px;padding:18px 26px;border-radius:14px;transition:box-shadow .3s,border-color .3s,transform .3s var(--ease)}
+.btn.primary{background:var(--lime);color:var(--on-lime);box-shadow:0 8px 30px rgba(239,248,139,.18)}
+.btn.primary:hover{box-shadow:0 0 50px rgba(239,248,139,.3);transform:translateY(-1px)}
+.btn.ghost{color:var(--ink);border:2px solid var(--line)}
+.btn.ghost:hover{border-color:var(--lime)}
+.phone{position:relative;justify-self:center;width:min(100%,330px);aspect-ratio:9/16;border-radius:28px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.1);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 90px rgba(239,248,139,.08)}
+.phone video{width:100%;height:100%;object-fit:cover}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:clamp(40px,6vw,72px)}
+.fact{background:var(--surface);border-radius:16px;padding:22px 20px}
+.fact b{display:block;font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:clamp(34px,4vw,52px);line-height:1;color:var(--lime)}
+.fact span{display:block;margin-top:8px;font-size:15px;line-height:1.35;color:var(--body)}
+
+/* work */
+.dimband{background:var(--bg-dim)}
+.reels{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+.reel{position:relative;display:block;aspect-ratio:9/16;border-radius:16px;overflow:hidden;background:var(--surface);border:0;padding:0;cursor:pointer;font:inherit;text-align:left}
+.reel img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.reel:hover img{transform:scale(1.05)}
+.reel::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,14,.9),rgba(10,10,14,0) 48%)}
+.reel .play{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;background:var(--lime);z-index:1}
+.reel .play::before{content:"";position:absolute;left:16px;top:12px;border-left:12px solid var(--on-lime);border-top:8px solid transparent;border-bottom:8px solid transparent}
+.reel .cap{position:absolute;left:14px;right:14px;bottom:14px;z-index:1}
+.reel .cap small{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--lime)}
+.reel .cap strong{display:block;margin-top:4px;color:var(--ink);font-size:15px;line-height:1.25;font-weight:700}
+.statics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+.static{display:block;aspect-ratio:4/5;border-radius:16px;overflow:hidden;background:var(--surface);border:0;padding:0;cursor:zoom-in}
+.static img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.static:hover img{transform:scale(1.04)}
+
+/* plans */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
+.plan{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:clamp(24px,3.4vw,40px)}
+.plan.best{border-color:rgba(239,248,139,.55);box-shadow:0 0 70px rgba(239,248,139,.07)}
+.tag{position:absolute;top:-13px;left:clamp(24px,3.4vw,40px);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:var(--lime);color:var(--on-lime);padding:5px 12px;border-radius:999px}
+.price{display:flex;align-items:baseline;gap:10px;margin:18px 0 6px}
+.price b{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:clamp(56px,7vw,88px);line-height:1;color:var(--ink)}
+.price span{color:var(--dim);font-size:18px}
+.plan ul{list-style:none;margin:18px 0 28px;padding:0;display:grid;gap:12px}
+.plan li{position:relative;padding-left:28px;color:var(--body)}
+.plan li::before{content:"";position:absolute;left:2px;top:.5em;width:12px;height:7px;border-left:2.5px solid var(--lime);border-bottom:2.5px solid var(--lime);transform:rotate(-45deg)}
+.plan .btn{margin-top:auto}
+.fine{color:var(--dim);font-size:14px;margin:12px 0 0;text-align:center}
+.terms{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.term{background:var(--surface-2);border-radius:16px;padding:20px}
+.term b{display:block;color:var(--ink);font-size:16px}
+.term span{display:block;margin-top:6px;color:var(--dim);font-size:15px;line-height:1.45}
+
+/* month */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px;counter-reset:s}
+.step{background:var(--surface);border-radius:18px;padding:26px 22px;counter-increment:s}
+.step::before{content:"0" counter(s);font-family:'Anton',Impact,sans-serif;font-size:40px;line-height:1;color:var(--lime)}
+.step b{display:block;margin-top:14px;color:var(--ink);font-size:18px}
+.step span{display:block;margin-top:6px;color:var(--dim);font-size:15.5px;line-height:1.5}
+
+.close-cta{text-align:center}
+.close-cta .cta{justify-content:center}
+footer{border-top:1px solid rgba(255,255,255,.06);padding:28px 0;color:var(--dim);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;align-items:center}
+footer img{height:20px;opacity:.8}
+
+/* lightbox */
+.lightbox{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(8,8,12,.92)}
+.lightbox.open{display:flex}
+.lightbox video{height:min(88vh,164vw);aspect-ratio:9/16;max-width:92vw;border-radius:16px;background:#000}
+.lightbox img{max-height:88vh;max-width:92vw;border-radius:16px}
+.lightbox .close{position:absolute;top:16px;right:16px;width:46px;height:46px;border:0;border-radius:50%;background:var(--lime);color:var(--on-lime);font-size:28px;line-height:1;font-weight:700;cursor:pointer}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+
+@media (max-width:900px){
+  .hero .split{grid-template-columns:1fr}
+  .phone{width:min(72%,300px)}
+  .facts,.terms,.steps{grid-template-columns:1fr 1fr}
+  .reels,.statics{grid-template-columns:1fr 1fr}
+  .plans{grid-template-columns:1fr;gap:28px}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  .top .wrap{height:60px}
+  .brands{gap:10px}.brands .bs{height:18px}.brands .tl{height:34px}
+  .pill{padding:9px 14px;font-size:13px}
+  .cta .btn{flex:1 1 100%}
+  .reels,.statics{gap:10px}
+  .reel .cap strong{font-size:14px}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brands">
+      <img class="bs" src="assets/bigsplash-white.png" alt="Big Splash" width="1400" height="365">
+      <span class="x" aria-hidden="true">×</span>
+      <img class="tl" src="assets/trimlight-logo.svg" alt="Trimlight" width="275" height="125">
+    </div>
+    <a class="pill" href="#plans">See the plans</a>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">2027 content plan · Prepared for Tina</p>
+      <h1>New ads every month.<br><span class="lime glow">One price all year.</span></h1>
+      <p class="lede">Book one or two filming days a month and keep fresh video ads and posts coming for Trimlight, or for any of your other businesses. Your monthly rate stays locked for 12 months.</p>
+      <div class="cta">
+        <a class="btn primary" href="#plans">Pick your plan</a>
+        <a class="btn ghost" href="#work">Watch the ads</a>
+      </div>
+    </div>
+    <div class="phone">
+      <video src="assets/work/every-team-one-tap.mp4" poster="assets/work/every-team-one-tap.webp" autoplay muted loop playsinline preload="metadata" aria-label="Trimlight ad: every team, one tap"></video>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="facts">
+      <div class="fact"><b>1</b><span>filming day on November 11</span></div>
+      <div class="fact"><b>19</b><span>video ads cut from that one day</span></div>
+      <div class="fact"><b>15</b><span>static ads from the same footage</span></div>
+      <div class="fact"><b>12</b><span>months at the same monthly rate</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="dimband">
+  <div class="wrap">
+    <p class="eyebrow">Video ads</p>
+    <h2>One filming day.<br><span class="lime">19 video ads.</span></h2>
+    <p class="sub">Everything here came from the November 11 shoot at your house. Tap any ad to watch it with sound.</p>
+    <div class="reels">
+      <button class="reel reveal" data-video="assets/work/how-to-hang-christmas-lights.mp4"><img src="assets/work/how-to-hang-christmas-lights.webp" alt="" loading="lazy" width="540" height="960"><span class="play"></span><span class="cap"><small>Comedy</small><strong>How to hang Christmas lights</strong></span></button>
+      <button class="reel reveal" data-video="assets/work/only-santa.mp4"><img src="assets/work/only-santa.webp" alt="" loading="lazy" width="540" height="960"><span class="play"></span><span class="cap"><small>Comedy</small><strong>Only Santa belongs on your roof</strong></span></button>
+      <button class="reel reveal" data-video="assets/work/tote-season.mp4"><img src="assets/work/tote-season.webp" alt="" loading="lazy" width="540" height="960"><span class="play"></span><span class="cap"><small>Comedy</small><strong>Tote season</strong></span></button>
+      <button class="reel reveal" data-video="assets/work/sit-relax-tap.mp4"><img src="assets/work/sit-relax-tap.webp" alt="" loading="lazy" width="540" height="960"><span class="play"></span><span class="cap"><small>Christmas</small><strong>Sit. Relax. Tap.</strong></span></button>
+      <button class="reel reveal" data-video="assets/work/every-team-one-tap.mp4"><img src="assets/work/every-team-one-tap.webp" alt="" loading="lazy" width="540" height="960"><span class="play"></span><span class="cap"><small>Game day</small><strong>Your team. One tap.</strong></span></button>
+      <button class="reel reveal" data-video="assets/work/can-you-spot-them.mp4"><img src="assets/work/can-you-spot-them.webp" alt="" loading="lazy" width="540" height="960"><span class="play"></span><span class="cap"><small>Day to night</small><strong>Can you spot them?</strong></span></button>
+      <button class="reel reveal" data-video="assets/work/saturday-game-day.mp4"><img src="assets/work/saturday-game-day.webp" alt="" loading="lazy" width="540" height="960"><span class="play"></span><span class="cap"><small>Game day</small><strong>Saturday in Austin</strong></span></button>
+      <button class="reel reveal" data-video="assets/work/nine-to-a-ten.mp4"><img src="assets/work/nine-to-a-ten.webp" alt="" loading="lazy" width="540" height="960"><span class="play"></span><span class="cap"><small>Backyard</small><strong>From a 9 to a 10</strong></span></button>
+    </div>
+  </div>
+</section>
+
+<section id="statics">
+  <div class="wrap">
+    <p class="eyebrow">Static ads and posts</p>
+    <h2>Every shoot fills<br><span class="lime">the feed too.</span></h2>
+    <p class="sub">The same filming day also produced 15 static ads, each sized for the feed and for stories. Here are eight.</p>
+    <div class="statics">
+      <button class="static reveal" data-img="assets/statics/christmas-lights-done.jpg"><img src="assets/statics/christmas-lights-done.jpg" alt="Static ad: Christmas lights. Done." loading="lazy" width="864" height="1080"></button>
+      <button class="static reveal" data-img="assets/statics/leave-the-roof-to-santa.jpg"><img src="assets/statics/leave-the-roof-to-santa.jpg" alt="Static ad: Leave the roof to Santa." loading="lazy" width="864" height="1080"></button>
+      <button class="static reveal" data-img="assets/statics/retire-the-ladder.jpg"><img src="assets/statics/retire-the-ladder.jpg" alt="Static ad: Retire the ladder." loading="lazy" width="864" height="1080"></button>
+      <button class="static reveal" data-img="assets/statics/saturdays-in-burnt-orange.jpg"><img src="assets/statics/saturdays-in-burnt-orange.jpg" alt="Static ad: Saturdays in burnt orange." loading="lazy" width="864" height="1080"></button>
+      <button class="static reveal" data-img="assets/statics/sit-relax-tap.jpg"><img src="assets/statics/sit-relax-tap.jpg" alt="Static ad: Sit. Relax. Tap." loading="lazy" width="864" height="1080"></button>
+      <button class="static reveal" data-img="assets/statics/tote-season-is-over.jpg"><img src="assets/statics/tote-season-is-over.jpg" alt="Static ad: Tote season is over." loading="lazy" width="864" height="1080"></button>
+      <button class="static reveal" data-img="assets/statics/can-you-spot-them.jpg"><img src="assets/statics/can-you-spot-them.jpg" alt="Static ad: Can you spot them?" loading="lazy" width="864" height="1080"></button>
+      <button class="static reveal" data-img="assets/statics/one-app-every-holiday.jpg"><img src="assets/statics/one-app-every-holiday.jpg" alt="Static ad: One app. Every holiday." loading="lazy" width="864" height="1080"></button>
+    </div>
+  </div>
+</section>
+
+<section id="plans" class="dimband">
+  <div class="wrap">
+    <p class="eyebrow">The plans</p>
+    <h2>Pick one day a month<br><span class="lime">or two.</span></h2>
+    <p class="sub">Both plans run for 12 months at the same monthly price. Stripe bills you automatically each month, so there are no invoices to chase.</p>
+
+    <div class="plans">
+      <div class="plan reveal">
+        <h3>1 filming day a month</h3>
+        <div class="price"><b>$1,250</b><span>per month</span></div>
+        <ul>
+          <li>12 filming days across the year</li>
+          <li>Edited video ads and static posts from every shoot</li>
+          <li>Use each day for Trimlight or any of your businesses</li>
+          <li>Rate locked for 12 months</li>
+        </ul>
+        <a class="btn ghost" href="https://buy.stripe.com/14A8wP8SfcWz0rpd7d18c0f">Start 1 day a month</a>
+      </div>
+      <div class="plan best reveal">
+        <span class="tag">Best value</span>
+        <h3>2 filming days a month</h3>
+        <div class="price"><b>$2,250</b><span>per month</span></div>
+        <ul>
+          <li>24 filming days across the year</li>
+          <li>The second day costs $1,000, which saves you $250 every month</li>
+          <li>Edited video ads and static posts from every shoot</li>
+          <li>Split the days across your businesses any way you like</li>
+          <li>Rate locked for 12 months</li>
+        </ul>
+        <a class="btn primary" href="https://buy.stripe.com/bJefZhgkH3lZdeb6IP18c0g">Start 2 days a month</a>
+      </div>
+    </div>
+    <p class="fine">Secure checkout through Stripe. Pay by card or bank account.</p>
+
+    <div class="terms">
+      <div class="term"><b>12-month commitment</b><span>Your plan runs for 12 months from your first payment.</span></div>
+      <div class="term"><b>Automatic monthly billing</b><span>Stripe charges your first month today, then the same date each month.</span></div>
+      <div class="term"><b>Price locked</b><span>Your monthly rate does not change for the full 12 months.</span></div>
+      <div class="term"><b>Any business</b><span>Point a filming day at Trimlight or at any other company you own.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="month">
+  <div class="wrap">
+    <p class="eyebrow">Each month</p>
+    <h2>One filming day,<br><span class="lime">a month of content.</span></h2>
+    <div class="steps">
+      <div class="step reveal"><b>Plan</b><span>You choose the business and the goal. Chris brings the ad ideas.</span></div>
+      <div class="step reveal"><b>Film</b><span>Chris films on location with you, your crew or your customers.</span></div>
+      <div class="step reveal"><b>Edit</b><span>Big Splash cuts the footage into vertical video ads and static posts.</span></div>
+      <div class="step reveal"><b>Post</b><span>You get finished files, ready for Instagram, Facebook and paid ads.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="close-cta dimband">
+  <div class="wrap">
+    <p class="eyebrow">Ready, Tina?</p>
+    <h2>Lock in 2027<br><span class="lime glow">at this rate.</span></h2>
+    <div class="cta">
+      <a class="btn primary" href="https://buy.stripe.com/bJefZhgkH3lZdeb6IP18c0g">2 filming days · $2,250 a month</a>
+      <a class="btn ghost" href="https://buy.stripe.com/14A8wP8SfcWz0rpd7d18c0f">1 filming day · $1,250 a month</a>
+    </div>
+    <p class="fine">Questions first? Text or call Chris.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="assets/bigsplash-white.png" alt="Big Splash" width="1400" height="365" style="width:auto">
+    <span>Big Splash Media · Georgetown, TX</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Viewer">
+  <button class="close" aria-label="Close">×</button>
+  <video controls playsinline hidden></video>
+  <img alt="" hidden>
+</div>
+
+<script>
+(function(){
+  var lb=document.getElementById('lightbox'),v=lb.querySelector('video'),im=lb.querySelector('img'),last=null;
+  function open(el){
+    last=el;
+    if(el.dataset.video){im.hidden=true;v.hidden=false;v.src=el.dataset.video;v.play().catch(function(){});}
+    else{v.hidden=true;im.hidden=false;im.src=el.dataset.img;}
+    lb.classList.add('open');document.body.style.overflow='hidden';lb.querySelector('.close').focus();
+  }
+  function close(){
+    lb.classList.remove('open');document.body.style.overflow='';v.pause();v.removeAttribute('src');v.load();im.removeAttribute('src');
+    if(last)last.focus();
+  }
+  document.querySelectorAll('[data-video],[data-img]').forEach(function(el){el.addEventListener('click',function(){open(el);});});
+  lb.addEventListener('click',function(e){if(e.target===lb||e.target.classList.contains('close'))close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb.classList.contains('open'))close();});
+
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+  var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e,i){e.style.transitionDelay=(i%4)*70+'ms';io.observe(e);});
+})();
+</script>
+</body>
+</html>
