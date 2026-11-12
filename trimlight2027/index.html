@@ -64,6 +64,8 @@ h3{font-size:clamp(24px,2.6vw,32px);line-height:1.1}
 .btn.primary:hover{box-shadow:0 0 50px rgba(239,248,139,.3);transform:translateY(-1px)}
 .btn.ghost{color:var(--ink);border:2px solid var(--line)}
 .btn.ghost:hover{border-color:var(--lime)}
+.offer{display:inline-flex;align-items:center;gap:10px;margin:22px 0 0;padding:9px 16px;border:1px solid rgba(239,248,139,.45);border-radius:999px;color:var(--ink);font-size:14.5px;font-weight:600}
+.offer::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 12px rgba(239,248,139,.8)}
 .phone{position:relative;justify-self:center;width:min(100%,330px);aspect-ratio:9/16;border-radius:28px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.1);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 90px rgba(239,248,139,.08)}
 .phone video{width:100%;height:100%;object-fit:cover}
 .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:clamp(40px,6vw,72px)}
@@ -174,6 +176,7 @@ footer img{height:20px;opacity:.8}
         <a class="btn primary" href="#plans">Pick your plan</a>
         <a class="btn ghost" href="#work">Watch the ads</a>
       </div>
+      <p class="offer">This offer is good through November 26, 2026</p>
     </div>
     <div class="phone">
       <video src="assets/work/every-team-one-tap.mp4" poster="assets/work/every-team-one-tap.webp" autoplay muted loop playsinline preload="metadata" aria-label="Trimlight ad: every team, one tap"></video>
@@ -257,7 +260,7 @@ footer img{height:20px;opacity:.8}
         <a class="btn primary" href="https://buy.stripe.com/bJefZhgkH3lZdeb6IP18c0g">Start 2 days a month</a>
       </div>
     </div>
-    <p class="fine">Secure checkout through Stripe. Pay by card or bank account.</p>
+    <p class="fine"><strong style="color:var(--ink)">This offer is good for 14 days, through November 26, 2026.</strong> Secure checkout through Stripe. Pay by card or bank account.</p>
 
     <div class="terms">
       <div class="term"><b>12-month commitment</b><span>Your plan runs for 12 months from your first payment.</span></div>
@@ -289,7 +292,7 @@ footer img{height:20px;opacity:.8}
       <a class="btn primary" href="https://buy.stripe.com/bJefZhgkH3lZdeb6IP18c0g">2 filming days · $2,250 a month</a>
       <a class="btn ghost" href="https://buy.stripe.com/14A8wP8SfcWz0rpd7d18c0f">1 filming day · $1,250 a month</a>
     </div>
-    <p class="fine">Questions first? Text or call Chris.</p>
+    <p class="fine">Offer good through November 26, 2026. Questions first? Text or call Chris.</p>
   </div>
 </section>
 
