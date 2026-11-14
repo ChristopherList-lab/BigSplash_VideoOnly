@@ -1,3 +1,9 @@
+# /church moved to bigsplash.church
+
+Since Nov 14, 2026, `/church/`, `/church/thanks/` and `/church/christmas/` on bigsplash.video are redirect pages to https://bigsplash.church. The church pages live in the `bigsplash-church` repo (`~/Desktop/BigSplash_Church`). Edit them there. The notes below describe the old Church Growth Snapshot page and its intake process.
+
+---
+
 # /church: Church Growth Snapshot landing page + intake
 
 Live URL once pushed: https://bigsplash.video/church/ (this repo deploys to GitHub Pages on push to main).
