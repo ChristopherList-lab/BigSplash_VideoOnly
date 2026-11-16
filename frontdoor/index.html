@@ -14,13 +14,15 @@
 <!-- ============================================================
      TRACKING (same block and IDs as /church/; fill in before launch)
      1. Meta Pixel: paste your pixel ID into META_PIXEL_ID below.
-     2. GA4: paste your measurement ID into GA4_ID below.
-     Both stay off until an ID is present. A started audit fires
+     2. GA4: on since 2026-11-16 with the "bigsplash.video" property.
+        Keep GA4_ID blank on /front-door/ and /frontdoor/walkthrough/,
+        whose addresses carry an audit id or token.
+     Each stays off until its ID is present. A started audit fires
      fbq('track','Lead') with the audit id as eventID and
      gtag('event','generate_lead') (see trackLead() at the bottom).
      ============================================================ -->
 <script>
-  window.BS_TRACK = { META_PIXEL_ID: '', GA4_ID: '' };
+  window.BS_TRACK = { META_PIXEL_ID: '', GA4_ID: 'G-N3B0Z9EB2G' };
   (function(t){
     if (t.META_PIXEL_ID) {
       !function(f,b,e,v,n,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];s=b.createElement(e);s.async=!0;s.src=v;b.head.appendChild(s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
